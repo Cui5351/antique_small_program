@@ -1,0 +1,26 @@
+@import '@/uni_modules/uni-scss/variables.scss';
+@mixin height($h){
+	max-height:$h;
+	min-height:$h;
+	height:$h;
+}
+.flex_j_a_c{
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+.flex_j_a_r{
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+@mixin width($h){
+	max-width:$h;
+	min-width:$h;
+	width:$h;
+}
+::-webkit-scrollbar{
+		display: none;
+}

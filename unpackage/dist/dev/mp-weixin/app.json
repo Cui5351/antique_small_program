@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/store/store",
+    "pages/home/home",
+    "pages/person/person",
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom",
+    "pageOrientation": "portrait"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "iconPath": "/static/icons/home.jpg",
+        "selectedIconPath": "/static/icons/home_active.jpg",
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "iconPath": "/static/icons/history.jpg",
+        "selectedIconPath": "/static/icons/history_active.jpg",
+        "pagePath": "pages/index/index",
+        "text": "历史"
+      },
+      {
+        "iconPath": "/static/icons/store.jpg",
+        "selectedIconPath": "/static/icons/store_active.jpg",
+        "pagePath": "pages/store/store",
+        "text": "集市"
+      },
+      {
+        "iconPath": "/static/icons/my.jpg",
+        "selectedIconPath": "/static/icons/my_active.jpg",
+        "pagePath": "pages/person/person",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
