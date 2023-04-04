@@ -1,22 +1,14 @@
 /* 水平间距 */
 /* 水平间距 */
-.flex_j_a_c.data-v-92bb8f34 {
-  justify-content: center;
-  align-items: center;
+.flex_c.data-v-92bb8f34 {
   display: flex;
   flex-direction: column;
 }
-.flex_j_a_r.data-v-92bb8f34 {
-  justify-content: center;
+.flex_c_b.data-v-92bb8f34 {
+  justify-content: space-between;
   align-items: center;
   display: flex;
-  flex-direction: column;
 }
-.data-v-92bb8f34::-webkit-scrollbar {
-  display: none;
-}
-/* 水平间距 */
-/* 水平间距 */
 .flex_j_a_c.data-v-92bb8f34 {
   justify-content: center;
   align-items: center;
@@ -31,6 +23,46 @@
 }
 .data-v-92bb8f34::-webkit-scrollbar {
   display: none;
+}
+.grows > view.data-v-92bb8f34 {
+  flex-grow: 1;
+}
+.max_image.data-v-92bb8f34 {
+  height: 100%;
+  width: 100%;
+}
+/* 水平间距 */
+/* 水平间距 */
+.flex_c.data-v-92bb8f34 {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-92bb8f34 {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.flex_j_a_c.data-v-92bb8f34 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.flex_j_a_r.data-v-92bb8f34 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.data-v-92bb8f34::-webkit-scrollbar {
+  display: none;
+}
+.grows > view.data-v-92bb8f34 {
+  flex-grow: 1;
+}
+.max_image.data-v-92bb8f34 {
+  height: 100%;
+  width: 100%;
 }
 .container.data-v-92bb8f34 {
   color: #3b5c82;
@@ -58,6 +90,7 @@
   max-height: 80%;
   min-height: 80%;
   height: 80%;
+  overflow-y: auto;
   position: relative;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -138,6 +171,12 @@
   height: 100%;
   width: 100%;
 }
+.other .bottom.data-v-92bb8f34 {
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+  width: 100%;
+}
 .other .storys.data-v-92bb8f34 {
   max-height: 30%;
   min-height: 30%;
@@ -186,6 +225,15 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+.flex_c.data-v-92bb8f34 {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-92bb8f34 {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
 .flex_j_a_c.data-v-92bb8f34 {
   justify-content: center;
   align-items: center;
@@ -200,4 +248,11 @@
 }
 .data-v-92bb8f34::-webkit-scrollbar {
   display: none;
+}
+.grows > view.data-v-92bb8f34 {
+  flex-grow: 1;
+}
+.max_image.data-v-92bb8f34 {
+  height: 100%;
+  width: 100%;
 }

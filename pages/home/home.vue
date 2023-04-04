@@ -36,12 +36,12 @@
 					</view>
 				</view>
 				<view class="museums_">
-					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for='(item,index) in [1,2]' :key="index">
+					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['江汉博物馆','荆州博物馆']" :key="index">
 						<view class="img">
-							<image :src="base_url+'/image/antique/museum'+item+'.jpg'" mode=""></image>
+							<image :src="base_url+'/image/antique/museum'+(index+1)+'.jpg'" mode=""></image>
 						</view>
 						<view class="">
-							荆州博物馆
+							{{item}}
 						</view>
 					</view>
 				</view>
@@ -58,6 +58,7 @@
 					</view>
 				</view>
 			</view>
+		<view class="bottom"></view>
 		</view>
 		<!-- <button @click="loading" type="primary">加载动画</button> -->
 	</view>
@@ -114,16 +115,53 @@
 				})
 			}
 			function more(name){
+				if(name=='all'){
+					uni.navigateTo({
+						url:'/pages/home/other_page/all_museum/all_museum'
+					})
+					return
+				}
 				uni.showToast({
 					icon:'none',
 					title:name+'暂时未开放'
 				})
 			}
 			function museum(name){
-				uni.showToast({
-					icon:'none',
-					title:'暂时未开放'
+				console.log(name);
+				
+				// 查看资源是否存在
+				if(name=='江汉博物馆'){
+					uni.showToast({
+						icon:'none',
+						title:'该博物馆尚未开放'
+					})
+					return
+				}
+				// 实现预加载
+				let result={
+					name:'荆州博物馆',
+					description:[`  荆州博物馆位于湖北省荆州市荆 路166号，是一座地方综
+合性博物馆，为国家AAAA级旅游景区，占地4.8万平方米。始
+建于1958年，馆舍占地面积5万余平方米，建筑面积达2.3万平
+方米，绿化面积11000多平方米。`,`荆州博物馆有馆藏文物13万余件，其中国家一级文物492件
+套。荆州博物馆配合各项工程建设，发掘出土珍贵文物12万余
+件。其中，有战国丝绸；吴王夫差矛；有战国秦汉漆器；有中
+国也是世界上最早的数学专著《算数书》和萧和“二年造律”
+的《二年律令》等汉初简牍；有西汉男尸。该馆配合各种基本
+建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
+址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
+佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
+名单。`],
+						antique:[{name:'黑秞执壶',src:'/static/background.jpg'},
+						{name:'黑秞执壶',src:'/static/background.jpg'},
+						{name:'黑秞执壶',src:'/static/background.jpg'}],
+						max_pic:'',
+						full_src:'/static/background.jpg'
+				}
+				uni.navigateTo({
+					url:`./other_page/museum/museum?data=${JSON.stringify(result)}`
 				})
+				
 			}
 			function story(name){
 				uni.showToast({

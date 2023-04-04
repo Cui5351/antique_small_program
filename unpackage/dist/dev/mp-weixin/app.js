@@ -3,15 +3,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports[Symbol.toStringTag] = "Module";
 var common_vendor = require("./common/vendor.js");
 if (!Math) {
-  "./pages/store/store.js";
   "./pages/home/home.js";
+  "./pages/store/store.js";
   "./pages/person/person.js";
+  "./pages/home/other_page/museum/museum.js";
   "./pages/index/index.js";
+  "./pages/home/other_page/all_museum/all_museum.js";
 }
 const _sfc_main = {
   onLaunch: function() {
     common_vendor.index.current_this = this;
     this.baseURL = "https://www.mynameisczy.asia";
+    this.back = function() {
+      if (getCurrentPages().length > 1)
+        common_vendor.index.navigateBack();
+      else
+        common_vendor.index.switchTab({
+          url: "/pages/home/home"
+        });
+    };
     console.log("App Launch");
   },
   onShow: function() {

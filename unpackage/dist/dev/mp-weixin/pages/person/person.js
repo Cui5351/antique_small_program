@@ -8,7 +8,7 @@ const _sfc_main = {
       introduction: "\u5C0F\u56DB\u7684\u7B80\u4ECB",
       counts: [5, 6, 7],
       toggle: true,
-      works: ["one", "two", "three", "four", "five"],
+      works: ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"],
       works2: ["six", "seven", "eight", "nine", "ten"]
     });
     function toggle(bool) {

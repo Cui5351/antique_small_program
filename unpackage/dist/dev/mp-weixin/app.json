@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/store/store",
     "pages/home/home",
+    "pages/store/store",
     "pages/person/person",
-    "pages/index/index"
+    "pages/home/other_page/museum/museum",
+    "pages/index/index",
+    "pages/home/other_page/all_museum/all_museum"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -25,7 +27,7 @@
         "iconPath": "/static/icons/history.jpg",
         "selectedIconPath": "/static/icons/history_active.jpg",
         "pagePath": "pages/index/index",
-        "text": "历史"
+        "text": "古史"
       },
       {
         "iconPath": "/static/icons/store.jpg",

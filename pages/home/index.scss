@@ -23,6 +23,7 @@
 	padding:10px 20px;
 	box-sizing: border-box;
 	@include height(80%);
+	overflow-y: auto;
 	position: relative;
 	border-top-left-radius:25px;
 	border-top-right-radius:25px;
@@ -90,6 +91,10 @@
 			}
 		}
 	}
+	.bottom{
+		@include height(10%);
+		width:100%;
+	}
 	.storys{
 		@include height(30%);
 		.story_title{
@@ -125,5 +130,6 @@
 				}
 			}
 		}
+
 	}
 }

@@ -99,7 +99,7 @@
 				introduction:'小四的简介',
 				counts:[5,6,7],
 				toggle:true,
-				works:['one','two','three','four','five'],
+				works:['one','two','three','four','five','six','seven','eight','nine','ten'],
 				works2:['six','seven','eight','nine','ten']
 			})
 			function toggle(bool){

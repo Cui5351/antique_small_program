@@ -1,0 +1,187 @@
+@import '@/uni.scss';
+.container{
+	height:100%;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	box-sizing: border-box;
+	background-color:white;
+	color:rgb(77,92,136);
+	&>view{
+		flex-grow: 1;
+	}
+	&>.pics{
+		position: relative;
+		&>.back{
+			position: absolute;
+			z-index:9;
+			top:25%;
+			left:10px;
+			color: white;
+			display: flex;
+		}
+		// background-color: red;
+		&>.swiper{
+			width:100%;
+			@include height(100%);
+			.pic{
+				height:100%;
+				width:100%;
+				background-color: rgba(0,0,0,.1);
+				&>image{
+					height:100%;
+					width:100%;
+				}
+			}
+		}
+		@include height(25%);
+	}
+	&>.info{
+		// padding-bottom:20% ;
+		color:rgb(59,92,130);
+		position: relative;
+		@include height(75%);
+		transform: translateY(-5%);
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		// overflow: hidden;
+		background-color: white;
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		&>view{
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		&>.description{
+			overflow: hidden;
+			font-size:13px;
+			.title{
+				font-size:25px;
+				margin-bottom:10px;
+			}
+			.line{
+				@include height(10px);
+				@include width(100%);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				&>view{
+					background-color: rgb(59,92,130);
+					width:15%;
+					margin-bottom: 15px;
+					border-radius:5px;
+					height:100%;
+				}
+			}
+			// &:last-child{
+				// display: flex
+			// }
+			// @include height(30%);
+			height:auto;
+			min-height:20%;
+			width:100%;
+			// background-color: red;
+		}
+		&>.suggest{
+			@include height(40%);
+			width:100%;
+			&>view:first-child{
+				@include height(20%);
+			}
+			&>view:last-child{
+						@include height(90%);
+						// background-color: red;
+						overflow-x: scroll;
+						display: flex;
+						align-items: center;
+						// overflow-y: hidden;
+						&>.museums_one{
+							margin:0 10px;
+							@include width(50%);
+							@include height(90%);
+							font-size:14px;
+							&>.img{
+								// background-color: rgba(0,0,0,.1);
+								@include width(100%);
+								@include height(85%);
+								margin-bottom: 5px;
+								&>image{
+									box-shadow:3px 2px 10px -1px gray;
+									border-radius:20px;
+									height:100%;
+									width:100%;
+							}
+						}
+					}
+			}
+		}
+		&>.full{
+			&>view:first-child{
+				@include height(10%);
+			}
+			@include height(60%);
+			width:100%;
+			&>.full_{
+				@include height(85%);
+				&>.cont{
+					.full_btn{
+						position: absolute;
+						top:50%;
+						left:50%;
+						transform: translate(-50%,-50%);
+						color: rgb(59,92,130);
+						background-color:rgba(255,255,255,.7);
+						padding:3px 15px;
+						box-sizing: border-box;
+					}
+					position: relative;
+					height:80%;
+					width:90%;
+					border-radius:30px;
+					overflow: hidden;
+					background-color: rgba(0,0,0,.1);
+					box-shadow:3px 2px 10px -1px gray;
+				}
+			}
+		}
+	}
+	&>.share{
+		background-color: white;
+		position: absolute;
+		z-index:9999;
+		@include height(10%);
+		@include width(100%);
+		top:100%;
+		transform: translateY(-100%);
+		border-top: 2px solid rgb(59,92,130);
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		&>view{
+			display: flex;
+			flex-direction: row;
+		}
+		.bt{
+			outline: none;
+			border:none;
+			color:rgb(77,92,136);
+		}
+		&>view:last-child{
+			position: relative;
+			&::after{
+				position: absolute;
+				content:'';
+				height:40%;
+				width:3px;
+				background-color: rgb(59,92,130);
+				left:0;
+				transform: translateX(-50%);
+			}
+			
+		}
+	}
+}
+.title_1{
+	font-size:25px;
+}

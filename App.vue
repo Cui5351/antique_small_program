@@ -3,6 +3,14 @@
 		onLaunch: function() {
 			uni.current_this=this
 			this.baseURL='https://www.mynameisczy.asia'
+			this.back=function(){
+				if(getCurrentPages().length>1)
+					uni.navigateBack();
+				else
+					uni.switchTab({
+						url:'/pages/home/home'
+					})
+			}
 			console.log('App Launch')
 		},
 		onShow: function() {
@@ -23,6 +31,7 @@
 		background-color: #f5f5f5;
 		height:100%;
 		width:100%;
+		overflow: hidden;
 	}
 
 	/* #endif */
