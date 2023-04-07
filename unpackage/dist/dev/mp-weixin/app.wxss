@@ -31,6 +31,30 @@
   height: 100%;
   width: 100%;
 }
+.head_tit {
+  font-size: 20px;
+}
+.head_two {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+}
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container > view {
+  flex-grow: 1;
+}
 /*每个页面公共css */
 /* 水平间距 */
 .uni-border {

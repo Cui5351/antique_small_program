@@ -1,0 +1,15 @@
+@import '/uni.scss';
+.info{
+	background-color: orange;
+	overflow-y: auto;
+	display: flex;
+	column-count:2;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	&>view{
+		margin:10px 2.5%;
+		@include height(40%);
+		width:45%;
+		background-color: red;
+	}
+}

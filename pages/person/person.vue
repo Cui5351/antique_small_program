@@ -1,5 +1,6 @@
 <template>
 	<view class="container flex_c">
+		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
 		<view class="top_img">
 			<image src="../../static/my_head.png"></image>
 		</view>
@@ -62,7 +63,7 @@
 			</view>
 		</view>
 		<view class="works flex_c">
-			<view class="title">
+			<view class="title" :style="{top:top+'px'}">
 				<view class="t1">
 					<view @click="toggle(true)" class="ti">作品</view>
 					<view @click="toggle(false)" class="ti">收藏</view>
@@ -90,7 +91,7 @@
 </template>
 
 <script>
-	import {reactive} from 'vue'
+	import {reactive,ref} from 'vue'
 	export default {
 		setup() {
 			let person_info=reactive({
@@ -105,7 +106,9 @@
 			function toggle(bool){
 				person_info.toggle=bool
 			}
-			return {person_info,toggle}
+			let opacity=ref(true)
+			let top=ref(uni.getMenuButtonBoundingClientRect().height*2)
+			return {opacity,person_info,toggle,top}
 		}
 	}
 </script>

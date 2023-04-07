@@ -1,0 +1,51 @@
+@import '/uni.scss';
+.workroom{
+	@include height(40%);
+	&>.pic{
+		&>view{
+			width:90%;
+			height:90%;
+			&>image{
+				background-color: rgba(0,0,0,.1);
+				border-radius:25px;
+				box-shadow:3px 2px 10px -1px gray;
+				width:100%;
+				// opacity:.9;
+				height:100%;
+			}
+		}
+	}
+}
+.page{
+	display: flex;
+	flex-direction:column;
+	&>view{
+		margin:10px 0 0 0;
+		flex-grow: 1;
+	}
+}
+.tit{
+	@include height(50px);
+	font-size:30px;
+	color:#3E5B83;
+}
+.community{
+	@include height(70%);
+	.pic{
+		display: flex;
+		justify-content: center;
+		&>view{
+			height:300px;
+			padding:0 20px;
+			box-sizing: border-box;
+			width:100%;
+			&>image{
+				background-color: rgba(0,0,0,.1);
+				border-radius:25px;
+				box-shadow:3px 2px 10px -1px gray;
+				height:100%;
+				width:100%;	
+			}
+		}
+	}
+}

@@ -34,13 +34,40 @@ const _sfc_main = {
           src: "/static/background.jpg"
         }, {
           name: "aaa",
-          src: "../../static/background.jpg"
+          src: "/static/background.jpg"
         }, {
           name: "aaa",
-          src: "../../static/background.jpg"
+          src: "/static/background.jpg"
         }, {
           name: "aaa",
-          src: "../../static/background.jpg"
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
+        }, {
+          name: "aaa",
+          src: "/static/background.jpg"
         }]
       },
       {
@@ -179,22 +206,12 @@ const _sfc_main = {
         picture: []
       },
       {
-        title: "\u4E91\u5357\u7701",
-        main: "/static/background.jpg",
-        picture: []
-      },
-      {
         title: "\u9655\u897F\u7701",
         main: "/static/background.jpg",
         picture: []
       },
       {
         title: "\u7518\u8083\u7701",
-        main: "/static/background.jpg",
-        picture: []
-      },
-      {
-        title: "\u4E91\u5357\u7701",
         main: "/static/background.jpg",
         picture: []
       },
@@ -245,7 +262,7 @@ const _sfc_main = {
       }
     ]);
     let show_store = common_vendor.reactive({
-      main: "",
+      main: "1",
       store: []
     });
     let active = common_vendor.ref("\u6E56\u5317\u7701");

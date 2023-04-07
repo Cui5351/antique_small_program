@@ -11,8 +11,12 @@
 .head{
 	background-color: white;
 	@include height(10%);
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
 }
 .body{
+	@include height(90%);
 	// padding:10px 0;
 	box-sizing: border-box;
 	display: flex;
@@ -22,9 +26,11 @@
 	}
 	.search{
 		color: gray;
-		@include height(10%);
+		@include height(7%);
 	}
 	.list{
+		@include height(93%);
+		overflow: auto;
 		display: flex;
 		&>view{
 			flex-grow: 1;
@@ -77,10 +83,10 @@
 					display: flex;
 					column-count: 3;
 					flex-wrap: wrap;
-					// justify-content: space-around;
+					// justify-content: space-between;
 					.goods{
 						@include width(30%);
-						margin:0 3.3% 10px 0;
+						margin:0 2.5% 10px 0.5%;
 						// @include height(33%);
 						height:150px;
 						&>image{

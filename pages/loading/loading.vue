@@ -1,7 +1,7 @@
 <template>
 	<view class="container" v-if="show_loading">
 		<view class="vessel">
-			<image src="../../static/loading/loading2.gif"></image>
+			<image src="https://www.mynameisczy.asia/image/antique/loading.gif"></image>
 		</view>
 	</view>
 </template>
@@ -35,9 +35,16 @@
 }
 .vessel{
 	// background-color: orangered;
-	height:150px;
-	width:250px;
+	height:300px;
+	position: absolute;
+	// width:450px;
+	width:100%;
+	top:30%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	&>image{
+		// transform: scale(1.5);
 		height:100%;
 		width:100%;
 	}

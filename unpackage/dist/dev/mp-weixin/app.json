@@ -4,8 +4,10 @@
     "pages/store/store",
     "pages/person/person",
     "pages/home/other_page/museum/museum",
-    "pages/index/index",
-    "pages/home/other_page/all_museum/all_museum"
+    "pages/workroom/workroom",
+    "pages/home/other_page/all_museum/all_museum",
+    "pages/store/other_page/store_page/store_page",
+    "pages/home/other_page/all_anitique/all_anitique"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -26,8 +28,8 @@
       {
         "iconPath": "/static/icons/history.jpg",
         "selectedIconPath": "/static/icons/history_active.jpg",
-        "pagePath": "pages/index/index",
-        "text": "古史"
+        "pagePath": "pages/workroom/workroom",
+        "text": "工作室"
       },
       {
         "iconPath": "/static/icons/store.jpg",

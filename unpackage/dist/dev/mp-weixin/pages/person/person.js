@@ -14,36 +14,42 @@ const _sfc_main = {
     function toggle(bool) {
       person_info.toggle = bool;
     }
-    return { person_info, toggle };
+    let opacity = common_vendor.ref(true);
+    let top = common_vendor.ref(common_vendor.index.getMenuButtonBoundingClientRect().height * 2);
+    return { opacity, person_info, toggle, top };
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
-    a: common_vendor.t($setup.person_info.counts[0]),
-    b: common_vendor.t($setup.person_info.counts[1]),
-    c: common_vendor.t($setup.person_info.counts[2]),
-    d: common_vendor.t($setup.person_info.name),
-    e: common_vendor.t($setup.person_info.id),
-    f: common_vendor.t($setup.person_info.introduction),
-    g: common_vendor.o(($event) => $setup.toggle(true)),
-    h: common_vendor.o(($event) => $setup.toggle(false)),
-    i: $setup.person_info.toggle ? "0%" : "50%",
-    j: !$setup.person_info.toggle
-  }, !$setup.person_info.toggle ? {} : {}, {
-    k: common_vendor.f($setup.person_info.works, (item, index, i0) => {
-      return {
-        a: "https://www.mynameisczy.asia/image/antique/" + item + ".jpg",
-        b: index
-      };
-    }),
-    l: $setup.person_info.toggle,
-    m: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
-      return {
-        a: "https://www.mynameisczy.asia/image/antique/" + item + ".jpg",
-        b: index
-      };
-    }),
+    a: common_vendor.t($setup.person_info.name),
+    b: $setup.top + "px",
+    c: $setup.opacity ? "0%" : "100%",
+    d: common_vendor.t($setup.person_info.counts[0]),
+    e: common_vendor.t($setup.person_info.counts[1]),
+    f: common_vendor.t($setup.person_info.counts[2]),
+    g: common_vendor.t($setup.person_info.name),
+    h: common_vendor.t($setup.person_info.id),
+    i: common_vendor.t($setup.person_info.introduction),
+    j: common_vendor.o(($event) => $setup.toggle(true)),
+    k: common_vendor.o(($event) => $setup.toggle(false)),
+    l: $setup.person_info.toggle ? "0%" : "50%",
+    m: $setup.top + "px",
     n: !$setup.person_info.toggle
+  }, !$setup.person_info.toggle ? {} : {}, {
+    o: common_vendor.f($setup.person_info.works, (item, index, i0) => {
+      return {
+        a: "https://www.mynameisczy.asia/image/antique/" + item + ".jpg",
+        b: index
+      };
+    }),
+    p: $setup.person_info.toggle,
+    q: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
+      return {
+        a: "https://www.mynameisczy.asia/image/antique/" + item + ".jpg",
+        b: index
+      };
+    }),
+    r: !$setup.person_info.toggle
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-390a77b4"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/person.vue"]]);

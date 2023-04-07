@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="head flex_j_a_c">
+		<view class="head head_tit">
 			非遗集市
 		</view>
 		<view class="body flex_c">
@@ -23,7 +23,7 @@
 						<view class="title">联名文创</view>
 						<view class="goods_all">
 							<view class="goods" @click="enter(item)" v-for="(item,index) in show_store.store" :key="index">
-								<image :src="item.src"></image>
+								<image :src="item.src" mode="aspectFill"></image>
 							</view>
 						</view>
 					</view>
@@ -39,77 +39,95 @@
 		setup() {
 			let info=reactive([{
 				title:'文刊',
-				main:'../../static/background.jpg',
+				main:uni.current_this.baseURL+'/image/antique/culture_big.jpg',
 				picture:[{
-					name:'aaa',
-					src:'../../static/background.jpg'
+					name:'折扇',
+					src:uni.current_this.baseURL+'/image/antique/fan.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+				},{
+					name:'aaa',
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			},{
 				title:'联名文刊',
-				main:'',
+				main:uni.current_this.baseURL+'/image/antique/culture_big.jpg',
 				picture:[{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			},{
 				title:'非遗制品',
 				main:'',
 				picture:[{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			},{
 				title:'专属定制',
 				main:'',
 				picture:[{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			},{
 				title:'联名服装',
 				main:'',
 				picture:[{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
-				},{
-					name:'aaa',
-					src:'../../static/background.jpg'
-				},{
-					name:'aaa',
-					src:'../../static/background.jpg'
-				},{
-					name:'aaa',
-					src:'../../static/background.jpg'
+					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			}])
 			let show_store=reactive({
@@ -140,6 +158,12 @@
 				}
 			})
 			function enter(item){
+				if(item.name=='折扇'){
+					uni.navigateTo({
+						url:'/pages/store/other_page/store_page/store_page'
+					})
+					return
+				}
 				uni.showToast({
 					icon:'none',
 					title:item.name+'暂时还不能看'

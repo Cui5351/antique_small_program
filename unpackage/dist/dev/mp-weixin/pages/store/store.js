@@ -4,77 +4,95 @@ const _sfc_main = {
   setup() {
     let info = common_vendor.reactive([{
       title: "\u6587\u520A",
-      main: "../../static/background.jpg",
+      main: common_vendor.index.current_this.baseURL + "/image/antique/culture_big.jpg",
       picture: [{
-        name: "aaa",
-        src: "../../static/background.jpg"
+        name: "\u6298\u6247",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/fan.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+      }, {
+        name: "aaa",
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }]
     }, {
       title: "\u8054\u540D\u6587\u520A",
-      main: "",
+      main: common_vendor.index.current_this.baseURL + "/image/antique/culture_big.jpg",
       picture: [{
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }]
     }, {
       title: "\u975E\u9057\u5236\u54C1",
       main: "",
       picture: [{
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }]
     }, {
       title: "\u4E13\u5C5E\u5B9A\u5236",
       main: "",
       picture: [{
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }]
     }, {
       title: "\u8054\u540D\u670D\u88C5",
       main: "",
       picture: [{
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }, {
         name: "aaa",
-        src: "../../static/background.jpg"
-      }, {
-        name: "aaa",
-        src: "../../static/background.jpg"
-      }, {
-        name: "aaa",
-        src: "../../static/background.jpg"
-      }, {
-        name: "aaa",
-        src: "../../static/background.jpg"
+        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
       }]
     }]);
     let show_store = common_vendor.reactive({
@@ -105,6 +123,12 @@ const _sfc_main = {
       }
     });
     function enter(item) {
+      if (item.name == "\u6298\u6247") {
+        common_vendor.index.navigateTo({
+          url: "/pages/store/other_page/store_page/store_page"
+        });
+        return;
+      }
       common_vendor.index.showToast({
         icon: "none",
         title: item.name + "\u6682\u65F6\u8FD8\u4E0D\u80FD\u770B"

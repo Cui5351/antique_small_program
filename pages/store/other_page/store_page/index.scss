@@ -1,0 +1,82 @@
+@import '/uni.scss';
+// .container>view{
+	// padding:0 20px;
+	// box-sizing: border-box;
+// }
+.store_info{
+	// background-color: orange;
+}
+.store_name{
+	background-color: white;
+	padding:0 20px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	@include height(5%);
+	}
+.picture{
+	@include height(45%);
+	.swi{
+		height:100%;
+		width:100%;
+		&>view{
+			height:100%;
+			width:100%;		
+		}
+			.pic{
+				height:100%;
+				width:100%;	
+			image{
+				height:100%;	
+				width:100%;
+			}
+			}
+	}
+}
+.description{
+	@include height(14%);
+	background-color: white;
+	padding:0 20px;
+	box-sizing: border-box;
+	&>.des{
+		height:100%;
+		align-items: flex-start;
+		&>.money{
+			color: #6E79E2;
+			font-size:25px;
+		}
+		&>view:last-child{
+			font-weight:bold;
+		}
+	}
+	&>.share{
+		@include width(15%);
+		height:100%;
+		font-size:13px;
+	}
+}
+.rank{
+	@include height(8%);
+	background-color: white;
+	padding:0 20px;
+	box-sizing: border-box;
+	margin-top:10px;
+	justify-content: flex-start;
+	&>.tit{
+		font-weight:bold;
+		margin-right:10px;
+	}
+}
+.transport{
+	margin-top:10px;
+	padding:0 20px;
+	box-sizing: border-box;
+	justify-content: space-between;
+	background-color: white;
+	@include height(8%);
+	.money{
+		margin-left:10px;
+		font-weight: bold;
+	}
+}

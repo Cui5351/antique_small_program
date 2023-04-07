@@ -105,6 +105,10 @@
 				show_loading.value=true
 				setTimeout(()=>{
 					show_loading.value=false
+					uni.showToast({
+						icon:'none',
+						title:'该博物馆尚未开放'
+					})
 				},1000*Math.random()*10)
 			}
 			function toggle_other(item){
@@ -121,20 +125,12 @@
 					})
 					return
 				}
-				uni.showToast({
-					icon:'none',
-					title:name+'暂时未开放'
-				})
 			}
 			function museum(name){
 				console.log(name);
-				
 				// 查看资源是否存在
 				if(name=='江汉博物馆'){
-					uni.showToast({
-						icon:'none',
-						title:'该博物馆尚未开放'
-					})
+					loading()
 					return
 				}
 				// 实现预加载
@@ -150,6 +146,12 @@
 的《二年律令》等汉初简牍；有西汉男尸。该馆配合各种基本
 建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
 址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
+佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
+名单。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
+佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
+名单。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
+佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
+名单。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
 佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
 名单。`],
 						antique:[{name:'黑秞执壶',src:'/static/background.jpg'},

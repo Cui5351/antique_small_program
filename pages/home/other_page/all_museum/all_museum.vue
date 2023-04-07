@@ -6,7 +6,7 @@
 		<view class="body flex_c">
 			<view class="search flex_j_a_r">
 				<view class="search_btn" @click="toggle_page('搜索')">
-					<uni-icons color='gray' size='25' type='search'></uni-icons>搜索商品
+					<uni-icons color='gray' size='25' type='search'></uni-icons>搜索博物馆
 				</view>
 			</view>
 			<view class="list">
@@ -69,13 +69,40 @@
 					src:'/static/background.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:'/static/background.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:'/static/background.jpg'
 				},{
 					name:'aaa',
-					src:'../../static/background.jpg'
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
+				},{
+					name:'aaa',
+					src:'/static/background.jpg'
 				}]
 			},
 			{
@@ -214,22 +241,12 @@
 				picture:[]
 			},
 			{
-				title:'云南省',
-				main:'/static/background.jpg',
-				picture:[]
-			},
-			{
 				title:'陕西省',
 				main:'/static/background.jpg',
 				picture:[]
 			},
 			{
 				title:'甘肃省',
-				main:'/static/background.jpg',
-				picture:[]
-			},
-			{
-				title:'云南省',
 				main:'/static/background.jpg',
 				picture:[]
 			},
@@ -279,7 +296,7 @@
 				picture:[]
 			}])
 			let show_store=reactive({
-				main:'',
+				main:'1',
 				store:[]
 			})
 			let active=ref('湖北省');

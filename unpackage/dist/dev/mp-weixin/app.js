@@ -7,8 +7,10 @@ if (!Math) {
   "./pages/store/store.js";
   "./pages/person/person.js";
   "./pages/home/other_page/museum/museum.js";
-  "./pages/index/index.js";
+  "./pages/workroom/workroom.js";
   "./pages/home/other_page/all_museum/all_museum.js";
+  "./pages/store/other_page/store_page/store_page.js";
+  "./pages/home/other_page/all_anitique/all_anitique.js";
 }
 const _sfc_main = {
   onLaunch: function() {

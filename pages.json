@@ -33,13 +33,31 @@
 				}
 			}
 			,{
-		"path": "pages/index/index",
+		"path": "pages/workroom/workroom",
 		"style": {
 			"navigationBarTitleText": "uni-app"
 		}
 	}
         ,{
             "path" : "pages/home/other_page/all_museum/all_museum",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/store/other_page/store_page/store_page",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/other_page/all_anitique/all_anitique",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -58,8 +76,8 @@
 			},{
 				"iconPath": "/static/icons/history.jpg",
 				"selectedIconPath": "/static/icons/history_active.jpg",
-				"pagePath": "pages/index/index",
-				"text": "古史"
+				"pagePath": "pages/workroom/workroom",
+				"text": "工作室"
 			}
 			,{
 				"iconPath": "/static/icons/store.jpg",

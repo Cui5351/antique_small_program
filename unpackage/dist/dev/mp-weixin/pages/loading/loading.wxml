@@ -1,1 +1,1 @@
-<view wx:if="{{a}}" class="container data-v-b1b56100"><view class="vessel data-v-b1b56100"><image class="data-v-b1b56100" src="/static/loading/loading2.gif"></image></view></view>
+<view wx:if="{{a}}" class="container data-v-b1b56100"><view class="vessel data-v-b1b56100"><image class="data-v-b1b56100" src="https://www.mynameisczy.asia/image/antique/loading.gif"></image></view></view>
