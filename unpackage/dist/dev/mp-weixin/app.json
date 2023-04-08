@@ -18,28 +18,29 @@
     "pageOrientation": "portrait"
   },
   "tabBar": {
+    "backgroundColor": "#fffbf2",
     "list": [
       {
-        "iconPath": "/static/icons/home.jpg",
-        "selectedIconPath": "/static/icons/home_active.jpg",
+        "iconPath": "/static/icons/home.png",
+        "selectedIconPath": "/static/icons/home_active.png",
         "pagePath": "pages/home/home",
         "text": "首页"
       },
       {
-        "iconPath": "/static/icons/history.jpg",
-        "selectedIconPath": "/static/icons/history_active.jpg",
+        "iconPath": "/static/icons/antique.png",
+        "selectedIconPath": "/static/icons/antique_active.png",
         "pagePath": "pages/workroom/workroom",
         "text": "工作室"
       },
       {
-        "iconPath": "/static/icons/store.jpg",
-        "selectedIconPath": "/static/icons/store_active.jpg",
+        "iconPath": "/static/icons/store.png",
+        "selectedIconPath": "/static/icons/store_active.png",
         "pagePath": "pages/store/store",
         "text": "集市"
       },
       {
-        "iconPath": "/static/icons/my.jpg",
-        "selectedIconPath": "/static/icons/my_active.jpg",
+        "iconPath": "/static/icons/my.png",
+        "selectedIconPath": "/static/icons/my_active.png",
         "pagePath": "pages/person/person",
         "text": "我的"
       }

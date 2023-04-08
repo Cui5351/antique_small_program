@@ -18,7 +18,7 @@
 				</view>
 			</swiper-item>
 		</swiper>
-		<view class="other">
+		<view class="other background">
 			<view class="funs">
 				<view class=".flex_j_a_c" @click="toggle_other(item)" v-for="(item,inex) in other" :key="index">
 					<view class="icon">
@@ -178,5 +178,5 @@
 
 <style scoped lang="scss">
 @import './index.scss';
-@import '@/uni.scss';
+@import '/uni.scss';
 </style>

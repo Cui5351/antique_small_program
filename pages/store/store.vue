@@ -5,17 +5,17 @@
 		</view>
 		<view class="body flex_c">
 			<view class="search flex_j_a_r">
-				<view class="search_btn" @click="toggle_page('搜索')">
+				<view class="background search_btn" @click="toggle_page('搜索')">
 					<uni-icons color='gray' size='25' type='search'></uni-icons>搜索商品
 				</view>
 			</view>
 			<view class="list">
 				<view class="culture">
 					<view @click="toggle_active(item)" :class="(active==item.title)?'active':''" class=".flex_j_a_r" v-for="(item,index) in info" :key="index">
-					<view class="dot" v-show='(active==item.title)'></view>
+					<view class="dot background1" v-show='(active==item.title)'></view>
 					{{item.title}}</view>
 				</view>
-				<view class="culture_right">
+				<view class="culture_right background">
 					<view class="pic">
 						<image :src="show_store.main" mode=""></image>
 					</view>

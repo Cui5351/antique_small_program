@@ -46,6 +46,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title {
+  color: gray;
+  font-size: 15px;
+}
+.one_size {
+  font-size: 20px;
+}
+.two_size {
+  font-size: 17px;
+}
+.three_size {
+  font-size: 14px;
+}
 .container {
   height: 100%;
   width: 100%;
@@ -54,6 +67,12 @@
 }
 .container > view {
   flex-grow: 1;
+}
+.background1 {
+  background-color: #6E79E2;
+}
+.background {
+  background-color: #fffbf2;
 }
 /*每个页面公共css */
 /* 水平间距 */

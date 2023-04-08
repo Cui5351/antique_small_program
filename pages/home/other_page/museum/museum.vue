@@ -134,7 +134,8 @@
 				//分享到朋友圈
 				onShareTimeline() {
 				    return {
-				        title: '博学苑',
+						imageUrl:this.data.full_src,
+						title: this.data.name, //分享的名称
 				        type: 0,
 				    }
 				},

@@ -46,6 +46,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-92bb8f34 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-92bb8f34 {
+  font-size: 20px;
+}
+.two_size.data-v-92bb8f34 {
+  font-size: 17px;
+}
+.three_size.data-v-92bb8f34 {
+  font-size: 14px;
+}
 .container.data-v-92bb8f34 {
   height: 100%;
   width: 100%;
@@ -54,6 +67,12 @@
 }
 .container > view.data-v-92bb8f34 {
   flex-grow: 1;
+}
+.background1.data-v-92bb8f34 {
+  background-color: #6E79E2;
+}
+.background.data-v-92bb8f34 {
+  background-color: #fffbf2;
 }
 /* 水平间距 */
 /* 水平间距 */
@@ -103,6 +122,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-92bb8f34 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-92bb8f34 {
+  font-size: 20px;
+}
+.two_size.data-v-92bb8f34 {
+  font-size: 17px;
+}
+.three_size.data-v-92bb8f34 {
+  font-size: 14px;
+}
 .container.data-v-92bb8f34 {
   height: 100%;
   width: 100%;
@@ -112,13 +144,18 @@
 .container > view.data-v-92bb8f34 {
   flex-grow: 1;
 }
+.background1.data-v-92bb8f34 {
+  background-color: #6E79E2;
+}
+.background.data-v-92bb8f34 {
+  background-color: #fffbf2;
+}
 .container.data-v-92bb8f34 {
   color: #3b5c82;
   height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: white;
 }
 .swiper.data-v-92bb8f34 {
   max-height: 27%;
@@ -142,7 +179,6 @@
   position: relative;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  background-color: white;
   margin-top: -20px;
 }
 .other > view.data-v-92bb8f34 {
@@ -319,6 +355,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-92bb8f34 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-92bb8f34 {
+  font-size: 20px;
+}
+.two_size.data-v-92bb8f34 {
+  font-size: 17px;
+}
+.three_size.data-v-92bb8f34 {
+  font-size: 14px;
+}
 .container.data-v-92bb8f34 {
   height: 100%;
   width: 100%;
@@ -327,4 +376,10 @@
 }
 .container > view.data-v-92bb8f34 {
   flex-grow: 1;
+}
+.background1.data-v-92bb8f34 {
+  background-color: #6E79E2;
+}
+.background.data-v-92bb8f34 {
+  background-color: #fffbf2;
 }

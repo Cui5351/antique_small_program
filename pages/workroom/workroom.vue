@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+	<view class="container background">
 		<view class="workroom page">
 			<view class="tit">3D工作室</view>
 			<view class="pic flex_j_a_c" @click="toggle('workroom')">
@@ -42,7 +42,6 @@
 		overflow: auto;
 		box-sizing: border-box;
 		padding: 10px 0;
-		background-color: white;
 		&>view{
 			padding: 10px 20px;
 			box-sizing: border-box;

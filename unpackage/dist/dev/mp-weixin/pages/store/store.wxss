@@ -46,6 +46,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-644d0e6c {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-644d0e6c {
+  font-size: 20px;
+}
+.two_size.data-v-644d0e6c {
+  font-size: 17px;
+}
+.three_size.data-v-644d0e6c {
+  font-size: 14px;
+}
 .container.data-v-644d0e6c {
   height: 100%;
   width: 100%;
@@ -54,6 +67,12 @@
 }
 .container > view.data-v-644d0e6c {
   flex-grow: 1;
+}
+.background1.data-v-644d0e6c {
+  background-color: #6E79E2;
+}
+.background.data-v-644d0e6c {
+  background-color: #fffbf2;
 }
 /* 水平间距 */
 /* 水平间距 */
@@ -103,6 +122,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-644d0e6c {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-644d0e6c {
+  font-size: 20px;
+}
+.two_size.data-v-644d0e6c {
+  font-size: 17px;
+}
+.three_size.data-v-644d0e6c {
+  font-size: 14px;
+}
 .container.data-v-644d0e6c {
   height: 100%;
   width: 100%;
@@ -111,6 +143,12 @@
 }
 .container > view.data-v-644d0e6c {
   flex-grow: 1;
+}
+.background1.data-v-644d0e6c {
+  background-color: #6E79E2;
+}
+.background.data-v-644d0e6c {
+  background-color: #fffbf2;
 }
 .container.data-v-644d0e6c {
   height: 100%;
@@ -169,10 +207,9 @@
   transform: translateX(-100%);
   left: 0px;
   border-radius: 50%;
-  background-color: #8cb2a4;
 }
 .body .list .culture > .active.data-v-644d0e6c {
-  background-color: white;
+  background-color: #fffbf2;
 }
 .body .list .culture > view.data-v-644d0e6c {
   max-height: 10%;
@@ -182,7 +219,6 @@
 .body .list .culture_right.data-v-644d0e6c {
   overflow: auto;
   display: flex;
-  background-color: white;
   padding: 10px 10px 0 10px;
   box-sizing: border-box;
   flex-direction: column;
@@ -232,7 +268,6 @@
   max-width: 80%;
   min-width: 80%;
   width: 80%;
-  background-color: white;
   max-height: 70%;
   min-height: 70%;
   height: 70%;
@@ -289,6 +324,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-644d0e6c {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-644d0e6c {
+  font-size: 20px;
+}
+.two_size.data-v-644d0e6c {
+  font-size: 17px;
+}
+.three_size.data-v-644d0e6c {
+  font-size: 14px;
+}
 .container.data-v-644d0e6c {
   height: 100%;
   width: 100%;
@@ -297,4 +345,10 @@
 }
 .container > view.data-v-644d0e6c {
   flex-grow: 1;
+}
+.background1.data-v-644d0e6c {
+  background-color: #6E79E2;
+}
+.background.data-v-644d0e6c {
+  background-color: #fffbf2;
 }

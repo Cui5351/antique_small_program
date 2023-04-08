@@ -46,6 +46,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-857ef576 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-857ef576 {
+  font-size: 20px;
+}
+.two_size.data-v-857ef576 {
+  font-size: 17px;
+}
+.three_size.data-v-857ef576 {
+  font-size: 14px;
+}
 .container.data-v-857ef576 {
   height: 100%;
   width: 100%;
@@ -54,6 +67,12 @@
 }
 .container > view.data-v-857ef576 {
   flex-grow: 1;
+}
+.background1.data-v-857ef576 {
+  background-color: #6E79E2;
+}
+.background.data-v-857ef576 {
+  background-color: #fffbf2;
 }
 /* 水平间距 */
 /* 水平间距 */
@@ -103,6 +122,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-857ef576 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-857ef576 {
+  font-size: 20px;
+}
+.two_size.data-v-857ef576 {
+  font-size: 17px;
+}
+.three_size.data-v-857ef576 {
+  font-size: 14px;
+}
 .container.data-v-857ef576 {
   height: 100%;
   width: 100%;
@@ -111,6 +143,12 @@
 }
 .container > view.data-v-857ef576 {
   flex-grow: 1;
+}
+.background1.data-v-857ef576 {
+  background-color: #6E79E2;
+}
+.background.data-v-857ef576 {
+  background-color: #fffbf2;
 }
 .container.data-v-857ef576 {
   height: 100%;
@@ -308,17 +346,17 @@
   display: flex;
   flex-direction: row;
 }
+.container > .share .bt.data-v-857ef576 {
+  outline: none;
+  border: none;
+  color: #4d5c88;
+}
 .container > .share > view.data-v-857ef576 {
   display: flex;
   flex-direction: row;
   max-width: 50%;
   min-width: 50%;
   width: 50%;
-}
-.container > .share .bt.data-v-857ef576 {
-  outline: none;
-  border: none;
-  color: #4d5c88;
 }
 .container > .share > view.data-v-857ef576:last-child {
   position: relative;
@@ -383,6 +421,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-857ef576 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-857ef576 {
+  font-size: 20px;
+}
+.two_size.data-v-857ef576 {
+  font-size: 17px;
+}
+.three_size.data-v-857ef576 {
+  font-size: 14px;
+}
 .container.data-v-857ef576 {
   height: 100%;
   width: 100%;
@@ -391,4 +442,10 @@
 }
 .container > view.data-v-857ef576 {
   flex-grow: 1;
+}
+.background1.data-v-857ef576 {
+  background-color: #6E79E2;
+}
+.background.data-v-857ef576 {
+  background-color: #fffbf2;
 }

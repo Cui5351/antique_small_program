@@ -1,5 +1,5 @@
 <template>
-	<view class="container flex_c">
+	<view class="container flex_c background">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
 		<view class="top_img">
 			<image src="../../static/my_head.png"></image>
@@ -64,7 +64,7 @@
 		</view>
 		<view class="works flex_c">
 			<view class="title" :style="{top:top+'px'}">
-				<view class="t1">
+				<view class="t1 background">
 					<view @click="toggle(true)" class="ti">作品</view>
 					<view @click="toggle(false)" class="ti">收藏</view>
 				</view>

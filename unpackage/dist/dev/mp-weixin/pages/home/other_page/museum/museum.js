@@ -41,7 +41,8 @@ const _sfc_main = {
   },
   onShareTimeline() {
     return {
-      title: "\u535A\u5B66\u82D1",
+      imageUrl: this.data.full_src,
+      title: this.data.name,
       type: 0
     };
   },

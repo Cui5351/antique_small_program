@@ -46,6 +46,19 @@
   min-height: 10%;
   height: 10%;
 }
+.small_title.data-v-b1b56100 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-b1b56100 {
+  font-size: 20px;
+}
+.two_size.data-v-b1b56100 {
+  font-size: 17px;
+}
+.three_size.data-v-b1b56100 {
+  font-size: 14px;
+}
 .container.data-v-b1b56100 {
   height: 100%;
   width: 100%;
@@ -54,6 +67,12 @@
 }
 .container > view.data-v-b1b56100 {
   flex-grow: 1;
+}
+.background1.data-v-b1b56100 {
+  background-color: #6E79E2;
+}
+.background.data-v-b1b56100 {
+  background-color: #fffbf2;
 }
 .container.data-v-b1b56100 {
   height: 100%;
