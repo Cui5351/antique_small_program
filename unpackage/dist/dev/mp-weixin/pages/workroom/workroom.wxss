@@ -76,6 +76,9 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-0672b006 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-0672b006 {
   display: flex;
   flex-direction: column;
@@ -148,10 +151,16 @@
   background-color: #6E79E2;
 }
 .background.data-v-0672b006 {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-0672b006:active {
+  background-color: #6E79E2;
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-0672b006 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-0672b006 {
   display: flex;
   flex-direction: column;
@@ -224,7 +233,10 @@
   background-color: #6E79E2;
 }
 .background.data-v-0672b006 {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-0672b006:active {
+  background-color: #6E79E2;
 }
 .workroom.data-v-0672b006 {
   max-height: 40%;

@@ -27,12 +27,6 @@ const _sfc_main = {
     });
   },
   onShareAppMessage(res) {
-    if (res.from === "button") {
-      common_vendor.index.showToast({
-        icon: "none",
-        title: "\u5206\u4EAB\u6210\u529F"
-      });
-    }
     return {
       imageUrl: this.data.full_src,
       title: this.data.name,
@@ -49,6 +43,7 @@ const _sfc_main = {
   setup() {
     let data = common_vendor.reactive({
       name: "",
+      max_pic: [],
       description: "",
       antique: [],
       full_src: ""
@@ -112,42 +107,48 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: "white"
     }),
     b: common_vendor.o((...args) => $setup.back && $setup.back(...args)),
-    c: common_vendor.p({
+    c: common_vendor.f($setup.data.max_pic, (item, index, i0) => {
+      return {
+        a: item,
+        b: index
+      };
+    }),
+    d: common_vendor.p({
       type: "location",
       size: "30",
       color: "rgb(59,92,130)"
     }),
-    d: common_vendor.t($setup.data.name),
-    e: common_vendor.f($setup.data.description, (item, index, i0) => {
+    e: common_vendor.t($setup.data.name),
+    f: common_vendor.f($setup.data.description, (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: index
       };
     }),
-    f: $setup.data_height.state ? "auto" : "hidden",
-    g: common_vendor.t($setup.data_height.state ? "\u9690\u85CF" : "\u5C55\u5F00"),
-    h: common_vendor.p({
+    g: $setup.data_height.state ? "auto" : "hidden",
+    h: common_vendor.t($setup.data_height.state ? "\u9690\u85CF" : "\u5C55\u5F00"),
+    i: common_vendor.p({
       type: "bottom",
       size: "20",
       color: "rgb(59,92,130)"
     }),
-    i: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
-    j: $setup.data_height.height,
-    k: common_vendor.p({
+    j: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
+    k: $setup.data_height.height,
+    l: common_vendor.p({
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    l: common_vendor.o((...args) => $setup.all_antique && $setup.all_antique(...args)),
-    m: common_vendor.f($setup.data.antique, (item, index, i0) => {
+    m: common_vendor.o((...args) => $setup.all_antique && $setup.all_antique(...args)),
+    n: common_vendor.f($setup.data.antique, (item, index, i0) => {
       return {
         a: item.src,
         b: common_vendor.t(item.name),
         c: index
       };
     }),
-    n: $setup.data.full_src,
-    o: common_vendor.o((...args) => $setup.full_screen && $setup.full_screen(...args)),
-    p: common_vendor.o((...args) => $setup.subscribe && $setup.subscribe(...args))
+    o: $setup.data.full_src,
+    p: common_vendor.o((...args) => $setup.full_screen && $setup.full_screen(...args)),
+    q: common_vendor.o((...args) => $setup.subscribe && $setup.subscribe(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-857ef576"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/other_page/museum/museum.vue"]]);

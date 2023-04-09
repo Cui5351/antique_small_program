@@ -76,6 +76,9 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-644d0e6c {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-644d0e6c {
   display: flex;
   flex-direction: column;
@@ -148,7 +151,10 @@
   background-color: #6E79E2;
 }
 .background.data-v-644d0e6c {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-644d0e6c:active {
+  background-color: #6E79E2;
 }
 .container.data-v-644d0e6c {
   height: 100%;
@@ -209,7 +215,7 @@
   border-radius: 50%;
 }
 .body .list .culture > .active.data-v-644d0e6c {
-  background-color: #fffbf2;
+  background-color: white;
 }
 .body .list .culture > view.data-v-644d0e6c {
   max-height: 10%;
@@ -278,6 +284,9 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-644d0e6c {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-644d0e6c {
   display: flex;
   flex-direction: column;
@@ -350,5 +359,8 @@
   background-color: #6E79E2;
 }
 .background.data-v-644d0e6c {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-644d0e6c:active {
+  background-color: #6E79E2;
 }

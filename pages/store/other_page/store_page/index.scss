@@ -102,7 +102,7 @@
 		justify-content: space-between;
 	}
 	&>.all{
-		
+		justify-content: flex-end;
 		@include height(80%);
 		// justify-content: space-around;
 		width:100%;

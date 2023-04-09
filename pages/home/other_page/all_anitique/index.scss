@@ -1,15 +1,88 @@
 @import '/uni.scss';
+.head_two{
+	background-color: rgb(177,93,67);
+}
 .info{
-	background-color: orange;
-	overflow-y: auto;
 	display: flex;
-	column-count:2;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	&>view{
-		margin:10px 2.5%;
+	background-color: rgb(177,93,67);
+	flex-direction: column;
+	&>.pic{
 		@include height(40%);
-		width:45%;
-		background-color: red;
+		// background-color: red;
+		.swiper{
+			height:100%;
+			width:100%;
+			.swiper-item{
+				height:70%;
+				width:90%;
+				margin:0 10px;
+				image{
+					box-shadow:3px 2px 10px -1px black;
+					border-radius: 30px;
+					height:100%;
+					width:100%;
+				}
+			}
+			&>view{
+				height:100%;
+				width:100%;
+			}
+		}
+	}
+	&>.description{
+		overflow: hidden;
+		@include height(60%);
+		padding:0 20px 20px 20px;
+		box-sizing: border-box;
+		align-items: flex-end;
+		&>.title{
+			transform:skewX(-20deg); 
+			// position: relative;
+			background-color: rgb(228,193,104);
+			padding:5px 10px;
+			box-sizing: border-box;
+			// border-top-left-radius:10px;
+			// border-top-right-radius:10px;
+			color: white;
+		}
+		&>.text{
+			border-radius:10px;
+			// border-top-left-radius:0;
+			// border-top-right-radius:0;
+			padding:5px 10px;
+			box-sizing: border-box;
+			overflow-y: auto;
+			background-color: rgb(199,196,183);
+			width:100%;
+			height:100%;
+			&>.born{
+				align-items: flex-start;
+				@include height(20%);
+				&>view{
+					display: flex;
+					.b{
+						// font-weight: bold;
+					}
+				}
+				// background-color: rgb(228,193,104);
+			}
+			.des{
+				@include height(80%);
+				justify-content: flex-start;
+				align-items: flex-start;
+					.d{
+						@include height(90%);
+						box-sizing: border-box;
+						padding:5px 10px;
+						overflow-y: auto;
+					}
+					.de{
+						@include height(15%);
+						border-bottom:1px solid rgb(177,93,67);
+						font-size:30px;
+						// padding:2px 10px;
+					}
+			}
+		}
 	}
 }

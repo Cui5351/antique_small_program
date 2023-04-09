@@ -6,19 +6,9 @@
 				返回
 			</view>
 			<swiper class="swiper" autoplay circular>
-				<swiper-item>
+				<swiper-item v-for="(item,index) in data.max_pic" :key="index">
 					<view class="pic">
-						<image src="../../../../static/background.jpg" mode=""></image>
-					</view>
-				</swiper-item>
-				<swiper-item>
-					<view class="pic">
-						<image src="../../../../static/background.jpg" mode=""></image>
-					</view>
-				</swiper-item>
-				<swiper-item>
-					<view class="pic">
-						<image src="../../../../static/background.jpg" mode=""></image>
+						<image :src="item" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -117,12 +107,6 @@
 			})
 		},
 				onShareAppMessage(res) {
-					if (res.from === 'button') {// 来自页面内分享按钮
-							uni.showToast({
-							icon:'none',
-							title:'分享成功'
-						})
-					    }
 				    return {
 						imageUrl:this.data.full_src,
 				        title: this.data.name, //分享的名称
@@ -142,6 +126,7 @@
 		setup() {
 			let data=reactive({
 				name:'',
+				max_pic:[],
 				description:'',
 				antique:[],
 				full_src:''
@@ -153,17 +138,6 @@
 				uni.showShareMenu({
 					title:data.name,
 					path:'/pages/home/other_page/museum',
-					success() {
-						uni.showToast({
-							icon:'none',
-							title:'分享成功'
-						})
-					},fail() {
-						uni.showToast({
-							icon:'none',
-							title:'您取消了分享'
-						})
-					}
 				})
 			}
 			function full_screen(){

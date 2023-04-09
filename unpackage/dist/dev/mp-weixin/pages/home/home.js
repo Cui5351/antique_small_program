@@ -77,19 +77,13 @@ const _sfc_main = {
 \u5EFA\u8BBE\uFF0C\u5148\u540E\u53D1\u6398\u4E867000\u591A\u5EA7\u53E4\u5893\u846C\u548C\u8FD120\u4E07\u5E73\u65B9\u7C73\u7684\u53E4\u6587\u5316\u9057
 \u5740\u3002`, `1994\u5E74\u7ECF\u56FD\u5BB6\u6587\u7269\u5C40\u4E13\u5BB6\u8BC4\u9009\uFF0C\u8BE5\u9986\u8363\u83B7\u4E2D\u56FD\u5730\u5E02\u7EA7\u201C\u5341
 \u4F73\u535A\u7269\u9986\u4E4B\u9996\u201D\u7684\u79F0\u53F7\u30022008\u5E74 \u7269\u9986\u88AB\u5217\u5165\u56FD\u5BB6\u4E00\u7EA7\u535A\u7269\u9986
-\u540D\u5355\u3002`, `1994\u5E74\u7ECF\u56FD\u5BB6\u6587\u7269\u5C40\u4E13\u5BB6\u8BC4\u9009\uFF0C\u8BE5\u9986\u8363\u83B7\u4E2D\u56FD\u5730\u5E02\u7EA7\u201C\u5341
-\u4F73\u535A\u7269\u9986\u4E4B\u9996\u201D\u7684\u79F0\u53F7\u30022008\u5E74 \u7269\u9986\u88AB\u5217\u5165\u56FD\u5BB6\u4E00\u7EA7\u535A\u7269\u9986
-\u540D\u5355\u3002`, `1994\u5E74\u7ECF\u56FD\u5BB6\u6587\u7269\u5C40\u4E13\u5BB6\u8BC4\u9009\uFF0C\u8BE5\u9986\u8363\u83B7\u4E2D\u56FD\u5730\u5E02\u7EA7\u201C\u5341
-\u4F73\u535A\u7269\u9986\u4E4B\u9996\u201D\u7684\u79F0\u53F7\u30022008\u5E74 \u7269\u9986\u88AB\u5217\u5165\u56FD\u5BB6\u4E00\u7EA7\u535A\u7269\u9986
-\u540D\u5355\u3002`, `1994\u5E74\u7ECF\u56FD\u5BB6\u6587\u7269\u5C40\u4E13\u5BB6\u8BC4\u9009\uFF0C\u8BE5\u9986\u8363\u83B7\u4E2D\u56FD\u5730\u5E02\u7EA7\u201C\u5341
-\u4F73\u535A\u7269\u9986\u4E4B\u9996\u201D\u7684\u79F0\u53F7\u30022008\u5E74 \u7269\u9986\u88AB\u5217\u5165\u56FD\u5BB6\u4E00\u7EA7\u535A\u7269\u9986
 \u540D\u5355\u3002`],
         antique: [
-          { name: "\u9ED1\u79DE\u6267\u58F6", src: "/static/background.jpg" },
-          { name: "\u9ED1\u79DE\u6267\u58F6", src: "/static/background.jpg" },
-          { name: "\u9ED1\u79DE\u6267\u58F6", src: "/static/background.jpg" }
+          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u7C89\u5F69\u7F20\u679D\u82B1\u5349\u7897.jpg" },
+          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u9752\u74F7\u72D7.jpg" },
+          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F.jpg" }
         ],
-        max_pic: "",
+        max_pic: ["https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99861.jpg", "https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99862.jpg", "https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99863.jpg"],
         full_src: "/static/background.jpg"
       };
       common_vendor.index.navigateTo({
@@ -102,7 +96,12 @@ const _sfc_main = {
         title: "\u975E\u9057\u6545\u4E8B" + name + "\u6682\u65F6\u672A\u5F00\u653E"
       });
     }
-    return { loading: loading2, story, more, museum, show_loading, base_url, other, toggle_other };
+    let head_img = common_vendor.reactive([
+      "https://www.mynameisczy.asia/image/antique/home_top/title1.jpg",
+      "https://www.mynameisczy.asia/image/antique/home_top/title2.jpg",
+      "https://www.mynameisczy.asia/image/antique/home_top/title3.jpg"
+    ]);
+    return { head_img, loading: loading2, story, more, museum, show_loading, base_url, other, toggle_other };
   }
 };
 if (!Array) {
@@ -119,23 +118,26 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.p({
       show_loading: $setup.show_loading
     }),
-    b: $setup.base_url + "/image/antique/home_swiper1.jpg",
-    c: $setup.base_url + "/image/antique/home_swiper1.jpg",
-    d: $setup.base_url + "/image/antique/home_swiper1.jpg",
-    e: common_vendor.f($setup.other, (item, inex, i0) => {
+    b: common_vendor.f($setup.head_img, (item, index, i0) => {
+      return {
+        a: item,
+        b: index
+      };
+    }),
+    c: common_vendor.f($setup.other, (item, inex, i0) => {
       return {
         a: item.pic,
         b: common_vendor.t(item.name),
         c: common_vendor.o(($event) => $setup.toggle_other(item), _ctx.index)
       };
     }),
-    f: _ctx.index,
-    g: common_vendor.p({
+    d: _ctx.index,
+    e: common_vendor.p({
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    h: common_vendor.o(($event) => $setup.more("all")),
-    i: common_vendor.f(["\u6C5F\u6C49\u535A\u7269\u9986", "\u8346\u5DDE\u535A\u7269\u9986"], (item, index, i0) => {
+    f: common_vendor.o(($event) => $setup.more("all")),
+    g: common_vendor.f(["\u8346\u5DDE\u535A\u7269\u9986", "\u6C5F\u6C49\u535A\u7269\u9986"], (item, index, i0) => {
       return {
         a: $setup.base_url + "/image/antique/museum" + (index + 1) + ".jpg",
         b: common_vendor.t(item),
@@ -143,12 +145,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: index
       };
     }),
-    j: common_vendor.p({
+    h: common_vendor.p({
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    k: common_vendor.o(($event) => $setup.more("more_category")),
-    l: common_vendor.f([1, 2, 3], (item, index, i0) => {
+    i: common_vendor.o(($event) => $setup.more("more_category")),
+    j: common_vendor.f([1, 2, 3], (item, index, i0) => {
       return {
         a: $setup.base_url + "/image/antique/story" + item + ".jpg",
         b: common_vendor.o(($event) => $setup.story(item), index),

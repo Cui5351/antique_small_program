@@ -76,6 +76,9 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-390a77b4 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-390a77b4 {
   display: flex;
   flex-direction: column;
@@ -148,7 +151,10 @@
   background-color: #6E79E2;
 }
 .background.data-v-390a77b4 {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-390a77b4:active {
+  background-color: #6E79E2;
 }
 .container.data-v-390a77b4 {
   overflow: auto;
@@ -378,6 +384,9 @@ image.data-v-390a77b4 {
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-390a77b4 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-390a77b4 {
   display: flex;
   flex-direction: column;
@@ -450,5 +459,8 @@ image.data-v-390a77b4 {
   background-color: #6E79E2;
 }
 .background.data-v-390a77b4 {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-390a77b4:active {
+  background-color: #6E79E2;
 }

@@ -2,19 +2,9 @@
 		<loading :show_loading="show_loading"></loading>
 	<view class="container">
 		<swiper class="swiper" indicator-color='gray' indicator-active-color='#ffffff' circular autoplay interval='2500' :indicator-dots="true">
-			<swiper-item>
+			<swiper-item v-for="(item,index) in head_img" :key="index">
 				<view class="swiper_item">
-					<image :src="base_url+'/image/antique/home_swiper1.jpg'"></image>
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper_item">
-					<image :src="base_url+'/image/antique/home_swiper1.jpg'"></image>
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper_item">
-					<image :src="base_url+'/image/antique/home_swiper1.jpg'"></image>
+					<image :src="item"></image>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -36,7 +26,7 @@
 					</view>
 				</view>
 				<view class="museums_">
-					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['江汉博物馆','荆州博物馆']" :key="index">
+					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['荆州博物馆','江汉博物馆']" :key="index">
 						<view class="img">
 							<image :src="base_url+'/image/antique/museum'+(index+1)+'.jpg'" mode=""></image>
 						</view>
@@ -147,17 +137,11 @@
 建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
 址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
 佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
-名单。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
-佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
-名单。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
-佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
-名单。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
-佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
 名单。`],
-						antique:[{name:'黑秞执壶',src:'/static/background.jpg'},
-						{name:'黑秞执壶',src:'/static/background.jpg'},
-						{name:'黑秞执壶',src:'/static/background.jpg'}],
-						max_pic:'',
+						antique:[{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/粉彩缠枝花卉碗.jpg'},
+						{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/青瓷狗.jpg'},
+						{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/黄地粉彩龙纹杯.jpg'}],
+						max_pic:['https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆1.jpg','https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆2.jpg','https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆3.jpg'],
 						full_src:'/static/background.jpg'
 				}
 				uni.navigateTo({
@@ -171,7 +155,10 @@
 					title:'非遗故事'+name+'暂时未开放'
 				})
 			}
-			return{loading,story,more,museum,show_loading,base_url,other,toggle_other}
+			let head_img=reactive(['https://www.mynameisczy.asia/image/antique/home_top/title1.jpg',
+			'https://www.mynameisczy.asia/image/antique/home_top/title2.jpg',
+			'https://www.mynameisczy.asia/image/antique/home_top/title3.jpg'])
+			return{head_img,loading,story,more,museum,show_loading,base_url,other,toggle_other}
 		}
 	}
 </script>

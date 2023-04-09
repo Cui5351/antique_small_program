@@ -51,7 +51,8 @@
 				border-radius: 50%;
 			}
 			&>.active{
-				background-color: #fffbf2;
+				// background-color: #fffbf2;
+				background-color: white;
 			}
 			@include width(30%);
 			&>view{

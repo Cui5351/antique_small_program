@@ -76,6 +76,9 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-85a52bf6 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-85a52bf6 {
   display: flex;
   flex-direction: column;
@@ -148,7 +151,10 @@
   background-color: #6E79E2;
 }
 .background.data-v-85a52bf6 {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-85a52bf6:active {
+  background-color: #6E79E2;
 }
 .container.data-v-85a52bf6 {
   overflow: hidden;
@@ -216,7 +222,7 @@
   border-radius: 50%;
 }
 .body .list .culture > .active.data-v-85a52bf6 {
-  background-color: #fffbf2;
+  background-color: white;
 }
 .body .list .culture > view.data-v-85a52bf6 {
   max-width: 100%;
@@ -294,6 +300,9 @@
 }
 /* 水平间距 */
 /* 水平间距 */
+image.data-v-85a52bf6 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c.data-v-85a52bf6 {
   display: flex;
   flex-direction: column;
@@ -366,5 +375,8 @@
   background-color: #6E79E2;
 }
 .background.data-v-85a52bf6 {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active.data-v-85a52bf6:active {
+  background-color: #6E79E2;
 }
