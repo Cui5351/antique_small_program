@@ -147,8 +147,31 @@
 				})
 			}
 			function all_antique(){
-				uni.navigateTo({
-					url:'/pages/home/other_page/all_anitique/all_anitique'
+				// 进行网络请求
+				uni.showLoading({
+					title:'加载中'
+				})
+				uni.request({
+					url:'https://www.mynameisczy.asia:5000/small_program_state',
+					method:"POST",
+					data:{
+						small_program_name:'antique_small_program'
+					},
+					success(res) {
+						if(res.data.value==0){
+							uni.showToast({
+								icon:'none',
+								title:'网络状态不佳'
+							})
+							return
+						}
+						uni.navigateTo({
+							url:'/pages/home/other_page/all_anitique/all_anitique'
+						})
+					},
+					complete() {
+						uni.hideLoading()
+					}
 				})
 			}
 			function show_all(){

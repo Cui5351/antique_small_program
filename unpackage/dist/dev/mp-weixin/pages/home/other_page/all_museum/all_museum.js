@@ -327,14 +327,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    f: $setup.show_store.main,
-    g: common_vendor.f($setup.show_store.store, (item, index, i0) => {
-      return {
-        a: item.src,
-        b: common_vendor.o(($event) => $setup.enter(item), index),
-        c: index
-      };
-    })
+    f: $setup.show_store.main
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-85a52bf6"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/other_page/all_museum/all_museum.vue"]]);

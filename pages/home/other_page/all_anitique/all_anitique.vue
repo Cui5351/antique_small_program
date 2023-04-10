@@ -52,14 +52,7 @@ export default{
   name:'',
   setup(){
 	let back=uni.current_this.back
-	let static_data=[
-  {
-   src:'https://www.mynameisczy.asia/image/antique/antiques/虎座鸟架鼓.jpg',
-   born:'湖北省荆州市',
-   date:'战国时期',
-   name:'虎座鸟架鼓',
-   description:'两只昂首卷尾、四肢屈伏、背向而踞的卧虎为底座，虎背上各立一只长腿昂首引吭高歌的鸣凤，背向而立的鸣凤中间，一面大鼓用红绳带悬于凤冠之上。通体髹黑漆为地，以红、黄、金、蓝等色绘出虎斑纹和凤的羽毛。全器造型逼真，彩绘绚丽辉煌，既是鼓乐，也是艺术佳作。值得指出的是，在这一凤与虎的组合形象中，凤高大轩昂，傲视苍穹，虎却矮小瑟缩趴伏于地，反映了楚人崇鸣凤、向往安详的意识和征服猛兽、不畏强暴的精神。现收藏于湖北省荆州市博物馆 。'
-  },{
+	let static_data=[{
    src:'https://www.mynameisczy.asia/image/antique/antiques/青瓷双系耳壶.jpg',
    born:'荆州区王氏堰出土',
    date:'西汉时期',
@@ -84,7 +77,7 @@ export default{
    src:'https://www.mynameisczy.asia/image/antique/antiques/黑釉执壶.jpg',
    born:'沙市区城隍庙出土',
    date:'北宋时期',
-   name:'黑釉执壶.',
+   name:'黑釉执壶',
    description:'杯口尖唇，长颈，广肩，圆腹上鼓，圈足微外斜。在壶肩的一侧置有下宽上窄弯曲形的长流，对应的另一侧有双条并列相连而成的单柄把手。通体饰黑釉，釉层较厚呈失透状，在黑釉的釉面上有大片的雾状斑饰，器腹下釉色微褐。底足露胎，胎灰色，质较细。耀州窑发展到宋代以烧青瓷为主流，亦兼烧黑釉、酱釉、结晶釉瓷，此壶是宋代该窑所烧的少量黑釉执壶的一件代表。'
   }
 ,{
@@ -93,6 +86,13 @@ export default{
    date:'新石器时代后石家河文化时期',
    name:'红陶盉',
    description:'高15cm，口径9cm，底径5.7cm。盉（hé 音禾），阔颈，溜肩，鼓腹，腹以下内收，平底。一侧置短流，另一侧置宽柄。泥质红陶。器表打磨光滑。'
+  },
+  {
+   src:'https://www.mynameisczy.asia/image/antique/antiques/虎座鸟架鼓.jpg',
+   born:'湖北省荆州市',
+   date:'战国时期',
+   name:'虎座鸟架鼓',
+   description:'两只昂首卷尾、四肢屈伏、背向而踞的卧虎为底座，虎背上各立一只长腿昂首引吭高歌的鸣凤，背向而立的鸣凤中间，一面大鼓用红绳带悬于凤冠之上。通体髹黑漆为地，以红、黄、金、蓝等色绘出虎斑纹和凤的羽毛。全器造型逼真，彩绘绚丽辉煌，既是鼓乐，也是艺术佳作。值得指出的是，在这一凤与虎的组合形象中，凤高大轩昂，傲视苍穹，虎却矮小瑟缩趴伏于地，反映了楚人崇鸣凤、向往安详的意识和征服猛兽、不畏强暴的精神。现收藏于湖北省荆州市博物馆 。'
   }
 ,{
    src:'https://www.mynameisczy.asia/image/antique/antiques/黄地粉彩龙纹杯.jpg',
@@ -105,7 +105,7 @@ export default{
    src:'https://www.mynameisczy.asia/image/antique/antiques/青瓷龙柄盘口壶.jpg',
    born:'荆州区江陵砖瓦厂出土',
    date:'隋朝时期',
-   name:'青瓷龙柄盘口壶.',
+   name:'青瓷龙柄盘口壶',
    description:' 浅盘口，圆唇，丰肩，细长颈，鼓腹，下腹内收，颈部饰竹节纹，肩部安两系呈对称分布，肩另一侧置一双龙头柄，器型规则、少见'
   }
 ,{

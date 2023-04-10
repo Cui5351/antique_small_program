@@ -75,18 +75,18 @@
 	  <view class="other flex_j_a_r">
 			<view class="flex_j_a_c"  @click="show_all">
 				<view class="pic">
-					<image src="/static/store_page/info_server.svg" mode=""></image>
+					<image src="/static/store_page/info_server.svg"  style="background-color: white;" mode=""></image>
 				</view>
 					客服
 			</view>
 			<view class="flex_j_a_c"   @click="show_all">
 				<view class="pic">
-					<image src="/static/store_page/store.svg" mode=""></image>
+					<image style="background-color: white;" src="/static/store_page/store.svg" mode=""></image>
 				</view>
 				店铺</view>
 			<view class="flex_j_a_c"  @click="show_all">
 				<view class="pic">
-					<image src="/static/store_page/shop_car.svg" mode=""></image>
+					<image style="background-color: white;" src="/static/store_page/shop_car.svg" mode=""></image>
 				</view>
 				购物车</view>
 	  </view>

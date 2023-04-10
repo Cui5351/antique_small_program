@@ -26,7 +26,7 @@
 					</view>
 				</view>
 				<view class="museums_">
-					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['荆州博物馆','江汉博物馆']" :key="index">
+					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['长江艺术工程职业学院传承院','荆州博物馆']" :key="index">
 						<view class="img">
 							<image :src="base_url+'/image/antique/museum'+(index+1)+'.jpg'" mode=""></image>
 						</view>
@@ -119,8 +119,11 @@
 			function museum(name){
 				console.log(name);
 				// 查看资源是否存在
-				if(name=='江汉博物馆'){
-					loading()
+				if(name!='荆州博物馆'){
+					uni.showToast({
+						title:name+'暂未开放',
+						icon:'none'
+					})
 					return
 				}
 				// 实现预加载
@@ -142,7 +145,7 @@
 						{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/青瓷狗.jpg'},
 						{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/黄地粉彩龙纹杯.jpg'}],
 						max_pic:['https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆1.jpg','https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆2.jpg','https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆3.jpg'],
-						full_src:'/static/background.jpg'
+						full_src:'https://www.mynameisczy.asia/image/antique/荆州博物馆全景图.jpg'
 				}
 				uni.navigateTo({
 					url:`./other_page/museum/museum?data=${JSON.stringify(result)}`

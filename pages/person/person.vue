@@ -35,7 +35,7 @@
 				<view >
 					<view class="store">
 							<view class="pic">
-								<image src="" mode=""></image>
+								<image src="/static/store_page/store2.svg" mode="" style="background-color: white;"></image>
 							</view>
 						<view class="store_info">
 							<view >
@@ -48,7 +48,7 @@
 					</view>
 					<view class="bills">
 						<view class="pic">
-							<image src="" mode=""></image>
+							<image src="/static/store_page/bill.svg"  style="background-color: white;" mode=""></image>
 						</view>
 						<view class="store_info">
 							<view>

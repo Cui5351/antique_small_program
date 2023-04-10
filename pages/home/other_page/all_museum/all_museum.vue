@@ -20,12 +20,7 @@
 						<image :src="show_store.main" mode=""></image>
 					</view>
 					<view class="culture_store flex_c">
-						<view class="title">联名文创</view>
-						<view class="goods_all">
-							<view class="goods" @click="enter(item)" v-for="(item,index) in show_store.store" :key="index">
-								<image :src="item.src"></image>
-							</view>
-						</view>
+						
 					</view>
 				</view>
 			</view>

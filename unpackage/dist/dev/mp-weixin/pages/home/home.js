@@ -60,8 +60,11 @@ const _sfc_main = {
     }
     function museum(name) {
       console.log(name);
-      if (name == "\u6C5F\u6C49\u535A\u7269\u9986") {
-        loading2();
+      if (name != "\u8346\u5DDE\u535A\u7269\u9986") {
+        common_vendor.index.showToast({
+          title: name + "\u6682\u672A\u5F00\u653E",
+          icon: "none"
+        });
         return;
       }
       let result = {
@@ -84,7 +87,7 @@ const _sfc_main = {
           { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F.jpg" }
         ],
         max_pic: ["https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99861.jpg", "https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99862.jpg", "https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99863.jpg"],
-        full_src: "/static/background.jpg"
+        full_src: "https://www.mynameisczy.asia/image/antique/\u8346\u5DDE\u535A\u7269\u9986\u5168\u666F\u56FE.jpg"
       };
       common_vendor.index.navigateTo({
         url: `./other_page/museum/museum?data=${JSON.stringify(result)}`
@@ -137,7 +140,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "right"
     }),
     f: common_vendor.o(($event) => $setup.more("all")),
-    g: common_vendor.f(["\u8346\u5DDE\u535A\u7269\u9986", "\u6C5F\u6C49\u535A\u7269\u9986"], (item, index, i0) => {
+    g: common_vendor.f(["\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u4F20\u627F\u9662", "\u8346\u5DDE\u535A\u7269\u9986"], (item, index, i0) => {
       return {
         a: $setup.base_url + "/image/antique/museum" + (index + 1) + ".jpg",
         b: common_vendor.t(item),

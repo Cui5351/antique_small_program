@@ -1,5 +1,8 @@
 /* 水平间距 */
 /* 水平间距 */
+image {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .flex_c {
   display: flex;
   flex-direction: column;
@@ -72,7 +75,10 @@
   background-color: #6E79E2;
 }
 .background {
-  background-color: #fffbf2;
+  background-color: white;
+}
+.background1_active:active {
+  background-color: #6E79E2;
 }
 /*每个页面公共css */
 /* 水平间距 */

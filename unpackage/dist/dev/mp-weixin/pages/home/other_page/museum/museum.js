@@ -58,8 +58,30 @@ const _sfc_main = {
       });
     }
     function all_antique() {
-      common_vendor.index.navigateTo({
-        url: "/pages/home/other_page/all_anitique/all_anitique"
+      common_vendor.index.showLoading({
+        title: "\u52A0\u8F7D\u4E2D"
+      });
+      common_vendor.index.request({
+        url: "https://www.mynameisczy.asia:5000/small_program_state",
+        method: "POST",
+        data: {
+          small_program_name: "antique_small_program"
+        },
+        success(res) {
+          if (res.data.value == 0) {
+            common_vendor.index.showToast({
+              icon: "none",
+              title: "\u7F51\u7EDC\u72B6\u6001\u4E0D\u4F73"
+            });
+            return;
+          }
+          common_vendor.index.navigateTo({
+            url: "/pages/home/other_page/all_anitique/all_anitique"
+          });
+        },
+        complete() {
+          common_vendor.index.hideLoading();
+        }
       });
     }
     function show_all() {
