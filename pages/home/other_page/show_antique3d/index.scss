@@ -1,0 +1,126 @@
+@import '@/uni.scss';
+.background_antique{
+	height:100%;
+	width:100%;
+	position: absolute;
+	transform: scale(2);
+}
+// .head_two{
+// 	position: absolute;
+// }
+.swiper{
+	position: absolute;
+	z-index: 200;
+	top:0;
+	width:100%;
+	@include height(100%);
+}
+.antique{
+	padding-top: 20%;
+	@include height(100%);
+	&>view{
+		padding:20px 30px;
+		box-sizing: border-box;
+		width:100%;
+	}
+	&>.born{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding:10px 30px;
+		&>.bor{
+			font-size: 35px;
+			letter-spacing:10px;
+			// flex-wrap: wrap;
+			text-align: center;
+			width:100%;
+			// @include height(60%);
+			// background-color: aqua;
+		}
+		&>.tip{
+			width:100%;
+			// @include height(30%);
+			&>.arrow{
+				@keyframes do {
+					from{
+						transform: translateY(0)
+					}
+					33%{
+						transform: translateY(5px);
+					}
+					77%{
+						transform: translateY(-5px);
+					}
+					to{
+						transform: translateY(0)
+					}
+				}
+				animation:do 2s linear infinite;
+			}
+		}
+		@include height(15%);
+		// background-color: red;
+	}
+	&>.pic{
+		@include height(47%);
+		// background-color: deepskyblue;
+		&>.anti{
+			position: relative;
+			@include height(90%);
+			&>image{
+				border-radius:50%;
+				height:100%;
+			}
+			&>.btn{
+				background-color: rgba(200,200,186,.4);
+				left:50%;
+				top: 50%;
+				transform: translate(-50%,-50%);
+				color: black;
+				height:40px;
+				width:40px;
+				border-radius:50%;
+				position: absolute;
+			}
+		}
+	}
+	&>.name{
+		display: flex;
+		align-items: flex-start;
+		// background-color: deeppink;
+		&>view{
+			position: relative;
+			width:100%;
+			&>.name{
+				font-size: 30px;
+				&>.right{
+					height:20px;
+					font-size:15px;
+					line-height:20px;
+					border-radius: 50%;
+					text-align: center;
+					color: white;
+					width:20px;
+					background-color: rgba(200,200,186,.8);
+				}
+				margin-bottom:20px;
+			}
+			&>.audio{
+				background-color: rgba(200,200,186,.8);
+				position: absolute;
+				left:100%;
+				line-height:17px;
+				color: white;
+				border-radius: 50%;
+				text-align: center;
+				height:35px;
+				font-size:13px;
+				padding:5px;
+				width:35px;
+				transform: translateX(-80%);
+			}
+		}
+	}
+		
+}

@@ -37,7 +37,7 @@
 					</view>
 				</view>
 				<view>
-					<view class="museums_one flex_j_a_c" v-for="(item,index) in data.antique" :key="index">
+					<view class="museums_one flex_j_a_c" @click="show_antique(item)" v-for="(item,index) in data.antique" :key="index">
 						<view class="img">
 							<image :src="item.src" mode=""></image>
 						</view>
@@ -87,7 +87,7 @@
 				// uni.current_this1.data_height.height=res.height+100+'px'
 				uni.current_this1.data_height.height=150+'px'
 				uni.current_this1.data_height.min=150+'px'
-				uni.current_this1.data_height.max=res.height+100+'px'
+				uni.current_this1.data_height.max=(res.height+100)+'px'
 			}).exec(function(){
 				//上述布局位置信息获取成功后执行的回调函数
 			})
@@ -165,9 +165,14 @@
 							})
 							return
 						}
+						// 现代风1
 						uni.navigateTo({
-							url:'/pages/home/other_page/all_anitique/all_anitique'
+							url:`/pages/home/other_page/show_antique3d/show_antique3d`,
 						})
+						// 古典风格2
+						// uni.navigateTo({
+							// url:'/pages/home/other_page/all_anitique/all_anitique'
+						// })
 					},
 					complete() {
 						uni.hideLoading()
@@ -194,8 +199,14 @@
 					title:'暂未开放'
 				})
 			}
+			function show_antique(item){
+				subscribe()
+				// uni.navigateTo({
+					// url:`/pages/home/other_page/show_antique3d/show_antique3d?${JSON.stringify(item)}`,
+				// })
+			}
 			return {
-				subscribe,data_height,data,back,full_screen,all_antique,show_all
+				show_antique,subscribe,data_height,data,back,full_screen,all_antique,show_all
 			}
 		}
 	}

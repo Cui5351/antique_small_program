@@ -54,7 +54,8 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+		"optimization":{"subPackages":true}
     },
     "vueVersion" : "3"
 }

@@ -298,8 +298,11 @@ image.data-v-390a77b4 {
 .container .info .other > view > view .pic.data-v-390a77b4 {
   height: 50px;
   width: 50px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0);
   border-radius: 10px;
+}
+.container .info .other > view > view .pic > image.data-v-390a77b4 {
+  transform: scale(0.7);
 }
 .container .two.data-v-390a77b4 {
   display: flex;

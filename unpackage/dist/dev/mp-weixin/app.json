@@ -7,7 +7,9 @@
     "pages/workroom/workroom",
     "pages/home/other_page/all_museum/all_museum",
     "pages/store/other_page/store_page/store_page",
-    "pages/home/other_page/all_anitique/all_anitique"
+    "pages/home/other_page/all_anitique/all_anitique",
+    "pages/home/other_page/show_antique3d/show_antique3d",
+    "pages/home/other_page/show_antique3d/antique/antique"
   ],
   "window": {
     "navigationBarTextStyle": "black",

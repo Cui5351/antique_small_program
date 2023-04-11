@@ -20,16 +20,16 @@ const _sfc_main = {
   setup() {
     let other = common_vendor.reactive([{
       name: "\u5730\u56FE\u5BFC\u89C8",
-      pic: "../../static/my_head.png"
+      pic: "/static/map.svg"
     }, {
       name: "\u6587\u7269\u5E93",
-      pic: "../../static/my_head.png"
+      pic: "/static/storehouse.svg"
     }, {
       name: "\u7126\u70B9\u65B0\u95FB",
-      pic: "../../static/my_head.png"
+      pic: "/static/news.svg"
     }, {
       name: "\u7EBF\u4E0B\u4F53\u9A8C\u9986",
-      pic: "../../static/my_head.png"
+      pic: "/static/feelhouse.svg"
     }]);
     let show_loading = common_vendor.ref(false);
     let base_url = common_vendor.ref(common_vendor.index.current_this.baseURL);

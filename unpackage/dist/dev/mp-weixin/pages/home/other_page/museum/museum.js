@@ -76,7 +76,7 @@ const _sfc_main = {
             return;
           }
           common_vendor.index.navigateTo({
-            url: "/pages/home/other_page/all_anitique/all_anitique"
+            url: `/pages/home/other_page/show_antique3d/show_antique3d`
           });
         },
         complete() {
@@ -103,7 +103,11 @@ const _sfc_main = {
         title: "\u6682\u672A\u5F00\u653E"
       });
     }
+    function show_antique(item) {
+      subscribe();
+    }
     return {
+      show_antique,
       subscribe,
       data_height,
       data,
@@ -165,7 +169,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       return {
         a: item.src,
         b: common_vendor.t(item.name),
-        c: index
+        c: common_vendor.o(($event) => $setup.show_antique(item), index),
+        d: index
       };
     }),
     o: $setup.data.full_src,

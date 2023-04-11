@@ -28,6 +28,7 @@
 	/* #ifndef APP-NVUE */
 	// 设置整个项目的背景色
 	page {
+		font-family: '楷体';
 		background-color: #f5f5f5;
 		height:100%;
 		width:100%;

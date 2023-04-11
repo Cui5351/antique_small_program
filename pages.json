@@ -65,6 +65,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/home/other_page/show_antique3d/show_antique3d",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/other_page/show_antique3d/antique/antique",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"backgroundColor": "#fffbf2",

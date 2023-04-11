@@ -2417,6 +2417,7 @@ image {
   border-color: #e9e9eb;
 }
 page {
+  font-family: "楷体";
   background-color: #f5f5f5;
   height: 100%;
   width: 100%;

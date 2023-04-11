@@ -11,6 +11,8 @@ if (!Math) {
   "./pages/home/other_page/all_museum/all_museum.js";
   "./pages/store/other_page/store_page/store_page.js";
   "./pages/home/other_page/all_anitique/all_anitique.js";
+  "./pages/home/other_page/show_antique3d/show_antique3d.js";
+  "./pages/home/other_page/show_antique3d/antique/antique.js";
 }
 const _sfc_main = {
   onLaunch: function() {

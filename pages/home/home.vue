@@ -12,7 +12,7 @@
 			<view class="funs">
 				<view class=".flex_j_a_c" @click="toggle_other(item)" v-for="(item,inex) in other" :key="index">
 					<view class="icon">
-						<image :src="item.pic" mode=""></image>
+						<image :src="item.pic" style="background-color: white;" mode=""></image>
 					</view>
 					<view class="">
 						{{item.name}}
@@ -78,16 +78,16 @@
 		setup(){
 			let other=reactive([{
 				name:"地图导览",
-				pic:'../../static/my_head.png'
+				pic:'/static/map.svg'
 			},{
 				name:"文物库",
-				pic:'../../static/my_head.png'
+				pic:'/static/storehouse.svg'
 			},{
 				name:"焦点新闻",
-				pic:'../../static/my_head.png'
+				pic:'/static/news.svg'
 			},{
 				name:"线下体验馆",
-				pic:'../../static/my_head.png'
+				pic:'/static/feelhouse.svg'
 			}])
 			let show_loading=ref(false)
 			let base_url=ref(uni.current_this.baseURL)
