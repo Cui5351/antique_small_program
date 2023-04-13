@@ -32,8 +32,8 @@
 					<view class="introduce">{{person_info.introduction}}</view>
 			</view>
 			<view class="other">
-				<view >
-					<view class="store">
+				<view>
+					<view class="store"  @click="toggle_page('bill')">
 							<view class="pic">
 								<image src="/static/store_page/store2.svg" mode="" style="background-color: white;"></image>
 							</view>
@@ -46,7 +46,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="bills">
+					<view class="bills" @click="toggle_page('bills')">
 						<view class="pic">
 							<image src="/static/store_page/bill.svg"  style="background-color: white;" mode=""></image>
 						</view>
@@ -108,7 +108,19 @@
 			}
 			let opacity=ref(true)
 			let top=ref(uni.getMenuButtonBoundingClientRect().height*2)
-			return {opacity,person_info,toggle,top}
+			function toggle_page(title){
+				if(title=='bills'){
+					uni.navigateTo({
+						url:'/pages/person/other_page/bills/bills'
+					})
+					return
+				}
+				uni.showToast({
+					title:title+"暂未开放",
+					icon:'none'
+				})
+			}
+			return {opacity,person_info,toggle,top,toggle_page}
 		}
 	}
 </script>

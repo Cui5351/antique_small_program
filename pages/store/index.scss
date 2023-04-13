@@ -85,8 +85,8 @@
 					flex-wrap: wrap;
 					// justify-content: space-between;
 					.goods{
-						@include width(30%);
-						margin:0 2.5% 10px 0.5%;
+						@include width(32%);
+						margin:0 0.5% 10px 0.5%;
 						// @include height(33%);
 						height:150px;
 						&>image{

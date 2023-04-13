@@ -1,8 +1,10 @@
 <script>
+	import {useStore} from 'vuex'
 	export default {
 		onLaunch: function() {
 			uni.current_this=this
 			this.baseURL='https://www.mynameisczy.asia'
+			this.store=useStore()
 			this.back=function(){
 				if(getCurrentPages().length>1)
 					uni.navigateBack();

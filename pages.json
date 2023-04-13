@@ -83,6 +83,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/person/other_page/bills/bills",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"backgroundColor": "#fffbf2",

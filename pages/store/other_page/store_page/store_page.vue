@@ -4,9 +4,6 @@
   </view>
   <view class="container">
 	<view class="store_info">
-		<!-- <view class="store_name"> -->
-			<!-- <view></view> -->
-			<!-- 小七的店</view> -->
 		<view class="picture">
 			<swiper class="swi" circular indicator-dots indicator-active-color="white">
 				<swiper-item v-for="(item,index) in [1,2,3]" :key="index">
@@ -47,7 +44,7 @@
 		<view class="bought_person_count flex_j_a_c">
 			<view class="tit">
 				<view class="">7人已购买</view>
-				<view class="small_title">查看全部
+				<view class="small_title" @click="show_all">查看全部
 					<uni-icons type="right"></uni-icons>
 				</view>
 			</view>
@@ -61,12 +58,36 @@
 					</view>
 					<view class="right three_size flex_j_a_r ">
 						<view>3月17日买了1件</view>
-						<view class="go_buy">去下单</view>
+						<view class="go_buy" @click="show_all">去下单</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="comment">comment</view>
+		<view class="bought_person_count flex_j_a_c" style="height:30%;min-height:30%;">
+			<view class="tit">
+				<view class="">商品评价(5)</view>
+				<view class="small_title" @click="show_all">好评率：100%
+					<uni-icons type="right"></uni-icons>
+				</view>
+			</view>
+			<view class="all flex_j_a_c grows comment three_size">
+				<view class="flex_j_a_c" v-for="(item,index) in [1,2,3]" :key="index">
+					<view class="name flex_j_a_r">
+						<view class="flex_j_a_r">
+							<view class="pic">
+								<image src="/static/background.jpg" mode=""></image>
+							</view>1**71
+						</view>
+						<view class="">
+							<uni-rate activeColor="#6E79E2" readonly :value="5" @change="onChange" />
+						</view>
+					</view>
+					<view class="content">
+						设计一流，扇子精美
+					</view>
+				</view>
+			</view>
+		</view>
 		<view class="store_other">store_other</view>
 		
 	</view>
@@ -92,7 +113,7 @@
 	  </view>
 	  <view class="btn flex_j_a_r three_size">
 	  	<view class="flex_j_a_r background1" @click="join_car">加入购物车</view>
-	  	<view class="flex_j_a_r" @click="show_all">查看全部</view>
+	  	<view class="flex_j_a_r" @click="buy">购买</view>
 	  </view>
 	</view>
 </template>
@@ -124,7 +145,11 @@ export default{
   setup(){
 	let info=reactive({
 		pic:['https://www.mynameisczy.asia/image/antique/fan.jpg'],
-		name:'团扇'
+		name:'团扇',
+		src:'https://www.mynameisczy.asia/image/antique/fan.jpg',
+		money:99.9,
+		store_name:'小七的店铺',
+		count:1
 	})
 	let back=uni.current_this.back
 	function join_car(){
@@ -139,7 +164,21 @@ export default{
 			icon:'none'
 		})
 	}
-    return{back,info,join_car,show_all}
+	function buy(){
+		uni.showLoading({
+			title:'购买中',
+			mask:true
+		})
+		uni.current_this.store.dispatch('buy',JSON.stringify(this.info))
+		setTimeout(()=>{
+			uni.hideLoading()
+			uni.showToast({
+				title:'购买成功',
+				mask:true
+			})
+		},Math.random()*2000)
+	}
+    return{back,info,join_car,show_all,buy}
   }
 }
 </script>
