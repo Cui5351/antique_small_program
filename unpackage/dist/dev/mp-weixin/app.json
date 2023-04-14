@@ -11,7 +11,8 @@
     "pages/home/other_page/show_antique3d/show_antique3d",
     "pages/home/other_page/show_antique3d/antique/antique",
     "pages/person/other_page/bills/bills",
-    "pages/person/other_page/avatar_edit/avatar_edit"
+    "pages/person/other_page/avatar_edit/avatar_edit",
+    "pages/person/other_page/base_info/base_info"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -33,7 +33,7 @@ const _sfc_main = {
     function login() {
       if (common_vendor.index.current_this.store.getters.login_state) {
         common_vendor.index.navigateTo({
-          url: "/pages/person/other_page/avatar_edit/avatar_edit"
+          url: "/pages/person/other_page/base_info/base_info"
         });
         return;
       }
@@ -65,6 +65,7 @@ const _sfc_main = {
                   openid: res1.data.value.openid
                 },
                 success(res) {
+                  console.log(res.data);
                   if (res.data.state) {
                     common_vendor.index.current_this.store.state.user_info.openid = res1.data.value.openid;
                     Object.keys(res.data.value).forEach((item) => {

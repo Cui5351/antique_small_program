@@ -343,7 +343,6 @@ image.data-v-390a77b4 {
   transition: 0.5s ease;
   position: relative;
   z-index: 9999;
-  background-color: #8cd2a8;
   height: 100%;
   width: 50%;
   left: 0%;

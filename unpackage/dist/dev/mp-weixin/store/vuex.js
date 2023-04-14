@@ -75,6 +75,9 @@ const getters = {
   avatar(state2) {
     return state2.user_info.avatar;
   },
+  sex(state2) {
+    return state2.user_info.sex;
+  },
   introduce(state2) {
     return state2.user_info.introduce;
   },

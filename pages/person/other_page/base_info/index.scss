@@ -1,0 +1,46 @@
+.base_info{
+	padding-top: 20px;
+	box-sizing: border-box;
+}
+.item{
+	width:100%;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+	height: 10%;
+	display: flex;
+	// justify-content: space-between;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	align-items: center;
+	&>.title{
+		width: 30%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	&>view{
+		width:70%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+	.name{
+		border-top: 1px solid rgba(0,0,0,.1);
+	}
+.avatar{
+	border-bottom:none;
+		@include height(30%);
+	&>view{
+		@include height(150px);
+		@include width(150px);
+	}
+	margin-bottom:20px;
+}
+.vessel{
+	display: flex;
+	flex-direction: column;
+	@include height(90%);
+	&>view{
+		width:100%;
+	}
+}

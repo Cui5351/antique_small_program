@@ -20,6 +20,7 @@ const _sfc_main = {
           openid: common_vendor.index.current_this.store.state.user_info.openid
         },
         success(e2) {
+          console.log(e2, "e");
           common_vendor.index.navigateBack();
           common_vendor.index.hideLoading();
           let data = JSON.parse(e2.data);
@@ -52,12 +53,13 @@ const _sfc_main = {
 };
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  const _component_qf_image_cropper = common_vendor.resolveComponent("qf-image-cropper");
-  (_easycom_uni_icons2 + _component_qf_image_cropper)();
+  const _easycom_qf_image_cropper2 = common_vendor.resolveComponent("qf-image-cropper");
+  (_easycom_uni_icons2 + _easycom_qf_image_cropper2)();
 }
 const _easycom_uni_icons = () => "../../../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+const _easycom_qf_image_cropper = () => "../../../../uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper.js";
 if (!Math) {
-  _easycom_uni_icons();
+  (_easycom_uni_icons + _easycom_qf_image_cropper)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {

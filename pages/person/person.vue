@@ -71,7 +71,7 @@
 					<view @click="toggle(false)" class="ti">收藏</view>
 				</view>
 				<view class="t2">
-					<view class="line" :style="{left:person_info.toggle?'0%':'50%'}"></view>
+					<view class="line background1" :style="{left:person_info.toggle?'0%':'50%'}"></view>
 				</view>
 			</view>
 			<view class="two" v-if="!person_info.toggle" >
@@ -130,7 +130,7 @@
 				if(uni.current_this.store.getters.login_state){
 					// set avatar
 					uni.navigateTo({
-						url:'/pages/person/other_page/avatar_edit/avatar_edit'
+						url:'/pages/person/other_page/base_info/base_info'
 					})
 					return
 				}
@@ -162,6 +162,7 @@
 									data:{
 										openid:res1.data.value.openid
 									},success(res) {
+										console.log(res.data);
 										if(res.data.state){
 											uni.current_this.store.state.user_info.openid=res1.data.value.openid
 											Object.keys(res.data.value).forEach(item=>{

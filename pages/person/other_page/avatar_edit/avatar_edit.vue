@@ -34,6 +34,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 									openid:uni.current_this.store.state.user_info.openid
 								},
 								success(e) {
+									console.log(e,'e');
 									// 返回
 									uni.navigateBack()
 									uni.hideLoading()

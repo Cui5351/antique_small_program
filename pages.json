@@ -98,6 +98,13 @@
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
+        },{
+            "path" : "pages/person/other_page/base_info/base_info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
             
         }
     ],
