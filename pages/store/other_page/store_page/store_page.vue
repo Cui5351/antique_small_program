@@ -63,7 +63,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="bought_person_count flex_j_a_c" style="height:30%;min-height:30%;">
+		<view class="bought_person_count cc flex_j_a_c" style="height:35%;min-height:35%;">
 			<view class="tit">
 				<view class="">商品评价(5)</view>
 				<view class="small_title" @click="show_all">好评率：100%

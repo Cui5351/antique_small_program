@@ -250,6 +250,9 @@ image.data-v-92cbb4f6 {
   min-height: 90%;
   height: 90%;
 }
+.cc.data-v-92cbb4f6 {
+  justify-content: space-between;
+}
 .store_name.data-v-92cbb4f6 {
   background-color: white;
   padding: 0 20px;
@@ -262,9 +265,9 @@ image.data-v-92cbb4f6 {
   height: 4%;
 }
 .picture.data-v-92cbb4f6 {
-  max-height: 60%;
-  min-height: 60%;
-  height: 60%;
+  max-height: 50%;
+  min-height: 50%;
+  height: 50%;
 }
 .picture .swi.data-v-92cbb4f6 {
   height: 100%;
@@ -386,9 +389,9 @@ image.data-v-92cbb4f6 {
 }
 .bought_person_count > .all.data-v-92cbb4f6 {
   justify-content: flex-end;
-  max-height: 80%;
-  min-height: 80%;
-  height: 80%;
+  max-height: 70%;
+  min-height: 70%;
+  height: 70%;
   width: 100%;
 }
 .bought_person_count > .all > .user.data-v-92cbb4f6 {

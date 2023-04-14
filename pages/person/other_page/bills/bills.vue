@@ -68,8 +68,8 @@ export default{
 	let state=ref(0)
 	let stores=reactive({
 		all:[...uni.current_this.store.state.cars],
-		cars:[...uni.current_this.store.state.cars],
 		await_pay:[],
+		cars:[...uni.current_this.store.state.cars],
 		comment:[]
 	})
 	function delete_store(item){

@@ -2,12 +2,14 @@
 	<view class="container flex_c background">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
 		<view class="top_img">
-			<image src="../../static/my_head.png"></image>
+			<image :src="person_info.background"></image>
 		</view>
 		<view class="info flex_c">
 			<view class="top">
-				<view class="avatar">
-					<image src="../../static/background.jpg"></image>
+				<view class="avatar" @click="login">
+					<!-- <button open-type="getPhoneNumber" @getphonenumber="decryptPhoneNumber">	 -->
+						<image :src="person_info.avatar"></image>
+					<!-- </button> -->
 				</view>
 				<view class="avatar_right">
 					<view>
@@ -27,9 +29,9 @@
 				</view>
 			</view>
 			<view class="person_info flex_c">
-					<view class="name">{{person_info.name}}</view>
-					<view class="id">ID:{{person_info.id}}</view>
-					<view class="introduce">{{person_info.introduction}}</view>
+					<view class="name">名字:{{person_info.name}}</view>
+					<view class="id">ID:{{person_info.openid}}</view>
+					<view class="introduce">简介:{{person_info.introduce}}</view>
 			</view>
 			<view class="other">
 				<view>
@@ -91,17 +93,21 @@
 </template>
 
 <script>
-	import {reactive,ref} from 'vue'
+	import {reactive,ref,computed} from 'vue'
 	export default {
 		setup() {
 			let person_info=reactive({
-				name:'李四',
-				id:'123321',
-				introduction:'小四的简介',
-				counts:[5,6,7],
+				name:computed(()=>uni.current_this.store.getters.name),
+				openid:computed(()=>uni.current_this.store.getters.openid),
+				background:computed(()=>uni.current_this.store.getters.background),
+				avatar:computed(()=>uni.current_this.store.getters.avatar),
+				introduce:computed(()=>uni.current_this.store.getters.introduce),
+				counts:[0,0,0],
 				toggle:true,
-				works:['one','two','three','four','five','six','seven','eight','nine','ten'],
-				works2:['six','seven','eight','nine','ten']
+				works:[],
+				works2:[]
+				// works:['one','two','three','four','five','six','seven','eight','nine','ten'],
+				// works2:['six','seven','eight','nine','ten']
 			})
 			function toggle(bool){
 				person_info.toggle=bool
@@ -120,7 +126,67 @@
 					icon:'none'
 				})
 			}
-			return {opacity,person_info,toggle,top,toggle_page}
+			function login(){
+				if(uni.current_this.store.getters.login_state){
+					// set avatar
+					uni.navigateTo({
+						url:'/pages/person/other_page/avatar_edit/avatar_edit'
+					})
+					return
+				}
+				uni.showLoading({
+					title:'登录中'
+				})
+				uni.login({
+					provider:'weixin',
+					success({code}) {
+						// 获取openid
+						uni.request({
+							url:uni.current_this.baseURL+':5001/getOpenid',
+							method:'POST',
+							data:{
+								code:code
+							},success(res1) {
+								if(res1.data.state!=1){
+									uni.showToast({
+										title:'登录失败',
+										icon:'error'
+									})
+									return
+								}
+								uni.current_this.store.state.user_info.openid=res1.data.value.openid
+								// 登录
+								uni.request({
+									url:uni.current_this.baseURL+':5001/login_user',
+									method:'POST',
+									data:{
+										openid:res1.data.value.openid
+									},success(res) {
+										if(res.data.state){
+											uni.current_this.store.state.user_info.openid=res1.data.value.openid
+											Object.keys(res.data.value).forEach(item=>{
+												uni.current_this.store.state.user_info[item]=res.data.value[item]
+											})
+											uni.showToast({
+												title:'登录成功',
+											})
+											uni.current_this.store.dispatch('set_login',1)
+										}else{
+											uni.showToast({
+												title:'登录失败',
+											})
+										}
+									},
+									complete() {
+										uni.hideLoading()
+									}
+								})
+							}
+						})
+					}
+				})
+			}
+			return {login,opacity,person_info,toggle,top,toggle_page}
 		}
 	}
 </script>

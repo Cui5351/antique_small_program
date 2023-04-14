@@ -91,6 +91,14 @@
                 "enablePullDownRefresh": false
             }
             
+        },{
+            "path" : "pages/person/other_page/avatar_edit/avatar_edit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"tabBar": {

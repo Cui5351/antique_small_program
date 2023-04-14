@@ -7,8 +7,8 @@ const _sfc_main = {
     let state = common_vendor.ref(0);
     let stores = common_vendor.reactive({
       all: [...common_vendor.index.current_this.store.state.cars],
-      cars: [...common_vendor.index.current_this.store.state.cars],
       await_pay: [],
+      cars: [...common_vendor.index.current_this.store.state.cars],
       comment: []
     });
     function delete_store(item) {

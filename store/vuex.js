@@ -7,7 +7,16 @@ uni.getStorage({
 	}
 })
 const state={
-	cars:[]
+	cars:[],
+	login_state:0,
+	user_info:{
+		openid:'',
+		name:'',
+		avatar:'https://www.mynameisczy.asia/antique/user_avatar/default_avatar.jpg',
+		introduce:'',
+		sex:'',
+		background:'https://www.mynameisczy.asia/antique/user_avatar/default_background.jpg'
+	}
 }
 const mutations={
 	BUY(state){
@@ -48,9 +57,30 @@ const actions={
 				state.cars.splice(i,1)
 		}
 		commit("DELETEBILL")
+	},
+	set_login({commit,state},value){
+		state.login_state=value
 	}
 }
 const getters={
+	login_state(state){
+		return state.login_state
+	},
+	openid(state){
+		return state.user_info.openid
+	},
+	name(state){
+		return state.user_info.name
+	},
+	avatar(state){
+		return state.user_info.avatar
+	},
+	introduce(state){
+		return state.user_info.introduce
+	},
+	background(state){
+		return state.user_info.background
+	}
 }
 export default createStore({
 	actions,

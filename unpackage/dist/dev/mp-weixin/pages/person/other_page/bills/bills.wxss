@@ -164,7 +164,7 @@ image.data-v-105a4c2e {
 }
 .hig.data-v-105a4c2e {
   font-size: 20px;
-  color: orangered;
+  color: #6E79E2;
 }
 .search.data-v-105a4c2e {
   box-sizing: border-box;

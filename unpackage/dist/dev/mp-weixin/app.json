@@ -10,7 +10,8 @@
     "pages/home/other_page/all_anitique/all_anitique",
     "pages/home/other_page/show_antique3d/show_antique3d",
     "pages/home/other_page/show_antique3d/antique/antique",
-    "pages/person/other_page/bills/bills"
+    "pages/person/other_page/bills/bills",
+    "pages/person/other_page/avatar_edit/avatar_edit"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -8,7 +8,16 @@ common_vendor.index.getStorage({
   }
 });
 const state = {
-  cars: []
+  cars: [],
+  login_state: 0,
+  user_info: {
+    openid: "",
+    name: "",
+    avatar: "https://www.mynameisczy.asia/antique/user_avatar/default_avatar.jpg",
+    introduce: "",
+    sex: "",
+    background: "https://www.mynameisczy.asia/antique/user_avatar/default_background.jpg"
+  }
 };
 const mutations = {
   BUY(state2) {
@@ -48,9 +57,31 @@ const actions = {
         state.cars.splice(i, 1);
     }
     commit("DELETEBILL");
+  },
+  set_login({ commit, state: state2 }, value) {
+    state2.login_state = value;
   }
 };
-const getters = {};
+const getters = {
+  login_state(state2) {
+    return state2.login_state;
+  },
+  openid(state2) {
+    return state2.user_info.openid;
+  },
+  name(state2) {
+    return state2.user_info.name;
+  },
+  avatar(state2) {
+    return state2.user_info.avatar;
+  },
+  introduce(state2) {
+    return state2.user_info.introduce;
+  },
+  background(state2) {
+    return state2.user_info.background;
+  }
+};
 var store = common_vendor.createStore({
   actions,
   mutations,

@@ -15,6 +15,7 @@ if (!Math) {
   "./pages/home/other_page/show_antique3d/show_antique3d.js";
   "./pages/home/other_page/show_antique3d/antique/antique.js";
   "./pages/person/other_page/bills/bills.js";
+  "./pages/person/other_page/avatar_edit/avatar_edit.js";
 }
 const _sfc_main = {
   onLaunch: function() {

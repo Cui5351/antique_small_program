@@ -184,9 +184,9 @@ image.data-v-390a77b4 {
   margin-top: 0px;
 }
 .container .top_img.data-v-390a77b4 {
-  max-height: 20%;
-  min-height: 20%;
-  height: 20%;
+  max-height: 25%;
+  min-height: 25%;
+  height: 25%;
 }
 .container .info.data-v-390a77b4 {
   padding: 0 15px;
