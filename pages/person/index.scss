@@ -1,4 +1,44 @@
 @import '@/uni.scss';
+.btn2{
+	border: 1px solid rgb(79,70,229);
+	color: white;
+	// position: relative;
+	// z-index: 10000000;
+	padding:0 10px;
+	height:40px;
+	display: flex;
+	font-size:16px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 30px;
+	background-color:rgb(79,70,229) ;
+	&:active{
+		background-color: white;
+		color:rgb(79,70,229) ;
+	}
+}
+.start_btn_cen{
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+.start_btn{
+	padding:0 10px;
+	@include height(40px);
+	@include width(150px);
+	display: flex;
+	font-size:16px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 30px;
+	border: 1px solid rgba(0,0,0,.1) !important;
+	color:rgb(79,70,229) ;
+	color: black;
+	&:active{
+		background-color:solid rgba(0,0,0,.1);
+		color: gray;
+	}
+}
 .container{
 	overflow: auto;
 	height:100%;

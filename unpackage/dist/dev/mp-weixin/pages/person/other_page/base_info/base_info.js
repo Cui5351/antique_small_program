@@ -37,7 +37,7 @@ const _sfc_main = {
     }
     function show_corp_fun() {
       common_vendor.index.navigateTo({
-        url: "/pages/person/other_page/avatar_edit/avatar_edit"
+        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_avatar&height=500&width=500&property=avatar"
       });
     }
     function submit_data() {
@@ -109,7 +109,8 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      type: "left"
+      type: "left",
+      size: "20"
     }),
     b: common_vendor.o((...args) => $setup.back && $setup.back(...args)),
     c: $setup.userInfo_.avatar,
@@ -117,8 +118,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: 50 + "%",
     f: $setup.userInfo_.name,
     g: common_vendor.o(($event) => $setup.userInfo_.name = $event.detail.value),
-    h: $setup.userInfo_.sex == "\u7537",
-    i: $setup.userInfo_.sex == "\u5973",
+    h: $setup.userInfo.sex == "\u7537",
+    i: $setup.userInfo.sex == "\u5973",
     j: common_vendor.o((...args) => $setup.radioChange && $setup.radioChange(...args)),
     k: $setup.userInfo_.introduce,
     l: common_vendor.o(($event) => $setup.userInfo_.introduce = $event.detail.value),

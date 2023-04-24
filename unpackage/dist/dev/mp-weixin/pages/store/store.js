@@ -2,104 +2,110 @@
 var common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   setup() {
-    let info = common_vendor.reactive([{
-      title: "\u6587\u520A",
-      main: common_vendor.index.current_this.baseURL + "/image/antique/culture_big.jpg",
-      picture: [{
-        name: "\u6298\u6247",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/fan.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }]
-    }, {
-      title: "\u8054\u540D\u6587\u520A",
-      main: common_vendor.index.current_this.baseURL + "/image/antique/culture_big.jpg",
-      picture: [{
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }]
-    }, {
-      title: "\u975E\u9057\u5236\u54C1",
-      main: "",
-      picture: [{
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }]
-    }, {
-      title: "\u4E13\u5C5E\u5B9A\u5236",
-      main: "",
-      picture: [{
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }]
-    }, {
-      title: "\u8054\u540D\u670D\u88C5",
-      main: "",
-      picture: [{
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }, {
-        name: "aaa",
-        src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
-      }]
-    }]);
+    let info = common_vendor.reactive([
+      {
+        title: "\u6587\u520A",
+        main: "",
+        picture: [{
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }]
+      },
+      {
+        title: "\u975E\u9057\u5236\u54C1",
+        main: common_vendor.index.current_this.baseURL + "/image/antique/culture_big.jpg",
+        picture: [{
+          name: "\u56E2\u6247",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/fan.jpg"
+        }, {
+          name: "\u864E\u5934\u5E3D",
+          src: common_vendor.index.current_this.baseURL + "/antique/store_picture/\u864E\u5934\u5E3D.jpg"
+        }, {
+          name: "\u7CBE\u7F8E\u8D1D\u96D5",
+          src: common_vendor.index.current_this.baseURL + "/antique/store_picture/\u7CBE\u7F8E\u8D1D\u96D5.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }]
+      },
+      {
+        title: "\u8054\u540D\u6587\u520A",
+        main: common_vendor.index.current_this.baseURL + "/image/antique/culture_big.jpg",
+        picture: [{
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }]
+      },
+      {
+        title: "\u4E13\u5C5E\u5B9A\u5236",
+        main: "",
+        picture: [{
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }]
+      },
+      {
+        title: "\u8054\u540D\u670D\u88C5",
+        main: "",
+        picture: [{
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }, {
+          name: "aaa",
+          src: common_vendor.index.current_this.baseURL + "/image/antique/culture_big2.jpg"
+        }]
+      }
+    ]);
     let show_store = common_vendor.reactive({
       main: "",
       store: []
     });
-    let active = common_vendor.ref("\u6587\u520A");
+    let active = common_vendor.ref("\u975E\u9057\u5236\u54C1");
     function toggle_active(item) {
       if (active.value != item.title) {
         active.value = item.title;
@@ -123,9 +129,49 @@ const _sfc_main = {
       }
     });
     function enter(item) {
-      if (item.name == "\u6298\u6247") {
-        common_vendor.index.navigateTo({
-          url: "/pages/store/other_page/store_page/store_page"
+      if (!common_vendor.index.current_this.store.getters.login_state) {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u5148\u767B\u5F55",
+          icon: "none"
+        });
+        return;
+      }
+      if (item.name == "\u56E2\u6247" || item.name == "\u864E\u5934\u5E3D" || item.name == "\u7CBE\u7F8E\u8D1D\u96D5") {
+        common_vendor.index.request({
+          url: common_vendor.index.current_this.baseURL + ":5001/getStoreInfo",
+          method: "POST",
+          data: {
+            name: item.name
+          },
+          success(res) {
+            if (res.data.state != 1) {
+              common_vendor.index.showToast({
+                title: "\u53D1\u751F\u4E86\u672A\u77E5\u7684\u9519\u8BEF",
+                icon: "error"
+              });
+              return;
+            }
+            let info2 = {
+              name: "",
+              money: 0,
+              sale: 0,
+              depository: 0,
+              src: "",
+              description: "",
+              store: "",
+              pic: [],
+              transport_money: 0
+            };
+            info2.pic.push(...res.data.data.pic.map((item2) => item2.src));
+            Object.keys(info2).forEach((item2) => {
+              if (item2 == "pic" || item2 == "bought_log" || item2 == "comment")
+                return;
+              info2[item2] = res.data.data.info[item2];
+            });
+            common_vendor.index.navigateTo({
+              url: `/pages/store/other_page/store_page/store_page?info=${JSON.stringify(info2)}&state=0`
+            });
+          }
         });
         return;
       }

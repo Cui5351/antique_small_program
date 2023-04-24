@@ -14,6 +14,25 @@
 					})
 			}
 			console.log('App Launch')
+			this.check_res_state=function(res){
+				if(!res.data.state){
+					uni.showToast({
+						title:'发生错误'
+					})
+					return 1
+				}
+				return 0
+			}
+			this.check_login_state=function(){
+				if(!uni.current_this.store.getters.login_state){
+					uni.showToast({
+						title:'清先登录',
+						icon:'none'
+					})
+					return 1
+				}
+				return 0
+			}
 		},
 		onShow: function() {
 			console.log('App Show')

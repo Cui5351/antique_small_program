@@ -32,6 +32,25 @@ const _sfc_main = {
         });
     };
     console.log("App Launch");
+    this.check_res_state = function(res) {
+      if (!res.data.state) {
+        common_vendor.index.showToast({
+          title: "\u53D1\u751F\u9519\u8BEF"
+        });
+        return 1;
+      }
+      return 0;
+    };
+    this.check_login_state = function() {
+      if (!common_vendor.index.current_this.store.getters.login_state) {
+        common_vendor.index.showToast({
+          title: "\u6E05\u5148\u767B\u5F55",
+          icon: "none"
+        });
+        return 1;
+      }
+      return 0;
+    };
   },
   onShow: function() {
     console.log("App Show");

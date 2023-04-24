@@ -7,27 +7,39 @@
 			</view>
 		</view>
 		<view class="">
-			<qf-image-cropper :width="500" :height="500" :radius="30" areaScale='0.8' maxScale='1.5' @crop="handleCrop" ></qf-image-cropper>
+			<qf-image-cropper :width="base.width" :height="base.height" areaScale='0.8' maxScale='1.5' @crop="handleCrop" ></qf-image-cropper>
 		</view>
 	</view>
 </template>
 
 <script>
-import {reactive} from 'vue'
+import {reactive,ref} from 'vue'
 import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper.vue'
 	export default {
 		components:{
 			QfImageCropper
 		},
+		onLoad(res) {
+			this.url=res.url
+			this.base.height=res.height
+			this.base.width=res.width
+			this.base.property=res.property
+		},
 		setup() {
+			let url=ref('');
+			let base=reactive({
+				width:0,
+				height:0,
+				property:''
+			})
 			function choosePortrait(e){
 							uni.showLoading({
 								title:'修改中'
 							})
 							let image_path=e.tempFilePath
-							let url='https://www.mynameisczy.asia:5001/upload_avatar'
+							// let url='https://www.mynameisczy.asia:5001/upload_avatar'
 							uni.uploadFile({
-								url:url,
+								url:url.value,
 								filePath:image_path,
 								name:'avatar',
 								formData:{
@@ -46,7 +58,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 										})
 										return
 									}
-									uni.current_this.store.state.user_info.avatar=data.value
+									uni.current_this.store.state.user_info[base.property]=data.value
 										uni.showToast({
 											icon:'success',
 											title:'修改成功'
@@ -57,7 +69,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 							})
 			}
 			let back=uni.current_this.back
-			return{choosePortrait,back}
+			return{choosePortrait,back,url,base}
 		},
 		methods: {
 			handleCrop(e) {

@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
-		<view class="head" @click="back">
-			<uni-icons type="left"></uni-icons>联名博物馆
+		<view class="head head_tit" @click="back">
+			<uni-icons type="left" size="25" ></uni-icons>联名博物馆
 		</view>
 		<view class="body flex_c">
 			<view class="search flex_j_a_r">

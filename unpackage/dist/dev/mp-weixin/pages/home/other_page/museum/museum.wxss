@@ -345,9 +345,9 @@ image.data-v-857ef576 {
   background-color: white;
   position: absolute;
   z-index: 9999;
-  max-height: 10%;
-  min-height: 10%;
-  height: 10%;
+  max-height: 8%;
+  min-height: 8%;
+  height: 8%;
   max-width: 100%;
   min-width: 100%;
   width: 100%;

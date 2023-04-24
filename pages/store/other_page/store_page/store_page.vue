@@ -1,24 +1,25 @@
 <template>
-  <view class="head_two" @click="back">
-	<uni-icons type="left"></uni-icons>非遗集市
+  <view class="head_two des head_tit" @click="back">
+	  <view class="flex_j_a_r">
+		<uni-icons type="left" size="25" style='margin-top:2px;'></uni-icons>非遗集市
+	  </view>
   </view>
   <view class="container">
 	<view class="store_info">
 		<view class="picture">
 			<swiper class="swi" circular indicator-dots indicator-active-color="white">
-				<swiper-item v-for="(item,index) in [1,2,3]" :key="index">
+				<swiper-item v-for="(item,index) in info.pic" :key="index">
 					<view class="pic">
-						<image src="https://www.mynameisczy.asia/image/antique/fan.jpg" mode=""></image>
+						<image :src="item" mode="aspectFill"></image>
 					</view>
 				</swiper-item>
 			</swiper>
 		</view>
 		<view class="description flex_j_a_r">
 			<view class="des flex_j_a_c">
-				<view class="money">￥777</view>
+				<view class="money">￥{{info.money}}</view>
 				<view>
-					山城记忆夏布团扇 非遗夏布+竹 手绘 每
-					件独品
+					{{info.description}}
 				</view>
 			</view>
 			<button open-type="share" plain class="three_size flex_j_a_c share">
@@ -37,53 +38,53 @@
 		</view>
 		<view class="transport flex_j_a_r three_size">
 			<view class="flex_j_a_r" style="color: gray;">运费
-			<view class="money" style="color: black;">￥7.00</view>
+			<view class="money" style="color: black;">￥{{info.transport_money}}.00</view>
 			</view>
-			<view style="color: gray;">已售17 | 剩余17</view>
+			<view style="color: gray;">已售{{info.sale}} | 剩余{{info.depository}}</view>
 		</view>
 		<view class="bought_person_count flex_j_a_c">
 			<view class="tit">
-				<view class="">7人已购买</view>
+				<view class="">{{full.bought_log.length}}人已购买</view>
 				<view class="small_title" @click="show_all">查看全部
 					<uni-icons type="right"></uni-icons>
 				</view>
 			</view>
 			<view class="all flex_j_a_c three_size">
-				<view class="user"  v-for="(item,index) in [1,2]" :key="index">
+				<view class="user"  v-for="(item,index) in info.bought_log" :key="index">
 					<view class="flex_j_a_r">
 						<view class="avatar">
-							<image src="../../../../static/background.jpg" mode=""></image>
+							<image :src="item.user_avatar" mode=""></image>
 						</view>
-						哈***哈
+						{{item.user_name}}
 					</view>
 					<view class="right three_size flex_j_a_r ">
-						<view>3月17日买了1件</view>
+						<view class="txt">{{item.bought_date}}购买{{item.bought_count}}件</view>
 						<view class="go_buy" @click="show_all">去下单</view>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="bought_person_count cc flex_j_a_c" style="height:35%;min-height:35%;">
+		<view class="bought_person_count2 cc flex_j_a_c">
 			<view class="tit">
-				<view class="">商品评价(5)</view>
+				<view class="">商品评价({{info.comment.length}})</view>
 				<view class="small_title" @click="show_all">好评率：100%
 					<uni-icons type="right"></uni-icons>
 				</view>
 			</view>
-			<view class="all flex_j_a_c grows comment three_size">
-				<view class="flex_j_a_c" v-for="(item,index) in [1,2,3]" :key="index">
+			<view class="all flex_j_a_c comment three_size">
+				<view class="flex_j_a_c" v-for="(item,index) in info.comment" :key="index">
 					<view class="name flex_j_a_r">
 						<view class="flex_j_a_r">
 							<view class="pic">
-								<image src="/static/background.jpg" mode=""></image>
-							</view>1**71
+								<image :src="item.avatar" mode=""></image>
+							</view>{{item.name}}
 						</view>
 						<view class="">
-							<uni-rate activeColor="#6E79E2" readonly :value="5" @change="onChange" />
+							<uni-rate activeColor="#6E79E2" readonly :value="5"/>
 						</view>
 					</view>
 					<view class="content">
-						设计一流，扇子精美
+						{{item.info}}
 					</view>
 				</view>
 			</view>
@@ -121,17 +122,110 @@
 <script>
 import {ref,reactive} from 'vue'
 export default{
-  name:'',
-  onload(res){
-	console.log(res,'res');  
-  },
+	onLoad(res) {
+		uni.showLoading({
+			title:'商品加载中'
+		})
+		let that=this
+		if(res.state==1){
+				if(!uni.current_this.store.getters.login_state){
+					uni.showToast({
+						title: '请先登录',
+						icon:'none'
+					});
+					uni.switchTab({
+						url:'/pages/person/person'
+					})
+					return
+				}
+				uni.request({
+					url:uni.current_this.baseURL+':5001/getStoreInfo',
+					method:'POST',
+					data:{
+						name:res.name
+					},success(res2) {
+						if(res2.data.state!=1){
+							uni.showToast({
+								title:'发生了未知的错误',
+								icon:'error'
+							})
+							return
+						}
+						let info={
+							name:'',
+							money:0,
+							sale:0,
+							depository:0,
+							src:'',
+							description:'',
+							store:'',
+							pic:[],
+							transport_money:0
+						}
+						info.pic.push(...res2.data.data.pic.map(item=>item.src))
+						Object.keys(info).forEach(item=>{
+							if(item=='pic'||item=='bought_log'||item=='comment')
+								return
+							that.info[item]=res2.data.data.info[item]
+						})
+						get_count(res.name)
+				},complete() {
+					uni.hideLoading()
+				}
+				})
+			return
+	}
+			let data=JSON.parse(res.info)
+			Object.keys(this.info).forEach(item=>{
+				if(item=='pic'){
+					this.info.pic.push(...data.pic)
+					return
+				}
+				if(data[item]==undefined)
+					return
+				this.info[item]=data[item]
+			})
+			get_count(data.name)
+			uni.hideLoading()
+			
+		function get_count(name){
+			
+			// 获取购买商品数
+			uni.request({
+				url:uni.current_this.baseURL+':5001/get_goods',
+				method:"POST",
+				data:{
+					goods_name:name
+				},
+				success(res) {
+					if(res.data.state!=1){
+						return
+					}
+					function format(date){
+						let month=date.getMonth()==12?1:date.getMonth()+1
+						let day=date.getDate()
+						let now=new Date()
+						if(now.getFullYear()==date.getFullYear())
+						return `${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
+						else
+							return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
+					}
+					res.data.data.forEach(item=>{
+						item.bought_date=format(new Date(item.bought_date))
+					})
+					// 保存三条
+					that.info.bought_log.push(...(res.data.data.reverse().slice(0,3)))
+					// 保存全部的交易记录
+					that.full.bought_log.push(...res.data.data)
+				}
+			})
+		}
+	},
   onShareAppMessage(res) {
       return {
   		imageUrl:this.info.pic[0],
           title: this.info.name, //分享的名称
-          path: `/pages/store/other_page/store_page/store_page`,
-  		// desc:this.data.description[0].substring(0,15)+'...'
-          // mpId:'' //此处配置微信小程序的AppId
+          path: `/pages/store/other_page/store_page/store_page?name=${info.name}&state=1`,
       }
   },
   //分享到朋友圈
@@ -144,12 +238,22 @@ export default{
   },
   setup(){
 	let info=reactive({
-		pic:['https://www.mynameisczy.asia/image/antique/fan.jpg'],
-		name:'团扇',
-		src:'https://www.mynameisczy.asia/image/antique/fan.jpg',
-		money:99.9,
-		store_name:'小七的店铺',
-		count:1
+		count:1,
+		name:'',
+		money:0,
+		sale:0,
+		depository:0,
+		src:'',
+		description:'',
+		store:'',
+		pic:[],
+		comment:[],
+		bought_log:[],
+		transport_money:0
+	})
+	let full=reactive({
+		bought_log:[],
+		comment:[]
 	})
 	let back=uni.current_this.back
 	function join_car(){
@@ -165,20 +269,55 @@ export default{
 		})
 	}
 	function buy(){
+		if(!uni.current_this.store.getters.login_state){
+			uni.showToast({
+				title: '请先登录',
+				icon:'none'
+			});
+			uni.switchTab({
+				url:'/pages/person/person'
+			})
+			return
+		}
 		uni.showLoading({
 			title:'购买中',
 			mask:true
 		})
-		uni.current_this.store.dispatch('buy',JSON.stringify(this.info))
-		setTimeout(()=>{
-			uni.hideLoading()
-			uni.showToast({
-				title:'购买成功',
-				mask:true
-			})
-		},Math.random()*2000)
+		uni.request({
+			url:uni.current_this.baseURL+':5001/buy_goods',
+			method:'POST',
+			data:{
+				openid:uni.current_this.store.getters.openid,
+				goods_name:info.name,
+				count:1
+			},
+			success(res) {
+				console.log(res,'res');
+				if(res.data.state!==1){
+					uni.hideLoading()
+					uni.showToast({
+						title:'购买失败',
+						icon:'error'
+					})
+				}
+				// uni.current_this.store.dispatch('buy',JSON.stringify(that.info))
+				setTimeout(()=>{
+					uni.hideLoading()
+					uni.showToast({
+						title:'购买成功',
+						mask:true
+					})
+					setTimeout(()=>{
+						uni.reLaunch({
+							url:'/pages/person/other_page/bills/bills'
+						})
+					},500)
+				},Math.random()*1000)
+				}
+		})
+		return
 	}
-    return{back,info,join_car,show_all,buy}
+    return{back,info,join_car,show_all,buy,full}
   }
 }
 </script>

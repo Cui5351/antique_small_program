@@ -37,18 +37,26 @@
 	import {reactive,ref} from 'vue'
 	export default {
 		setup() {
-			let info=reactive([{
-				title:'文刊',
+			let info=reactive([
+				{
+					title:'文刊',
+					main:'',
+					picture:[{
+						name:'aaa',
+						src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+					}]
+				},{
+				title:'非遗制品',
 				main:uni.current_this.baseURL+'/image/antique/culture_big.jpg',
 				picture:[{
-					name:'折扇',
+					name:'团扇',
 					src:uni.current_this.baseURL+'/image/antique/fan.jpg'
 				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+					name:'虎头帽',
+					src:uni.current_this.baseURL+'/antique/store_picture/虎头帽.jpg'
 				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
+					name:'精美贝雕',
+					src:uni.current_this.baseURL+'/antique/store_picture/精美贝雕.jpg'
 				},{
 					name:'aaa',
 					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
@@ -94,13 +102,6 @@
 					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			},{
-				title:'非遗制品',
-				main:'',
-				picture:[{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				}]
-			},{
 				title:'专属定制',
 				main:'',
 				picture:[{
@@ -134,7 +135,7 @@
 				main:'',
 				store:[]
 			})
-			let active=ref('文刊');
+			let active=ref('非遗制品');
 			function toggle_active(item){
 				if(active.value!=item.title){
 					active.value=item.title
@@ -158,9 +159,48 @@
 				}
 			})
 			function enter(item){
-				if(item.name=='折扇'){
-					uni.navigateTo({
-						url:'/pages/store/other_page/store_page/store_page'
+				if(!uni.current_this.store.getters.login_state){
+					uni.showToast({
+						title: '请先登录',
+						icon:'none'
+					});
+					return
+				}
+				if(item.name=='团扇'||item.name=='虎头帽'||item.name=='精美贝雕'){
+					uni.request({
+						url:uni.current_this.baseURL+':5001/getStoreInfo',
+						method:'POST',
+						data:{
+							name:item.name
+						},success(res) {
+							if(res.data.state!=1){
+								uni.showToast({
+									title:'发生了未知的错误',
+									icon:'error'
+								})
+								return
+							}
+							let info={
+								name:'',
+								money:0,
+								sale:0,
+								depository:0,
+								src:'',
+								description:'',
+								store:'',
+								pic:[],
+								transport_money:0
+							}
+							info.pic.push(...res.data.data.pic.map(item=>item.src))
+							Object.keys(info).forEach(item=>{
+								if(item=='pic'||item=='bought_log'||item=='comment')
+									return
+								info[item]=res.data.data.info[item]
+							})
+							uni.navigateTo({
+								url:`/pages/store/other_page/store_page/store_page?info=${JSON.stringify(info)}&state=0`
+							})
+						}
 					})
 					return
 				}

@@ -26,7 +26,7 @@
 					</view>
 				</view>
 				<view class="museums_">
-					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['长江艺术工程职业学院传承院','荆州博物馆']" :key="index">
+					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['长江艺术工程职业学院非遗传承院','荆州博物馆']" :key="index">
 						<view class="img">
 							<image :src="base_url+'/image/antique/museum'+(index+1)+'.jpg'" mode=""></image>
 						</view>

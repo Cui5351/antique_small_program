@@ -1,7 +1,7 @@
 <template>
 	<view class="container flex_c background">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
-		<view class="top_img">
+		<view class="top_img" @click="change_background">
 			<image :src="person_info.background"></image>
 		</view>
 		<view class="info flex_c">
@@ -12,7 +12,10 @@
 					<!-- </button> -->
 				</view>
 				<view class="avatar_right">
-					<view>
+					<view  v-if='!login_state' style="align-items: center;justify-content: flex-end;">
+						<view class="btn2" @click="login">登录/注册</view>
+					</view>
+					<view v-if='login_state'>
 						<view class="count flex_c">
 							<view>{{person_info.counts[0]}}</view>
 							<view>作品</view>
@@ -28,10 +31,17 @@
 					</view>
 				</view>
 			</view>
-			<view class="person_info flex_c">
-					<view class="name">名字:{{person_info.name}}</view>
+			<view class="person_info flex_c" style="">
+				<template v-if='login_state'>
+					<view class="name">{{person_info.name}}</view>
 					<view class="id">ID:{{person_info.openid}}</view>
 					<view class="introduce">简介:{{person_info.introduce}}</view>
+				</template>
+				<template v-if='!login_state'>
+					<view></view>
+					<view>HELLO!</view>
+					<view class="id">登录后享受更多服务</view>
+				</template>
 			</view>
 			<view class="other">
 				<view>
@@ -80,7 +90,10 @@
 				<view>文物</view>
 				<view>工作室</view>
 			</view>
-			<view class="work" >
+			<view class="work" :class="(person_info.works.length<=0&&person_info.toggle)?'start_btn_cen':''" >
+				<view @click="start_" class="start_btn" v-if="person_info.works.length<=0&&person_info.toggle">
+					开启你的非遗之旅
+				</view>
 				<view v-for="(item,index) in person_info.works" :key="index" v-show="person_info.toggle">
 					<image :src="'https://www.mynameisczy.asia/image/antique/'+item+'.jpg'" mode="aspectFill"></image>
 				</view>
@@ -112,9 +125,13 @@
 			function toggle(bool){
 				person_info.toggle=bool
 			}
+			let login_state=computed(()=>uni.current_this.store.getters.login_state)
 			let opacity=ref(true)
 			let top=ref(uni.getMenuButtonBoundingClientRect().height*2)
 			function toggle_page(title){
+				if(uni.current_this.check_login_state()){
+					return
+				}
 				if(title=='bills'){
 					uni.navigateTo({
 						url:'/pages/person/other_page/bills/bills'
@@ -128,7 +145,6 @@
 			}
 			function login(){
 				if(uni.current_this.store.getters.login_state){
-					// set avatar
 					uni.navigateTo({
 						url:'/pages/person/other_page/base_info/base_info'
 					})
@@ -187,7 +203,46 @@
 					}
 				})
 			}
-			return {login,opacity,person_info,toggle,top,toggle_page}
+			function change_background(){
+				if(!uni.current_this.store.getters.login_state){
+					return
+				}
+				uni.navigateTo({
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background'
+				})
+				
+				return
+				uni.chooseImage({
+					count:1,
+					crop:{
+						width:200,
+						height:300
+					},success(e) {
+						let image_path=e.tempFilePath
+					}
+				})
+				function choosePortrait(e){
+					uni.showLoading({
+						title:'修改中'
+					})
+					let image_path=e.tempFilePath
+					uni.uploadFile({
+						url:url,
+						filePath:image_path,
+						name:'avatar',
+						formData:{
+							openid:uni.current_this.store.state.user_info.openid
+						},
+					})
+				}
+			}
+			function start_(){
+				uni.showToast({
+					title:'暂未开放',
+					icon:'none'
+				})
+			}
+			return {start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}
 		}
 	}
 </script>

@@ -1,8 +1,8 @@
 <template>
 	<view class="container">
-		<view class="pics">
+		<view class="pics head_tit">
 			<view class="back" @click="back">
-				<uni-icons type="left" color="white"></uni-icons>
+				<uni-icons type="left" style='margin-top:-1px;' size="25" color="white"></uni-icons>
 				返回
 			</view>
 			<swiper class="swiper" autoplay circular>

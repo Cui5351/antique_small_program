@@ -76,13 +76,26 @@
 					&>view:first-child{
 						// background-color: red;
 						&>view:first-child{
-							justify-content: space-between
+							justify-content: space-between;
+							.name{
+								@include width(50%);
+								overflow: hidden;
+								text-overflow: ellipsis;
+								white-space: nowrap;
+							}
 						}
 						&>view:last-child{
 							&>.count{
 								width:100%;
 								text-align: end;
 								color: gray;
+							}
+							&>.send_time{
+								padding:5px 10px;
+								box-sizing: border-box;
+								border-radius:10px;
+								margin-top:25px;
+								background-color: rgba(0,0,0,.05);
 							}
 							&>.b{
 								display: flex;
@@ -107,9 +120,10 @@
 				justify-content: flex-end;
 				&>view{
 					height:100%;
-					width:70%;
+					width:75%;
 					justify-content: space-around;
 					&>view{
+						margin-right: 10px;
 						&:active{
 							background-color: rgba(0,0,0,.1);
 							color: white;
@@ -124,3 +138,9 @@
 		}
 	}
 }
+.done_pay{
+	font-size:15px;
+								color: gray;
+								// float:right;
+								// transform: translateY(100%);
+							}

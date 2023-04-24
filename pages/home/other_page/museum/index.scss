@@ -174,7 +174,7 @@
 		background-color: white;
 		position: absolute;
 		z-index:9999;
-		@include height(10%);
+		@include height(8%);
 		@include width(100%);
 		top:100%;
 		transform: translateY(-100%);

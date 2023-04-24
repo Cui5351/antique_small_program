@@ -5,15 +5,26 @@ const _sfc_main = {
   components: {
     QfImageCropper
   },
+  onLoad(res) {
+    this.url = res.url;
+    this.base.height = res.height;
+    this.base.width = res.width;
+    this.base.property = res.property;
+  },
   setup() {
+    let url = common_vendor.ref("");
+    let base = common_vendor.reactive({
+      width: 0,
+      height: 0,
+      property: ""
+    });
     function choosePortrait(e) {
       common_vendor.index.showLoading({
         title: "\u4FEE\u6539\u4E2D"
       });
       let image_path = e.tempFilePath;
-      let url = "https://www.mynameisczy.asia:5001/upload_avatar";
       common_vendor.index.uploadFile({
-        url,
+        url: url.value,
         filePath: image_path,
         name: "avatar",
         formData: {
@@ -31,7 +42,7 @@ const _sfc_main = {
             });
             return;
           }
-          common_vendor.index.current_this.store.state.user_info.avatar = data.value;
+          common_vendor.index.current_this.store.state.user_info[base.property] = data.value;
           common_vendor.index.showToast({
             icon: "success",
             title: "\u4FEE\u6539\u6210\u529F"
@@ -43,7 +54,7 @@ const _sfc_main = {
       });
     }
     let back = common_vendor.index.current_this.back;
-    return { choosePortrait, back };
+    return { choosePortrait, back, url, base };
   },
   methods: {
     handleCrop(e) {
@@ -69,9 +80,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     b: common_vendor.o((...args) => $setup.back && $setup.back(...args)),
     c: common_vendor.o($options.handleCrop),
     d: common_vendor.p({
-      width: 500,
-      height: 500,
-      radius: 30,
+      width: $setup.base.width,
+      height: $setup.base.height,
       areaScale: "0.8",
       maxScale: "1.5"
     })

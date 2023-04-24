@@ -163,8 +163,25 @@ image.data-v-424d60ee {
   background-color: #6E79E2;
 }
 .base_info.data-v-424d60ee {
-  padding-top: 20px;
   box-sizing: border-box;
+}
+.container.data-v-424d60ee {
+  background-color: white;
+}
+.three_option.data-v-424d60ee {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+  background-color: white;
+  box-shadow: -10px -10px 20px 5px gray;
 }
 .item.data-v-424d60ee {
   width: 100%;
@@ -187,15 +204,11 @@ image.data-v-424d60ee {
   align-items: center;
   justify-content: center;
 }
-.name.data-v-424d60ee {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
 .avatar.data-v-424d60ee {
   border-bottom: none;
   max-height: 30%;
   min-height: 30%;
   height: 30%;
-  margin-bottom: 20px;
 }
 .avatar > view.data-v-424d60ee {
   max-height: 150px;
@@ -208,12 +221,50 @@ image.data-v-424d60ee {
 .vessel.data-v-424d60ee {
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
+  overflow: auto;
+  box-sizing: border-box;
   max-height: 90%;
   min-height: 90%;
   height: 90%;
 }
 .vessel > view.data-v-424d60ee {
   width: 100%;
+}
+.info > view.data-v-424d60ee:first-child {
+  margin-top: 0px;
+}
+.info > view.data-v-424d60ee {
+  margin-top: 20px;
+}
+.info > view > .title.data-v-424d60ee {
+  font-weight: bold;
+}
+.info > view .input.data-v-424d60ee {
+  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.info > view .input .radi.data-v-424d60ee {
+  padding: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  max-height: 35px;
+  min-height: 35px;
+  height: 35px;
+  justify-content: space-around;
+  align-items: center;
+}
+.info > view .input > input.data-v-424d60ee {
+  font-size: 17px;
+  max-height: 35px;
+  min-height: 35px;
+  height: 35px;
+}
+.info > view .input > textarea.data-v-424d60ee {
+  font-size: 18px;
 }
 .flex_center.data-v-424d60ee {
   display: flex;

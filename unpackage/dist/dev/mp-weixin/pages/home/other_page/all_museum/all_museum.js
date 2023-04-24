@@ -309,7 +309,8 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      type: "left"
+      type: "left",
+      size: "25"
     }),
     b: common_vendor.o((...args) => $setup.back && $setup.back(...args)),
     c: common_vendor.p({

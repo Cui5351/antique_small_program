@@ -253,10 +253,25 @@ image.data-v-105a4c2e {
 .content > .bill .store > .pics > .info > view:first-child > view.data-v-105a4c2e:first-child {
   justify-content: space-between;
 }
+.content > .bill .store > .pics > .info > view:first-child > view:first-child .name.data-v-105a4c2e {
+  max-width: 50%;
+  min-width: 50%;
+  width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .content > .bill .store > .pics > .info > view:first-child > view:last-child > .count.data-v-105a4c2e {
   width: 100%;
   text-align: end;
   color: gray;
+}
+.content > .bill .store > .pics > .info > view:first-child > view:last-child > .send_time.data-v-105a4c2e {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-top: 25px;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 .content > .bill .store > .pics > .info > view:first-child > view:last-child > .b.data-v-105a4c2e {
   display: flex;
@@ -282,10 +297,11 @@ image.data-v-105a4c2e {
 }
 .content > .bill .store > .btns > view.data-v-105a4c2e {
   height: 100%;
-  width: 70%;
+  width: 75%;
   justify-content: space-around;
 }
 .content > .bill .store > .btns > view > view.data-v-105a4c2e {
+  margin-right: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 3px 5px;
@@ -294,6 +310,10 @@ image.data-v-105a4c2e {
 .content > .bill .store > .btns > view > view.data-v-105a4c2e:active {
   background-color: rgba(0, 0, 0, 0.1);
   color: white;
+}
+.done_pay.data-v-105a4c2e {
+  font-size: 15px;
+  color: gray;
 }
 /* 水平间距 */
 /* 水平间距 */

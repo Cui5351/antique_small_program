@@ -1,13 +1,27 @@
 .base_info{
-	padding-top: 20px;
 	box-sizing: border-box;
+}
+.container{
+	background-color: white;
+}
+.three_option{
+	font-size:20px;
+	background-color: white;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+	padding-left:15px;
+	padding-bottom:10px;
+	box-sizing: border-box;
+	@include height(10%);
+	background-color: white;
+	box-shadow:-10px -10px 20px 5px gray;
 }
 .item{
 	width:100%;
 	border-bottom: 1px solid rgba(0,0,0,.1);
 	height: 10%;
 	display: flex;
-	// justify-content: space-between;
 	padding: 10px 20px;
 	box-sizing: border-box;
 	align-items: center;
@@ -24,9 +38,6 @@
 		justify-content: center;
 	}
 }
-	.name{
-		border-top: 1px solid rgba(0,0,0,.1);
-	}
 .avatar{
 	border-bottom:none;
 		@include height(30%);
@@ -34,13 +45,49 @@
 		@include height(150px);
 		@include width(150px);
 	}
-	margin-bottom:20px;
 }
 .vessel{
 	display: flex;
 	flex-direction: column;
+	padding: 0 20px;
+	overflow: auto;
+	box-sizing: border-box;
 	@include height(90%);
 	&>view{
 		width:100%;
+	}
+}
+.info{
+	&>view:first-child{
+		margin-top:0px;
+	}
+	&>view{
+		margin-top:20px;
+		&>.title{
+			font-weight: bold;
+		}
+		.input{
+			margin-top:5px;
+			background-color: rgba(0,0,0,.05);
+			border-radius:10px;
+			padding:10px;
+			box-sizing: border-box;
+			.radi{
+				padding:0 20px;
+				box-sizing: border-box;
+				display: flex;
+				@include height(35px);
+				justify-content: space-around;
+				align-items: center;
+			}
+			&>input{
+				font-size:17px;
+				@include height(35px);
+			}
+			&>textarea{
+				font-size:18px;
+			}
+			
+		}
 	}
 }

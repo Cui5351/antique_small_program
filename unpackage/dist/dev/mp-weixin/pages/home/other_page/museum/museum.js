@@ -130,6 +130,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
       type: "left",
+      size: "25",
       color: "white"
     }),
     b: common_vendor.o((...args) => $setup.back && $setup.back(...args)),

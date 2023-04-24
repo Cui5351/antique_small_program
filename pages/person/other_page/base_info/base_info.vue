@@ -3,8 +3,8 @@
 		<!-- <navigation2 title='返回'></navigation2> -->
 		<view class="head_two">
 			<view @click='back'>
-				<uni-icons type="left"></uni-icons>
-				返回
+				<uni-icons type="left" size="20"></uni-icons>
+				我的
 			</view>
 		</view>
 		<view class="vessel grows">
@@ -14,43 +14,47 @@
 					<image :src="userInfo_.avatar" style="width: 100%;height: 100%;overflow: hidden;"></image>
 				</view>
 			</view>
-			<view class="item name">
-				<view class="title ">姓名</view>
+			<view class="info">
 				<view>
-					<input type="nickname"  class='user_name' v-model='userInfo_.name' placeholder="name" />
-				</view>
-			</view>
-			<view class="item">
-				<view class="title">性别</view>
-					<view style="display:flex">
-						<radio-group @change="radioChange">
-						<label class="radio"><radio color="rgb(79,70,229)" value="男" :checked="userInfo_.sex=='男'" />男</label>&emsp;
-						<label class="radio"><radio color="rgb(79,70,229)" value="女" :checked="userInfo_.sex=='女'"/>女</label>
-						</radio-group>
-					</view>
-				<!-- <view>{{userInfo.gender}}</view> -->
-			</view>
-			<view class="item" style="height:150px;">
-				<view class="title">个人简介</view>
-				<view style="padding:5px;box-sizing:border-box;width: 60%;height:100%;">
-					<textarea placeholder="请输入您的自我简介" v-model="userInfo_.introduce" style="border: 1px solid rgba(0,0,0,.1);width: 100%;height:100%;padding: 5px 5px;box-sizing: border-box;" cols="20" rows="5" maxlength="45"></textarea>
-				</view>
-			</view>
-			</view>
-			<view class="butt">
-			<view class="item" style="border: none;justify-content: space-around;">
-				<view>
-					<view class="btn" @click="reset_data">
-						重置
+					<view class="title">姓名</view>
+					<view class="input">
+						<input v-model='userInfo_.name' placeholder="name"  maxlength='10' />
 					</view>
 				</view>
 				<view>
-					<view class="btn" @click="submit_data">
-						提交
+					<view class="title">性别</view>
+					<view class="input">
+							<radio-group @change="radioChange" class="radi">
+										<label class="radio">
+											<radio value="男" color="#6E79E2" :checked="userInfo.sex=='男'" /><text>男</text>
+										</label>
+										<label class="radio">
+											<radio value="女" color="#6E79E2" :checked="userInfo.sex=='女'" /><text>女</text>
+										</label>
+							</radio-group>
+							<!-- <radio-group>女</radio-group> -->
 					</view>
 				</view>
-				<!-- <view>{{userInfo.gender}}</view> -->
+				<view>
+					<view class="title">自我介绍</view>
+					<view class="input">
+						<textarea  v-model="userInfo_.introduce" cols="20" rows="5" maxlength="45"></textarea>
+					</view>
+				</view>
 			</view>
+		</view>
+		<view class="item" style="border: none;justify-content: space-around;">
+			<view>
+				<view class="btn" @click="reset_data">
+					重置
+				</view>
+			</view>
+			<view>
+				<view class="btn" @click="submit_data">
+					提交
+				</view>
+			</view>
+			<!-- <view>{{userInfo.gender}}</view> -->
 		</view>
 		</view>
 	</view>
@@ -83,7 +87,7 @@
 			}
 			function show_corp_fun(){
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_avatar&height=500&width=500&property=avatar'
 				})
 			}
 			// 提交数据

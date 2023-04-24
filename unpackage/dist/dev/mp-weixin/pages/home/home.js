@@ -140,7 +140,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "right"
     }),
     f: common_vendor.o(($event) => $setup.more("all")),
-    g: common_vendor.f(["\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u4F20\u627F\u9662", "\u8346\u5DDE\u535A\u7269\u9986"], (item, index, i0) => {
+    g: common_vendor.f(["\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u975E\u9057\u4F20\u627F\u9662", "\u8346\u5DDE\u535A\u7269\u9986"], (item, index, i0) => {
       return {
         a: $setup.base_url + "/image/antique/museum" + (index + 1) + ".jpg",
         b: common_vendor.t(item),
