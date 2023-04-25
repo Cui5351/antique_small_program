@@ -22,8 +22,8 @@
 			</view>
 			<view class="flex_j_a_c pic grows">
 				<view class="videos">
-					<view v-for="(item,index) in [0,1,2,3]" :key="index">
-						<video enable-danmu danmu-btn :danmu-list='danmulist' :poster="'https://www.mynameisczy.asia/antique/videos/source'+item+'.jpg'" enable-play-gesture='true' :src="'https://www.mynameisczy.asia/antique/videos/source'+item+'.mp4'" ></video>
+					<view v-for="(item,index) in video" :key="index" @click="inter(item)">
+						<image :src="item.mask" style="background-color: rgba(0,0,0,.1);"></image>
 					</view>
 				</view>
 			</view>
@@ -61,6 +61,16 @@
 	import {ref,reactive} from 'vue'
 	export default {
 		setup() {	
+			uni.request({
+				url:uni.current_this.baseURL+':5001/get_hottest_video',
+				method:"GET",
+				success(res) {
+					if(uni.current_this.check_res_state(res)){
+						return
+					}
+					video.push(...res.data.data)
+				}
+			})
 			function toggle(title){
 				uni.showToast({
 					title:title+'暂未开放',
@@ -68,6 +78,7 @@
 				})
 			}
 			let base_url=ref(uni.current_this.baseURL)
+			let video=reactive([])
 			let danmulist=reactive([{
                     text: '太好看了',
                     color: '#ff0000',
@@ -98,7 +109,27 @@
                     color: '#ff0000',
                     time: 7
                 }])
-			return {toggle,base_url,danmulist}
+			function inter(item){
+				console.log(item,'item');
+				
+				uni.request({
+					url:uni.current_this.baseURL+':5001/get_video',
+					method:"POST",
+					data:{
+						title:item.title,
+						openid:item.openid
+					},
+					success(res) {
+						if(uni.current_this.check_res_state(res)){
+							return
+						}
+						uni.navigateTo({
+							url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}`
+						})
+					}
+				})
+			}
+			return {toggle,base_url,danmulist,video,inter}
 		}
 	}
 </script>

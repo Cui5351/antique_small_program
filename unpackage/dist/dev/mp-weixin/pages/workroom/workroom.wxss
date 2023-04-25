@@ -312,7 +312,7 @@ image.data-v-0672b006 {
   width: 200px;
   background-color: red;
 }
-.teach_video > .pic > .videos > view > video.data-v-0672b006 {
+.teach_video > .pic > .videos > view > image.data-v-0672b006 {
   height: 100%;
   width: 100%;
 }

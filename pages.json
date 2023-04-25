@@ -107,6 +107,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/workroom/other_page/play_video/play_video",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"backgroundColor": "#fffbf2",

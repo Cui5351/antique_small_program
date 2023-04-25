@@ -68,7 +68,8 @@
 				@include height(100px);
 				@include width(200px);
 				background-color: red;
-				&>video{
+				&>image{
+					
 					height:100%;
 					width:100%;
 				}

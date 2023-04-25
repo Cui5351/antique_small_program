@@ -1,0 +1,137 @@
+@import '/uni.scss';
+.container>view{
+	width:100%;
+	flex-grow:0;
+}
+.container{
+	overflow-y:auto;
+}
+.video{
+	@include height(300px);
+	
+	&>video{
+		height:100%;
+		width:100%;
+	}
+}
+.introduce{
+	&>view{
+		width:100%;
+		padding:10px;
+		box-sizing: border-box;
+	}
+	&>.intro{
+		font-size:20px;
+	}
+	&>.author{
+		.icon{
+			&>uni-icons{
+				margin-left:5px;
+			}
+		}
+		justify-content: space-between;
+		.avatar{
+			height:50px;
+			width:50px;
+			&>image{
+				height:100%;
+				width:100%;
+				border-radius: 50%;
+			}
+		}
+	}
+}
+.videos{
+	padding:0 20px;
+	box-sizing: border-box;
+	&>.flex_j_a_r{
+		box-sizing: border-box;
+		padding:5px 0;
+		font-size:20px;
+		justify-content: space-between;
+	}
+	&>.vi{
+	display: flex;
+	overflow-x: auto;
+	&>.vide{
+		margin:0 10px;
+		height:100px;
+		@include width(150px);
+		&>image{
+			height:100%;
+			width:100%;
+		}
+	}
+	}
+}
+.damu{
+	margin-bottom:100px;
+	margin-top:20px;
+	padding:5px 10px 10px 10px;
+	box-sizing: border-box;
+	.title{
+		font-size:20px;
+	}
+	.dan{
+		margin-top:15px;
+		&>.person{
+			display: flex;
+			align-items: center;
+			&>.left{
+				@include width(75%);
+				display: flex;
+				&>.avatar{
+					height:30px;
+					width:30px;
+					&>image{
+						height:100%;
+						border-radius: 50%;
+						width:100%;
+					}
+				}
+				&>.flex_j_a_c{
+					@include width(75%);
+					align-items: flex-start;
+					margin-left:10px;
+					width:100%;
+					&>view:last-child{
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						width:100%;
+					}
+				}
+				
+			}
+			&>.right{
+				justify-content: space-around;
+				height:100%;
+			}
+		}
+	}
+}
+.send_damu{
+	position:absolute;
+	background-color: rgba(0,0,0,.05);
+	height:80px;
+	width:100%;
+	top:100%;
+	transform: translateY(-100%);
+	&>view{
+		height:100%;
+	}
+	padding:20px 20px;
+	box-sizing: border-box;
+	&>.input{
+		background-color: rgba(0,0,0,.1);
+		border-radius: 20px;
+		padding:0 10px;
+		&>input{
+			height:100%;
+			width:100%;
+		}
+	}
+}
+.middle{
+	top:60%;
+}

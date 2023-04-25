@@ -17,6 +17,7 @@ if (!Math) {
   "./pages/person/other_page/bills/bills.js";
   "./pages/person/other_page/avatar_edit/avatar_edit.js";
   "./pages/person/other_page/base_info/base_info.js";
+  "./pages/workroom/other_page/play_video/play_video.js";
 }
 const _sfc_main = {
   onLaunch: function() {
