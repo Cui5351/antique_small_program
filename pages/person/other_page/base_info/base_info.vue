@@ -116,13 +116,12 @@
 										icon:'success',
 										title:'修改成功'
 									})
-								}else
+								}else{
 									uni.showToast({
 										icon:'error',
 										title:'修改失败'
 									})
-							},complete() {
-								uni.hideLoading()
+								}
 							},fail() {
 								uni.showToast({
 									icon:'error',

@@ -263,7 +263,7 @@ image.data-v-0672b006 {
   width: 100%;
 }
 .workroom .pic > swiper-item.data-v-0672b006 {
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .page.data-v-0672b006 {
   display: flex;
@@ -301,6 +301,9 @@ image.data-v-0672b006 {
   width: 100%;
   overflow-y: hidden;
   overflow-x: auto;
+  max-height: 100px;
+  min-height: 100px;
+  height: 100px;
 }
 .teach_video > .pic > .videos > view.data-v-0672b006 {
   margin-left: 20px;
@@ -310,7 +313,6 @@ image.data-v-0672b006 {
   max-width: 200px;
   min-width: 200px;
   width: 200px;
-  background-color: red;
 }
 .teach_video > .pic > .videos > view > image.data-v-0672b006 {
   height: 100%;
@@ -345,19 +347,28 @@ image.data-v-0672b006 {
   max-width: 50%;
   min-width: 50%;
   width: 50%;
+  justify-content: flex-start;
 }
 .community .pic .content > view view.data-v-0672b006 {
+  max-height: 40px;
+  min-height: 40px;
+  height: 40px;
   padding: 0 5px;
   box-sizing: border-box;
+  margin-right: 5px;
   width: 100%;
   display: flex;
 }
 .community .pic .content > view view .news.data-v-0672b006 {
+  align-items: flex-start;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .community .pic .content > view view .hot.data-v-0672b006 {
+  max-height: 25px;
+  min-height: 25px;
+  height: 25px;
   max-width: 25px;
   min-width: 25px;
   width: 25px;

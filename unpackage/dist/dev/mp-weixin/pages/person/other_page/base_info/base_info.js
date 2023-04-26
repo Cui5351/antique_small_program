@@ -63,14 +63,12 @@ const _sfc_main = {
                   icon: "success",
                   title: "\u4FEE\u6539\u6210\u529F"
                 });
-              } else
+              } else {
                 common_vendor.index.showToast({
                   icon: "error",
                   title: "\u4FEE\u6539\u5931\u8D25"
                 });
-            },
-            complete() {
-              common_vendor.index.hideLoading();
+              }
             },
             fail() {
               common_vendor.index.showToast({

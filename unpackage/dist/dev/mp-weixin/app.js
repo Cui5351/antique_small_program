@@ -24,6 +24,21 @@ const _sfc_main = {
     common_vendor.index.current_this = this;
     this.baseURL = "https://www.mynameisczy.asia";
     this.store = common_vendor.useStore();
+    this.no_develop = function(name) {
+      common_vendor.index.showToast({
+        icon: "none",
+        title: name + "\u6682\u672A\u5F00\u653E"
+      });
+    };
+    this.dateformat = function(date) {
+      let month = date.getMonth() == 12 ? 1 : date.getMonth() + 1;
+      let day = date.getDate();
+      let now = new Date();
+      if (now.getFullYear() == date.getFullYear())
+        return `${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
+      else
+        return `${date.getFullYear()}\u5E74${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
+    };
     this.back = function() {
       if (getCurrentPages().length > 1)
         common_vendor.index.navigateBack();

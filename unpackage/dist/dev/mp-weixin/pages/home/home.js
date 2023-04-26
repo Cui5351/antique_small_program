@@ -44,7 +44,6 @@ const _sfc_main = {
       }, 1e3 * Math.random() * 10);
     }
     function toggle_other(item) {
-      console.log(item, "item");
       common_vendor.index.showToast({
         icon: "none",
         title: item.name + "\u6682\u672A\u5F00\u653E"

@@ -5,6 +5,21 @@
 			uni.current_this=this
 			this.baseURL='https://www.mynameisczy.asia'
 			this.store=useStore()
+			this.no_develop=function(name){
+				uni.showToast({
+					icon:'none',
+					title:name+'暂未开放'
+				})
+			}
+			this.dateformat=function(date){
+				let month=date.getMonth()==12?1:date.getMonth()+1
+				let day=date.getDate()
+				let now=new Date()
+				if(now.getFullYear()==date.getFullYear())
+				return `${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
+				else
+					return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
+			}
 			this.back=function(){
 				if(getCurrentPages().length>1)
 					uni.navigateBack();

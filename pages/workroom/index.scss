@@ -13,7 +13,7 @@
 	}
 	.pic{
 		&>swiper-item{
-			background-color: red;
+			 background-color: rgba(0,0,0,.1);
 			// margin:15px;
 		}
 		// @include height(100%);
@@ -63,11 +63,11 @@
 			width:100%;
 			overflow-y: hidden;
 			overflow-x: auto;
+			@include height(100px);
 			&>view{
 				margin-left:20px;
 				@include height(100px);
 				@include width(200px);
-				background-color: red;
 				&>image{
 					
 					height:100%;
@@ -99,17 +99,22 @@
 			display: flex;
 			&>view{
 				@include width(50%);
+				justify-content: flex-start;
 				view{
+					@include height(40px);
 					padding:0 5px;
 					box-sizing: border-box;
+					margin-right:5px;
 					width:100%;
 					display: flex;
 					.news{
+						align-items: flex-start;
 						overflow: hidden;
 						text-overflow: ellipsis;
-						white-space: nowrap;	
+						white-space: nowrap;
 					}
 					.hot{
+						@include height(25px);
 						@include width(25px);
 						background-color:orangered;
 						color: white;

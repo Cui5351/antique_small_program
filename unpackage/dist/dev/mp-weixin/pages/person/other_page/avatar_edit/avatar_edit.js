@@ -31,9 +31,7 @@ const _sfc_main = {
           openid: common_vendor.index.current_this.store.state.user_info.openid
         },
         success(e2) {
-          console.log(e2, "e");
           common_vendor.index.navigateBack();
-          common_vendor.index.hideLoading();
           let data = JSON.parse(e2.data);
           if (data.error) {
             common_vendor.index.showToast({

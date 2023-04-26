@@ -2,32 +2,43 @@
 .container>view{
 	width:100%;
 	flex-grow:0;
+	background-color: white;
 }
 .container{
 	overflow-y:auto;
 }
 .video{
 	@include height(300px);
-	
 	&>video{
 		height:100%;
 		width:100%;
 	}
 }
 .introduce{
+	padding:0 20px;
+	box-sizing: border-box;
 	&>view{
 		width:100%;
-		padding:10px;
+		padding:10px 0;
 		box-sizing: border-box;
 	}
 	&>.intro{
 		font-size:20px;
 	}
 	&>.author{
+		border-bottom:1px solid rgba(0,0,0,.1);
 		.icon{
-			&>uni-icons{
-				margin-left:5px;
+			&>button{
+				outline: none;
+				border:none;
+				display: inline-block;
+				padding:0;
 			}
+			uni-icons{
+				margin-left:15px;
+			}
+			display: flex;
+			align-items: center;
 		}
 		justify-content: space-between;
 		.avatar{
@@ -42,7 +53,7 @@
 	}
 }
 .videos{
-	padding:0 20px;
+	padding:10px 20px;
 	box-sizing: border-box;
 	&>.flex_j_a_r{
 		box-sizing: border-box;
@@ -51,23 +62,25 @@
 		justify-content: space-between;
 	}
 	&>.vi{
-	display: flex;
-	overflow-x: auto;
-	&>.vide{
-		margin:0 10px;
-		height:100px;
-		@include width(150px);
-		&>image{
-			height:100%;
-			width:100%;
+		padding-bottom:10px;
+		border-bottom:1px solid rgba(0,0,0,.1);
+		display: flex;
+		overflow-y: hidden;
+		overflow-x: auto;
+		&>.vide{
+			margin:0 10px;
+			height:100px;
+			@include width(150px);
+			&>image{
+				height:100%;
+				width:100%;
+			}
 		}
-	}
 	}
 }
 .damu{
 	margin-bottom:100px;
-	margin-top:20px;
-	padding:5px 10px 10px 10px;
+	padding:20px 20px 10px 20px;
 	box-sizing: border-box;
 	.title{
 		font-size:20px;
@@ -78,7 +91,7 @@
 			display: flex;
 			align-items: center;
 			&>.left{
-				@include width(75%);
+				@include width(80%);
 				display: flex;
 				&>.avatar{
 					height:30px;
@@ -90,7 +103,7 @@
 					}
 				}
 				&>.flex_j_a_c{
-					@include width(75%);
+					@include width(80%);
 					align-items: flex-start;
 					margin-left:10px;
 					width:100%;
@@ -112,7 +125,7 @@
 }
 .send_damu{
 	position:absolute;
-	background-color: rgba(0,0,0,.05);
+	background-color: aliceblue;
 	height:80px;
 	width:100%;
 	top:100%;

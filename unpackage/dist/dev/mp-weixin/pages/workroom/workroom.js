@@ -1,5 +1,6 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
+var common_assets = require("../../common/assets.js");
 const _sfc_main = {
   setup() {
     common_vendor.index.request({
@@ -76,7 +77,8 @@ const _sfc_main = {
         }
       });
     }
-    return { toggle, base_url, danmulist, video, inter };
+    let no_develop = common_vendor.index.current_this.no_develop;
+    return { toggle, base_url, danmulist, video, inter, no_develop };
   }
 };
 if (!Array) {
@@ -98,27 +100,33 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.p({
       type: "right"
     }),
-    d: common_vendor.f($setup.video, (item, index, i0) => {
+    d: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u5168\u90E8")),
+    e: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,
         b: index,
         c: common_vendor.o(($event) => $setup.inter(item), index)
       };
     }),
-    e: common_vendor.f([1, 2, 3, 4, 5, 6], (item, index, i0) => {
+    f: common_assets._imports_0,
+    g: common_vendor.f(["\u4F20\u627F\u975E\u9057", "\u5DE5\u5320\u7CBE\u795E", "\u4E60\u603B\u4E66\u8BB0\u8BF4\u975E\u9057", "\u6765\u81EA\u975E\u9057\u5DE5\u4F5C\u5BA4\u7684\u79D8\u5BC6", "\u975E\u9057\u5143\u5B87\u5B99"], (item, index, i0) => {
       return {
-        a: common_vendor.t(item)
+        a: common_vendor.t(index + 1),
+        b: common_vendor.t(item)
       };
     }),
-    f: common_vendor.f([1, 2, 3, 4, 5], (item, index, i0) => {
+    h: common_vendor.o(($event) => $setup.no_develop("\u975E\u9057\u793E\u533A")),
+    i: common_vendor.f(["\u548C\u6211\u4EEC\u4E00\u8D77\u7545\u6E38\u975E\u9057\u5427"], (item, index, i0) => {
       return {
-        a: common_vendor.t(item)
+        a: common_vendor.t(index + 6),
+        b: common_vendor.t(item)
       };
     }),
-    g: common_vendor.p({
+    j: common_vendor.o(($event) => $setup.no_develop("\u975E\u9057\u793E\u533A")),
+    k: common_vendor.p({
       type: "right"
     }),
-    h: common_vendor.o(($event) => $setup.toggle("community"))
+    l: common_vendor.o(($event) => $setup.no_develop("\u66F4\u591A"))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);

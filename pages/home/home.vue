@@ -102,7 +102,6 @@
 				},1000*Math.random()*10)
 			}
 			function toggle_other(item){
-				console.log(item,'item');
 				uni.showToast({
 					icon:'none',
 					title:item.name+'暂未开放'

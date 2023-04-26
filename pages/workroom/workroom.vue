@@ -15,38 +15,39 @@
 		<view class="teach_video page">
 			<view class="tit grows">
 				<view>教学视频</view>
-				<view class="getall" style="font-size:17px;">
+				<view class="getall" style="font-size:17px;" @click="no_develop('查看全部')">
 					全部
 					<uni-icons type="right"></uni-icons>
 				</view>
 			</view>
 			<view class="flex_j_a_c pic grows">
 				<view class="videos">
-					<view v-for="(item,index) in video" :key="index" @click="inter(item)">
-						<image :src="item.mask" style="background-color: rgba(0,0,0,.1);"></image>
+					<view  style="position: relative;" v-for="(item,index) in video" :key="index" @click="inter(item)">
+						<image :src="item.mask"></image>
+						<image style="background-color: rgba(0,0,0,0);;position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="../../play.svg"></image>
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="community page">
 			<view class="tit">社区</view>
-			<view class="pic flex_c grows" @click="toggle('community')">
+			<view class="pic flex_c grows">
 				<view class="title">
 					社区热搜
 				</view>
 				<view class="content grows">
 					<view class="flex_j_a_c grows">
-						<view class="flex_j_a_r grows" v-for="(item,index) in [1,2,3,4,5,6]">
-							<view class="news">{{item}},contentcontentcontentcontentcontentcontent</view>
+						<view class="flex_j_a_r grows"  @click="no_develop('非遗社区')" v-for="(item,index) in ['传承非遗','工匠精神','习总书记说非遗','来自非遗工作室的秘密','非遗元宇宙']">
+							<view class="news flex_j_a_c">{{index+1}},{{item}}</view>
 							<view class="hot flex_j_a_c">热</view>
 						</view>
 					</view>
 					<view class="right flex_j_a_c grows">
-						<view class="flex_j_a_r grows" v-for="(item,index) in [1,2,3,4,5]">
-							<view class="news">{{item}},contentcontentcontentcontentcontentcontent</view>
+						<view class="flex_j_a_r grows"  @click="no_develop('非遗社区')" v-for="(item,index) in ['和我们一起畅游非遗吧']">
+							<view class="news flex_j_a_c">{{index+6}},{{item}}</view>
 							<view class="hot flex_j_a_c">热</view>
 						</view>
-						<view class="flex_j_a_r grows" style="justify-content: flex-start">
+						<view class="flex_j_a_r grows" style="justify-content: flex-start"  @click="no_develop('更多')" >
 							更多热搜
 						<uni-icons type="right"></uni-icons>
 						</view>
@@ -129,7 +130,8 @@
 					}
 				})
 			}
-			return {toggle,base_url,danmulist,video,inter}
+			let no_develop=uni.current_this.no_develop
+			return {toggle,base_url,danmulist,video,inter,no_develop}
 		}
 	}
 </script>
