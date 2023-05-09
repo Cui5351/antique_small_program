@@ -4,6 +4,7 @@ var common_assets = require("../../../../common/assets.js");
 const _sfc_main = {
   name: "",
   onLoad(res) {
+    console.log(res);
     this.video.push(...JSON.parse(res.video));
     if (this.video.length > 0)
       Object.keys(this.current_video).forEach((item) => {
@@ -12,6 +13,7 @@ const _sfc_main = {
         }
         this.current_video[item] = this.video[0][item];
       });
+    this.title = res.title;
     let that = this;
     common_vendor.index.request({
       url: common_vendor.index.current_this.baseURL + ":5001/get_danmu",
@@ -43,11 +45,12 @@ const _sfc_main = {
     return {
       title: this.current_video.name,
       imageUrl: this.current_video.mask,
-      path: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(this.video)}`
+      path: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(this.video)}&title:${this.title}`
     };
   },
   setup() {
     let video = common_vendor.reactive([]);
+    let title = common_vendor.ref("");
     let current_video = common_vendor.reactive({
       name: "",
       mask: "",
@@ -68,6 +71,10 @@ const _sfc_main = {
     function toggle(ind) {
       if (ind == index.value)
         return;
+      common_vendor.index.showLoading({
+        title: "\u8D44\u6E90\u52A0\u8F7D\u4E2D",
+        mask: true
+      });
       Object.keys(current_video).forEach((item) => {
         if (item == "danmu") {
           let i = current_video[item].length;
@@ -100,6 +107,9 @@ const _sfc_main = {
         this.current_video[item] = this.video[ind][item];
       });
       index.value = ind;
+      setTimeout(() => {
+        common_vendor.index.hideLoading();
+      }, 300);
     }
     function send() {
       if (common_vendor.index.current_this.store.state.user_info.openid.length < 1) {
@@ -148,7 +158,7 @@ const _sfc_main = {
           setTimeout(() => {
             danmu.value = "";
             state.value = true;
-          }, Math.random() * 3e3);
+          }, Math.random() * 1e3);
         }
       });
     }
@@ -156,7 +166,7 @@ const _sfc_main = {
     function increment(pro) {
       current_video[pro]++;
     }
-    return { video, current_video, state, timeupdate, danmu, send, toggle, no_develop, increment };
+    return { video, current_video, title, state, timeupdate, danmu, send, toggle, no_develop, increment };
   }
 };
 if (!Array) {
@@ -173,39 +183,40 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     b: common_vendor.o((...args) => $setup.timeupdate && $setup.timeupdate(...args)),
     c: $setup.current_video.mask,
     d: $setup.current_video.src,
-    e: common_vendor.t($setup.current_video.name),
-    f: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u535A\u4E3B\u4FE1\u606F")),
-    g: common_vendor.o(($event) => $setup.increment("stars")),
-    h: common_vendor.p({
+    e: common_vendor.t($setup.title),
+    f: common_vendor.t($setup.current_video.name),
+    g: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u535A\u4E3B\u4FE1\u606F")),
+    h: common_vendor.o(($event) => $setup.increment("stars")),
+    i: common_vendor.p({
       type: "heart",
       size: "25"
     }),
-    i: common_vendor.t($setup.current_video.stars),
-    j: common_vendor.o(($event) => $setup.increment("collection")),
-    k: common_vendor.p({
+    j: common_vendor.t($setup.current_video.stars),
+    k: common_vendor.o(($event) => $setup.increment("collection")),
+    l: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    l: common_vendor.t($setup.current_video.collection),
-    m: common_vendor.p({
+    m: common_vendor.t($setup.current_video.collection),
+    n: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    n: common_vendor.t($setup.current_video.share),
-    o: common_vendor.t($setup.video.length),
-    p: common_vendor.p({
+    o: common_vendor.t($setup.current_video.share),
+    p: common_vendor.t($setup.video.length),
+    q: common_vendor.p({
       type: "right",
       size: "20"
     }),
-    q: common_vendor.f($setup.video, (item, index, i0) => {
+    r: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,
-        b: common_vendor.o(($event) => $setup.toggle(index)),
-        c: index
+        b: index,
+        c: common_vendor.o(($event) => $setup.toggle(index), index)
       };
     }),
-    r: common_assets._imports_0,
-    s: common_vendor.f($setup.current_video.danmu, (item, index, i0) => {
+    s: common_assets._imports_0,
+    t: common_vendor.f($setup.current_video.danmu, (item, index, i0) => {
       return {
         a: item.user_avatar,
         b: common_vendor.t(item.user_name),
@@ -217,17 +228,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         h: index
       };
     }),
-    t: common_vendor.p({
+    v: common_vendor.p({
       size: "20",
       type: "heart"
     }),
-    v: common_vendor.p({
+    w: common_vendor.p({
       type: "location",
       size: "30"
     }),
-    w: $setup.danmu,
-    x: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
-    y: common_vendor.o((...args) => $setup.send && $setup.send(...args))
+    x: $setup.danmu,
+    y: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
+    z: common_vendor.o((...args) => $setup.send && $setup.send(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5d1767d0"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/play_video/play_video.vue"]]);

@@ -12,8 +12,12 @@
     "pages/home/other_page/show_antique3d/antique/antique",
     "pages/person/other_page/bills/bills",
     "pages/person/other_page/avatar_edit/avatar_edit",
+    "pages/person/other_page/avatar_edit/choose",
     "pages/person/other_page/base_info/base_info",
-    "pages/workroom/other_page/play_video/play_video"
+    "pages/workroom/other_page/play_video/play_video",
+    "pages/person/other_page/publish_video/publish_video",
+    "pages/workroom/other_page/search_video/search_video",
+    "pages/home/other_page/news/news"
   ],
   "window": {
     "navigationBarTextStyle": "black",

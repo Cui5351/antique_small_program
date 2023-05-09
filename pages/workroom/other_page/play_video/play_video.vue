@@ -4,7 +4,9 @@
 		  <video enable-danmu='true' autoplay :danmu-list='current_video.danmu' @timeupdate='timeupdate' show-mute-btn='true' :poster="current_video.mask" :src="current_video.src"></video>
 	  </view>
       <view class="introduce">
-		  <view class="intro">{{current_video.name}}</view>
+		  <view class="intro">
+			  <view class="tit">{{title}}</view>
+		  &emsp;&emsp;{{current_video.name}}</view>
 		  <view class="author flex_j_a_r">
 			  <view class="flex_j_a_r">
 				  <view class="avatar" @click="no_develop('查看博主信息')">
@@ -31,8 +33,8 @@
 			  </view>
 		  </view>
 		  <view class="vi">
-			<view class="vide" v-for="(item,index) in video" :key="index"  style="position: relative;">
-				<image :src="item.mask" mode="" @click="toggle(index)"></image>
+			<view class="vide" v-for="(item,index) in video" :key="index"  @click="toggle(index)"  style="position: relative;">
+				<image :src="item.mask" mode=""></image>
 				<image style="background-color: rgba(0,0,0,0);position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="/play.svg"></image>
 			</view>
 		</view>
@@ -77,6 +79,7 @@ import {ref,reactive} from 'vue'
 export default{
   name:'',
   onLoad(res){
+	  console.log(res);
 	  this.video.push(...JSON.parse(res.video))
 		if(this.video.length>0)
 			Object.keys(this.current_video).forEach(item=>{
@@ -85,6 +88,7 @@ export default{
 				}
 				this.current_video[item]=this.video[0][item]
 			})
+		this.title=res.title
 	  let that=this
 	  uni.request({
 	  	url:uni.current_this.baseURL+':5001/get_danmu',
@@ -115,12 +119,13 @@ export default{
   	return {
   	    title: this.current_video.name, //分享的名称
 		imageUrl:this.current_video.mask,
-  	    path: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(this.video)}`
+  	    path: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(this.video)}&title:${this.title}`
   	    // mpId:'' //此处配置微信小程序的AppId
   	}
   },
   setup(){
 	let video=reactive([])
+	let title=ref('')
 	let current_video=reactive({
 		name:'',
 		mask:'',
@@ -141,6 +146,10 @@ export default{
 	function toggle(ind){
 		if(ind==index.value)
 			return
+		uni.showLoading({
+			title:'资源加载中',
+			mask:true
+		})
 		Object.keys(current_video).forEach(item=>{
 			if(item=='danmu'){
 				let i=current_video[item].length
@@ -172,6 +181,9 @@ export default{
 			this.current_video[item]=this.video[ind][item]
 		})
 		index.value=ind
+		setTimeout(()=>{
+			uni.hideLoading()
+		},300)
 	}
 	function send(){
 		if(uni.current_this.store.state.user_info.openid.length<1){
@@ -220,7 +232,7 @@ export default{
 				setTimeout(()=>{
 					danmu.value=''
 					state.value=true
-				},Math.random()*3000)
+				},Math.random()*1000)
 			}
 		})
 	}
@@ -228,7 +240,7 @@ export default{
 	function increment(pro){
 		current_video[pro]++;
 	}
-    return{video,current_video,state,timeupdate,danmu,send,toggle,no_develop,increment}
+    return{video,current_video,title,state,timeupdate,danmu,send,toggle,no_develop,increment}
   }
 }
 </script>

@@ -16,8 +16,12 @@ if (!Math) {
   "./pages/home/other_page/show_antique3d/antique/antique.js";
   "./pages/person/other_page/bills/bills.js";
   "./pages/person/other_page/avatar_edit/avatar_edit.js";
+  "./pages/person/other_page/avatar_edit/choose.js";
   "./pages/person/other_page/base_info/base_info.js";
   "./pages/workroom/other_page/play_video/play_video.js";
+  "./pages/person/other_page/publish_video/publish_video.js";
+  "./pages/workroom/other_page/search_video/search_video.js";
+  "./pages/home/other_page/news/news.js";
 }
 const _sfc_main = {
   onLaunch: function() {

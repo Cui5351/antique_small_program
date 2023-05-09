@@ -78,6 +78,20 @@ const _sfc_main = {
                     common_vendor.index.showToast({
                       title: "\u767B\u5F55\u6210\u529F"
                     });
+                    common_vendor.index.request({
+                      url: common_vendor.index.current_this.baseURL + ":5001/get_workAll",
+                      method: "POST",
+                      data: {
+                        openid: common_vendor.index.current_this.store.state.user_info.openid
+                      },
+                      success(res2) {
+                        console.log(res2, "res");
+                        if (common_vendor.index.current_this.check_res_state(res2)) {
+                          return;
+                        }
+                        person_info.works.push(...res2.data.data);
+                      }
+                    });
                     common_vendor.index.current_this.store.dispatch("set_login", 1);
                   } else {
                     common_vendor.index.showToast({
@@ -99,14 +113,15 @@ const _sfc_main = {
         return;
       }
       common_vendor.index.navigateTo({
-        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background"
+        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background&name=avatar"
       });
       return;
     }
     function start_() {
-      common_vendor.index.showToast({
-        title: "\u6682\u672A\u5F00\u653E",
-        icon: "none"
+      if (common_vendor.index.current_this.check_login_state())
+        return;
+      common_vendor.index.navigateTo({
+        url: `/pages/person/other_page/publish_video/publish_video?works=${JSON.stringify(person_info.works)}`
       });
     }
     return { start_, change_background, login_state, login, opacity, person_info, toggle, top, toggle_page };
@@ -153,14 +168,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   } : {}, {
     C: common_vendor.f($setup.person_info.works, (item, index, i0) => {
       return {
-        a: "https://www.mynameisczy.asia/image/antique/" + item + ".jpg",
+        a: item.mask,
         b: index
       };
     }),
     D: $setup.person_info.toggle,
     E: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
       return {
-        a: "https://www.mynameisczy.asia/image/antique/" + item + ".jpg",
+        a: item.mask,
         b: index
       };
     }),

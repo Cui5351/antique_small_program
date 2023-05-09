@@ -1,0 +1,215 @@
+/* 水平间距 */
+/* 水平间距 */
+image.data-v-fda038b2 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.flex_c.data-v-fda038b2 {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-fda038b2 {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.flex_j_a_c.data-v-fda038b2 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.flex_j_a_r.data-v-fda038b2 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.data-v-fda038b2::-webkit-scrollbar {
+  display: none;
+}
+.grows > view.data-v-fda038b2 {
+  flex-grow: 1;
+}
+.max_image.data-v-fda038b2 {
+  height: 100%;
+  width: 100%;
+}
+.head_tit.data-v-fda038b2 {
+  font-size: 20px;
+}
+.head_two.data-v-fda038b2 {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+}
+.small_title.data-v-fda038b2 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-fda038b2 {
+  font-size: 20px;
+}
+.two_size.data-v-fda038b2 {
+  font-size: 17px;
+}
+.three_size.data-v-fda038b2 {
+  font-size: 14px;
+}
+.container.data-v-fda038b2 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container > view.data-v-fda038b2 {
+  flex-grow: 1;
+}
+.background1.data-v-fda038b2 {
+  background-color: #6E79E2;
+}
+.background.data-v-fda038b2 {
+  background-color: white;
+}
+.background1_active.data-v-fda038b2:active {
+  background-color: #6E79E2;
+}
+/* 水平间距 */
+/* 水平间距 */
+image.data-v-fda038b2 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.flex_c.data-v-fda038b2 {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-fda038b2 {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.flex_j_a_c.data-v-fda038b2 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.flex_j_a_r.data-v-fda038b2 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.data-v-fda038b2::-webkit-scrollbar {
+  display: none;
+}
+.grows > view.data-v-fda038b2 {
+  flex-grow: 1;
+}
+.max_image.data-v-fda038b2 {
+  height: 100%;
+  width: 100%;
+}
+.head_tit.data-v-fda038b2 {
+  font-size: 20px;
+}
+.head_two.data-v-fda038b2 {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+}
+.small_title.data-v-fda038b2 {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-fda038b2 {
+  font-size: 20px;
+}
+.two_size.data-v-fda038b2 {
+  font-size: 17px;
+}
+.three_size.data-v-fda038b2 {
+  font-size: 14px;
+}
+.container.data-v-fda038b2 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container > view.data-v-fda038b2 {
+  flex-grow: 1;
+}
+.background1.data-v-fda038b2 {
+  background-color: #6E79E2;
+}
+.background.data-v-fda038b2 {
+  background-color: white;
+}
+.background1_active.data-v-fda038b2:active {
+  background-color: #6E79E2;
+}
+.font_color.data-v-fda038b2 {
+  color: #1E3659;
+}
+.upload.data-v-fda038b2 {
+  height: 100px;
+  width: 100px;
+  background-color: orangered;
+  transition: 0.5s ease;
+}
+.upload.data-v-fda038b2:active {
+  transform: scale(1.2);
+}
+.upload_btn.data-v-fda038b2 {
+  max-height: 30%;
+  min-height: 30%;
+  height: 30%;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+.head_tit.data-v-fda038b2 {
+  background-color: white;
+  width: 100%;
+  padding: 10px 0;
+}
+.lists.data-v-fda038b2 {
+  background-color: white;
+  overflow-y: auto;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.lists > .work.data-v-fda038b2 {
+  box-sizing: border-box;
+  margin: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  height: 80px;
+}
+.lists > .work.data-v-fda038b2:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.lists > .work > .avatar.data-v-fda038b2 {
+  height: 80px;
+  max-width: 80px;
+  min-width: 80px;
+  width: 80px;
+}
+.lists > .work > .avatar > image.data-v-fda038b2 {
+  height: 100%;
+  width: 100%;
+}

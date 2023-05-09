@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lottie-web": "^5.10.2"
+    "lottie-miniprogram": "^1.0.12"
   }
 }

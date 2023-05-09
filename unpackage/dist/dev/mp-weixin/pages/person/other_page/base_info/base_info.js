@@ -37,7 +37,7 @@ const _sfc_main = {
     }
     function show_corp_fun() {
       common_vendor.index.navigateTo({
-        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_avatar&height=500&width=500&property=avatar"
+        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_avatar&height=500&width=500&property=avatar&name=avatar"
       });
     }
     function submit_data() {
@@ -61,12 +61,14 @@ const _sfc_main = {
                 common_vendor.index.current_this.store.state.user_info[item] = userInfo_[item];
                 common_vendor.index.showToast({
                   icon: "success",
-                  title: "\u4FEE\u6539\u6210\u529F"
+                  title: "\u4FEE\u6539\u6210\u529F",
+                  duration: 1e3
                 });
               } else {
                 common_vendor.index.showToast({
                   icon: "error",
-                  title: "\u4FEE\u6539\u5931\u8D25"
+                  title: "\u4FEE\u6539\u5931\u8D25",
+                  duration: 1e3
                 });
               }
             },

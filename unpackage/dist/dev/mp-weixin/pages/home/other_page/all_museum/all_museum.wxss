@@ -162,6 +162,9 @@ image.data-v-85a52bf6 {
 .background1_active.data-v-85a52bf6:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-85a52bf6 {
+  color: #1E3659;
+}
 .container.data-v-85a52bf6 {
   overflow: hidden;
   height: 100%;
@@ -385,4 +388,7 @@ image.data-v-85a52bf6 {
 }
 .background1_active.data-v-85a52bf6:active {
   background-color: #6E79E2;
+}
+.font_color.data-v-85a52bf6 {
+  color: #1E3659;
 }

@@ -15,7 +15,7 @@
 		<view class="teach_video page">
 			<view class="tit grows">
 				<view>教学视频</view>
-				<view class="getall" style="font-size:17px;" @click="no_develop('查看全部')">
+				<view class="getall" style="font-size:17px;" @click="video_all">
 					全部
 					<uni-icons type="right"></uni-icons>
 				</view>
@@ -111,8 +111,6 @@
                     time: 7
                 }])
 			function inter(item){
-				console.log(item,'item');
-				
 				uni.request({
 					url:uni.current_this.baseURL+':5001/get_video',
 					method:"POST",
@@ -124,14 +122,26 @@
 						if(uni.current_this.check_res_state(res)){
 							return
 						}
+						if(!res.data.data.length){
+							uni.showToast({
+								title:'该作品集为空',
+								icon:'none'
+							})
+							return
+						}
 						uni.navigateTo({
-							url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}`
+							url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}`
 						})
 					}
 				})
 			}
 			let no_develop=uni.current_this.no_develop
-			return {toggle,base_url,danmulist,video,inter,no_develop}
+			function video_all(){
+				uni.navigateTo({
+					url:'/pages/workroom/other_page/search_video/search_video'
+				})
+			}
+			return {toggle,base_url,danmulist,video,inter,no_develop,video_all}
 		}
 	}
 </script>

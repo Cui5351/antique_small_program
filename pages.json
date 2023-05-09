@@ -99,6 +99,13 @@
                 "enablePullDownRefresh": false
             }
         },{
+            "path" : "pages/person/other_page/avatar_edit/choose",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+        },{
             "path" : "pages/person/other_page/base_info/base_info",
             "style" :                                                                                    
             {
@@ -109,6 +116,33 @@
         }
         ,{
             "path" : "pages/workroom/other_page/play_video/play_video",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/person/other_page/publish_video/publish_video",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/workroom/other_page/search_video/search_video",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/other_page/news/news",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

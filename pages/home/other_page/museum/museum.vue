@@ -62,13 +62,15 @@
 		<view class="share grows">
 			<view class="flex_j_a_c">
 				<!-- <view>1</view> -->
-				<button class="bt" plain @click="subscribe">
+				<button class="bt flex_j_a_r" plain @click="subscribe">
+					<uni-icons color='rgb(77,92,136)' :type="state.subscribe?'star-filled':'star'" size='35'></uni-icons>
 					预约门票
 				</button>
 			</view>
 			<view class="flex_j_a_c">
 				<!-- <view>1</view> -->
-				<button open-type="share" class="bt" plain>
+				<button open-type="share" class="bt flex_j_a_r" plain>
+					<uni-icons color='rgb(77,92,136)' :type="state.share?'redo-filled':'redo'" size='35'></uni-icons>
 					分享
 				</button>
 			</view>
@@ -93,10 +95,6 @@
 			})
 		},
 		onLoad(args) {
-			wx.showShareMenu({
-				withShareTicket: true,
-				menus: ["shareAppMessage", "shareTimeline"]
-			})
 			let arg=JSON.parse(args.data)
 			Object.keys(this.data).forEach(item=>{
 				if(typeof item[item] == 'array'){
@@ -107,10 +105,11 @@
 			})
 		},
 				onShareAppMessage(res) {
+					this.state.share=true
 				    return {
 						imageUrl:this.data.full_src,
 				        title: this.data.name, //分享的名称
-				        path: `/pages/home/other_page/museum/museum?data=${JSON.stringify(this.data)}`,
+				        path: `/pages/home/other_page/museum/museum?data=${JSON.stringify(this.data)}`
 						// desc:this.data.description[0].substring(0,15)+'...'
 				        // mpId:'' //此处配置微信小程序的AppId
 				    }
@@ -131,14 +130,12 @@
 				antique:[],
 				full_src:''
 			})
+			let state=reactive({
+				subscribe:false,
+				share:false,
+			})
 			function back(){
 				uni.current_this.back()
-			}
-			function share(){
-				uni.showShareMenu({
-					title:data.name,
-					path:'/pages/home/other_page/museum',
-				})
 			}
 			function full_screen(){
 				uni.showToast({
@@ -206,7 +203,7 @@
 				// })
 			}
 			return {
-				show_antique,subscribe,data_height,data,back,full_screen,all_antique,show_all
+				show_antique,subscribe,data_height,data,back,full_screen,all_antique,show_all,state
 			}
 		}
 	}

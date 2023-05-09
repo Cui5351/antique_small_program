@@ -1,0 +1,44 @@
+.upload{
+	height:100px;
+	width:100px;
+	background-color: orangered;
+	transition:.5s ease;
+	&:active{
+		transform: scale(1.2);
+	}
+}
+.upload_btn{
+	@include height(30%);
+	width:100%;
+	border:1px solid rgba(0,0,0,.05);
+	box-sizing: border-box;
+}
+.head_tit{
+	background-color: white;
+	width:100%;
+	padding:10px 0;
+}
+.lists{
+	background-color: white;
+	overflow-y:auto;
+	width:100%;
+	padding:0 20px;
+	box-sizing: border-box;
+	&>.work{
+		box-sizing: border-box;
+		margin:10px 0;
+		&:active{
+			background-color: rgba(0,0,0,.05);
+		}
+		border:1px solid rgba(0,0,0,.05);
+		height:80px;
+		&>.avatar{
+			height:80px;
+			@include width(80px);
+			&>image{
+				height:100%;
+				width:100%;
+			}
+		}
+	}
+}

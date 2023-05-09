@@ -88,10 +88,12 @@ image{
 }
 .background{
 	background-color: white;
-	// background-color: #fffbf2;
 }
 .background1_active{
 	&:active{
 		background-color: #6E79E2;
 	}
+}
+.font_color{
+	color:#1E3659
 }

@@ -9,6 +9,7 @@ const _sfc_main = {
     this.url = res.url;
     this.base.height = res.height;
     this.base.width = res.width;
+    this.base.name = res.name;
     this.base.property = res.property;
   },
   setup() {
@@ -16,7 +17,8 @@ const _sfc_main = {
     let base = common_vendor.reactive({
       width: 0,
       height: 0,
-      property: ""
+      property: "",
+      name: ""
     });
     function choosePortrait(e) {
       common_vendor.index.showLoading({
@@ -26,7 +28,7 @@ const _sfc_main = {
       common_vendor.index.uploadFile({
         url: url.value,
         filePath: image_path,
-        name: "avatar",
+        name: base.name,
         formData: {
           openid: common_vendor.index.current_this.store.state.user_info.openid
         },
@@ -40,7 +42,8 @@ const _sfc_main = {
             });
             return;
           }
-          common_vendor.index.current_this.store.state.user_info[base.property] = data.value;
+          if (base.property != null)
+            common_vendor.index.current_this.store.state.user_info[base.property] = data.value;
           common_vendor.index.showToast({
             icon: "success",
             title: "\u4FEE\u6539\u6210\u529F"

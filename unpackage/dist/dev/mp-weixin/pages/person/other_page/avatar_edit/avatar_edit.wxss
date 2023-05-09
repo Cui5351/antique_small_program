@@ -162,6 +162,9 @@ image.data-v-ddac9c1e {
 .background1_active.data-v-ddac9c1e:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-ddac9c1e {
+  color: #1E3659;
+}
 .head_two.data-v-ddac9c1e {
   background-color: white;
   position: relative;

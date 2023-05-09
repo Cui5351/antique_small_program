@@ -95,10 +95,10 @@
 					开启你的非遗之旅
 				</view>
 				<view v-for="(item,index) in person_info.works" :key="index" v-show="person_info.toggle">
-					<image :src="'https://www.mynameisczy.asia/image/antique/'+item+'.jpg'" mode="aspectFill"></image>
+					<image :src="item.mask" mode="aspectFill"></image>
 				</view>
 					<view v-for="(item,index) in person_info.works2" :key="index" v-show="!person_info.toggle">
-						<image :src="'https://www.mynameisczy.asia/image/antique/'+item+'.jpg'" mode="aspectFill"></image>
+						<image :src="item.mask" mode="aspectFill"></image>
 					</view>
 			</view>
 		</view>
@@ -187,6 +187,20 @@
 											uni.showToast({
 												title:'登录成功',
 											})
+											uni.request({
+												url:uni.current_this.baseURL+':5001/get_workAll',
+												method:"POST",
+												data:{
+													openid:uni.current_this.store.state.user_info.openid
+												},
+												success(res) {
+													console.log(res,'res');
+													if(uni.current_this.check_res_state(res)){
+														return
+													}
+													person_info.works.push(...res.data.data)
+												}
+											})
 											uni.current_this.store.dispatch('set_login',1)
 										}else{
 											uni.showToast({
@@ -208,7 +222,7 @@
 					return
 				}
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background&name=avatar'
 				})
 				
 				return
@@ -237,9 +251,11 @@
 				}
 			}
 			function start_(){
-				uni.showToast({
-					title:'暂未开放',
-					icon:'none'
+				// return
+				if(uni.current_this.check_login_state())
+					return
+				uni.navigateTo({
+					url:`/pages/person/other_page/publish_video/publish_video?works=${JSON.stringify(person_info.works)}`
 				})
 			}
 			return {start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}

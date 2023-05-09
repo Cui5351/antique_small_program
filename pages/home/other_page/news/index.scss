@@ -1,0 +1,87 @@
+@import "/uni.scss";
+.containe{
+	background-color: white;
+	overflow-y: auto;
+	height:100%;
+	width:100%;
+}
+.head{
+	.pic{
+		height:200px;
+		width:100%;
+		&>image{
+			height:100%;
+			width:100%;
+		}
+	}
+	.tit{
+		color: gray;
+		padding:5px 15px;
+		box-sizing: border-box;
+		background-color: rgba(0,0,0,0.1);
+	}
+}
+.hot{
+	&>view{
+		padding:7px 20px;
+		border-bottom:1px solid rgba(0,0,0,0.1);
+		box-sizing: border-box;
+		&:active{
+			background-color: rgba(0,0,0,0.1);
+		}
+		&>view{
+			display: inline-block;background-color: orangered;margin-left:10px;
+			color: white;
+			border-radius:5px;
+			font-size:13px;
+			padding:2px;
+			box-sizing: border-box;
+		}
+	}
+}
+.passage{
+	padding:0 20px;
+	box-sizing: border-box;
+	&>view{
+		margin:10px 0;
+		border-bottom:1px solid rgba(0,0,0,0.1);
+	}
+	.person{
+		display: flex;
+		align-items: flex-end;
+		&>.avatar{
+			margin-right:10px;
+			height:60px;
+			width:60px;
+			&>image{
+				border-radius:50%;
+				width:100%;
+				height:100%;
+			}
+		}
+	}
+	.pic{
+		display: flex;
+		column-count: 2;
+		flex-wrap: wrap;
+		&>image{
+			width:130px;
+			height:130px;
+			margin:3px;
+		}
+	}
+	.other{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		justify-content: space-between;
+		height:60px;
+		&>view>uni-icons{
+			margin-left:5px;
+		}
+	}
+	.content{
+		padding:5px;
+		box-sizing: border-box;
+	}
+}

@@ -162,6 +162,9 @@ image.data-v-5d1767d0 {
 .background1_active.data-v-5d1767d0:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-5d1767d0 {
+  color: #1E3659;
+}
 /* 水平间距 */
 /* 水平间距 */
 image.data-v-5d1767d0 {
@@ -244,6 +247,9 @@ image.data-v-5d1767d0 {
 .background1_active.data-v-5d1767d0:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-5d1767d0 {
+  color: #1E3659;
+}
 .container > view.data-v-5d1767d0 {
   width: 100%;
   flex-grow: 0;
@@ -262,15 +268,20 @@ image.data-v-5d1767d0 {
   width: 100%;
 }
 .introduce.data-v-5d1767d0 {
-  padding: 0 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
 }
 .introduce > view.data-v-5d1767d0 {
   width: 100%;
-  padding: 10px 0;
+  padding: 5px 0;
   box-sizing: border-box;
 }
 .introduce > .intro.data-v-5d1767d0 {
+  font-size: 17px;
+  color: gray;
+}
+.introduce > .intro > .tit.data-v-5d1767d0 {
+  color: black;
   font-size: 20px;
 }
 .introduce > .author.data-v-5d1767d0 {

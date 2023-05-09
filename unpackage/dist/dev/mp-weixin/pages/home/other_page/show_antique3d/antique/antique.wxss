@@ -162,6 +162,9 @@ image.data-v-07a217b0 {
 .background1_active.data-v-07a217b0:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-07a217b0 {
+  color: #1E3659;
+}
 .background_antique.data-v-07a217b0 {
   height: 70%;
   width: 100%;
@@ -311,6 +314,9 @@ image.data-v-07a217b0 {
 }
 .background1_active.data-v-07a217b0:active {
   background-color: #6E79E2;
+}
+.font_color.data-v-07a217b0 {
+  color: #1E3659;
 }
 .container.data-v-07a217b0 {
   color: #c8c8ba;

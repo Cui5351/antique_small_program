@@ -1,0 +1,75 @@
+@import "/uni.scss";
+.search_btn{
+	width:100%;
+	.search_txt{
+		position: relative;
+		width:100%;
+		transform: translateX(-50%);
+		left:50%;
+	}
+	@include height(70%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius:20px;
+	color:gray;
+	background:rgba(0,0,0,0.05);
+	&>input{
+		padding:0 10px;
+		width:100%;
+		&::after{
+			content:'';
+			float:right;
+			height:20px;
+			width:20px;
+			background-color: red;
+			left:10px;
+		}
+	}
+}
+.search{
+	@include height(50px);
+}
+.containe{
+	height:100%;
+	background-color: white;
+	&>view{
+		padding:0 20px;
+		box-sizing: border-box;
+	}
+	.flush_btn{
+		display:flex;
+		justify-content: space-between;
+	}
+	.title{
+		margin-top:20px;
+		height:30px;
+		width:100%;
+		line-height: 30px;
+	}
+	.history{
+		width:100%;
+		display: flex;
+		column-count: 3;
+		flex-wrap: wrap;
+		&>view{
+			padding:5px 10px;
+			background:rgba(0,0,0,0.05);
+			color: gray;
+			margin:5px 5px;
+			border-radius:15px;
+		}
+	}
+	.hot_search{
+		display: flex;
+		column-count:2;
+		flex-wrap: wrap;
+		&>view{
+			margin:5px 5px;
+			@include width(45%);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+}

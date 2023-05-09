@@ -162,6 +162,9 @@ image.data-v-424d60ee {
 .background1_active.data-v-424d60ee:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-424d60ee {
+  color: #1E3659;
+}
 .base_info.data-v-424d60ee {
   box-sizing: border-box;
 }

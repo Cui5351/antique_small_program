@@ -11,6 +11,7 @@
 					title:name+'暂未开放'
 				})
 			}
+			// 格式化日期
 			this.dateformat=function(date){
 				let month=date.getMonth()==12?1:date.getMonth()+1
 				let day=date.getDate()
@@ -20,6 +21,7 @@
 				else
 					return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
 			}
+			// 返回上一级页面
 			this.back=function(){
 				if(getCurrentPages().length>1)
 					uni.navigateBack();
@@ -38,6 +40,7 @@
 				}
 				return 0
 			}
+			// 检查是否登录
 			this.check_login_state=function(){
 				if(!uni.current_this.store.getters.login_state){
 					uni.showToast({

@@ -162,6 +162,9 @@ image.data-v-105a4c2e {
 .background1_active.data-v-105a4c2e:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-105a4c2e {
+  color: #1E3659;
+}
 .hig.data-v-105a4c2e {
   font-size: 20px;
   color: #6E79E2;
@@ -396,4 +399,7 @@ image.data-v-105a4c2e {
 }
 .background1_active.data-v-105a4c2e:active {
   background-color: #6E79E2;
+}
+.font_color.data-v-105a4c2e {
+  color: #1E3659;
 }

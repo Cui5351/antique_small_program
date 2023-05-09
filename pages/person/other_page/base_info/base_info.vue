@@ -87,7 +87,7 @@
 			}
 			function show_corp_fun(){
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_avatar&height=500&width=500&property=avatar'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_avatar&height=500&width=500&property=avatar&name=avatar'
 				})
 			}
 			// 提交数据
@@ -114,12 +114,14 @@
 									uni.current_this.store.state.user_info[item]=userInfo_[item]
 									uni.showToast({
 										icon:'success',
-										title:'修改成功'
+										title:'修改成功',
+										duration:1000
 									})
 								}else{
 									uni.showToast({
 										icon:'error',
-										title:'修改失败'
+										title:'修改失败',
+										duration:1000
 									})
 								}
 							},fail() {

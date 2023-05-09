@@ -1,7 +1,8 @@
 
 // #ifndef VUE3
 import Vue from 'vue'
-import App from './App'
+// import elementPlus from 'element-plus'
+import App from './App';
 
 Vue.config.productionTip = false
 
@@ -17,9 +18,16 @@ app.$mount()
 import { createSSRApp } from 'vue'
 import store from '/store/vuex.js'
 import App from './App.vue'
+// import 'element-plus/dist/index.css'
+// import ElementPlus from 'element-plus'
 export function createApp() {
   const app = createSSRApp(App)
   app.use(store)
+  
+  	// app.use(ElementPlus, {
+  		// locale
+	// })
+  // app.use(elementPlus)
   return {
     app
   }

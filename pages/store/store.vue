@@ -41,10 +41,7 @@
 				{
 					title:'文刊',
 					main:'',
-					picture:[{
-						name:'aaa',
-						src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-					}]
+					picture:[]
 				},{
 				title:'非遗制品',
 				main:uni.current_this.baseURL+'/image/antique/culture_big.jpg',
@@ -57,79 +54,19 @@
 				},{
 					name:'精美贝雕',
 					src:uni.current_this.baseURL+'/antique/store_picture/精美贝雕.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
 				}]
 			},{
 				title:'联名文刊',
 				main:uni.current_this.baseURL+'/image/antique/culture_big.jpg',
-				picture:[{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				}]
+				picture:[]
 			},{
 				title:'专属定制',
 				main:'',
-				picture:[{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				}]
+				picture:[]
 			},{
 				title:'联名服装',
 				main:'',
-				picture:[{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				},{
-					name:'aaa',
-					src:uni.current_this.baseURL+'/image/antique/culture_big2.jpg'
-				}]
+				picture:[]
 			}])
 			let show_store=reactive({
 				main:'',

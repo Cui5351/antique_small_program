@@ -44,10 +44,14 @@ const _sfc_main = {
       }, 1e3 * Math.random() * 10);
     }
     function toggle_other(item) {
-      common_vendor.index.showToast({
-        icon: "none",
-        title: item.name + "\u6682\u672A\u5F00\u653E"
-      });
+      switch (item.name) {
+        case "\u7126\u70B9\u65B0\u95FB": {
+          common_vendor.index.navigateTo({
+            url: "/pages/home/other_page/news/news"
+          });
+        }
+      }
+      return;
     }
     function more(name) {
       if (name == "all") {

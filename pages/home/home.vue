@@ -1,6 +1,6 @@
 <template>
 		<loading :show_loading="show_loading"></loading>
-	<view class="container">
+	<view class="container font_color">
 		<swiper class="swiper" indicator-color='gray' indicator-active-color='#ffffff' circular autoplay interval='2500' :indicator-dots="true">
 			<swiper-item v-for="(item,index) in head_img" :key="index">
 				<view class="swiper_item">
@@ -102,6 +102,14 @@
 				},1000*Math.random()*10)
 			}
 			function toggle_other(item){
+				switch(item.name){
+					case '焦点新闻':{
+						uni.navigateTo({
+							url:'/pages/home/other_page/news/news'
+						})
+					};
+				}
+				return
 				uni.showToast({
 					icon:'none',
 					title:item.name+'暂未开放'

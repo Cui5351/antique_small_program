@@ -162,6 +162,9 @@ image.data-v-390a77b4 {
 .background1_active.data-v-390a77b4:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-390a77b4 {
+  color: #1E3659;
+}
 .btn2.data-v-390a77b4 {
   border: 1px solid #4f46e5;
   color: white;
@@ -513,4 +516,7 @@ image.data-v-390a77b4 {
 }
 .background1_active.data-v-390a77b4:active {
   background-color: #6E79E2;
+}
+.font_color.data-v-390a77b4 {
+  color: #1E3659;
 }

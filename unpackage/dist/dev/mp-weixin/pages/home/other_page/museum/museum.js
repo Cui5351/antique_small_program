@@ -13,10 +13,6 @@ const _sfc_main = {
     });
   },
   onLoad(args) {
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ["shareAppMessage", "shareTimeline"]
-    });
     let arg = JSON.parse(args.data);
     Object.keys(this.data).forEach((item) => {
       if (typeof item[item] == "array") {
@@ -27,6 +23,7 @@ const _sfc_main = {
     });
   },
   onShareAppMessage(res) {
+    this.state.share = true;
     return {
       imageUrl: this.data.full_src,
       title: this.data.name,
@@ -47,6 +44,10 @@ const _sfc_main = {
       description: "",
       antique: [],
       full_src: ""
+    });
+    let state = common_vendor.reactive({
+      subscribe: false,
+      share: false
     });
     function back() {
       common_vendor.index.current_this.back();
@@ -114,7 +115,8 @@ const _sfc_main = {
       back,
       full_screen,
       all_antique,
-      show_all
+      show_all,
+      state
     };
   }
 };
@@ -176,7 +178,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     o: $setup.data.full_src,
     p: common_vendor.o((...args) => $setup.full_screen && $setup.full_screen(...args)),
-    q: common_vendor.o((...args) => $setup.subscribe && $setup.subscribe(...args))
+    q: common_vendor.p({
+      color: "rgb(77,92,136)",
+      type: $setup.state.subscribe ? "star-filled" : "star",
+      size: "35"
+    }),
+    r: common_vendor.o((...args) => $setup.subscribe && $setup.subscribe(...args)),
+    s: common_vendor.p({
+      color: "rgb(77,92,136)",
+      type: $setup.state.share ? "redo-filled" : "redo",
+      size: "35"
+    })
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-857ef576"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/other_page/museum/museum.vue"]]);

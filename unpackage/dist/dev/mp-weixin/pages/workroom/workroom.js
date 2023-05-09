@@ -59,7 +59,6 @@ const _sfc_main = {
       }
     ]);
     function inter(item) {
-      console.log(item, "item");
       common_vendor.index.request({
         url: common_vendor.index.current_this.baseURL + ":5001/get_video",
         method: "POST",
@@ -71,14 +70,26 @@ const _sfc_main = {
           if (common_vendor.index.current_this.check_res_state(res)) {
             return;
           }
+          if (!res.data.data.length) {
+            common_vendor.index.showToast({
+              title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
+              icon: "none"
+            });
+            return;
+          }
           common_vendor.index.navigateTo({
-            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}`
+            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}`
           });
         }
       });
     }
     let no_develop = common_vendor.index.current_this.no_develop;
-    return { toggle, base_url, danmulist, video, inter, no_develop };
+    function video_all() {
+      common_vendor.index.navigateTo({
+        url: "/pages/workroom/other_page/search_video/search_video"
+      });
+    }
+    return { toggle, base_url, danmulist, video, inter, no_develop, video_all };
   }
 };
 if (!Array) {
@@ -100,7 +111,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.p({
       type: "right"
     }),
-    d: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u5168\u90E8")),
+    d: common_vendor.o((...args) => $setup.video_all && $setup.video_all(...args)),
     e: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,

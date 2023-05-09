@@ -23,6 +23,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 			this.url=res.url
 			this.base.height=res.height
 			this.base.width=res.width
+			this.base.name=res.name
 			this.base.property=res.property
 		},
 		setup() {
@@ -30,7 +31,8 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 			let base=reactive({
 				width:0,
 				height:0,
-				property:''
+				property:'',
+				name:''
 			})
 			function choosePortrait(e){
 							uni.showLoading({
@@ -41,7 +43,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 							uni.uploadFile({
 								url:url.value,
 								filePath:image_path,
-								name:'avatar',
+								name:base.name,
 								formData:{
 									openid:uni.current_this.store.state.user_info.openid
 								},
@@ -56,7 +58,8 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 										})
 										return
 									}
-									uni.current_this.store.state.user_info[base.property]=data.value
+									if(base.property!=null)
+										uni.current_this.store.state.user_info[base.property]=data.value
 										uni.showToast({
 											icon:'success',
 											title:'修改成功'
