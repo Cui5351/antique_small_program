@@ -5,13 +5,6 @@ const _sfc_main = {
   components: {
     QfImageCropper
   },
-  onLoad(res) {
-    this.url = res.url;
-    this.base.height = res.height;
-    this.base.width = res.width;
-    this.base.name = res.name;
-    this.base.property = res.property;
-  },
   setup() {
     let url = common_vendor.ref("");
     let base = common_vendor.reactive({
@@ -24,7 +17,7 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "\u4FEE\u6539\u4E2D"
       });
-      common_vendor.index.current_this_publish_video.publish_work.mask_url = e.tempFilePath;
+      common_vendor.index.current_this_publish_video.info.mask = e.tempFilePath;
       back();
     }
     let back = common_vendor.index.current_this.back;
@@ -54,8 +47,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     b: common_vendor.o((...args) => $setup.back && $setup.back(...args)),
     c: common_vendor.o($options.handleCrop),
     d: common_vendor.p({
-      width: $setup.base.width,
-      height: $setup.base.height,
+      width: 300,
+      height: 200,
       areaScale: "0.8",
       maxScale: "1.5"
     })

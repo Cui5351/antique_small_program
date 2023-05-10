@@ -16,7 +16,8 @@ const state = {
     avatar: "https://www.mynameisczy.asia/antique/user_avatar/default_avatar.jpg",
     introduce: "",
     sex: "",
-    background: "https://www.mynameisczy.asia/antique/user_background/default_background.jpg"
+    background: "https://www.mynameisczy.asia/antique/user_background/default_background.jpg",
+    works: []
   }
 };
 const mutations = {

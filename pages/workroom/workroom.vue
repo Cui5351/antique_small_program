@@ -23,7 +23,7 @@
 			<view class="flex_j_a_c pic grows">
 				<view class="videos">
 					<view  style="position: relative;" v-for="(item,index) in video" :key="index" @click="inter(item)">
-						<image :src="item.mask"></image>
+						<image :src="item.mask" mode="aspectFill"></image>
 						<image style="background-color: rgba(0,0,0,0);;position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="../../play.svg"></image>
 					</view>
 				</view>

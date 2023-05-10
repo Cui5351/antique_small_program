@@ -7,7 +7,7 @@
 			</view>
 		</view>
 		<view class="">
-			<qf-image-cropper :width="base.width" :height="base.height" areaScale='0.8' maxScale='1.5' @crop="handleCrop" ></qf-image-cropper>
+			<qf-image-cropper :width="300" :height="200" areaScale='0.8' maxScale='1.5' @crop="handleCrop" ></qf-image-cropper>
 		</view>
 	</view>
 </template>
@@ -18,13 +18,6 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 	export default {
 		components:{
 			QfImageCropper
-		},
-		onLoad(res) {
-			this.url=res.url
-			this.base.height=res.height
-			this.base.width=res.width
-			this.base.name=res.name
-			this.base.property=res.property
 		},
 		setup() {
 			let url=ref('');
@@ -38,7 +31,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 				uni.showLoading({
 					title:'修改中'
 				})
-				uni.current_this_publish_video.publish_work.mask_url=e.tempFilePath
+				uni.current_this_publish_video.info.mask=e.tempFilePath
 				back()
 			}
 			let back=uni.current_this.back

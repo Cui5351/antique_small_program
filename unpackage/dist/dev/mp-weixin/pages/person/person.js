@@ -10,7 +10,7 @@ const _sfc_main = {
       introduce: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.introduce),
       counts: [0, 0, 0],
       toggle: true,
-      works: [],
+      works: common_vendor.index.current_this.store.state.user_info.works,
       works2: []
     });
     function toggle(bool) {
@@ -89,7 +89,7 @@ const _sfc_main = {
                         if (common_vendor.index.current_this.check_res_state(res2)) {
                           return;
                         }
-                        person_info.works.push(...res2.data.data);
+                        common_vendor.index.current_this.store.state.user_info.works.push(...res2.data.data);
                       }
                     });
                     common_vendor.index.current_this.store.dispatch("set_login", 1);

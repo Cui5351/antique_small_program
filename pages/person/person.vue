@@ -120,10 +120,8 @@
 				introduce:computed(()=>uni.current_this.store.getters.introduce),
 				counts:[0,0,0],
 				toggle:true,
-				works:[],
+				works:uni.current_this.store.state.user_info.works,
 				works2:[]
-				// works:['one','two','three','four','five','six','seven','eight','nine','ten'],
-				// works2:['six','seven','eight','nine','ten']
 			})
 			function toggle(bool){
 				person_info.toggle=bool
@@ -201,7 +199,7 @@
 													if(uni.current_this.check_res_state(res)){
 														return
 													}
-													person_info.works.push(...res.data.data)
+													uni.current_this.store.state.user_info.works.push(...res.data.data)
 												}
 											})
 											uni.current_this.store.dispatch('set_login',1)

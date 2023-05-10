@@ -202,6 +202,10 @@ image.data-v-44d5a8eb {
   color: gray;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+.description > textarea.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+}
 .change.data-v-44d5a8eb {
   display: flex;
   padding: 10px 0;
