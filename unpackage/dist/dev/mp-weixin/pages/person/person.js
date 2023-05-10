@@ -121,7 +121,7 @@ const _sfc_main = {
       if (common_vendor.index.current_this.check_login_state())
         return;
       common_vendor.index.navigateTo({
-        url: `/pages/person/other_page/publish_video/publish_video?works=${JSON.stringify(person_info.works)}`
+        url: `/pages/person/other_page/new_work_collection/new_work_collection`
       });
     }
     return { start_, change_background, login_state, login, opacity, person_info, toggle, top, toggle_page };
@@ -166,21 +166,25 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   }, $setup.person_info.works.length <= 0 && $setup.person_info.toggle ? {
     B: common_vendor.o((...args) => $setup.start_ && $setup.start_(...args))
   } : {}, {
-    C: common_vendor.f($setup.person_info.works, (item, index, i0) => {
+    C: $setup.person_info.works.length > 0 && $setup.person_info.toggle
+  }, $setup.person_info.works.length > 0 && $setup.person_info.toggle ? {
+    D: common_vendor.o((...args) => $setup.start_ && $setup.start_(...args))
+  } : {}, {
+    E: common_vendor.f($setup.person_info.works, (item, index, i0) => {
       return {
         a: item.mask,
         b: index
       };
     }),
-    D: $setup.person_info.toggle,
-    E: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
+    F: $setup.person_info.toggle,
+    G: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
       return {
         a: item.mask,
         b: index
       };
     }),
-    F: !$setup.person_info.toggle,
-    G: common_vendor.n($setup.person_info.works.length <= 0 && $setup.person_info.toggle ? "start_btn_cen" : "")
+    H: !$setup.person_info.toggle,
+    I: common_vendor.n($setup.person_info.works.length <= 0 && $setup.person_info.toggle ? "start_btn_cen" : "")
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-390a77b4"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/person.vue"]]);

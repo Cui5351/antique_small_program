@@ -22,6 +22,7 @@ if (!Math) {
   "./pages/person/other_page/publish_video/publish_video.js";
   "./pages/workroom/other_page/search_video/search_video.js";
   "./pages/home/other_page/news/news.js";
+  "./pages/person/other_page/new_work_collection/new_work_collection.js";
 }
 const _sfc_main = {
   onLaunch: function() {

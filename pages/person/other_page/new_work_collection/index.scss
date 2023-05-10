@@ -1,0 +1,62 @@
+@import '@/uni.scss';
+.containe{
+	padding:10px 20px;
+	box-sizing: border-box;
+	background-color: white;
+	height:100%;
+	overflow-y: auto;
+}
+.btn2{
+	margin-top:20px;
+	border: 1px solid rgb(79,70,229);
+	color: white;
+	// position: relative;
+	// z-index: 10000000;
+	width:100%;
+	height:40px;
+	display: flex;
+	font-size:16px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 20px;
+	background-color:rgb(79,70,229) ;
+	&:active{
+		background-color: white;
+		color:rgb(79,70,229) ;
+	}
+}
+.title{
+	height:30px;
+	border-bottom:1px solid rgba(0,0,0,.1);
+}
+.description{
+	margin:10px 0;
+	height:70px;
+	color: gray;
+	border-bottom:1px solid rgba(0,0,0,.1);
+}
+.change{
+	display: flex;
+	padding:10px 0;
+	justify-content: space-between;
+	border-bottom:1px solid rgba(0,0,0,.1);
+	image{
+		height:70px;
+		width:70px;
+	}
+}
+	.range{
+		&>.tit{
+			padding:10px 0 0 0;
+			font-size:17px;
+		}
+		&>.chang{
+			display: flex;
+			padding:10px 0;
+			justify-content: space-between;
+		}
+		&>.add{
+			height:40px;
+			line-height:40px;
+		}
+	}

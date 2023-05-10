@@ -80,6 +80,9 @@ image.data-v-390a77b4 {
 .background1_active.data-v-390a77b4:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-390a77b4 {
+  color: #1E3659;
+}
 /* 水平间距 */
 /* 水平间距 */
 image.data-v-390a77b4 {
@@ -185,6 +188,16 @@ image.data-v-390a77b4 {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+.add_btn.data-v-390a77b4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add_btn > image.data-v-390a77b4 {
+  height: 100px;
+  width: 100px;
+  background-color: rgba(0, 0, 0, 0);
 }
 .start_btn.data-v-390a77b4 {
   padding: 0 10px;

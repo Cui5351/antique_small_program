@@ -1,0 +1,312 @@
+/* 水平间距 */
+/* 水平间距 */
+image.data-v-44d5a8eb {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.flex_c.data-v-44d5a8eb {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-44d5a8eb {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.flex_j_a_c.data-v-44d5a8eb {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.flex_j_a_r.data-v-44d5a8eb {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.data-v-44d5a8eb::-webkit-scrollbar {
+  display: none;
+}
+.grows > view.data-v-44d5a8eb {
+  flex-grow: 1;
+}
+.max_image.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+}
+.head_tit.data-v-44d5a8eb {
+  font-size: 20px;
+}
+.head_two.data-v-44d5a8eb {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+}
+.small_title.data-v-44d5a8eb {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-44d5a8eb {
+  font-size: 20px;
+}
+.two_size.data-v-44d5a8eb {
+  font-size: 17px;
+}
+.three_size.data-v-44d5a8eb {
+  font-size: 14px;
+}
+.container.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container > view.data-v-44d5a8eb {
+  flex-grow: 1;
+}
+.background1.data-v-44d5a8eb {
+  background-color: #6E79E2;
+}
+.background.data-v-44d5a8eb {
+  background-color: white;
+}
+.background1_active.data-v-44d5a8eb:active {
+  background-color: #6E79E2;
+}
+.font_color.data-v-44d5a8eb {
+  color: #1E3659;
+}
+/* 水平间距 */
+/* 水平间距 */
+image.data-v-44d5a8eb {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.flex_c.data-v-44d5a8eb {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-44d5a8eb {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.flex_j_a_c.data-v-44d5a8eb {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.flex_j_a_r.data-v-44d5a8eb {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.data-v-44d5a8eb::-webkit-scrollbar {
+  display: none;
+}
+.grows > view.data-v-44d5a8eb {
+  flex-grow: 1;
+}
+.max_image.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+}
+.head_tit.data-v-44d5a8eb {
+  font-size: 20px;
+}
+.head_two.data-v-44d5a8eb {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+}
+.small_title.data-v-44d5a8eb {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-44d5a8eb {
+  font-size: 20px;
+}
+.two_size.data-v-44d5a8eb {
+  font-size: 17px;
+}
+.three_size.data-v-44d5a8eb {
+  font-size: 14px;
+}
+.container.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container > view.data-v-44d5a8eb {
+  flex-grow: 1;
+}
+.background1.data-v-44d5a8eb {
+  background-color: #6E79E2;
+}
+.background.data-v-44d5a8eb {
+  background-color: white;
+}
+.background1_active.data-v-44d5a8eb:active {
+  background-color: #6E79E2;
+}
+.font_color.data-v-44d5a8eb {
+  color: #1E3659;
+}
+.containe.data-v-44d5a8eb {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  background-color: white;
+  height: 100%;
+  overflow-y: auto;
+}
+.btn2.data-v-44d5a8eb {
+  margin-top: 20px;
+  border: 1px solid #4f46e5;
+  color: white;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #4f46e5;
+}
+.btn2.data-v-44d5a8eb:active {
+  background-color: white;
+  color: #4f46e5;
+}
+.title.data-v-44d5a8eb {
+  height: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.description.data-v-44d5a8eb {
+  margin: 10px 0;
+  height: 70px;
+  color: gray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.change.data-v-44d5a8eb {
+  display: flex;
+  padding: 10px 0;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.change image.data-v-44d5a8eb {
+  height: 70px;
+  width: 70px;
+}
+.range > .tit.data-v-44d5a8eb {
+  padding: 10px 0 0 0;
+  font-size: 17px;
+}
+.range > .chang.data-v-44d5a8eb {
+  display: flex;
+  padding: 10px 0;
+  justify-content: space-between;
+}
+.range > .add.data-v-44d5a8eb {
+  height: 40px;
+  line-height: 40px;
+}
+/* 水平间距 */
+/* 水平间距 */
+image.data-v-44d5a8eb {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.flex_c.data-v-44d5a8eb {
+  display: flex;
+  flex-direction: column;
+}
+.flex_c_b.data-v-44d5a8eb {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+.flex_j_a_c.data-v-44d5a8eb {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.flex_j_a_r.data-v-44d5a8eb {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.data-v-44d5a8eb::-webkit-scrollbar {
+  display: none;
+}
+.grows > view.data-v-44d5a8eb {
+  flex-grow: 1;
+}
+.max_image.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+}
+.head_tit.data-v-44d5a8eb {
+  font-size: 20px;
+}
+.head_two.data-v-44d5a8eb {
+  font-size: 20px;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+}
+.small_title.data-v-44d5a8eb {
+  color: gray;
+  font-size: 15px;
+}
+.one_size.data-v-44d5a8eb {
+  font-size: 20px;
+}
+.two_size.data-v-44d5a8eb {
+  font-size: 17px;
+}
+.three_size.data-v-44d5a8eb {
+  font-size: 14px;
+}
+.container.data-v-44d5a8eb {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container > view.data-v-44d5a8eb {
+  flex-grow: 1;
+}
+.background1.data-v-44d5a8eb {
+  background-color: #6E79E2;
+}
+.background.data-v-44d5a8eb {
+  background-color: white;
+}
+.background1_active.data-v-44d5a8eb:active {
+  background-color: #6E79E2;
+}
+.font_color.data-v-44d5a8eb {
+  color: #1E3659;
+}

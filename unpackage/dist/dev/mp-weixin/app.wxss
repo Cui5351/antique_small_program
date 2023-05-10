@@ -80,6 +80,9 @@ image {
 .background1_active:active {
   background-color: #6E79E2;
 }
+.font_color {
+  color: #1E3659;
+}
 /*每个页面公共css */
 /* 水平间距 */
 .uni-border {

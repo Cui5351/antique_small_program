@@ -80,6 +80,9 @@ image.data-v-b1b56100 {
 .background1_active.data-v-b1b56100:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-b1b56100 {
+  color: #1E3659;
+}
 .container.data-v-b1b56100 {
   height: 100%;
   width: 100%;

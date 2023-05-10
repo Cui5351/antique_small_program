@@ -94,6 +94,9 @@
 				<view @click="start_" class="start_btn" v-if="person_info.works.length<=0&&person_info.toggle">
 					开启你的非遗之旅
 				</view>
+				<view @click="start_" class="add_btn" v-if="person_info.works.length>0&&person_info.toggle">
+					<image src="../../static/add.svg" mode="widthFix"></image>
+				</view>
 				<view v-for="(item,index) in person_info.works" :key="index" v-show="person_info.toggle">
 					<image :src="item.mask" mode="aspectFill"></image>
 				</view>
@@ -251,11 +254,10 @@
 				}
 			}
 			function start_(){
-				// return
 				if(uni.current_this.check_login_state())
 					return
 				uni.navigateTo({
-					url:`/pages/person/other_page/publish_video/publish_video?works=${JSON.stringify(person_info.works)}`
+					url:`/pages/person/other_page/new_work_collection/new_work_collection`
 				})
 			}
 			return {start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}

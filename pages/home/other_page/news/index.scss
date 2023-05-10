@@ -75,13 +75,14 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		justify-content: space-between;
-		height:60px;
+		height:50px;
 		&>view>uni-icons{
 			margin-left:5px;
 		}
 	}
 	.content{
 		padding:5px;
+		margin:10px 0;
 		box-sizing: border-box;
 	}
 }

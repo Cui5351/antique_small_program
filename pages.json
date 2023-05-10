@@ -149,6 +149,13 @@
                 "enablePullDownRefresh": false
             }
             
+        },{
+            "path" : "pages/person/other_page/new_work_collection/new_work_collection",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
         }
     ],
 	"tabBar": {

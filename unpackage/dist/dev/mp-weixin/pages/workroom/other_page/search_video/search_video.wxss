@@ -80,6 +80,9 @@ image.data-v-1633f750 {
 .background1_active.data-v-1633f750:active {
   background-color: #6E79E2;
 }
+.font_color.data-v-1633f750 {
+  color: #1E3659;
+}
 /* 水平间距 */
 /* 水平间距 */
 image.data-v-1633f750 {

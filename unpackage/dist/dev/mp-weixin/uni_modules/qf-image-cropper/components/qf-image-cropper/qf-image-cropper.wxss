@@ -80,6 +80,9 @@ image {
 .background1_active:active {
   background-color: #6E79E2;
 }
+.font_color {
+  color: #1E3659;
+}
 /* 颜色变量 */
 /* 行为相关颜色 */
 /* 文字基本颜色 */

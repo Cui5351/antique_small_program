@@ -17,28 +17,28 @@
 		  </view>
 	  </view>
 	  <view class="passage">
-		<view  v-for="(item,index) in [1,2,3,4,5,6]" :key="index">
+		<view  v-for="(item,index) in moment" :key="index">
 			<view class="person">
 				<view class="avatar">
-					<image src="../../../../static/icons/antique.png" mode=""></image>
+					<image :src="item.avatar" mode=""></image>
 				</view>
 				<view>
-					<view>张大师</view>
+					<view>{{item.name}}</view>
 					<view>湖北</view>
 				</view>
 			</view>
-			<view class="content">好喜欢这把琴</view>
-			<view class="pic">
-				<image src="/static/feelhouse.svg" v-for="(item,index) in item" :key="index" mode=""></image>
+			<view class="content">{{item.content}}</view>
+			<view class="pic" v-if="item.src[0]!=null">
+				<image :src="item" v-for="(item,index) in item.src" :key="index" mode=""></image>
 			</view>
 			<view class="other flex_j_a_r">
 				<view class="flex_j_a_r">
-					<uni-icons type="heart" size="25"></uni-icons>12
-					<uni-icons type="star" size="25"></uni-icons>12
-					<uni-icons type="chat" size="25"></uni-icons>99
+					<uni-icons type="heart" size="25"></uni-icons>0
+					<uni-icons type="star" size="25"></uni-icons>0
+					<uni-icons type="chat" size="25"></uni-icons>0
 					<uni-icons type="paperplane" size="25"></uni-icons>100
 				</view>
-				<view class="time">2023-5-9:17:06</view>
+				<view class="time">{{item.send_date}}</view>
 			</view>
 		</view>
 	  </view>
@@ -48,10 +48,29 @@
 <script>
 import {ref,reactive} from 'vue'
 export default{
-  name:'',
+  mounted() {
+  	let that=this
+	uni.request({
+		url:uni.current_this.baseURL+':5001/get_community_moments',
+		method:'GET',
+		data:{
+			skip:0
+		},
+		success(res) {
+			console.log(res,'res');
+			if(uni.current_this.check_res_state(res))
+				return
+				res.data.data.forEach(item=>{
+					item.send_date=uni.current_this.dateformat(new Date(item.send_date))
+				})
+			that.moment.push(...res.data.data.reverse())
+		}
+	})
+  },
   setup(){
+	let moment=reactive([])
 	let back=uni.current_this.back
-    return{back}
+    return{back,moment}
   }
 }
 </script>
