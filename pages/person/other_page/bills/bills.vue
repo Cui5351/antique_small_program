@@ -65,7 +65,7 @@
 							<template v-if='state==2'>
 								<view @click="no_develop('更多')">更多</view>
 								<view @click="no_develop('查看物流')">查看物流</view>
-								<view @click="no_develop('确定收货')">确定收货</view>
+								<view @click="receive_store(item)">确定收货</view>
 							</template>
 						</view>
 					</view>
@@ -188,7 +188,10 @@ export default{
 			}
 		})
 	}
-    return{back,again_bought,stores,delete_store,no_develop,state,toggle_category}
+	function receive_store(item){
+		console.log(item,'收');
+	}
+    return{back,again_bought,stores,delete_store,no_develop,state,toggle_category,receive_store}
   }
 }
 </script>

@@ -102,13 +102,13 @@
 				},1000*Math.random()*10)
 			}
 			function toggle_other(item){
-				switch(item.name){
-					case '焦点新闻':{
-						uni.navigateTo({
-							url:'/pages/home/other_page/news/news'
-						})
-					};
-				}
+				// switch(item.name){
+					// case '焦点新闻':{
+						// uni.navigateTo({
+							// url:'/pages/home/other_page/news/news'
+						// })
+					// };
+				// }
 				return
 				uni.showToast({
 					icon:'none',

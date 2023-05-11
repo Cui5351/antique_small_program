@@ -45,13 +45,13 @@ const _sfc_main = {
             common_vendor.index.hideLoading();
             return;
           }
-          "https://www.mynameisczy.asia/antique/video_masks/" + data.data;
+          let src = "https://www.mynameisczy.asia/antique/video_masks/" + data.data;
           common_vendor.index.request({
             url: common_vendor.index.current_this.baseURL + ":5001/new_work_collection",
             method: "POST",
             data: {
               openid: common_vendor.index.current_this.store.state.user_info.openid,
-              mask: info.mask,
+              mask: src,
               title: info.title,
               description: info.description,
               show_work: info.show_work ? "show" : "hid"
@@ -65,7 +65,7 @@ const _sfc_main = {
               });
               common_vendor.index.current_this.store.state.user_info.works.push({
                 title: info.title,
-                mask: info.mask,
+                mask: src,
                 description: info.description,
                 show_work: info.show_work ? "show" : "hid",
                 score: 0

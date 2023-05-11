@@ -9,6 +9,7 @@ uni.getStorage({
 const state={
 	cars:[],
 	login_state:0,
+	moments:[],
 	user_info:{
 		openid:'',
 		name:'',
@@ -84,6 +85,9 @@ const getters={
 	},
 	background(state){
 		return state.user_info.background
+	},
+	moments(state){
+		return state.moments
 	}
 }
 export default createStore({

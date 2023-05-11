@@ -44,13 +44,6 @@ const _sfc_main = {
       }, 1e3 * Math.random() * 10);
     }
     function toggle_other(item) {
-      switch (item.name) {
-        case "\u7126\u70B9\u65B0\u95FB": {
-          common_vendor.index.navigateTo({
-            url: "/pages/home/other_page/news/news"
-          });
-        }
-      }
       return;
     }
     function more(name) {

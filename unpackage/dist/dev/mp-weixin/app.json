@@ -18,7 +18,9 @@
     "pages/person/other_page/publish_video/publish_video",
     "pages/workroom/other_page/search_video/search_video",
     "pages/home/other_page/news/news",
-    "pages/person/other_page/new_work_collection/new_work_collection"
+    "pages/person/other_page/new_work_collection/new_work_collection",
+    "pages/workroom/other_page/public_moment/public_moment",
+    "pages/person/other_page/comment/comment"
   ],
   "window": {
     "navigationBarTextStyle": "black",

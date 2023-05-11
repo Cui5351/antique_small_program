@@ -16,7 +16,7 @@
 	  <view class="change">
 	  		  <view class="flex_j_a_r">作品集置顶</view>
 	  		  <view class="flex_j_a_r">
-				  <switch :checked="info.top" color="rgb(110,121,226)"></switch>
+				  <switch :checked="info.top"  style="transform: scale(0.7);" color="rgb(110,121,226)"></switch>
 	  		  </view>
 	  </view>
 	  <view class="range">
@@ -24,7 +24,7 @@
 		  <view class="chang" style="padding-left:10px;">
 		  		  <view class="flex_j_a_r">公开</view>
 		  		  <view class="flex_j_a_r">
-		  				  <switch @change="public_work" :checked="info.show_work" color="rgb(110,121,226)"></switch>
+		  				  <switch style="transform: scale(0.7);" @change="public_work" :checked="info.show_work" color="rgb(110,121,226)"></switch>
 		  		  </view>
 		  </view>
 		  <view class="add">
@@ -89,7 +89,7 @@ export default{
 						method:'POST',
 						data:{
 							openid:uni.current_this.store.state.user_info.openid,
-							mask:info.mask,
+							mask:src,
 							title:info.title,
 							description:info.description,
 							show_work:info.show_work?'show':'hid'
@@ -103,7 +103,7 @@ export default{
 							})
 							uni.current_this.store.state.user_info.works.push({
 								title:info.title,
-								mask:info.mask,
+								mask:src,
 								description:info.description,
 								show_work:info.show_work?'show':'hid',
 								score:0

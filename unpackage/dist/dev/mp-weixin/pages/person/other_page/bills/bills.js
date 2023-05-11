@@ -109,7 +109,10 @@ const _sfc_main = {
         }
       });
     }
-    return { back, again_bought, stores, delete_store, no_develop, state, toggle_category };
+    function receive_store(item) {
+      console.log(item, "\u6536");
+    }
+    return { back, again_bought, stores, delete_store, no_develop, state, toggle_category, receive_store };
   }
 };
 if (!Array) {
@@ -164,7 +167,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       } : {}, $setup.state == 2 ? {
         o: common_vendor.o(($event) => $setup.no_develop("\u66F4\u591A")),
         p: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u7269\u6D41")),
-        q: common_vendor.o(($event) => $setup.no_develop("\u786E\u5B9A\u6536\u8D27"))
+        q: common_vendor.o(($event) => $setup.receive_store(item))
       } : {}, {
         r: index
       });

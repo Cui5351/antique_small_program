@@ -10,6 +10,7 @@ common_vendor.index.getStorage({
 const state = {
   cars: [],
   login_state: 0,
+  moments: [],
   user_info: {
     openid: "",
     name: "",
@@ -84,6 +85,9 @@ const getters = {
   },
   background(state2) {
     return state2.user_info.background;
+  },
+  moments(state2) {
+    return state2.moments;
   }
 };
 var store = common_vendor.createStore({
