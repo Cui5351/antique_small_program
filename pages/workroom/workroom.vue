@@ -16,7 +16,7 @@
 		  </view>
 	  </view>
 	  <view class="passage">
-		<view  v-for="(item,index) in moment" :key="index">
+		<view  v-for="(item,index) in moment" :key="index" @click="detail(item)">
 			<view class="person">
 				<view class="avatar">
 					<image :src="item.avatar" mode=""></image>
@@ -28,7 +28,7 @@
 			</view>
 			<view class="content">{{item.content}}</view>
 			<view class="pic" v-if="item.src[0]!=null">
-				<image :src="item" v-for="(item,index) in item.src" :key="index" mode="aspectFill"></image>
+				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
 			</view>
 			<view class="other flex_j_a_r">
 				<view class="flex_j_a_r">
@@ -63,9 +63,9 @@ export default{
 			if(uni.current_this.check_res_state(res))
 				return
 				res.data.data.forEach(item=>{
-					item.send_date=uni.current_this.dateformat(new Date(item.send_date))
+					item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
 				})
-				uni.current_this.store.state.moments.push(...res.data.data.reverse())
+				uni.current_this.store.state.moments.push(...res.data.data)
 		},complete() {
 			uni.hideLoading()
 		}
@@ -77,7 +77,7 @@ export default{
 	function publish_moment(){
 		if(uni.current_this.check_login_state()){
 			uni.showToast({
-				title:'清先登录',
+				title:'请先登录',
 				icon:'none'
 			})
 			return
@@ -93,7 +93,27 @@ export default{
 			}
 		})
 	}
-    return{back,moment,publish_moment}
+	function check_pict(path,index){
+				uni.previewImage({
+					urls:path,
+					current:index,
+					longPressActions: {
+						itemList: ['发送给朋友', '保存图片', '收藏'],
+						success: function(data) {
+							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+						},
+						fail: function(err) {
+							console.log(err.errMsg);
+						}
+					}
+				});
+	}
+	function detail(item){
+		uni.navigateTo({
+			url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+		})
+	}
+    return{back,moment,publish_moment,check_pict,detail}
   }
 }
 </script>

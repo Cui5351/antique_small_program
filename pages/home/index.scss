@@ -91,23 +91,14 @@
 	.bottom{
 		@include height(10%);
 		width:100%;
+		padding:10px 0;
+		color: gray;
+		text-align: center;
+		font-size:15px;
+		border-top:1px solid rgba(0,0,0,.1);
 	}
 	.storys{
 		@include height(30%);
-		.story_title{
-			align-items: center;
-			justify-content: space-between;
-			display: flex;
-			flex-direction: row;
-			@include height(15%);
-			&>view:first-child{
-				font-size:20px;
-				letter-spacing: 3px;
-			}
-			&>view:last-child{
-				font-size:14px;
-			}
-		}
 		.story_books{
 			@include height(85%);
 			display: flex;
@@ -130,3 +121,67 @@
 
 	}
 }
+.works{
+	display: flex;
+	flex-direction: column;
+	// background-color: rgba(0,0,0,.05);
+&>.work{
+	width:100%;
+	display: flex;
+	padding:10px 5px;
+	column-count: 2;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	box-sizing: border-box;
+	&>.w{
+		display: flex;
+		background-color: white;
+		flex-direction: column;
+		margin-top:20px;
+		width:49%;
+		height:250px;
+		border-radius: 10px;
+		&>.mask{
+			height:100%;
+			width:100%;
+			&>image{
+				height:100%;
+				width:100%;
+			}
+		}
+		&>.tit{
+			align-items: center;
+			padding:10px 10px;
+			height:40px;
+			width:100%;
+			color: gray;
+			display: flex;
+			box-sizing: border-box;
+			&>.avatar{
+				height:30px;
+				width:30px;
+				margin-right:5px;
+				&>image{
+					border-radius:50%;
+					height:100%;
+					width:100%;
+				}
+			}
+		}
+	}
+}
+}
+		.story_title{
+			align-items: center;
+			justify-content: space-between;
+			display: flex;
+			flex-direction: row;
+			@include height(15%);
+			&>view:first-child{
+				font-size:20px;
+				letter-spacing: 3px;
+			}
+			&>view:last-child{
+				font-size:14px;
+			}
+		}

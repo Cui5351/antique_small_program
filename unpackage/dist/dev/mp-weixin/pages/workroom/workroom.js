@@ -16,9 +16,9 @@ const _sfc_main = {
         if (common_vendor.index.current_this.check_res_state(res))
           return;
         res.data.data.forEach((item) => {
-          item.send_date = common_vendor.index.current_this.dateformat(new Date(item.send_date));
+          item.send_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.send_date));
         });
-        common_vendor.index.current_this.store.state.moments.push(...res.data.data.reverse());
+        common_vendor.index.current_this.store.state.moments.push(...res.data.data);
       },
       complete() {
         common_vendor.index.hideLoading();
@@ -31,7 +31,7 @@ const _sfc_main = {
     function publish_moment() {
       if (common_vendor.index.current_this.check_login_state()) {
         common_vendor.index.showToast({
-          title: "\u6E05\u5148\u767B\u5F55",
+          title: "\u8BF7\u5148\u767B\u5F55",
           icon: "none"
         });
         return;
@@ -45,7 +45,27 @@ const _sfc_main = {
         }
       });
     }
-    return { back, moment, publish_moment };
+    function check_pict(path, index) {
+      common_vendor.index.previewImage({
+        urls: path,
+        current: index,
+        longPressActions: {
+          itemList: ["\u53D1\u9001\u7ED9\u670B\u53CB", "\u4FDD\u5B58\u56FE\u7247", "\u6536\u85CF"],
+          success: function(data) {
+            console.log("\u9009\u4E2D\u4E86\u7B2C" + (data.tapIndex + 1) + "\u4E2A\u6309\u94AE,\u7B2C" + (data.index + 1) + "\u5F20\u56FE\u7247");
+          },
+          fail: function(err) {
+            console.log(err.errMsg);
+          }
+        }
+      });
+    }
+    function detail(item) {
+      common_vendor.index.navigateTo({
+        url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+      });
+    }
+    return { back, moment, publish_moment, check_pict, detail };
   }
 };
 if (!Array) {
@@ -80,8 +100,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       }, item.src[0] != null ? {
         f: common_vendor.f(item.src, (item2, index2, i1) => {
           return {
-            a: item2,
-            b: index2
+            a: common_vendor.o(($event) => $setup.check_pict(item.src, index2), index2),
+            b: item2,
+            c: index2
           };
         })
       } : {}, {
@@ -90,7 +111,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         i: "0672b006-3-" + i0,
         j: "0672b006-4-" + i0,
         k: common_vendor.t(item.send_date),
-        l: index
+        l: index,
+        m: common_vendor.o(($event) => $setup.detail(item), index)
       });
     }),
     e: common_vendor.p({

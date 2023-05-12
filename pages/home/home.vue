@@ -48,7 +48,29 @@
 					</view>
 				</view>
 			</view>
-		<view class="bottom"></view>
+			<view class="works">
+				<view class="story_title">
+					<view>推荐视频</view>
+					<view @click="more('more_category')">更多视频<uni-icons color="rgb(59,92,130)" type="right"></uni-icons>
+					</view>
+				</view>
+				<view class="work">
+					<view class="w" v-for="(item,index) in video" @click="inter(item)">	
+						<view class="mask">
+							<image :src="item.mask" mode="aspectFill"></image>
+						</view>
+						<view class="tit">
+							<view class="avatar">
+								<image :src="item.avatar"></image>
+							</view>
+							<view>
+								{{item.name}}
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		<view class="bottom">已经滑到底了</view>
 		</view>
 		<!-- <button @click="loading" type="primary">加载动画</button> -->
 	</view>
@@ -74,6 +96,20 @@
 				},
 		components:{
 			loading
+		},
+		mounted() {
+			let that=this
+			uni.request({
+				url:uni.current_this.baseURL+':5001/get_hottest_video',
+				method:"GET",
+				success(res) {
+					if(uni.current_this.check_res_state(res)){
+						return
+					}
+					that.video.push(...res.data.data) 
+					console.log(that.video,'video');
+				}
+			})
 		},
 		setup(){
 			let other=reactive([{
@@ -102,6 +138,11 @@
 				},1000*Math.random()*10)
 			}
 			function toggle_other(item){
+				if(item.name=='文物库'){
+					uni.navigateTo({
+						url:'/pages/home/other_page/antique_repository/antique_repository'
+					})
+				}
 				// switch(item.name){
 					// case '焦点新闻':{
 						// uni.navigateTo({
@@ -165,10 +206,35 @@
 					title:'非遗故事'+name+'暂时未开放'
 				})
 			}
+						function inter(item){
+							uni.request({
+								url:uni.current_this.baseURL+':5001/get_video',
+								method:"POST",
+								data:{
+									uuid:item.uuid
+								},
+								success(res) {
+									if(uni.current_this.check_res_state(res)){
+										return
+									}
+									if(!res.data.data.length){
+										uni.showToast({
+											title:'该作品集为空',
+											icon:'none'
+										})
+										return
+									}
+									uni.navigateTo({
+										url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}`
+									})
+								}
+							})
+						}
+			let video=reactive([])
 			let head_img=reactive(['https://www.mynameisczy.asia/image/antique/home_top/title1.jpg',
 			'https://www.mynameisczy.asia/image/antique/home_top/title2.jpg',
 			'https://www.mynameisczy.asia/image/antique/home_top/title3.jpg'])
-			return{head_img,loading,story,more,museum,show_loading,base_url,other,toggle_other}
+			return{head_img,loading,inter,video,story,more,museum,show_loading,base_url,other,toggle_other}
 		}
 	}
 </script>

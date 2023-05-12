@@ -12,6 +12,9 @@ image.data-v-44d5a8eb {
   align-items: center;
   display: flex;
 }
+.containe.data-v-44d5a8eb {
+  overflow-y: auto;
+}
 .flex_j_a_c.data-v-44d5a8eb {
   justify-content: center;
   align-items: center;
@@ -96,6 +99,9 @@ image.data-v-44d5a8eb {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-44d5a8eb {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-44d5a8eb {
   justify-content: center;
@@ -246,6 +252,9 @@ image.data-v-44d5a8eb {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-44d5a8eb {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-44d5a8eb {
   justify-content: center;

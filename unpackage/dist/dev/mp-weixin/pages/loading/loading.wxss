@@ -12,6 +12,9 @@ image.data-v-b1b56100 {
   align-items: center;
   display: flex;
 }
+.containe.data-v-b1b56100 {
+  overflow-y: auto;
+}
 .flex_j_a_c.data-v-b1b56100 {
   justify-content: center;
   align-items: center;

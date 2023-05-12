@@ -21,6 +21,17 @@
 				else
 					return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
 			}
+			this.dateformat_accuracy=function(date){
+				let month=date.getMonth()==12?1:date.getMonth()+1
+				let day=date.getDate()
+				let now=new Date()
+				let hour=date.getHours()
+				let minute=date.getMinutes()
+				if(now.getFullYear()==date.getFullYear())
+				return `${month<10?'0'+month:month}月${day<10?'0'+day:day}日${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute}`
+				else
+					return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute}`
+			}
 			// 返回上一级页面
 			this.back=function(){
 				if(getCurrentPages().length>1)

@@ -93,7 +93,7 @@ const _sfc_main = {
             return;
           common_vendor.index.current_this.store.state.moments.unshift({
             avatar: common_vendor.index.current_this.store.state.user_info.avatar,
-            name: common_vendor.index.current_this.store.state.user_info.avatar.name,
+            name: common_vendor.index.current_this.store.state.user_info.name,
             content: info.content,
             place: info.place,
             src: res.data.data.sus,

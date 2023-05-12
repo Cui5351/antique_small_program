@@ -12,6 +12,9 @@ image.data-v-390a77b4 {
   align-items: center;
   display: flex;
 }
+.containe.data-v-390a77b4 {
+  overflow-y: auto;
+}
 .flex_j_a_c.data-v-390a77b4 {
   justify-content: center;
   align-items: center;
@@ -96,6 +99,9 @@ image.data-v-390a77b4 {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-390a77b4 {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-390a77b4 {
   justify-content: center;
@@ -195,8 +201,9 @@ image.data-v-390a77b4 {
   justify-content: center;
 }
 .add_btn > image.data-v-390a77b4 {
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
+  border: 2px dashed rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0);
 }
 .start_btn.data-v-390a77b4 {
@@ -461,6 +468,9 @@ image.data-v-390a77b4 {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-390a77b4 {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-390a77b4 {
   justify-content: center;

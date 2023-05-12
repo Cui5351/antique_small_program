@@ -12,6 +12,9 @@ image.data-v-644d0e6c {
   align-items: center;
   display: flex;
 }
+.containe.data-v-644d0e6c {
+  overflow-y: auto;
+}
 .flex_j_a_c.data-v-644d0e6c {
   justify-content: center;
   align-items: center;
@@ -96,6 +99,9 @@ image.data-v-644d0e6c {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-644d0e6c {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-644d0e6c {
   justify-content: center;
@@ -307,6 +313,9 @@ image.data-v-644d0e6c {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-644d0e6c {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-644d0e6c {
   justify-content: center;

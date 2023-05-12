@@ -559,15 +559,22 @@ app.post('/upload_material',(req,res)=>{
 app.get('/get_hottest_video',(req,res)=>{
     if(typeof req.body === 'string')
         req.body=JSON.parse(req.body)
-    query(dbs,table('works'),['title','openid','mask'],{show_work:'show'}).then(e=>{
-        send(res,e)
+    // query(dbs,table('works'),['title','openid','mask','uuid'],{show_work:'show'}).then(e=>{
+        // send(res,e)
+    // })
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" limit 0,10`,function(err,result){
+        if(err){
+            send_err(res)
+            return
+        }
+        send(res,result)
     })
 })
 
 app.post('/get_video',(req,res)=>{
     if(typeof req.body === 'string')
         req.body=JSON.parse(req.body)
-        if(!req.body.hasOwnProperty('title')||!req.body.hasOwnProperty('openid')){
+        if(!req.body.hasOwnProperty('uuid')){
             res.send({
                 state:0,
                 error:1,
@@ -575,8 +582,8 @@ app.post('/get_video',(req,res)=>{
             })
             return 
         }
-    const {title,openid}=req.body
-    query(dbs,table('work'),['name','src','video_id','mask'],{title:title,openid:openid}).then(e=>{
+    const {uuid}=req.body
+    query(dbs,table('work'),['name','src','video_id','mask'],{work_uuid:uuid}).then(e=>{
         send(res,e)
     })
 })
@@ -713,34 +720,67 @@ app.get('/get_community_moments',(req,res)=>{
     }    
     const {skip}=req.query
 
-    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,place,send_date,browse,content,c.uuid,cp.src from antique.community_moments c left join community_moment_pic cp on c.uuid=cp.uuid and c.show_moment='show'  limit ${skip},10`,function(err,result){
+    // 方法一
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,place,send_date,browse,content,uuid from antique.community_moments c where show_moment='show' order by id desc limit ${skip},10`,async function(err,result){
         if(err)
             send_err(res,err)
-        result.forEach(item=>{
-            item.src=[item.src]
-        })
-        let group=[result[0]]
-        for(let i=1;i<result.length;i++){
-            for(let j=0;j<group.length;j++){
-                if(result[i].uuid==group[j].uuid){
-                    if(result[i].src[0]==null||check(group[j].src,result[i].src[0]))
-                        break
-                    group[j].src.push(...result[i].src)
-                    break
+
+    try{
+        await new Promise(async(resolve,reject)=>{
+            for(let i=0;i<result.length;i++){
+                try{
+                    await new Promise((resolve2,reject2)=>{
+                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                            result[i].src=e.map(e=>e.src)
+                            resolve2()
+                        }).catch(e=>{
+                            reject2()
+                        })
+                    })
+                }catch(e){
+                    reject()
                 }
-                if(j==group.length-1)
-                    group.push(result[i])
+                if(i==result.length-1)
+                    resolve()
             }
-        }
-        function check(arr,val){
-            for(let i=0;i<arr.length;i++){
-                if(arr[i]==val)
-                    return 1
-            }
-            return 0
-        }
-        send(res,group)
+        })
+        send(res,result)
+    }catch(e){
+        send(res,result)
+    }
     })
+
+    // dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,place,send_date,browse,content,c.uuid,cp.src from antique.community_moments c left join community_moment_pic cp on c.uuid=cp.uuid and c.show_moment='show' order by c.id desc limit ${skip},10`,function(err,result){
+    //     // 查询两次
+    //     if(err)
+    //         send_err(res,err)
+    //     result.forEach(item=>{
+    //         item.src=[item.src]
+    //     })
+    //     let group=[result[0]]
+    //     for(let i=1;i<result.length;i++){
+    //         for(let j=0;j<group.length;j++){
+    //             if(result[i].uuid==group[j].uuid){
+    //                 if(result[i].src[0]==null||check(group[j].src,result[i].src[0]))
+    //                     break
+    //                 group[j].src.push(...result[i].src)
+    //                 break
+    //             }
+    //             if(j==group.length-1)
+    //                 group.push(result[i])
+    //         }
+    //     }
+    //     function check(arr,val){
+    //         for(let i=0;i<arr.length;i++){
+    //             if(arr[i]==val)
+    //                 return 1
+    //         }
+    //         return 0
+    //     }
+    //     send(res,group)
+    // })
+
+
     // query(dbs,table('community_moments'),'*',null,{skip:skip,count:10}).then(e=>{
         // send(res,e)
         // `select (select avatar from main_table where openid=c.openid),(select name from main_table where openid=c.openid),send_date,browse,uuid from antique.community_moments c limit ${skip},10`
@@ -767,7 +807,8 @@ app.post('/new_work_collection',(req,res)=>{
         }
     })
     const {title,description,mask,show_work,openid}=req.body
-    insertData(dbs,table('works'),{title,description,mask,show_work,openid}).then(()=>{
+    let uuid=randomUUID()
+    insertData(dbs,table('works'),{title,description,mask,show_work,openid,uuid}).then(()=>{
         send(res)
     }).catch(e=>{
         send_err(res,e)

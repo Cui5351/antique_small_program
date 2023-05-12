@@ -12,6 +12,9 @@ image.data-v-07a217b0 {
   align-items: center;
   display: flex;
 }
+.containe.data-v-07a217b0 {
+  overflow-y: auto;
+}
 .flex_j_a_c.data-v-07a217b0 {
   justify-content: center;
   align-items: center;
@@ -96,6 +99,9 @@ image.data-v-07a217b0 {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-07a217b0 {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-07a217b0 {
   justify-content: center;
@@ -249,6 +255,9 @@ image.data-v-07a217b0 {
   justify-content: space-between;
   align-items: center;
   display: flex;
+}
+.containe.data-v-07a217b0 {
+  overflow-y: auto;
 }
 .flex_j_a_c.data-v-07a217b0 {
   justify-content: center;

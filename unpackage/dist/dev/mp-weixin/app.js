@@ -25,6 +25,8 @@ if (!Math) {
   "./pages/person/other_page/new_work_collection/new_work_collection.js";
   "./pages/workroom/other_page/public_moment/public_moment.js";
   "./pages/person/other_page/comment/comment.js";
+  "./pages/home/other_page/antique_repository/antique_repository.js";
+  "./pages/workroom/other_page/moment_detail/moment_detail.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -45,6 +47,17 @@ const _sfc_main = {
         return `${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
       else
         return `${date.getFullYear()}\u5E74${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
+    };
+    this.dateformat_accuracy = function(date) {
+      let month = date.getMonth() == 12 ? 1 : date.getMonth() + 1;
+      let day = date.getDate();
+      let now = new Date();
+      let hour = date.getHours();
+      let minute = date.getMinutes();
+      if (now.getFullYear() == date.getFullYear())
+        return `${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`;
+      else
+        return `${date.getFullYear()}\u5E74${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`;
     };
     this.back = function() {
       if (getCurrentPages().length > 1)

@@ -5,7 +5,7 @@
       	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="150"></textarea>
       </view>
 	  <view class="picture">
-		  <image :src="item" v-for="(item,index) in info.paths" :key="index" mode=""></image>
+			<image :src="item" v-for="(item,index) in info.paths" :key="index" mode="aspectFill"></image>
 	  </view>
 	  <view class="place">
 		  <view class="flex_j_a_r" >添加地点
@@ -126,7 +126,7 @@ export default{
 							return
 						uni.current_this.store.state.moments.unshift({
 							avatar:uni.current_this.store.state.user_info.avatar,
-							name:uni.current_this.store.state.user_info.avatar.name,
+							name:uni.current_this.store.state.user_info.name,
 							content:info.content,
 							place:info.place,
 							src:res.data.data.sus,

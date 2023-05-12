@@ -17,6 +17,20 @@ const _sfc_main = {
   components: {
     loading
   },
+  mounted() {
+    let that = this;
+    common_vendor.index.request({
+      url: common_vendor.index.current_this.baseURL + ":5001/get_hottest_video",
+      method: "GET",
+      success(res) {
+        if (common_vendor.index.current_this.check_res_state(res)) {
+          return;
+        }
+        that.video.push(...res.data.data);
+        console.log(that.video, "video");
+      }
+    });
+  },
   setup() {
     let other = common_vendor.reactive([{
       name: "\u5730\u56FE\u5BFC\u89C8",
@@ -44,6 +58,11 @@ const _sfc_main = {
       }, 1e3 * Math.random() * 10);
     }
     function toggle_other(item) {
+      if (item.name == "\u6587\u7269\u5E93") {
+        common_vendor.index.navigateTo({
+          url: "/pages/home/other_page/antique_repository/antique_repository"
+        });
+      }
       return;
     }
     function more(name) {
@@ -95,12 +114,37 @@ const _sfc_main = {
         title: "\u975E\u9057\u6545\u4E8B" + name + "\u6682\u65F6\u672A\u5F00\u653E"
       });
     }
+    function inter(item) {
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_video",
+        method: "POST",
+        data: {
+          uuid: item.uuid
+        },
+        success(res) {
+          if (common_vendor.index.current_this.check_res_state(res)) {
+            return;
+          }
+          if (!res.data.data.length) {
+            common_vendor.index.showToast({
+              title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
+              icon: "none"
+            });
+            return;
+          }
+          common_vendor.index.navigateTo({
+            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}`
+          });
+        }
+      });
+    }
+    let video = common_vendor.reactive([]);
     let head_img = common_vendor.reactive([
       "https://www.mynameisczy.asia/image/antique/home_top/title1.jpg",
       "https://www.mynameisczy.asia/image/antique/home_top/title2.jpg",
       "https://www.mynameisczy.asia/image/antique/home_top/title3.jpg"
     ]);
-    return { head_img, loading: loading2, story, more, museum, show_loading, base_url, other, toggle_other };
+    return { head_img, loading: loading2, inter, video, story, more, museum, show_loading, base_url, other, toggle_other };
   }
 };
 if (!Array) {
@@ -154,6 +198,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: $setup.base_url + "/image/antique/story" + item + ".jpg",
         b: common_vendor.o(($event) => $setup.story(item), index),
         c: index
+      };
+    }),
+    k: common_vendor.p({
+      color: "rgb(59,92,130)",
+      type: "right"
+    }),
+    l: common_vendor.o(($event) => $setup.more("more_category")),
+    m: common_vendor.f($setup.video, (item, index, i0) => {
+      return {
+        a: item.mask,
+        b: item.avatar,
+        c: common_vendor.t(item.name),
+        d: common_vendor.o(($event) => $setup.inter(item))
       };
     })
   };

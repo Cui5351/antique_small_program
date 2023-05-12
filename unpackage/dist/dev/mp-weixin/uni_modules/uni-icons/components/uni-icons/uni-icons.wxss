@@ -510,6 +510,9 @@ image {
   align-items: center;
   display: flex;
 }
+.containe {
+  overflow-y: auto;
+}
 .flex_j_a_c {
   justify-content: center;
   align-items: center;

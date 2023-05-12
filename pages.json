@@ -175,6 +175,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/home/other_page/antique_repository/antique_repository",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/workroom/other_page/moment_detail/moment_detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"backgroundColor": "#fffbf2",
