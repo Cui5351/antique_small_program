@@ -266,7 +266,7 @@ image.data-v-7edb8074 {
   padding: 10px 20px;
   box-sizing: border-box;
   background-color: white;
-  height: 100%;
+  height: 90%;
   overflow-y: auto;
 }
 .containe > view.data-v-7edb8074 {

@@ -97,7 +97,7 @@ const _sfc_main = {
             content: info.content,
             place: info.place,
             src: res.data.data.sus,
-            send_date: common_vendor.index.current_this.dateformat(new Date()),
+            send_date: common_vendor.index.current_this.dateformat_accuracy(new Date()),
             browser: 0,
             uuid: res.data.data.uuid
           });
@@ -109,7 +109,22 @@ const _sfc_main = {
         }
       });
     }
-    return { info, develop, publish, state };
+    function check_pict(path, index) {
+      common_vendor.index.previewImage({
+        urls: path,
+        current: index,
+        longPressActions: {
+          itemList: ["\u53D1\u9001\u7ED9\u670B\u53CB", "\u4FDD\u5B58\u56FE\u7247", "\u6536\u85CF"],
+          success: function(data) {
+            console.log("\u9009\u4E2D\u4E86\u7B2C" + (data.tapIndex + 1) + "\u4E2A\u6309\u94AE,\u7B2C" + (data.index + 1) + "\u5F20\u56FE\u7247");
+          },
+          fail: function(err) {
+            console.log(err.errMsg);
+          }
+        }
+      });
+    }
+    return { info, develop, publish, state, check_pict };
   }
 };
 if (!Array) {
@@ -131,7 +146,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: common_vendor.f($setup.info.paths, (item, index, i0) => {
       return {
         a: item,
-        b: index
+        b: common_vendor.o(($event) => $setup.check_pict($setup.info.paths, index), index),
+        c: index
       };
     }),
     e: common_vendor.p({

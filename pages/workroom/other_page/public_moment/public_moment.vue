@@ -5,13 +5,13 @@
       	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="150"></textarea>
       </view>
 	  <view class="picture">
-			<image :src="item" v-for="(item,index) in info.paths" :key="index" mode="aspectFill"></image>
+			<image :src="item" v-for="(item,index) in info.paths" @click="check_pict(info.paths,index)" :key="index" mode="aspectFill"></image>
 	  </view>
 	  <view class="place">
 		  <view class="flex_j_a_r" >添加地点
 		  <uni-icons type="location-filled" color="rgb(110,121,226)"></uni-icons>
 		  </view>
-		<input type="text" placeholder="请输入地区" v-model="info.place" maxlength="5">
+		<input type="text" placeholder="请输入地区" v-model="info.place" maxlength="20">
 	  </view>
 	  <view class="range">
 	  		  <view class="tit">选择分享范围</view>
@@ -130,7 +130,7 @@ export default{
 							content:info.content,
 							place:info.place,
 							src:res.data.data.sus,
-							send_date:uni.current_this.dateformat(new Date()),
+							send_date:uni.current_this.dateformat_accuracy(new Date()),
 							browser:0,
 							uuid:res.data.data.uuid
 						})
@@ -145,7 +145,22 @@ export default{
 	function add_pic(){
 		
 	}
-    return{info,develop,publish,state}
+	function check_pict(path,index){
+				uni.previewImage({
+					urls:path,
+					current:index,
+					longPressActions: {
+						itemList: ['发送给朋友', '保存图片', '收藏'],
+						success: function(data) {
+							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+						},
+						fail: function(err) {
+							console.log(err.errMsg);
+						}
+					}
+				});
+	}
+    return{info,develop,publish,state,check_pict}
   }
 }
 </script>
