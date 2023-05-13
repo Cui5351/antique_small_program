@@ -51,6 +51,38 @@
 }
 .moment{
 	padding-bottom:200px;
+	&>.c{
+		padding:5px 0;
+		border-bottom:1px solid rgba(0,0,0,.1);
+	}
+	.m{
+		padding:20px 0;
+		box-sizing: border-box;
+		display: flex;
+		&>.avatar{
+			height:35px;
+			width:35px;
+			margin-right:10px;
+			&>image{
+				border-radius:50%;
+				height:100%;
+				width:100%;
+			}
+		}
+		&>.txt{
+			width:80%;
+			flex-wrap: wrap;
+			&>.n{
+				display: flex;
+				justify-content: space-between;
+			}
+			&>.t{
+				background-color: rgba(0,0,0,.05);
+				padding:10px;
+				box-sizing: border-box;
+			}
+		}
+	}
 }
 	.moment_btn{
 		display: flex;

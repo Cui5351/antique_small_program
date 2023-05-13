@@ -139,7 +139,8 @@
 		flex-direction: column;
 		margin-top:20px;
 		width:49%;
-		height:250px;
+		float: left;
+		// height:250px;
 		border-radius: 10px;
 		&>.mask{
 			height:100%;

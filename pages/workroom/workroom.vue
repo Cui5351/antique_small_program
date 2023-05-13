@@ -34,7 +34,7 @@
 				<view class="flex_j_a_r">
 					<uni-icons type="heart" size="25"></uni-icons>0
 					<uni-icons type="star" size="25"></uni-icons>0
-					<uni-icons type="chat" size="25"></uni-icons>0
+					<uni-icons type="chat" size="25"></uni-icons>{{item.moment_count}}
 					<uni-icons type="paperplane" size="25"></uni-icons>0
 				</view>
 				<view class="time">{{item.send_date}}</view>

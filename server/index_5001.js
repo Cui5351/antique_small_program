@@ -562,7 +562,7 @@ app.get('/get_hottest_video',(req,res)=>{
     // query(dbs,table('works'),['title','openid','mask','uuid'],{show_work:'show'}).then(e=>{
         // send(res,e)
     // })
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" limit 0,10`,function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -721,7 +721,7 @@ app.get('/get_community_moments',(req,res)=>{
     const {skip}=req.query
 
     // 方法一
-    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,place,send_date,browse,content,uuid from antique.community_moments c where show_moment='show' order by id desc limit ${skip},10`,async function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,content,uuid from antique.community_moments c where show_moment='show' order by id desc limit ${skip},10`,async function(err,result){
         if(err)
             send_err(res,err)
 
@@ -882,6 +882,60 @@ app.post('/upload_moment',async function(req,res){
     }
 
 })
+app.post('/send_community_comment',(req,res)=>{
+    if(!req.body.hasOwnProperty('uuid')||!req.body.hasOwnProperty('openid')||!req.body.hasOwnProperty('content')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.body).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {uuid,openid,content}=req.body
+    insertData(dbs,table('community_moment_comment'),{openid,uuid,content}).then(e=>{
+        send(res)
+    }).catch(e=>{
+        send_err(res,e)
+    })
+})
+app.get('/get_community_comment',(req,res)=>{
+    if(!req.query.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.query).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {uuid}=req.query
+    // query(dbs,table('community_moment_comment'),['content','openid'])
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' order by date desc`,function(err,result){
+        if(err){
+            send_err(res,err)
+            return
+        }
+        send(res,result)
+    })
+})
+
 }
 
 function send(res,data=null){

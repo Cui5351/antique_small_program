@@ -109,10 +109,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         g: "0672b006-1-" + i0,
         h: "0672b006-2-" + i0,
         i: "0672b006-3-" + i0,
-        j: "0672b006-4-" + i0,
-        k: common_vendor.t(item.send_date),
-        l: index,
-        m: common_vendor.o(($event) => $setup.detail(item), index)
+        j: common_vendor.t(item.moment_count),
+        k: "0672b006-4-" + i0,
+        l: common_vendor.t(item.send_date),
+        m: index,
+        n: common_vendor.o(($event) => $setup.detail(item), index)
       });
     }),
     e: common_vendor.p({

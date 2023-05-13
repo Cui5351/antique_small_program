@@ -336,7 +336,7 @@ image.data-v-92bb8f34 {
   flex-direction: column;
   margin-top: 20px;
   width: 49%;
-  height: 250px;
+  float: left;
   border-radius: 10px;
 }
 .works > .work > .w > .mask.data-v-92bb8f34 {

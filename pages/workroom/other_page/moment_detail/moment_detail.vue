@@ -9,7 +9,7 @@
 			  <view>
 				  <view class="name">{{info.name}}</view>
 				  <view class="date">{{info.send_date}}</view>
-				  <view class="place">{{info.place}}</view>
+				  <view class="place">发布于:{{info.place}}</view>
 			  </view>
 		  </view>
 		  <view class="flex_j_a_c">
@@ -21,7 +21,20 @@
 	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="widthFix"></image>
 	  </view>
 	  <view class="moment">
-		  评论列表
+		  <view class="c">评论列表</view>
+		  <view>
+			  <view class="m" v-for="(item,index) in moments" :key="index">
+				  <view class="avatar">
+					  <image :src="item.avatar"></image>
+				  </view>
+				  <view class="txt">
+					  <view class="n">{{item.name}}
+					  <view style="font-size:13px;color: gray;">{{item.date}}</view>
+					  </view>
+					  <view class="t">{{item.content}}</view>
+				  </view>
+			  </view>
+		  </view>
 	  </view>
   </view>
   <view class="moment_btn">
@@ -29,7 +42,7 @@
 		  <uni-icons type="star" size='25'></uni-icons>
 	  </view>
 	  <view class="flex_j_a_c input">
-			<input type="text" placeholder="请您友好交流~">
+			<input type="text" v-model="text" placeholder="请您友好交流~">
 	  </view>
 	  <view class="flex_j_a_c" style="width:15%;" @click="send_mes">
 		  <uni-icons size="25" type="paperplane"></uni-icons>
@@ -43,13 +56,37 @@ import back from '/components/back.vue'
 export default{
   name:'',
   onLoad({info}) {
+	  uni.showLoading({
+	  	mask:true,
+		title:'加载中'
+	  })
 	let tmp=JSON.parse(info)
+	let that=this
 	Object.keys(this.info).forEach(item=>{
 		if(item=='src'){
 			this.info[item].push(...tmp[item])
 			return
 		}
 		this.info[item]=tmp[item]
+	})
+	uni.request({
+		url:uni.current_this.baseURL+':5001/get_community_comment',
+		method:'GET',
+		data:{
+			uuid:this.info.uuid
+		},
+		success(res) {
+			if(uni.current_this.check_res_state(res)){
+				return
+			}
+			res.data.data.forEach(item=>{
+				item.date=uni.current_this.dateformat_accuracy(new Date(item.date))
+			})
+			that.moments.push(...res.data.data)
+		},
+		complete() {
+			uni.hideLoading()
+		}
 	})
   },
   components:{
@@ -61,11 +98,44 @@ export default{
 					send_date:'',
 					place:'',
 					content:'',
-					src:[]})
+					src:[],
+					uuid:''})
+	let moments=reactive([])
+	let text=ref('')
 	function send_mes(){
-		uni.showToast({
-			title:'暂未开启',
-			icon:'none'
+		if(!uni.current_this.store.getters.login_state){
+			uni.showToast({
+				title: '请先登录',
+				icon:'none'
+			});
+			return
+		}
+		if(text.value.length<=0){
+			uni.showToast({
+				title: '输入内容不能为空',
+				icon:'none'
+			});
+			return
+		}
+		uni.request({
+			url:uni.current_this.baseURL+':5001/send_community_comment',
+			method:'POST',
+			data:{
+				openid:uni.current_this.store.state.user_info.openid,
+				uuid:info.uuid,
+				content:text.value
+			},
+			success(res) {
+				if(uni.current_this.check_res_state(res)){
+					return
+				}
+				moments.unshift({
+					avatar:uni.current_this.store.state.user_info.avatar,
+					name:uni.current_this.store.state.user_info.name,
+					content:text.value,
+					date:uni.current_this.dateformat_accuracy(new Date())})
+				text.value=''
+			}
 		})
 	}
 	function check_pict(index){
@@ -83,7 +153,7 @@ export default{
 			}
 		});
 	}
-    return{info,send_mes,check_pict}
+    return{info,send_mes,check_pict,text,moments}
   }
 }
 </script>

@@ -55,9 +55,22 @@
 					</view>
 				</view>
 				<view class="work">
-					<view class="w" v-for="(item,index) in video" @click="inter(item)">	
+					<!-- <view class="w" v-for="(item,index) in video" @click="inter(item)">	
 						<view class="mask">
 							<image :src="item.mask" mode="aspectFill"></image>
+						</view>
+						<view class="tit">
+							<view class="avatar">
+								<image :src="item.avatar"></image>
+							</view>
+							<view>
+								{{item.name}}
+							</view>
+						</view>
+					</view> -->
+					<view class="w" v-for="(item,index) in video" @click="inter(item)">
+						<view class="mask">
+							<image :src="item.mask" mode="widthFix"></image>
 						</view>
 						<view class="tit">
 							<view class="avatar">
