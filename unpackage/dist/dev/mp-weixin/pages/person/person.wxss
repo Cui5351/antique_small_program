@@ -197,6 +197,7 @@ image.data-v-390a77b4 {
 }
 .add_btn.data-v-390a77b4 {
   display: flex;
+  background-color: #f3f3f3;
   align-items: center;
   justify-content: center;
 }

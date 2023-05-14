@@ -22,7 +22,8 @@
     "pages/workroom/other_page/public_moment/public_moment",
     "pages/person/other_page/comment/comment",
     "pages/home/other_page/antique_repository/antique_repository",
-    "pages/workroom/other_page/moment_detail/moment_detail"
+    "pages/workroom/other_page/moment_detail/moment_detail",
+    "pages/person/other_page/manage_work/manage_work"
   ],
   "window": {
     "navigationBarTextStyle": "black",

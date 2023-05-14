@@ -27,6 +27,7 @@ if (!Math) {
   "./pages/person/other_page/comment/comment.js";
   "./pages/home/other_page/antique_repository/antique_repository.js";
   "./pages/workroom/other_page/moment_detail/moment_detail.js";
+  "./pages/person/other_page/manage_work/manage_work.js";
 }
 const _sfc_main = {
   onLaunch: function() {

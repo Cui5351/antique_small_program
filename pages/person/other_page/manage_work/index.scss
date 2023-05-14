@@ -1,0 +1,127 @@
+@import "/uni.scss";
+.containe{
+	height:100%;
+	overflow: hidden;
+}
+.tit{
+	@include height(20%);
+	background-color: white;
+	padding:10px 20px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	&>.other{
+		height:40px;
+		display: flex;
+		justify-content: space-between;
+		align-items:flex-end;
+		&>.person{
+			image{
+				border-radius: 50%;
+				height:30px;
+				width:30px;
+				margin-right:10px;
+			}
+		}
+	}
+	&>.titl{
+	display: flex;
+	justify-content: space-between;
+	&>.t{
+		margin-right:30px;
+		&>.ti{
+			font-weight:bold;
+			font-size:20px;
+			margin-bottom:5px;
+		}
+		&>.d{
+			font-size: 14px;
+			color: gray;
+		}
+	}
+	&>.mask{
+		@include height(70px);
+		@include width(70px);
+		&>image{
+			height:100%;
+			width:100%;
+		}
+	}
+	}
+}
+.works{
+	overflow-y: auto;
+	width:100%;
+	@include height(70%);
+	display: flex;
+	flex-wrap: wrap;
+	column-count: 2;
+	padding:10px 10px 20px 10px;
+	box-sizing: border-box;
+	justify-content: space-between;
+	&>.item{
+		justify-content: space-between;
+		&>.mask{
+			height:200px;
+			width:100%;
+			&>image{
+				height:100%;
+				width:100%;
+				border-radius:10px;
+			}
+		}
+		&>.t{
+			width:100%;
+			padding:0 10px;
+			box-sizing: border-box;
+			&>.n{
+				padding:10px 0;
+				height:25px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			&>.p{
+				display: flex;
+				justify-content: space-between;
+				&>.a{
+					height:35px;
+					display: flex;
+					align-items: center;
+					width:80%;
+					font-size:13px;
+					color: gray;
+					&>.text{
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+					&>image{
+						border-radius: 50%;
+						margin-right: 5px;
+						@include height(30px);
+						@include width(30px);
+					}
+				}
+				&>.c{
+					@include width(20%);
+				}
+			}
+		}
+	}
+	&>view{
+		margin-top:20px;
+		height:280px;
+		border-radius:10px;
+		width:48%;
+		background-color: white;
+	}
+	&>.add{
+		&>image{
+			height:200px;
+			width:50%;
+			background-color: rgba(0,0,0,0);
+		}
+	}
+}

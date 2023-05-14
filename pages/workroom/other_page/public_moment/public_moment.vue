@@ -29,7 +29,7 @@
   </view>
 </template>
 
-<script>
+<script>	
 import back from '/components/back.vue'
 import {ref,reactive} from 'vue'
 export default{

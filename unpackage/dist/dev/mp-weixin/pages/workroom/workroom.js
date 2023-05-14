@@ -25,9 +25,13 @@ const _sfc_main = {
       }
     });
   },
+  onPageScroll(ev) {
+    console.log(ev, "this");
+  },
   setup() {
     let moment = common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.moments);
     let back = common_vendor.index.current_this.back;
+    let head = common_vendor.ref(false);
     function publish_moment() {
       if (common_vendor.index.current_this.check_login_state()) {
         common_vendor.index.showToast({
@@ -65,7 +69,10 @@ const _sfc_main = {
         url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
       });
     }
-    return { back, moment, publish_moment, check_pict, detail };
+    function show_head(e) {
+      console.log(e.detail.scrollTop);
+    }
+    return { back, moment, publish_moment, check_pict, detail, show_head, head };
   }
 };
 if (!Array) {
@@ -135,4 +142,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);
+_sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);

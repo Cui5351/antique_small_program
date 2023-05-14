@@ -193,6 +193,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/person/other_page/manage_work/manage_work",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"backgroundColor": "#fffbf2",

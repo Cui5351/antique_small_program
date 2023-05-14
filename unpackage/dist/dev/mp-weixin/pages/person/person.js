@@ -124,7 +124,12 @@ const _sfc_main = {
         url: `/pages/person/other_page/new_work_collection/new_work_collection`
       });
     }
-    return { start_, change_background, login_state, login, opacity, person_info, toggle, top, toggle_page };
+    function works(item) {
+      common_vendor.index.navigateTo({
+        url: `/pages/person/other_page/manage_work/manage_work?work=${JSON.stringify(item)}`
+      });
+    }
+    return { works, start_, change_background, login_state, login, opacity, person_info, toggle, top, toggle_page };
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -173,18 +178,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     E: common_vendor.f($setup.person_info.works, (item, index, i0) => {
       return {
         a: item.mask,
-        b: index
+        b: index,
+        c: common_vendor.o(($event) => $setup.works(item), index)
       };
     }),
     F: $setup.person_info.toggle,
-    G: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
-      return {
-        a: item.mask,
-        b: index
-      };
-    }),
-    H: !$setup.person_info.toggle,
-    I: common_vendor.n($setup.person_info.works.length <= 0 && $setup.person_info.toggle ? "start_btn_cen" : "")
+    G: common_vendor.n($setup.person_info.works.length <= 0 && $setup.person_info.toggle ? "start_btn_cen" : "")
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-390a77b4"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/person.vue"]]);

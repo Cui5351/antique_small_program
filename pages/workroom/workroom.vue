@@ -1,16 +1,17 @@
 <template>
   <view class="containe">
+	<view class="show_head head_tit">非遗社区</view>
       <view class="head">
       	<view class="pic">
 			<image src="/static/community_hot_search.svg" mode=""></image>
 		</view>
-      	<view class="tit">
-			热搜卫星,搜寻你期待的热点
+      </view>
+      	<view class="tit1">
+			<input type="text" placeholder="热搜卫星,搜寻你期待的热点...">
 			<view class="flex_j_a_r" @click="publish_moment">
 				<uni-icons type="plusempty" color="rgb(110,121,226)"></uni-icons>
 			</view>
 		</view>
-      </view>
 	  <view class="hot">
 		  <view v-for="(item,index) in ['传承非遗','工匠精神','习总书记说非遗','来自非遗工作室的秘密','非遗元宇宙','和我们一起畅游非遗吧']" :key="index" class="font_color">{{index+1}}.{{item}}<view>热</view>
 		  </view>
@@ -71,9 +72,13 @@ export default{
 		}
 	})
   },
+  onPageScroll(ev) {
+	  console.log(ev,'this');
+  },
   setup(){
 	let moment=computed(()=>uni.current_this.store.getters.moments)
 	let back=uni.current_this.back
+	let head=ref(false)
 	function publish_moment(){
 		if(uni.current_this.check_login_state()){
 			uni.showToast({
@@ -113,7 +118,10 @@ export default{
 			url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
 		})
 	}
-    return{back,moment,publish_moment,check_pict,detail}
+	function show_head(e){
+		console.log(e.detail.scrollTop);
+	}
+    return{back,moment,publish_moment,check_pict,detail,show_head,head}
   }
 }
 </script>

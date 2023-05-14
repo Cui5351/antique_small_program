@@ -97,12 +97,9 @@
 				<view @click="start_" class="add_btn" v-if="person_info.works.length>0&&person_info.toggle">
 					<image src="../../static/add.svg" mode="widthFix"></image>
 				</view>
-				<view v-for="(item,index) in person_info.works" :key="index" v-show="person_info.toggle">
+				<view v-for="(item,index) in person_info.works" :key="index" v-show="person_info.toggle" @click="works(item)">
 					<image :src="item.mask" mode="aspectFill"></image>
 				</view>
-					<view v-for="(item,index) in person_info.works2" :key="index" v-show="!person_info.toggle">
-						<image :src="item.mask" mode="aspectFill"></image>
-					</view>
 			</view>
 		</view>
 	</view>
@@ -258,7 +255,12 @@
 					url:`/pages/person/other_page/new_work_collection/new_work_collection`
 				})
 			}
-			return {start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}
+			function works(item){
+				uni.navigateTo({
+					url:`/pages/person/other_page/manage_work/manage_work?work=${JSON.stringify(item)}`
+				})
+			}
+			return {works,start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}
 		}
 	}
 </script>

@@ -264,9 +264,21 @@ image.data-v-0672b006 {
 }
 .containe.data-v-0672b006 {
   background-color: white;
-  overflow-y: auto;
+  position: relative;
   height: 100%;
   width: 100%;
+}
+.show_head.data-v-0672b006 {
+  height: 10%;
+  position: -webkit-sticky;
+  position: sticky;
+  margin-top: 0px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  top: 0;
 }
 .head .pic.data-v-0672b006 {
   height: 200px;
@@ -276,21 +288,34 @@ image.data-v-0672b006 {
   height: 100%;
   width: 100%;
 }
-.head .tit.data-v-0672b006 {
+.tit1.data-v-0672b006 {
+  position: -webkit-sticky;
+  position: sticky;
+  margin-top: 0px;
+  top: 10%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   color: gray;
   padding: 5px 15px;
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #e5e5e5;
 }
-.head .tit > view.data-v-0672b006 {
+.tit1 > input.data-v-0672b006 {
+  width: 70%;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: black;
+}
+.tit1 > view.data-v-0672b006 {
   height: 20px;
   width: 20px;
   border: 2px solid #6e79e2;
   border-radius: 50%;
 }
-.head .tit > view.data-v-0672b006:active {
+.tit1 > view.data-v-0672b006:active {
   background-color: #6e79e2;
 }
 .hot > view.data-v-0672b006 {
@@ -299,7 +324,7 @@ image.data-v-0672b006 {
   box-sizing: border-box;
 }
 .hot > view.data-v-0672b006:active {
-  background-color: rgba(0, 0, 0, 0.01);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 .hot > view > view.data-v-0672b006 {
   display: inline-block;
@@ -320,7 +345,7 @@ image.data-v-0672b006 {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .passage > view.data-v-0672b006:active {
-  background-color: rgba(0, 0, 0, 0.01);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 .passage .person.data-v-0672b006 {
   display: flex;
