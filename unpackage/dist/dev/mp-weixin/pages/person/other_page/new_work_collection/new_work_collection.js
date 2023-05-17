@@ -29,7 +29,8 @@ const _sfc_main = {
         }
       }
       common_vendor.index.showLoading({
-        mask: true
+        mask: true,
+        title: "\u65B0\u5EFA\u4E2D"
       });
       common_vendor.index.uploadFile({
         url: common_vendor.index.current_this.baseURL + ":5001/upload_mask",
@@ -45,7 +46,7 @@ const _sfc_main = {
             common_vendor.index.hideLoading();
             return;
           }
-          let src = "https://www.mynameisczy.asia/antique/video_masks/" + data.data;
+          let src = data.data.mask;
           common_vendor.index.request({
             url: common_vendor.index.current_this.baseURL + ":5001/new_work_collection",
             method: "POST",
@@ -68,7 +69,8 @@ const _sfc_main = {
                 mask: src,
                 description: info.description,
                 show_work: info.show_work ? "show" : "hid",
-                score: 0
+                score: 0,
+                uuid: res2.data.data
               });
               common_vendor.index.navigateBack();
             },

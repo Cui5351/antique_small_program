@@ -98,9 +98,11 @@ const _sfc_main = {
                 return;
               }
               current_video.danmu.push(...res.data.data.map((item2) => {
+                console.log(current_video.danmu, "danmu");
                 return {
                   text: item2.danmu,
                   time: item2.video_time,
+                  date: common_vendor.index.current_this.dateformat_accuracy(new Date(item2.send_date)),
                   user_name: item2.user_name,
                   user_avatar: item2.user_avatar,
                   color: "white"
@@ -110,7 +112,9 @@ const _sfc_main = {
           });
           return;
         }
-        this.current_video[item] = this.video[ind][item];
+        if (video[ind][item] == void 0)
+          return;
+        current_video[item] = video[ind][item];
       });
       index.value = ind;
       setTimeout(() => {
@@ -132,7 +136,7 @@ const _sfc_main = {
         });
         return;
       }
-      if (danmu.length <= 0) {
+      if (danmu.value.length <= 0) {
         common_vendor.index.showToast({
           title: "\u8F93\u5165\u5185\u5BB9\u4E3A\u7A7A",
           icon: "error"
@@ -157,7 +161,8 @@ const _sfc_main = {
             user_name: common_vendor.index.current_this.store.state.user_info.name,
             text: danmu.value,
             time: current_video.time,
-            color: "white"
+            color: "white",
+            date: common_vendor.index.current_this.dateformat_accuracy(new Date())
           });
         },
         complete() {
@@ -170,6 +175,8 @@ const _sfc_main = {
     }
     let no_develop = common_vendor.index.current_this.no_develop;
     function increment(pro) {
+      console.log(current_video[pro]);
+      console.log(current_video);
       current_video[pro]++;
     }
     return { video, current_video, person, title, state, timeupdate, danmu, send, toggle, no_develop, increment };

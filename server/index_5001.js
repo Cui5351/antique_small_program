@@ -507,7 +507,6 @@ app.post('/get_bills',(req,res)=>{
             send(res,e)
         }
     }).catch(e=>{
-        console.log(e,'err');
         send_err(res,e)
     })
 
@@ -599,7 +598,7 @@ app.get('/get_hottest_video',(req,res)=>{
         return 
     }
     const {skip}=req.query
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 limit ${skip},10`,function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -610,16 +609,17 @@ app.get('/get_hottest_video',(req,res)=>{
 
 app.post('/get_video',(req,res)=>{
     if(typeof req.body === 'string')
-        req.body=JSON.parse(req.body)
-        if(!req.body.hasOwnProperty('uuid')){
-            res.send({
-                state:0,
-                error:1,
-                errorMes:'缺少参数'
-            })
-            return 
-        }
+    req.body=JSON.parse(req.body)
+    if(!req.body.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
     const {uuid}=req.body
+    update(dbs,table('works'),{uuid:uuid},'score',1,'number','+')
     query(dbs,table('work'),['name','src','video_id','mask'],{work_uuid:uuid}).then(e=>{
         send(res,e)
     })
@@ -649,7 +649,6 @@ app.post('/send_danmu',(req,res)=>{
     insertData(dbs,table('danmu'),{video_id:video_id,openid:openid,danmu:message,video_time}).then(()=>{
         send(res)
     }).catch(e=>{
-        console.log(e);
         send_err(res,e)
     })
 })
@@ -696,7 +695,7 @@ app.post('/upload_mask',(req,res)=>{
             send_err(res)
             return
         }
-        send(res,{mask:'https://www.mynameisczy.asia/antique/video_masks/'+req.file.filename})
+        send(res,{mask:('https://www.mynameisczy.asia/antique/video_masks/'+req.file.filename)})
     })
 })
 
@@ -850,7 +849,7 @@ app.post('/new_work_collection',(req,res)=>{
     const {title,description,mask,show_work,openid}=req.body
     let uuid=randomUUID()
     insertData(dbs,table('works'),{title,description,mask,show_work,openid,uuid}).then(()=>{
-        send(res)
+        send(res,uuid)
     }).catch(e=>{
         send_err(res,e)
     })
@@ -972,6 +971,7 @@ app.get('/get_community_comment',(req,res)=>{
     })
     const {uuid}=req.query
     // query(dbs,table('community_moment_comment'),['content','openid'])
+    update(dbs,table('community_moments'),{uuid:uuid},'browse',1,'number','+')
     dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' order by date desc`,function(err,result){
         if(err){
             send_err(res,err)
@@ -1002,10 +1002,8 @@ app.post('/upload_work_info',(req,res)=>{
 
     const {openid,show_work,title,name,src,mask,work_uuid,video_id}=req.body
     insertData(dbs,table('work'),{openid,show_work,title,name,src,mask,work_uuid,video_id}).then(s=>{
-        console.log(s,'s');
         send(res)
     }).catch(e=>{
-        console.log(e,'e');
         send_err(res)
     })
     

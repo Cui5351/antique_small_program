@@ -172,9 +172,11 @@ export default{
 								return
 							}
 							current_video.danmu.push(...(res.data.data.map(item=>{
+								console.log(current_video.danmu,'danmu');
 								return {
 									text:item.danmu,
 									time:item.video_time,
+									date:uni.current_this.dateformat_accuracy(new Date(item.send_date)),
 									user_name:item.user_name,
 									user_avatar:item.user_avatar,
 									color:'white'
@@ -184,7 +186,9 @@ export default{
 				})
 				return
 			}
-			this.current_video[item]=this.video[ind][item]
+			if(video[ind][item]==undefined)
+				return
+			current_video[item]=video[ind][item]
 		})
 		index.value=ind
 		setTimeout(()=>{
@@ -206,7 +210,7 @@ export default{
 			})
 			return
 		}
-		if(danmu.length<=0){
+		if(danmu.value.length<=0){
 			uni.showToast({
 				title:'输入内容为空',
 				icon:'error'
@@ -231,7 +235,8 @@ export default{
 					user_name:uni.current_this.store.state.user_info.name,
 					text:danmu.value,
 					time:current_video.time,
-					color:'white'
+					color:'white',
+					date:uni.current_this.dateformat_accuracy(new Date())
 				})
 			},
 			complete() {
@@ -244,6 +249,8 @@ export default{
 	}
 	let no_develop=uni.current_this.no_develop
 	function increment(pro){
+		console.log(current_video[pro]);
+		console.log(current_video);
 		current_video[pro]++;
 	}
     return{video,current_video,person,title,state,timeupdate,danmu,send,toggle,no_develop,increment}

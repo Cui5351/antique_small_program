@@ -19,6 +19,7 @@ const _sfc_main = {
   },
   mounted() {
     let that = this;
+    this.reqs.state = true;
     common_vendor.index.request({
       url: common_vendor.index.current_this.baseURL + ":5001/get_hottest_video",
       method: "GET",
@@ -31,7 +32,10 @@ const _sfc_main = {
         }
         that.video.push(...res.data.data);
         console.log(that.video, "video");
-        that.reqs.skip += 10;
+        that.reqs.skip += res.data.data.length;
+      },
+      complete() {
+        that.reqs.state = false;
       }
     });
   },
@@ -173,7 +177,7 @@ const _sfc_main = {
             return;
           }
           video.push(...res.data.data);
-          reqs.skip += 10;
+          reqs.skip += res.data.data.length;
         },
         complete() {
           reqs.state = false;

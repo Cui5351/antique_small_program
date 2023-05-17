@@ -6,24 +6,7 @@ const _sfc_main = {
       title: "\u52A0\u8F7D\u4E2D",
       mask: true
     });
-    common_vendor.index.request({
-      url: common_vendor.index.current_this.baseURL + ":5001/get_community_moments",
-      method: "GET",
-      data: {
-        skip: 0
-      },
-      success(res) {
-        if (common_vendor.index.current_this.check_res_state(res))
-          return;
-        res.data.data.forEach((item) => {
-          item.send_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.send_date));
-        });
-        common_vendor.index.current_this.store.state.moments.push(...res.data.data);
-      },
-      complete() {
-        common_vendor.index.hideLoading();
-      }
-    });
+    this.get_moments();
   },
   onPullDownRefresh() {
     console.log("refresh");
@@ -35,9 +18,12 @@ const _sfc_main = {
     console.log("bottom");
   },
   setup() {
+    let reqs = common_vendor.reactive({
+      state: false,
+      skip: 0
+    });
     let moment = common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.moments);
     let back = common_vendor.index.current_this.back;
-    common_vendor.ref("more");
     function publish_moment() {
       if (common_vendor.index.current_this.check_login_state()) {
         common_vendor.index.showToast({
@@ -79,20 +65,47 @@ const _sfc_main = {
       console.log(e.detail.scrollTop);
     }
     function lower() {
+      if (reqs.state) {
+        console.log(reqs);
+        return;
+      }
+      get_moments();
       console.log("load more than");
     }
-    return { back, moment, publish_moment, check_pict, detail, show_head, lower };
+    function get_moments() {
+      reqs.state = true;
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_community_moments",
+        method: "GET",
+        data: {
+          skip: reqs.skip
+        },
+        success(res) {
+          if (common_vendor.index.current_this.check_res_state(res))
+            return;
+          res.data.data.forEach((item) => {
+            item.send_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.send_date));
+          });
+          common_vendor.index.current_this.store.state.moments.push(...res.data.data);
+          reqs.skip += res.data.data.length;
+        },
+        complete() {
+          reqs.state = false;
+          console.log(reqs, "complete");
+          common_vendor.index.hideLoading();
+        }
+      });
+    }
+    return { back, moment, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
   }
 };
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
-  (_easycom_uni_icons2 + _easycom_uni_load_more2)();
+  _easycom_uni_icons2();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
-const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
 if (!Math) {
-  (_easycom_uni_icons + _easycom_uni_load_more)();
+  _easycom_uni_icons();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -127,12 +140,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       } : {}, {
         g: "0672b006-1-" + i0,
         h: "0672b006-2-" + i0,
-        i: "0672b006-3-" + i0,
-        j: common_vendor.t(item.moment_count),
-        k: "0672b006-4-" + i0,
-        l: common_vendor.t(item.send_date),
-        m: index,
-        n: common_vendor.o(($event) => $setup.detail(item), index)
+        i: common_vendor.t(item.browse),
+        j: "0672b006-3-" + i0,
+        k: common_vendor.t(item.moment_count),
+        l: "0672b006-4-" + i0,
+        m: common_vendor.t(item.send_date),
+        n: index,
+        o: common_vendor.o(($event) => $setup.detail(item), index)
       });
     }),
     e: common_vendor.p({
@@ -140,7 +154,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "25"
     }),
     f: common_vendor.p({
-      type: "star",
+      type: "eye",
       size: "25"
     }),
     g: common_vendor.p({
@@ -151,11 +165,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "paperplane",
       size: "25"
     }),
-    i: common_vendor.p({
-      status: "loading",
-      iconType: "circle"
-    }),
-    j: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
+    i: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);

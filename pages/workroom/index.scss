@@ -144,3 +144,11 @@
 		box-sizing: border-box;
 	}
 }
+	.bottom{
+		@include height(10%);
+		width:100%;
+		padding:10px 0;
+		color: gray;
+		text-align: center;
+		font-size:15px;
+}

@@ -67,7 +67,8 @@ export default{
 		}
 		// upload_mask
 		uni.showLoading({
-			mask:true
+			mask:true,
+			title:'新建中'
 		})
 			uni.uploadFile({
 				url:uni.current_this.baseURL+':5001/upload_mask',
@@ -83,7 +84,7 @@ export default{
 						uni.hideLoading()
 						return
 					}
-					let src='https://www.mynameisczy.asia/antique/video_masks/'+data.data
+					let src=data.data.mask
 					uni.request({
 						url:uni.current_this.baseURL+':5001/new_work_collection',
 						method:'POST',
@@ -106,7 +107,8 @@ export default{
 								mask:src,
 								description:info.description,
 								show_work:info.show_work?'show':'hid',
-								score:0
+								score:0,
+								uuid:res.data.data
 							})
 							uni.navigateBack()
 						},

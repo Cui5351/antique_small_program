@@ -400,3 +400,13 @@ image.data-v-0672b006 {
   margin: 10px 0;
   box-sizing: border-box;
 }
+.bottom.data-v-0672b006 {
+  max-height: 10%;
+  min-height: 10%;
+  height: 10%;
+  width: 100%;
+  padding: 10px 0;
+  color: gray;
+  text-align: center;
+  font-size: 15px;
+}

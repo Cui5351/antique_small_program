@@ -38,15 +38,15 @@
 			<view class="other flex_j_a_r">
 				<view class="flex_j_a_r">
 					<uni-icons type="heart" size="25"></uni-icons>0
-					<uni-icons type="star" size="25"></uni-icons>0
+					<uni-icons type="eye" size="25"></uni-icons>{{item.browse}}
 					<uni-icons type="chat" size="25"></uni-icons>{{item.moment_count}}
 					<uni-icons type="paperplane" size="25"></uni-icons>0
 				</view>
 				<view class="time">{{item.send_date}}</view>
 			</view>
 		</view>
-		<uni-load-more status="loading" iconType="circle"></uni-load-more>
 	  </view>
+	  <view class="bottom">已经滑到底部了</view>
 	  </view>
   </scroll-view>
 </template>
@@ -55,28 +55,11 @@
 import {ref,reactive,computed} from 'vue'
 export default{
   mounted() {
-  	let that=this
 	uni.showLoading({
 		title:'加载中',
 		mask:true
 	})
-	uni.request({
-		url:uni.current_this.baseURL+':5001/get_community_moments',
-		method:'GET',
-		data:{
-			skip:0
-		},
-		success(res) {
-			if(uni.current_this.check_res_state(res))
-				return
-				res.data.data.forEach(item=>{
-					item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
-				})
-				uni.current_this.store.state.moments.push(...res.data.data)
-		},complete() {
-			uni.hideLoading()
-		}
-	})
+	this.get_moments()
   },
   	onPullDownRefresh() {
   		console.log('refresh');
@@ -89,9 +72,12 @@ export default{
 		console.log('bottom');
 	},
   setup(){
+	let reqs=reactive({
+		state:false,
+		skip:0,
+	})
 	let moment=computed(()=>uni.current_this.store.getters.moments)
 	let back=uni.current_this.back
-	let load_state=ref('more')
 	function publish_moment(){
 		if(uni.current_this.check_login_state()){
 			uni.showToast({
@@ -135,9 +121,37 @@ export default{
 		console.log(e.detail.scrollTop);
 	}
 	function lower(){
+		if(reqs.state){
+			console.log(reqs);
+			return
+		}
+		get_moments()
 		console.log('load more than');
 	}
-    return{back,moment,publish_moment,check_pict,detail,show_head,lower}
+	function get_moments(){
+		reqs.state=true
+		uni.request({
+			url:uni.current_this.baseURL+':5001/get_community_moments',
+			method:'GET',
+			data:{
+				skip:reqs.skip
+			},
+			success(res) {
+				if(uni.current_this.check_res_state(res))
+					return
+					res.data.data.forEach(item=>{
+						item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
+					})
+					uni.current_this.store.state.moments.push(...res.data.data)
+					reqs.skip+=res.data.data.length
+			},complete() {
+				reqs.state=false
+				console.log(reqs,'complete');
+				uni.hideLoading()
+			}
+		})
+	}
+    return{back,moment,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
   }
 }
 </script>

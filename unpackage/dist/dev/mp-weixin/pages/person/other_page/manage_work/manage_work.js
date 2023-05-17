@@ -60,16 +60,21 @@ const _sfc_main = {
     });
     function addWork() {
       console.log("add");
-      common_vendor.index.chooseVideo({
+      common_vendor.index.chooseMedia({
+        count: 1,
+        mediaType: ["video"],
         extension: ["mp4"],
         success(res) {
-          const { tempFilePath, thumbTempFilePath } = res;
-          console.log(res, "res");
+          const { tempFilePath, thumbTempFilePath } = res.tempFiles[0];
           common_vendor.index.navigateTo({
             url: `/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
           });
         },
         fail(err) {
+          common_vendor.index.showToast({
+            title: err.errMsg,
+            icon: "error"
+          });
           console.log(err);
         }
       });

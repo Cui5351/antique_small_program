@@ -112,21 +112,41 @@ export default{
 	
 	function addWork(){
 		console.log('add');
-		uni.chooseVideo({
+		uni.chooseMedia({
+			count:1,
+			mediaType:['video'],
 			// 最长时间为30分钟
 			// maxDuration:1800,
 			extension:['mp4'],
 			success(res) {
-				const {tempFilePath,thumbTempFilePath}=res
-				console.log(res,'res');
+				const {tempFilePath,thumbTempFilePath}=res.tempFiles[0]
 				uni.navigateTo({
 					url:`/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
 				})
 			},
 			fail(err) {
+				uni.showToast({
+					title:err.errMsg,
+					icon:'error'
+				})
 				console.log(err);
 			}
 		})
+		// uni.chooseVideo({
+		// 	// 最长时间为30分钟
+		// 	// maxDuration:1800,
+		// 	extension:['mp4'],
+		// 	success(res) {
+		// 		const {tempFilePath,thumbTempFilePath}=res
+		// 		console.log(res,'res');
+		// 		uni.navigateTo({
+		// 			url:`/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
+		// 		})
+		// 	},
+		// 	fail(err) {
+		// 		console.log(err);
+		// 	}
+		// })
 	}
     return{info,person,addWork}
   }
