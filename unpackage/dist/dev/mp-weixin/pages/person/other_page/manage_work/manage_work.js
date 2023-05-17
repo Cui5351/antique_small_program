@@ -11,6 +11,7 @@ const _sfc_main = {
       title: "\u52A0\u8F7D\u4E2D"
     });
     let that = this;
+    common_vendor.index.manage_work_this = this;
     work = JSON.parse(work);
     common_vendor.index.request({
       url: common_vendor.index.current_this.baseURL + ":5001/get_video",
@@ -58,9 +59,19 @@ const _sfc_main = {
       name: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.name)
     });
     function addWork() {
-      common_vendor.index.showToast({
-        title: "\u6682\u672A\u5F00\u542F",
-        icon: "none"
+      console.log("add");
+      common_vendor.index.chooseVideo({
+        extension: ["mp4"],
+        success(res) {
+          const { tempFilePath, thumbTempFilePath } = res;
+          console.log(res, "res");
+          common_vendor.index.navigateTo({
+            url: `/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
+          });
+        },
+        fail(err) {
+          console.log(err);
+        }
       });
     }
     return { info, person, addWork };

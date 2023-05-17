@@ -22,12 +22,16 @@ const _sfc_main = {
     common_vendor.index.request({
       url: common_vendor.index.current_this.baseURL + ":5001/get_hottest_video",
       method: "GET",
+      data: {
+        skip: this.reqs.skip
+      },
       success(res) {
         if (common_vendor.index.current_this.check_res_state(res)) {
           return;
         }
         that.video.push(...res.data.data);
         console.log(that.video, "video");
+        that.reqs.skip += 10;
       }
     });
   },
@@ -46,6 +50,7 @@ const _sfc_main = {
       pic: "/static/feelhouse.svg"
     }]);
     let show_loading = common_vendor.ref(false);
+    let reqs = common_vendor.reactive({ state: false, skip: 0 });
     let base_url = common_vendor.ref(common_vendor.index.current_this.baseURL);
     function loading2() {
       show_loading.value = true;
@@ -133,7 +138,7 @@ const _sfc_main = {
             return;
           }
           common_vendor.index.navigateTo({
-            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}`
+            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}`
           });
         }
       });
@@ -144,7 +149,44 @@ const _sfc_main = {
       "https://www.mynameisczy.asia/image/antique/home_top/title2.jpg",
       "https://www.mynameisczy.asia/image/antique/home_top/title3.jpg"
     ]);
-    return { head_img, loading: loading2, inter, video, story, more, museum, show_loading, base_url, other, toggle_other };
+    function lower(e) {
+      if (reqs.state)
+        return;
+      common_vendor.index.showLoading({
+        title: "\u52A0\u8F7D\u4E2D",
+        mask: true
+      });
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_hottest_video",
+        method: "GET",
+        data: {
+          skip: reqs.skip
+        },
+        success(res) {
+          if (common_vendor.index.current_this.check_res_state(res)) {
+            return;
+          }
+          if (res.data.data.length <= 0) {
+            common_vendor.index.showToast({
+              title: "\u5DF2\u7ECF\u6ED1\u5230\u5E95\u4E86"
+            });
+            return;
+          }
+          video.push(...res.data.data);
+          reqs.skip += 10;
+        },
+        complete() {
+          reqs.state = false;
+          common_vendor.index.hideLoading();
+        }
+      });
+    }
+    function search_page() {
+      common_vendor.index.navigateTo({
+        url: "/pages/workroom/other_page/search_video/search_video"
+      });
+    }
+    return { head_img, search_page, reqs, loading: loading2, inter, video, story, more, museum, show_loading, base_url, other, toggle_other, lower };
   }
 };
 if (!Array) {
@@ -204,7 +246,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    l: common_vendor.o(($event) => $setup.more("more_category")),
+    l: common_vendor.o((...args) => $setup.search_page && $setup.search_page(...args)),
     m: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,
@@ -212,7 +254,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         c: common_vendor.t(item.name),
         d: common_vendor.o(($event) => $setup.inter(item))
       };
-    })
+    }),
+    n: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-92bb8f34"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/home.vue"]]);

@@ -262,10 +262,13 @@ image.data-v-0672b006 {
 .font_color.data-v-0672b006 {
   color: #1E3659;
 }
+.c.data-v-0672b006 {
+  height: 100%;
+  width: 100%;
+}
 .containe.data-v-0672b006 {
   background-color: white;
   position: relative;
-  height: 100%;
   width: 100%;
 }
 .show_head.data-v-0672b006 {
@@ -288,11 +291,22 @@ image.data-v-0672b006 {
   height: 100%;
   width: 100%;
 }
+.pub.data-v-0672b006 {
+  position: absolute;
+  height: 28px;
+  z-index: 999;
+  width: 28px;
+  top: 200px;
+  left: 100%;
+  border-radius: 50%;
+  border: 2px solid #6e79e2;
+  transform: translateX(-130%);
+  background-color: #6e79e2;
+}
+.pub.data-v-0672b006:active {
+  background-color: rgba(110, 121, 226, 0.5);
+}
 .tit1.data-v-0672b006 {
-  position: -webkit-sticky;
-  position: sticky;
-  margin-top: 0px;
-  top: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;

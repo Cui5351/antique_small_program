@@ -5,6 +5,8 @@ const _sfc_main = {
   name: "",
   onLoad(res) {
     console.log(res);
+    this.person.name = res.name;
+    this.person.avatar = res.avatar;
     this.video.push(...JSON.parse(res.video));
     if (this.video.length > 0)
       Object.keys(this.current_video).forEach((item) => {
@@ -61,6 +63,10 @@ const _sfc_main = {
       stars: 0,
       share: 0,
       collection: 0
+    });
+    let person = common_vendor.reactive({
+      avatar: "",
+      name: ""
     });
     let danmu = common_vendor.ref("");
     let state = common_vendor.ref(true);
@@ -166,7 +172,7 @@ const _sfc_main = {
     function increment(pro) {
       current_video[pro]++;
     }
-    return { video, current_video, title, state, timeupdate, danmu, send, toggle, no_develop, increment };
+    return { video, current_video, person, title, state, timeupdate, danmu, send, toggle, no_develop, increment };
   }
 };
 if (!Array) {
@@ -185,38 +191,40 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: $setup.current_video.src,
     e: common_vendor.t($setup.title),
     f: common_vendor.t($setup.current_video.name),
-    g: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u535A\u4E3B\u4FE1\u606F")),
-    h: common_vendor.o(($event) => $setup.increment("stars")),
-    i: common_vendor.p({
+    g: $setup.person.avatar,
+    h: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u535A\u4E3B\u4FE1\u606F")),
+    i: common_vendor.t($setup.person.name),
+    j: common_vendor.o(($event) => $setup.increment("stars")),
+    k: common_vendor.p({
       type: "heart",
       size: "25"
     }),
-    j: common_vendor.t($setup.current_video.stars),
-    k: common_vendor.o(($event) => $setup.increment("collection")),
-    l: common_vendor.p({
+    l: common_vendor.t($setup.current_video.stars),
+    m: common_vendor.o(($event) => $setup.increment("collection")),
+    n: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    m: common_vendor.t($setup.current_video.collection),
-    n: common_vendor.p({
+    o: common_vendor.t($setup.current_video.collection),
+    p: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    o: common_vendor.t($setup.current_video.share),
-    p: common_vendor.t($setup.video.length),
-    q: common_vendor.p({
+    q: common_vendor.t($setup.current_video.share),
+    r: common_vendor.t($setup.video.length),
+    s: common_vendor.p({
       type: "right",
       size: "20"
     }),
-    r: common_vendor.f($setup.video, (item, index, i0) => {
+    t: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,
         b: index,
         c: common_vendor.o(($event) => $setup.toggle(index), index)
       };
     }),
-    s: common_assets._imports_0,
-    t: common_vendor.f($setup.current_video.danmu, (item, index, i0) => {
+    v: common_assets._imports_0,
+    w: common_vendor.f($setup.current_video.danmu, (item, index, i0) => {
       return {
         a: item.user_avatar,
         b: common_vendor.t(item.user_name),
@@ -228,17 +236,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         h: index
       };
     }),
-    v: common_vendor.p({
+    x: common_vendor.p({
       size: "20",
       type: "heart"
     }),
-    w: common_vendor.p({
+    y: common_vendor.p({
       type: "location",
       size: "30"
     }),
-    x: $setup.danmu,
-    y: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
-    z: common_vendor.o((...args) => $setup.send && $setup.send(...args))
+    z: $setup.danmu,
+    A: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
+    B: common_vendor.o((...args) => $setup.send && $setup.send(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5d1767d0"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/play_video/play_video.vue"]]);

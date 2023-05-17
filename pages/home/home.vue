@@ -8,7 +8,8 @@
 				</view>
 			</swiper-item>
 		</swiper>
-		<view class="other background">
+		<scroll-view class="other background" scroll-y="true" scroll-with-animation="true" @scrolltolower="lower">
+			<view class="box">			
 			<view class="funs">
 				<view class=".flex_j_a_c" @click="toggle_other(item)" v-for="(item,inex) in other" :key="index">
 					<view class="icon">
@@ -51,7 +52,7 @@
 			<view class="works">
 				<view class="story_title">
 					<view>推荐视频</view>
-					<view @click="more('more_category')">更多视频<uni-icons color="rgb(59,92,130)" type="right"></uni-icons>
+					<view @click="search_page">更多视频<uni-icons color="rgb(59,92,130)" type="right"></uni-icons>
 					</view>
 				</view>
 				<view class="work">
@@ -85,6 +86,7 @@
 			</view>
 		<view class="bottom">已经滑到底了</view>
 		</view>
+		</scroll-view>
 		<!-- <button @click="loading" type="primary">加载动画</button> -->
 	</view>
 </template>
@@ -115,12 +117,16 @@
 			uni.request({
 				url:uni.current_this.baseURL+':5001/get_hottest_video',
 				method:"GET",
+				data:{
+					skip:this.reqs.skip
+				},
 				success(res) {
 					if(uni.current_this.check_res_state(res)){
 						return
 					}
 					that.video.push(...res.data.data) 
 					console.log(that.video,'video');
+					that.reqs.skip+=10
 				}
 			})
 		},
@@ -139,6 +145,7 @@
 				pic:'/static/feelhouse.svg'
 			}])
 			let show_loading=ref(false)
+			let reqs=reactive({state:false,skip:0})
 			let base_url=ref(uni.current_this.baseURL)
 			function loading(){
 				show_loading.value=true
@@ -238,7 +245,7 @@
 										return
 									}
 									uni.navigateTo({
-										url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}`
+										url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}`
 									})
 								}
 							})
@@ -247,7 +254,43 @@
 			let head_img=reactive(['https://www.mynameisczy.asia/image/antique/home_top/title1.jpg',
 			'https://www.mynameisczy.asia/image/antique/home_top/title2.jpg',
 			'https://www.mynameisczy.asia/image/antique/home_top/title3.jpg'])
-			return{head_img,loading,inter,video,story,more,museum,show_loading,base_url,other,toggle_other}
+			function lower(e){
+				if(reqs.state)
+					return
+					uni.showLoading({
+						title:'加载中',
+						mask:true
+					})
+				uni.request({
+					url:uni.current_this.baseURL+':5001/get_hottest_video',
+					method:"GET",
+					data:{
+						skip:reqs.skip
+					},
+					success(res) {
+						if(uni.current_this.check_res_state(res)){
+							return
+						}
+						if(res.data.data.length<=0){
+							uni.showToast({
+								title:'已经滑到底了'
+							})
+							return
+						}
+						video.push(...res.data.data) 
+						reqs.skip+=10
+					},complete() {
+						reqs.state=false
+						uni.hideLoading()
+					}
+				})
+			}
+			function search_page(){
+				uni.navigateTo({
+					url:'/pages/workroom/other_page/search_video/search_video'
+				})
+			}
+			return{head_img,search_page,reqs,loading,inter,video,story,more,museum,show_loading,base_url,other,toggle_other,lower}
 		}
 	}
 </script>

@@ -193,33 +193,28 @@ image.data-v-92bb8f34 {
   width: 100%;
 }
 .other.data-v-92bb8f34 {
-  padding: 10px 20px;
+  background-color: rebeccapurple;
+  padding: 0 0px 30px;
   box-sizing: border-box;
-  max-height: 80%;
-  min-height: 80%;
   height: 80%;
-  overflow-y: auto;
   position: relative;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   margin-top: -20px;
 }
-.other > view.data-v-92bb8f34 {
-  margin-top: 20px;
-}
-.other > .funs.data-v-92bb8f34 {
+.other .funs.data-v-92bb8f34 {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
 }
-.other > .funs > view.data-v-92bb8f34 {
+.other .funs > view.data-v-92bb8f34 {
   flex-grow: 1;
 }
-.other > .funs .icon.data-v-92bb8f34 {
+.other .funs .icon.data-v-92bb8f34 {
   height: 50px;
   width: 50px;
 }
-.other > .funs .icon > image.data-v-92bb8f34 {
+.other .funs .icon > image.data-v-92bb8f34 {
   border-radius: 50%;
   height: 100%;
   width: 100%;
@@ -246,9 +241,9 @@ image.data-v-92bb8f34 {
   font-size: 14px;
 }
 .other .museums .museums_.data-v-92bb8f34 {
-  max-height: 90%;
-  min-height: 90%;
-  height: 90%;
+  max-height: 230px;
+  min-height: 230px;
+  height: 230px;
   overflow-x: scroll;
   display: flex;
   align-items: center;
@@ -289,9 +284,9 @@ image.data-v-92bb8f34 {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 .other .storys.data-v-92bb8f34 {
-  max-height: 30%;
-  min-height: 30%;
-  height: 30%;
+  max-height: 180px;
+  min-height: 180px;
+  height: 180px;
 }
 .other .storys .story_books.data-v-92bb8f34 {
   max-height: 85%;
@@ -381,6 +376,14 @@ image.data-v-92bb8f34 {
 }
 .story_title > view.data-v-92bb8f34:last-child {
   font-size: 14px;
+}
+.box.data-v-92bb8f34 {
+  width: 100%;
+}
+.box > view.data-v-92bb8f34 {
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin-top: 20px;
 }
 /* 水平间距 */
 /* 水平间距 */

@@ -62,6 +62,7 @@ export default{
 	  	title:'加载中'
 	  })
 	  let that=this
+	  uni.manage_work_this=this
 	  work=JSON.parse(work)
 	  	uni.request({
 	  		url:uni.current_this.baseURL+':5001/get_video',
@@ -110,9 +111,21 @@ export default{
 	})
 	
 	function addWork(){
-		uni.showToast({
-			title:'暂未开启',
-			icon:'none'
+		console.log('add');
+		uni.chooseVideo({
+			// 最长时间为30分钟
+			// maxDuration:1800,
+			extension:['mp4'],
+			success(res) {
+				const {tempFilePath,thumbTempFilePath}=res
+				console.log(res,'res');
+				uni.navigateTo({
+					url:`/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
+				})
+			},
+			fail(err) {
+				console.log(err);
+			}
 		})
 	}
     return{info,person,addWork}

@@ -46,7 +46,7 @@
         "iconPath": "/static/icons/antique.png",
         "selectedIconPath": "/static/icons/antique_active.png",
         "pagePath": "pages/workroom/workroom",
-        "text": "工作室"
+        "text": "社区"
       },
       {
         "iconPath": "/static/icons/store.png",

@@ -10,7 +10,7 @@ const WXBizDataCrypt=require('./WXBizDataCrypt')
 const multer=require('multer')
 const axios= require('axios')
 const {randomUUID}=require('crypto')
-const {storage_avatar,antique,store_picture,storage_background,storage_mask,moments}=require('./custom_multer')
+const {storage_avatar,antique,store_picture,storage_background,storage_mask,moments,WORK}=require('./custom_multer')
 
 // 创建app
 const app=express()
@@ -22,6 +22,10 @@ const app=express()
     // 网页端
     const upload_store=multer({storage:store_picture}).single('images')
     const uploader=multer({storage:antique}).single('files')
+
+
+    const Works=multer({storage:WORK}).single('works')
+    
 
     const upload_mask=multer({storage:storage_mask}).single('mask')
 
@@ -127,6 +131,10 @@ app.post('/upload_avatar',(req,res)=>{
         return
     }
     let path=`https://www.mynameisczy.asia/antique/user_avatar/${req.file.filename}`
+    if(req.file.filename.length<=0){
+        send_err(res)
+        return
+    }
     // 写入数据库
     update(dbs,db_config.database+'.main_table',{openid:req.body.openid},'avatar',path,'string').then(()=>{
         // 保存成功
@@ -534,7 +542,10 @@ app.post('/upload_store',(req,res)=>{
             return
         }
     let path=`https://www.mynameisczy.asia/antique/store_picture/${req.file.filename}`
-    console.log(path,'path');
+    if(req.file.filename.length<=0){
+        send_err(res)
+        return
+    }
     // 写入数据库
     send(res,'success')
     })
@@ -551,18 +562,44 @@ app.post('/upload_material',(req,res)=>{
             })
             return
         }
+        if(req.file.filename.length<=0){
+            send_err(res)
+            return
+        }
+    send(res,{name:req.file.filename})
+    })
+})
+
+app.post('/upload_work',(req,res)=>{
+    Works(req,res,function(err){
+        if(err){
+            res.send({
+                state:0,
+                error:1,
+                errMes:err
+            })
+            return
+        }
+        if(req.file.filename.length<=0){
+            send_err(res)
+            return
+        }
     // 写入数据库
-    send(res,'success')
+    send(res,{src:'https://www.mynameisczy.asia/antique/works/'+req.file.filename,uuid:req.work_uuid})
     })
 })
 
 app.get('/get_hottest_video',(req,res)=>{
-    if(typeof req.body === 'string')
-        req.body=JSON.parse(req.body)
-    // query(dbs,table('works'),['title','openid','mask','uuid'],{show_work:'show'}).then(e=>{
-        // send(res,e)
-    // })
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0`,function(err,result){
+    if(!req.query.hasOwnProperty('skip')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    const {skip}=req.query
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 limit ${skip},10`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -655,7 +692,11 @@ app.post('/upload_mask',(req,res)=>{
             })
             return
         }
-        send(res,req.file.filename)
+        if(req.file.filename.length<=0){
+            send_err(res)
+            return
+        }
+        send(res,{mask:'https://www.mynameisczy.asia/antique/video_masks/'+req.file.filename})
     })
 })
 
@@ -702,7 +743,7 @@ app.post('/get_workAll',(req,res)=>{
         }
     })
     const {openid}=req.body
-    query(dbs,table('works'),['title','mask','score','show_work','description'],{openid:openid,state:'show'}).then(e=>{
+    query(dbs,table('works'),['title','mask','score','show_work','description','uuid'],{openid:openid,state:'show'}).then(e=>{
         send(res,e)
     }).catch(e=>{
         send_err(res,e)
@@ -721,7 +762,7 @@ app.get('/get_community_moments',(req,res)=>{
     const {skip}=req.query
 
     // 方法一
-    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,content,uuid from antique.community_moments c where show_moment='show' order by id desc limit ${skip},10`,async function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,content,uuid from antique.community_moments c where show_moment='show' order by c.id desc limit ${skip},10`,async function(err,result){
         if(err)
             send_err(res,err)
 
@@ -821,6 +862,10 @@ app.post('/upload_moment_material',function(req,res){
             send_err(res,err)
             return
         }
+        if(req.file.filename.length<=0){
+            send_err(res)
+            return
+        }
         send(res,'https://www.mynameisczy.asia/antique/moment_picture/'+req.file.filename)
     })
 })
@@ -849,7 +894,7 @@ app.post('/upload_moment',async function(req,res){
             })
         }
     })
-    const {paths,place,content,show_work,openid}=req.body    
+    const {paths,place,content,show_work,openid}=req.body
     let id=randomUUID()
     try{
         let sus=[]
@@ -934,6 +979,36 @@ app.get('/get_community_comment',(req,res)=>{
         }
         send(res,result)
     })
+})
+
+app.post('/upload_work_info',(req,res)=>{
+    if(!req.body.hasOwnProperty('openid')||!req.body.hasOwnProperty('show_work')||!req.body.hasOwnProperty('title')||!req.body.hasOwnProperty('name')||!req.body.hasOwnProperty('src')||!req.body.hasOwnProperty('mask')||!req.body.hasOwnProperty('work_uuid')||!req.body.hasOwnProperty('video_id')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.query).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+
+    const {openid,show_work,title,name,src,mask,work_uuid,video_id}=req.body
+    insertData(dbs,table('work'),{openid,show_work,title,name,src,mask,work_uuid,video_id}).then(s=>{
+        console.log(s,'s');
+        send(res)
+    }).catch(e=>{
+        console.log(e,'e');
+        send_err(res)
+    })
+    
 })
 
 }

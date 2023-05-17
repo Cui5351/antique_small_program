@@ -10,7 +10,7 @@ exports.storage_mask=multer.diskStorage({
 filename: function (req, file, cb) {    
     // 1拿到图片的类型
     let type=file.mimetype.match(/(jpg|jpeg|png)/g)
-    cb(null, `${file.fieldname}${Date.now()}.${type}`)
+    cb(null, `${randomUUID()}.${type}`)
 }
 })
 
@@ -25,7 +25,7 @@ exports.storage_avatar=multer.diskStorage({
 filename: function (req, file, cb) {    
     // 1拿到图片的类型
     let type=file.mimetype.match(/(jpg|jpeg|png)/g)
-    cb(null, `${file.fieldname}${Date.now()}.${type}`)
+    cb(null, `${randomUUID()}.${type}`)
 }
 })
 exports.store_picture=multer.diskStorage({
@@ -35,7 +35,7 @@ exports.store_picture=multer.diskStorage({
     filename(req, file, cb){
         // 1拿到图片的类型
         let type=file.mimetype.match(/(jpg|jpeg|png)/g)
-        cb(null, `${req.name}.${type}`)
+        cb(null, `${randomUUID()}.${type}`)
     }
 })
 exports.storage_background=multer.diskStorage({
@@ -48,7 +48,7 @@ exports.storage_background=multer.diskStorage({
 filename: function (req, file, cb) {    
     // 1拿到图片的类型
     let type=file.mimetype.match(/(jpg|jpeg|png)/g)
-    cb(null, `${file.fieldname}${Date.now()}.${type}`)
+    cb(null, `${randomUUID()}.${type}`)
 }
 })
 
@@ -89,6 +89,28 @@ exports.moments=multer.diskStorage({
             cb(null, `${randomUUID()}.${type}`)
         }else if((/(mp4)/g).test(file.mimetype)){
             cb(null, `${randomUUID()}.mp4`)
+        }else{
+            cb(null,null)
+        }
+    }
+})
+
+exports.WORK=multer.diskStorage({
+    //设置保存路径
+    destination: function (req, file, cb) {
+        if((/(mp4)/g).test(file.mimetype)){
+            cb(null, '/backup/server_data/books/antique/works')
+        }else{
+            cb(null,null)
+        }
+    },
+    //设置保存的name
+    filename: function (req, file, cb) {    
+        // 1拿到图片的类型
+        if((/(mp4)/g).test(file.mimetype)){
+            const uuid=randomUUID()
+            req.work_uuid=uuid
+            cb(null, `${uuid}.mp4`)
         }else{
             cb(null,null)
         }

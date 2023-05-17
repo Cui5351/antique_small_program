@@ -31,7 +31,13 @@ const _sfc_main = {
         data: [...record]
       });
     }
-    return { text, input, search, record };
+    function fill(item) {
+      text.value = item;
+      search({ detail: {
+        value: item
+      } });
+    }
+    return { text, input, search, record, fill };
   }
 };
 if (!Array) {
@@ -63,6 +69,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     g: common_vendor.p({
       type: "eye"
+    }),
+    h: common_vendor.f(["\u624B\u5DE5\u5236\u4F5C", "\u975E\u9057\u4F20\u627F\u89C6\u9891", "\u975E\u9057\u6587\u7269\u5236\u4F5C\u89C6\u9891", "\u975E\u9057", "\u6587\u7269"], (item, index, i0) => {
+      return {
+        a: common_vendor.t(item),
+        b: index,
+        c: common_vendor.o(($event) => $setup.fill(item), index)
+      };
     })
   };
 }

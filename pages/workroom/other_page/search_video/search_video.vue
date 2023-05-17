@@ -27,11 +27,7 @@
 			</view>
 		</view>
 			<view class="hot_search">
-				<view>手工制作</view>
-				<view>非遗传承视频</view>
-				<view>非遗文物制作视频</view>
-				<view>非遗</view>
-				<view>文物</view>
+				<view v-for="(item,index) in ['手工制作','非遗传承视频','非遗文物制作视频','非遗','文物']" :key="index" @click="fill(item)" >{{item}}</view>
 			</view>
 	  </view>
   </view>
@@ -70,7 +66,13 @@ export default{
 			data:[...record]
 		})
 	}
-    return{text,input,search,record}
+	function fill(item){
+		text.value=item
+		search({detail:{
+			value:item
+		}})
+	}
+    return{text,input,search,record,fill}
   }
 }
 </script>

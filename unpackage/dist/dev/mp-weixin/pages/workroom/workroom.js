@@ -25,13 +25,19 @@ const _sfc_main = {
       }
     });
   },
-  onPageScroll(ev) {
-    console.log(ev, "this");
+  onPullDownRefresh() {
+    console.log("refresh");
+    setTimeout(function() {
+      common_vendor.index.stopPullDownRefresh();
+    }, 1e3);
+  },
+  onReachBottom() {
+    console.log("bottom");
   },
   setup() {
     let moment = common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.moments);
     let back = common_vendor.index.current_this.back;
-    let head = common_vendor.ref(false);
+    common_vendor.ref("more");
     function publish_moment() {
       if (common_vendor.index.current_this.check_login_state()) {
         common_vendor.index.showToast({
@@ -72,22 +78,28 @@ const _sfc_main = {
     function show_head(e) {
       console.log(e.detail.scrollTop);
     }
-    return { back, moment, publish_moment, check_pict, detail, show_head, head };
+    function lower() {
+      console.log("load more than");
+    }
+    return { back, moment, publish_moment, check_pict, detail, show_head, lower };
   }
 };
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  _easycom_uni_icons2();
+  const _easycom_uni_load_more2 = common_vendor.resolveComponent("uni-load-more");
+  (_easycom_uni_icons2 + _easycom_uni_load_more2)();
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+const _easycom_uni_load_more = () => "../../uni_modules/uni-load-more/components/uni-load-more/uni-load-more.js";
 if (!Math) {
-  _easycom_uni_icons();
+  (_easycom_uni_icons + _easycom_uni_load_more)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
       type: "plusempty",
-      color: "rgb(110,121,226)"
+      size: "25",
+      color: "white"
     }),
     b: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
     c: common_vendor.f(["\u4F20\u627F\u975E\u9057", "\u5DE5\u5320\u7CBE\u795E", "\u4E60\u603B\u4E66\u8BB0\u8BF4\u975E\u9057", "\u6765\u81EA\u975E\u9057\u5DE5\u4F5C\u5BA4\u7684\u79D8\u5BC6", "\u975E\u9057\u5143\u5B87\u5B99", "\u548C\u6211\u4EEC\u4E00\u8D77\u7545\u6E38\u975E\u9057\u5427"], (item, index, i0) => {
@@ -138,9 +150,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     h: common_vendor.p({
       type: "paperplane",
       size: "25"
-    })
+    }),
+    i: common_vendor.p({
+      status: "loading",
+      iconType: "circle"
+    }),
+    j: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);
-_sfc_main.__runtimeHooks = 1;
 wx.createPage(MiniProgramPage);

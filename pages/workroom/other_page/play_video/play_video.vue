@@ -10,9 +10,9 @@
 		  <view class="author flex_j_a_r">
 			  <view class="flex_j_a_r">
 				  <view class="avatar" @click="no_develop('查看博主信息')">
-					  <image src="https://www.mynameisczy.asia/antique/user_avatar/avatar1681990564583.png" mode=""></image>
+					  <image :src="person.avatar" mode=""></image>
 				  </view>
-				  <view>最牛程序员</view>
+				  <view>{{person.name}}</view>
 			  </view>
 			  <view class="icon">
 				  <uni-icons type="heart" size="25" @click="increment('stars')"></uni-icons>{{current_video.stars}}
@@ -80,6 +80,8 @@ export default{
   name:'',
   onLoad(res){
 	  console.log(res);
+	  this.person.name=res.name
+	  this.person.avatar=res.avatar
 	  this.video.push(...JSON.parse(res.video))
 		if(this.video.length>0)
 			Object.keys(this.current_video).forEach(item=>{
@@ -136,6 +138,10 @@ export default{
 		stars:0,
 		share:0,
 		collection:0
+	})
+	let person=reactive({	
+		avatar:'',
+		name:''
 	})
 	let danmu=ref('')
 	let state=ref(true);
@@ -240,7 +246,7 @@ export default{
 	function increment(pro){
 		current_video[pro]++;
 	}
-    return{video,current_video,title,state,timeupdate,danmu,send,toggle,no_develop,increment}
+    return{video,current_video,person,title,state,timeupdate,danmu,send,toggle,no_develop,increment}
   }
 }
 </script>
