@@ -3,6 +3,13 @@ var common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
   name: "",
+  onShareAppMessage() {
+    return {
+      title: this.info.content.substring(0, 5) + "...",
+      imageUrl: this.info.src[0],
+      url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(this.info)}`
+    };
+  },
   onLoad({ info }) {
     common_vendor.index.showLoading({
       mask: true,
@@ -15,16 +22,42 @@ const _sfc_main = {
         this.info[item].push(...tmp[item]);
         return;
       }
+      if (item == "state") {
+        if (tmp.openid == common_vendor.index.current_this.store.state.user_info.openid)
+          this.info.state = true;
+        return;
+      }
+      if (item == "show") {
+        if (tmp.show == void 0) {
+          this.info.show = true;
+          return;
+        }
+        this.info.show = false;
+      }
       this.info[item] = tmp[item];
     });
     common_vendor.index.request({
       url: common_vendor.index.current_this.baseURL + ":5001/get_community_comment",
       method: "GET",
       data: {
-        uuid: this.info.uuid
+        uuid: this.info.uuid,
+        openid: common_vendor.index.current_this.store.state.user_info.openid
       },
       success(res) {
         if (common_vendor.index.current_this.check_res_state(res)) {
+          return;
+        }
+        if (res.data.state == 2) {
+          common_vendor.index.navigateBack();
+          common_vendor.index.current_this.store.state.moments.forEach((item, index) => {
+            if (item.uuid == that.info.uuid)
+              common_vendor.index.current_this.store.state.moments.splice(index, 1);
+          });
+          common_vendor.index.showToast({
+            title: res.data.mes,
+            icon: "none",
+            duration: 3e3
+          });
           return;
         }
         res.data.data.forEach((item) => {
@@ -48,7 +81,10 @@ const _sfc_main = {
       place: "",
       content: "",
       src: [],
-      uuid: ""
+      uuid: "",
+      state: false,
+      openid: "",
+      show: true
     });
     let moments = common_vendor.reactive([]);
     let text = common_vendor.ref("");
@@ -104,7 +140,67 @@ const _sfc_main = {
         }
       });
     }
-    return { info, send_mes, check_pict, text, moments };
+    function delW() {
+      common_vendor.index.showModal({
+        confirmText: "\u5220\u9664",
+        title: "\u662F\u5426\u5220\u9664\u8BE5\u4F5C\u54C1",
+        success(e) {
+          if (e.cancel)
+            return;
+          common_vendor.index.request({
+            url: common_vendor.index.current_this.baseURL + ":5001/delete_works",
+            method: "POST",
+            data: {
+              openid: common_vendor.index.current_this.store.state.user_info.openid,
+              uuid: info.uuid
+            },
+            success(res) {
+              console.log(res);
+              if (common_vendor.index.current_this.check_res_state(res)) {
+                return;
+              }
+              common_vendor.index.navigateBack();
+              common_vendor.index.current_this.store.state.moments.forEach((item, index) => {
+                if (item.uuid == info.uuid)
+                  common_vendor.index.current_this.store.state.moments.splice(index, 1);
+              });
+              common_vendor.index.showToast({
+                title: `\u5220\u9664\u4F5C\u54C1\u6210\u529F`
+              });
+            }
+          });
+        }
+      });
+    }
+    function hidW() {
+      common_vendor.index.showModal({
+        confirmText: `${info.show ? "\u9690\u85CF" : "\u663E\u793A"}`,
+        title: `\u662F\u5426${info.show ? "\u9690\u85CF" : "\u663E\u793A"}\u8BE5\u4F5C\u54C1`,
+        success(e) {
+          if (e.cancel)
+            return;
+          common_vendor.index.request({
+            url: common_vendor.index.current_this.baseURL + ":5001/show_hid_works",
+            method: "POST",
+            data: {
+              openid: common_vendor.index.current_this.store.state.user_info.openid,
+              uuid: info.uuid,
+              state: info.show ? "hid" : "show"
+            },
+            success(res) {
+              if (common_vendor.index.current_this.check_res_state(res)) {
+                return;
+              }
+              info.show = !info.show;
+              common_vendor.index.showToast({
+                title: `${info.show ? "\u663E\u793A" : "\u9690\u85CF"}\u4F5C\u54C1\u6210\u529F`
+              });
+            }
+          });
+        }
+      });
+    }
+    return { info, send_mes, check_pict, text, moments, delW, hidW };
   }
 };
 if (!Array) {
@@ -125,14 +221,28 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.t($setup.info.name),
     d: common_vendor.t($setup.info.send_date),
     e: common_vendor.t($setup.info.place),
-    f: common_vendor.p({
-      type: "star",
-      size: "20"
+    f: $setup.info.state
+  }, $setup.info.state ? {
+    g: common_vendor.o($setup.hidW),
+    h: common_vendor.p({
+      type: $setup.info.show ? "eye" : "eye-slash",
+      size: "25"
     }),
-    g: common_vendor.t($setup.info.content),
-    h: $setup.info.src[0] != null
+    i: common_vendor.o($setup.delW),
+    j: common_vendor.p({
+      type: "close",
+      size: "25"
+    })
+  } : {
+    k: common_vendor.p({
+      type: "star",
+      size: "25"
+    })
+  }, {
+    l: common_vendor.t($setup.info.content),
+    m: $setup.info.src[0] != null
   }, $setup.info.src[0] != null ? {
-    i: common_vendor.f($setup.info.src, (item2, index, i0) => {
+    n: common_vendor.f($setup.info.src, (item2, index, i0) => {
       return {
         a: item2,
         b: common_vendor.o(($event) => $setup.check_pict(index), index),
@@ -140,7 +250,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    j: common_vendor.f($setup.moments, (item, index, i0) => {
+    o: common_vendor.o(_ctx.send_friend),
+    p: common_vendor.p({
+      type: "redo",
+      size: "25"
+    }),
+    q: common_vendor.f($setup.moments, (item, index, i0) => {
       return {
         a: item.avatar,
         b: common_vendor.t(item.name),
@@ -149,18 +264,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    k: common_vendor.p({
+    r: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    l: $setup.text,
-    m: common_vendor.o(($event) => $setup.text = $event.detail.value),
-    n: common_vendor.p({
+    s: $setup.text,
+    t: common_vendor.o(($event) => $setup.text = $event.detail.value),
+    v: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    o: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
+    w: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2a14840c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);
+_sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);

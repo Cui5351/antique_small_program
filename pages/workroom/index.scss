@@ -95,10 +95,10 @@
 	}
 }
 .passage{
-	padding:0 20px;
+	padding:10px 20px;
 	box-sizing: border-box;
 	&>view{
-		margin:10px 0;
+		margin:15px 0;
 		border-bottom:1px solid rgba(0,0,0,0.1);
 		&:active{
 			background-color:rgba(0,0,0,0.03);
@@ -120,10 +120,10 @@
 	}
 	.pic{
 		display: flex;
-		column-count: 2;
+		column-count: 3;
 		flex-wrap: wrap;
 		&>image{
-			width:130px;
+			width:100px;
 			height:130px;
 			margin:3px;
 		}

@@ -29,16 +29,14 @@
 			},{
 				"path": "pages/home/other_page/museum/museum",
 				"style": {
-					"navigationBarTitleText": "uni-app"
 				}
 			}
 			,{
-		"path": "pages/workroom/workroom",
-		"style": {
-			"navigationBarTitleText": "uni-app"
-			// "enablePullDownRefresh":true,
-			// "onReachBottomDistance": 50
-		}
+				"path": "pages/workroom/workroom",
+				"style": {
+					"enablePullDownRefresh":true,
+					"onReachBottomDistance": 50
+				}
 	}
         ,{
             "path" : "pages/home/other_page/all_museum/all_museum",

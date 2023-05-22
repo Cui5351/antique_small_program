@@ -35,6 +35,7 @@ import {ref,reactive} from 'vue'
 export default{
   async onLoad(res){
 	  let paths=JSON.parse(res.paths)
+	  let c=0
 	  let that=this
 		  for(let i=0;i<paths.length;i++){
 			  try{ 
@@ -49,6 +50,10 @@ export default{
 								  reject()
 								  return
 							  }
+							  uni.showLoading({
+							  	title:'上传中'+(++c),
+							  	mask:true
+							  })
 							  resolve(data.data)
 						  },fail(e) {
 							reject()
@@ -69,12 +74,12 @@ export default{
 					count++
 					i--
 				}
-				
 			if(count)
 				uni.showToast({
 					icon:'error',
 					title:`有${count}张图片加载失败`
 				})
+		uni.hideLoading()
   },
   components:{
 	  back
@@ -126,13 +131,15 @@ export default{
 							return
 						uni.current_this.store.state.moments.unshift({
 							avatar:uni.current_this.store.state.user_info.avatar,
+							openid:uni.current_this.store.state.user_info.openid,
 							name:uni.current_this.store.state.user_info.name,
 							content:info.content,
-							place:info.place,
+							place:info.place.length?info.place:'火星',
 							src:res.data.data.sus,
 							send_date:uni.current_this.dateformat_accuracy(new Date()),
 							browser:0,
-							uuid:res.data.data.uuid
+							uuid:res.data.data.uuid,
+							moment_count:0
 						})
 						uni.navigateBack()
 						uni.showToast({

@@ -66,7 +66,6 @@ const _sfc_main = {
     }
     function lower() {
       if (reqs.state) {
-        console.log(reqs);
         return;
       }
       get_moments();
@@ -90,13 +89,52 @@ const _sfc_main = {
           reqs.skip += res.data.data.length;
         },
         complete() {
-          reqs.state = false;
-          console.log(reqs, "complete");
+          setTimeout(() => {
+            reqs.state = false;
+          }, 1e3);
           common_vendor.index.hideLoading();
         }
       });
     }
-    return { back, moment, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
+    function upper() {
+      if (reqs.state) {
+        return;
+      }
+      common_vendor.index.showLoading({
+        title: "\u52A0\u8F7D\u4E2D",
+        mask: true
+      });
+      reqs.state = true;
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_new_community_moments",
+        method: "POST",
+        data: {
+          uuid: common_vendor.index.current_this.store.state.moments[0].uuid
+        },
+        success(res) {
+          console.log(res.data, "res");
+          if (common_vendor.index.current_this.check_res_state(res))
+            return;
+          if (res.data.data.length <= 0) {
+            common_vendor.index.showToast({
+              title: "\u6CA1\u6709\u66F4\u591A\u4E86"
+            });
+            return;
+          }
+          res.data.data.forEach((item) => {
+            item.send_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.send_date));
+          });
+          common_vendor.index.current_this.store.state.moments.unshift(...res.data.data);
+        },
+        complete() {
+          setTimeout(() => {
+            reqs.state = false;
+          }, 1e3);
+          common_vendor.index.hideLoading();
+        }
+      });
+    }
+    return { back, moment, upper, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
   }
 };
 if (!Array) {
@@ -165,7 +203,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "paperplane",
       size: "25"
     }),
-    i: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
+    i: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
+    j: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);

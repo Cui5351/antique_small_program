@@ -351,11 +351,11 @@ image.data-v-0672b006 {
   box-sizing: border-box;
 }
 .passage.data-v-0672b006 {
-  padding: 0 20px;
+  padding: 10px 20px;
   box-sizing: border-box;
 }
 .passage > view.data-v-0672b006 {
-  margin: 10px 0;
+  margin: 15px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .passage > view.data-v-0672b006:active {
@@ -377,11 +377,11 @@ image.data-v-0672b006 {
 }
 .passage .pic.data-v-0672b006 {
   display: flex;
-  column-count: 2;
+  column-count: 3;
   flex-wrap: wrap;
 }
 .passage .pic > image.data-v-0672b006 {
-  width: 130px;
+  width: 100px;
   height: 130px;
   margin: 3px;
 }

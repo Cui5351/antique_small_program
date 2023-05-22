@@ -2,7 +2,7 @@
 	<view class="flex_j_a_r pub" @click="publish_moment">
 		<uni-icons type="plusempty" size="25" color="white"></uni-icons>
 	</view>
-  <scroll-view scroll-y="true" class="c" @scrolltolower="lower" lower-threshold="20">
+  <scroll-view scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
 	  <view  class="containe">
 	<!-- <view class="show_head head_tit">非遗社区</view> -->
       <view class="head">
@@ -122,7 +122,6 @@ export default{
 	}
 	function lower(){
 		if(reqs.state){
-			console.log(reqs);
 			return
 		}
 		get_moments()
@@ -145,13 +144,52 @@ export default{
 					uni.current_this.store.state.moments.push(...res.data.data)
 					reqs.skip+=res.data.data.length
 			},complete() {
-				reqs.state=false
-				console.log(reqs,'complete');
+				setTimeout(()=>{
+					reqs.state=false
+				},1000)
 				uni.hideLoading()
 			}
 		})
 	}
-    return{back,moment,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
+	function upper(){
+		if(reqs.state){
+			return
+		}
+		uni.showLoading({
+			title:'加载中',
+			mask:true
+		})
+		reqs.state=true
+			uni.request({
+				url:uni.current_this.baseURL+':5001/get_new_community_moments',
+				method:'POST',
+				data:{
+					uuid:uni.current_this.store.state.moments[0].uuid
+				},
+				success(res) {
+					console.log(res.data,'res');
+					if(uni.current_this.check_res_state(res))
+						return
+					if(res.data.data.length<=0){
+						uni.showToast({
+							title:'没有更多了'
+						})
+						return
+					}
+					res.data.data.forEach(item=>{
+						item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
+					})
+					uni.current_this.store.state.moments.unshift(...res.data.data)
+				},
+				complete() {
+					setTimeout(()=>{
+						reqs.state=false
+					},1000)
+					uni.hideLoading()
+				}
+			})
+	}
+    return{back,moment,upper,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
   }
 }
 </script>

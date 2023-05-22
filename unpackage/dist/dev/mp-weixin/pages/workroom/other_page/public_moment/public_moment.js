@@ -4,6 +4,7 @@ const back = () => "../../../../components/back.js";
 const _sfc_main = {
   async onLoad(res) {
     let paths = JSON.parse(res.paths);
+    let c = 0;
     let that = this;
     for (let i = 0; i < paths.length; i++) {
       try {
@@ -18,6 +19,10 @@ const _sfc_main = {
                 reject();
                 return;
               }
+              common_vendor.index.showLoading({
+                title: "\u4E0A\u4F20\u4E2D" + ++c,
+                mask: true
+              });
               resolve(data.data);
             },
             fail(e) {
@@ -44,6 +49,7 @@ const _sfc_main = {
         icon: "error",
         title: `\u6709${count}\u5F20\u56FE\u7247\u52A0\u8F7D\u5931\u8D25`
       });
+    common_vendor.index.hideLoading();
   },
   components: {
     back
@@ -93,13 +99,15 @@ const _sfc_main = {
             return;
           common_vendor.index.current_this.store.state.moments.unshift({
             avatar: common_vendor.index.current_this.store.state.user_info.avatar,
+            openid: common_vendor.index.current_this.store.state.user_info.openid,
             name: common_vendor.index.current_this.store.state.user_info.name,
             content: info.content,
-            place: info.place,
+            place: info.place.length ? info.place : "\u706B\u661F",
             src: res.data.data.sus,
             send_date: common_vendor.index.current_this.dateformat_accuracy(new Date()),
             browser: 0,
-            uuid: res.data.data.uuid
+            uuid: res.data.data.uuid,
+            moment_count: 0
           });
           common_vendor.index.navigateBack();
           common_vendor.index.showToast({

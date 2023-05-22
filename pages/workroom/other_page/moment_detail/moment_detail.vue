@@ -12,20 +12,29 @@
 				  <view class="place">发布于:{{info.place}}</view>
 			  </view>
 		  </view>
-		  <view class="flex_j_a_c">
-			  <uni-icons type="star" size="20"></uni-icons>
+		  <view class="flex_j_a_r" v-if="info.state">
+			  <uni-icons :type="info.show?'eye':'eye-slash'" style="margin-right:10px;" @click="hidW" size="25"></uni-icons>
+			  <uni-icons type="close" @click="delW" size="25"></uni-icons>
+		  </view>
+		  <view class="flex_j_a_c" v-else>
+			  <uni-icons type="star" size="25"></uni-icons>
 		  </view>
 	  </view>
 	  <view class="content">{{info.content}}</view>
 	  <view class="pic" v-if="info.src[0]!=null">
-	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="widthFix"></image>
+	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="aspectFill"></image>
+	  </view>
+	  <view class="other">
+		  <button open-type="share" plain >
+			<uni-icons type="redo" @click="send_friend" size="25"></uni-icons>
+		  </button>
 	  </view>
 	  <view class="moment">
 		  <view class="c">评论列表</view>
 		  <view>
 			  <view class="m" v-for="(item,index) in moments" :key="index">
 				  <view class="avatar">
-					  <image :src="item.avatar"></image>
+					  <image :src="item.avatar" mode="aspectFill"></image>
 				  </view>
 				  <view class="txt">
 					  <view class="n">{{item.name}}
@@ -55,6 +64,14 @@ import {ref,reactive} from 'vue'
 import back from '/components/back.vue'
 export default{
   name:'',
+  onShareAppMessage() {
+  	return {
+  	    title: this.info.content.substring(0,5)+'...', //分享的名称
+  		imageUrl:this.info.src[0],
+		url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(this.info)}`
+  	    // mpId:'' //此处配置微信小程序的AppId
+  	}
+  },
   onLoad({info}) {
 	  uni.showLoading({
 	  	mask:true,
@@ -67,16 +84,43 @@ export default{
 			this.info[item].push(...tmp[item])
 			return
 		}
+		if(item=='state'){
+			if(tmp.openid==uni.current_this.store.state.user_info.openid)
+				this.info.state=true
+			return
+		}
+		if(item=='show'){
+			if(tmp.show==undefined){
+				this.info.show=true
+				return
+			}
+			this.info.show=false
+		}
 		this.info[item]=tmp[item]
 	})
+	
 	uni.request({
 		url:uni.current_this.baseURL+':5001/get_community_comment',
 		method:'GET',
 		data:{
-			uuid:this.info.uuid
+			uuid:this.info.uuid,
+			openid:uni.current_this.store.state.user_info.openid
 		},
 		success(res) {
 			if(uni.current_this.check_res_state(res)){
+				return
+			}
+			if(res.data.state==2){
+				uni.navigateBack()
+				uni.current_this.store.state.moments.forEach((item,index)=>{
+					if(item.uuid==that.info.uuid)
+						uni.current_this.store.state.moments.splice(index,1)
+				})
+				uni.showToast({
+					title:res.data.mes,
+					icon:'none',
+					duration:3000
+				})
 				return
 			}
 			res.data.data.forEach(item=>{
@@ -99,7 +143,10 @@ export default{
 					place:'',
 					content:'',
 					src:[],
-					uuid:''})
+					uuid:'',
+					state:false,
+					openid:'',
+					show:true})
 	let moments=reactive([])
 	let text=ref('')
 	function send_mes(){
@@ -153,7 +200,69 @@ export default{
 			}
 		});
 	}
-    return{info,send_mes,check_pict,text,moments}
+	function delW(){
+		uni.showModal({
+			confirmText:'删除',
+			title:'是否删除该作品',
+			success(e) {
+				if(e.cancel)
+					return
+			// 发送删除的请求
+			// deleted
+			uni.request({
+				url:uni.current_this.baseURL+':5001/delete_works',
+				method:'POST',
+				data:{
+					openid:uni.current_this.store.state.user_info.openid,
+					uuid:info.uuid
+				},
+				success(res) {
+					console.log(res);
+					if(uni.current_this.check_res_state(res)){
+						return
+					}
+					uni.navigateBack()
+					uni.current_this.store.state.moments.forEach((item,index)=>{
+						if(item.uuid==info.uuid)
+							uni.current_this.store.state.moments.splice(index,1)
+					})
+					uni.showToast({
+						title:`删除作品成功`
+					})
+				}})
+			}
+		})
+	}
+	function hidW(){
+		uni.showModal({
+			confirmText:`${info.show?'隐藏':'显示'}`,
+			title:`是否${info.show?'隐藏':'显示'}该作品`,
+			success(e) {
+				if(e.cancel)
+					return
+			// 发送删除的请求
+			// deleted
+			uni.request({
+				url:uni.current_this.baseURL+':5001/show_hid_works',
+				method:'POST',
+				data:{
+					openid:uni.current_this.store.state.user_info.openid,
+					uuid:info.uuid,
+					state:info.show?'hid':'show'
+				},
+				success(res) {
+					if(uni.current_this.check_res_state(res)){
+						return
+					}
+					info.show=!info.show
+					uni.showToast({
+						title:`${info.show?'显示':'隐藏'}作品成功`
+					})
+				}})
+			}
+		})
+	}
+    return{info,send_mes,check_pict,text,moments,delW,hidW}
   }
 }
 </script>
