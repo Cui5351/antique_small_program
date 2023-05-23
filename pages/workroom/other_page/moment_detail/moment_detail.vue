@@ -20,7 +20,11 @@
 			  <uni-icons type="star" size="25"></uni-icons>
 		  </view>
 	  </view>
-	  <view class="content">{{info.content}}</view>
+	  <view class="content">
+		  <text selectable="true">
+		  {{info.content}}
+		  </text>
+	  </view>
 	  <view class="pic" v-if="info.src[0]!=null">
 	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="aspectFill"></image>
 	  </view>
@@ -66,7 +70,7 @@ export default{
   name:'',
   onShareAppMessage() {
   	return {
-  	    title: this.info.content.substring(0,5)+'...', //分享的名称
+  	    title: (this.info.content.length>=7?this.info.content.substring(0,7):this.info.content)+'...', //分享的名称
   		imageUrl:this.info.src[0],
 		url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(this.info)}`
   	    // mpId:'' //此处配置微信小程序的AppId

@@ -189,7 +189,6 @@
 				}
 			}
 			function museum(name){
-				console.log(name);
 				// 查看资源是否存在
 				if(name!='荆州博物馆'){
 					uni.showToast({
@@ -261,10 +260,11 @@
 			function lower(e){
 				if(reqs.state)
 					return
-					uni.showLoading({
-						title:'加载中',
-						mask:true
-					})
+				reqs.state=true
+				uni.showLoading({
+					title:'加载中',
+					mask:true
+				})
 				uni.request({
 					url:uni.current_this.baseURL+':5001/get_hottest_video',
 					method:"GET",
@@ -284,7 +284,9 @@
 						video.push(...res.data.data) 
 						reqs.skip+=res.data.data.length
 					},complete() {
-						reqs.state=false
+						setTimeout(()=>{
+							reqs.state=false
+						},1000)
 						uni.hideLoading()
 					}
 				})

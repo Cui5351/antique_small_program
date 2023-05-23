@@ -35,7 +35,51 @@ import {ref,reactive} from 'vue'
 export default{
   async onLoad(res){
 	  let paths=JSON.parse(res.paths)
-	  this.info.paths.push(...paths)
+	  let c=0
+	  let that=this
+		  for(let i=0;i<paths.length;i++){
+			  try{ 
+				  let url=await new Promise((resolve,reject)=>{
+					  uni.uploadFile({
+						  url:uni.current_this.baseURL+':5001/upload_moment_material',
+						  filePath:paths[i],
+						  name:'moment',
+						  success(res) {
+							  let data=JSON.parse(res.data)
+							  if(data.state!=1){
+								  reject()
+								  return
+							  }
+							  uni.showLoading({
+							  	title:'上传中'+(++c),
+							  	mask:true
+							  })
+							  resolve(data.data)
+						  },fail(e) {
+							reject()
+						  }
+					  })
+				  })
+				that.info.sus.push(url)
+			  }catch(e){
+				that.info.sus.push(0)
+			  }
+		  }	  
+		  let count=0
+			  for(let i=0;i<that.info.sus.length;i++)
+			  	if(that.info.sus[i]!=0){
+					this.info.paths.push(paths[i])
+				}else{
+					this.info.sus.splice(i,1)
+					count++
+					i--
+				}
+			if(count)
+				uni.showToast({
+					icon:'error',
+					title:`有${count}张图片加载失败`
+				})
+		uni.hideLoading()
   },
   components:{
 	  back
@@ -48,7 +92,7 @@ export default{
 		paths:[],
 		sus:[]
 	  })    
-	  let state=ref(false)
+	  let state=ref(0)
 	  function develop(name){
 	  	uni.showToast({
 	  		icon:'none',
@@ -56,8 +100,6 @@ export default{
 	  	})
 	  }
 	  async function publish(){
-		  if(state.value)
-			return
 		if(uni.current_this.store.state.user_info.openid.length<=0){
 			  uni.showToast({
 			  	title:'请重新登录后尝试',
@@ -72,53 +114,7 @@ export default{
 			  })
 			  return
 		  }
-		  state.value=true
 		  // 1上传多张图片
-		  let c=0
-		  		  for(let i=0;i<info.paths.length;i++){
-		  			  try{ 
-		  				  let url=await new Promise((resolve,reject)=>{
-		  					  uni.uploadFile({
-		  						  url:uni.current_this.baseURL+':5001/upload_moment_material',
-		  						  filePath:info.paths[i],
-		  						  name:'moment',
-		  						  success(res) {
-		  							  let data=JSON.parse(res.data)
-		  							  if(data.state!=1){
-		  								  reject()
-		  								  return
-		  							  }
-		  							  uni.showLoading({
-		  							  	title:'上传中'+(++c),
-		  							  	mask:true
-		  							  })
-		  							  resolve(data.data)
-		  						  },fail(e) {
-		  							reject()
-		  						  }
-		  					  })
-		  				  })
-		  				info.sus.push(url)
-		  			  }catch(e){
-		  				info.sus.push(0)
-		  			  }
-		  		  }	 
-				   let count=0
-		  			for(let i=0;i<info.sus.length;i++)
-		  			  	if(info.sus[i]==0){
-		  					info.sus.splice(i,1)
-		  					count++
-		  					i--
-		  				}
-		  			if(count)
-		  				uni.showToast({
-		  					icon:'error',
-		  					title:`有${count}张图片加载失败`
-		  				})
-				uni.showLoading({
-					title:'发布作品中',
-					mask:true
-				})
 		  // 2上传帖子
 		uni.request({
 					url:uni.current_this.baseURL+':5001/upload_moment',
@@ -150,10 +146,6 @@ export default{
 							title:'发布成功',
 							icon:'success'
 						})
-					},
-					complete() {
-						state.value=false
-						uni.hideLoading()
 					}
 	})
 	}

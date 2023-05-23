@@ -5,7 +5,7 @@ const _sfc_main = {
   name: "",
   onShareAppMessage() {
     return {
-      title: this.info.content.substring(0, 5) + "...",
+      title: (this.info.content.length >= 7 ? this.info.content.substring(0, 7) : this.info.content) + "...",
       imageUrl: this.info.src[0],
       url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(this.info)}`
     };

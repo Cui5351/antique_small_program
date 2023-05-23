@@ -4,52 +4,7 @@ const back = () => "../../../../components/back.js";
 const _sfc_main = {
   async onLoad(res) {
     let paths = JSON.parse(res.paths);
-    let c = 0;
-    let that = this;
-    for (let i = 0; i < paths.length; i++) {
-      try {
-        let url = await new Promise((resolve, reject) => {
-          common_vendor.index.uploadFile({
-            url: common_vendor.index.current_this.baseURL + ":5001/upload_moment_material",
-            filePath: paths[i],
-            name: "moment",
-            success(res2) {
-              let data = JSON.parse(res2.data);
-              if (data.state != 1) {
-                reject();
-                return;
-              }
-              common_vendor.index.showLoading({
-                title: "\u4E0A\u4F20\u4E2D" + ++c,
-                mask: true
-              });
-              resolve(data.data);
-            },
-            fail(e) {
-              reject();
-            }
-          });
-        });
-        that.info.sus.push(url);
-      } catch (e) {
-        that.info.sus.push(0);
-      }
-    }
-    let count = 0;
-    for (let i = 0; i < that.info.sus.length; i++)
-      if (that.info.sus[i] != 0) {
-        this.info.paths.push(paths[i]);
-      } else {
-        this.info.sus.splice(i, 1);
-        count++;
-        i--;
-      }
-    if (count)
-      common_vendor.index.showToast({
-        icon: "error",
-        title: `\u6709${count}\u5F20\u56FE\u7247\u52A0\u8F7D\u5931\u8D25`
-      });
-    common_vendor.index.hideLoading();
+    this.info.paths.push(...paths);
   },
   components: {
     back
@@ -62,7 +17,7 @@ const _sfc_main = {
       paths: [],
       sus: []
     });
-    let state = common_vendor.ref(0);
+    let state = common_vendor.ref(false);
     function develop(name) {
       common_vendor.index.showToast({
         icon: "none",
@@ -70,6 +25,8 @@ const _sfc_main = {
       });
     }
     async function publish() {
+      if (state.value)
+        return;
       if (common_vendor.index.current_this.store.state.user_info.openid.length <= 0) {
         common_vendor.index.showToast({
           title: "\u8BF7\u91CD\u65B0\u767B\u5F55\u540E\u5C1D\u8BD5",
@@ -84,6 +41,53 @@ const _sfc_main = {
         });
         return;
       }
+      state.value = true;
+      let c = 0;
+      for (let i = 0; i < info.paths.length; i++) {
+        try {
+          let url = await new Promise((resolve, reject) => {
+            common_vendor.index.uploadFile({
+              url: common_vendor.index.current_this.baseURL + ":5001/upload_moment_material",
+              filePath: info.paths[i],
+              name: "moment",
+              success(res) {
+                let data = JSON.parse(res.data);
+                if (data.state != 1) {
+                  reject();
+                  return;
+                }
+                common_vendor.index.showLoading({
+                  title: "\u4E0A\u4F20\u4E2D" + ++c,
+                  mask: true
+                });
+                resolve(data.data);
+              },
+              fail(e) {
+                reject();
+              }
+            });
+          });
+          info.sus.push(url);
+        } catch (e) {
+          info.sus.push(0);
+        }
+      }
+      let count = 0;
+      for (let i = 0; i < info.sus.length; i++)
+        if (info.sus[i] == 0) {
+          info.sus.splice(i, 1);
+          count++;
+          i--;
+        }
+      if (count)
+        common_vendor.index.showToast({
+          icon: "error",
+          title: `\u6709${count}\u5F20\u56FE\u7247\u52A0\u8F7D\u5931\u8D25`
+        });
+      common_vendor.index.showLoading({
+        title: "\u53D1\u5E03\u4F5C\u54C1\u4E2D",
+        mask: true
+      });
       common_vendor.index.request({
         url: common_vendor.index.current_this.baseURL + ":5001/upload_moment",
         method: "POST",
@@ -114,6 +118,10 @@ const _sfc_main = {
             title: "\u53D1\u5E03\u6210\u529F",
             icon: "success"
           });
+        },
+        complete() {
+          state.value = false;
+          common_vendor.index.hideLoading();
         }
       });
     }

@@ -83,7 +83,6 @@ const _sfc_main = {
       }
     }
     function museum(name) {
-      console.log(name);
       if (name != "\u8346\u5DDE\u535A\u7269\u9986") {
         common_vendor.index.showToast({
           title: name + "\u6682\u672A\u5F00\u653E",
@@ -156,6 +155,7 @@ const _sfc_main = {
     function lower(e) {
       if (reqs.state)
         return;
+      reqs.state = true;
       common_vendor.index.showLoading({
         title: "\u52A0\u8F7D\u4E2D",
         mask: true
@@ -180,7 +180,9 @@ const _sfc_main = {
           reqs.skip += res.data.data.length;
         },
         complete() {
-          reqs.state = false;
+          setTimeout(() => {
+            reqs.state = false;
+          }, 1e3);
           common_vendor.index.hideLoading();
         }
       });

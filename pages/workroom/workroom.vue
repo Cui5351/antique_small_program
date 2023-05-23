@@ -31,7 +31,11 @@
 					<view style="color: gray;font-size: 13px;">{{item.place}}</view>
 				</view>
 			</view>
-			<view class="content">{{item.content}}</view>
+			<view class="content">
+				<text style="width:100%;height:100%;" selectable="true">
+				{{item.content}}
+				</text>
+			</view>
 			<view class="pic" v-if="item.src[0]!=null">
 				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
 			</view>
