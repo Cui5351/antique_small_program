@@ -21,6 +21,12 @@
 				else
 					return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
 			}
+			this.dateformat2=function(date){
+				let month=date.getMonth()==12?1:date.getMonth()+1
+				let day=date.getDate()
+				let now=new Date()
+				return {year:date.getFullYear(),month:`${month<10?'0'+month:month}月${day<10?'0'+day:day}日`}
+			}
 			this.dateformat_accuracy=function(date){
 				let month=date.getMonth()==12?1:date.getMonth()+1
 				let day=date.getDate()

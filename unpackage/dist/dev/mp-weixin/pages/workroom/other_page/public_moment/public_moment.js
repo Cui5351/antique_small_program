@@ -125,6 +125,17 @@ const _sfc_main = {
         }
       });
     }
+    function delPic(index) {
+      common_vendor.index.showModal({
+        title: "\u662F\u5426\u5220\u9664\u8BE5\u56FE\u7247",
+        success(res) {
+          if (res.cancel)
+            return;
+          info.paths.splice(index, 1);
+        }
+      });
+      console.log(info.paths[index], "delete");
+    }
     function check_pict(path, index) {
       common_vendor.index.previewImage({
         urls: path,
@@ -140,7 +151,7 @@ const _sfc_main = {
         }
       });
     }
-    return { info, develop, publish, state, check_pict };
+    return { info, develop, publish, state, check_pict, delPic };
   }
 };
 if (!Array) {
@@ -162,24 +173,31 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     d: common_vendor.f($setup.info.paths, (item, index, i0) => {
       return {
         a: item,
-        b: common_vendor.o(($event) => $setup.check_pict($setup.info.paths, index), index),
-        c: index
+        b: common_vendor.o(($event) => $setup.check_pict($setup.info.paths, index)),
+        c: common_vendor.o(($event) => $setup.delPic(index)),
+        d: "7edb8074-1-" + i0,
+        e: index
       };
     }),
     e: common_vendor.p({
+      type: "closeempty",
+      size: "25",
+      color: "white"
+    }),
+    f: common_vendor.p({
       type: "location-filled",
       color: "rgb(110,121,226)"
     }),
-    f: $setup.info.place,
-    g: common_vendor.o(($event) => $setup.info.place = $event.detail.value),
-    h: common_vendor.o((...args) => _ctx.public_work && _ctx.public_work(...args)),
-    i: $setup.info.show_work,
-    j: common_vendor.p({
+    g: $setup.info.place,
+    h: common_vendor.o(($event) => $setup.info.place = $event.detail.value),
+    i: common_vendor.o((...args) => _ctx.public_work && _ctx.public_work(...args)),
+    j: $setup.info.show_work,
+    k: common_vendor.p({
       type: "plusempty",
       color: "rgb(110,121,226)"
     }),
-    k: common_vendor.o(($event) => $setup.develop("\u9009\u62E9\u597D\u53CB")),
-    l: common_vendor.o((...args) => $setup.publish && $setup.publish(...args))
+    l: common_vendor.o(($event) => $setup.develop("\u9009\u62E9\u597D\u53CB")),
+    m: common_vendor.o((...args) => $setup.publish && $setup.publish(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-7edb8074"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/public_moment/public_moment.vue"]]);

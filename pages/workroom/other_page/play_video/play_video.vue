@@ -6,7 +6,11 @@
       <view class="introduce">
 		  <view class="intro">
 			  <view class="tit">{{title}}</view>
-		  &emsp;&emsp;{{current_video.name}}</view>
+		  &emsp;&emsp;{{current_video.name}}
+		  <view style="text-align: end;">
+			{{current_video.publish_date}}
+		  </view>
+		  </view>
 		  <view class="author flex_j_a_r">
 			  <view class="flex_j_a_r">
 				  <view class="avatar" @click="no_develop('查看博主信息')">
@@ -79,10 +83,13 @@ import {ref,reactive} from 'vue'
 export default{
   name:'',
   onLoad(res){
-	  console.log(res);
 	  this.person.name=res.name
 	  this.person.avatar=res.avatar
-	  this.video.push(...JSON.parse(res.video))
+	  let v=JSON.parse(res.video)
+	  v.forEach(item=>{
+				item.publish_date=uni.current_this.dateformat_accuracy(new Date(item.publish_date))
+	  })
+	  this.video.push(...v)
 		if(this.video.length>0)
 			Object.keys(this.current_video).forEach(item=>{
 				if(this.video[0][item]==undefined){
@@ -137,7 +144,8 @@ export default{
 		time:0,
 		stars:0,
 		share:0,
-		collection:0
+		collection:0,
+		publish_date:''
 	})
 	let person=reactive({	
 		avatar:'',

@@ -17,7 +17,8 @@ const state={
 		introduce:'',
 		sex:'',
 		background:'https://www.mynameisczy.asia/antique/user_background/default_background.jpg',
-		works:[]
+		works:[],
+		moments:[]
 	}
 }
 const mutations={
@@ -88,6 +89,9 @@ const getters={
 	},
 	moments(state){
 		return state.moments
+	},
+	my_moments(state){
+		return state.user_info.moments
 	}
 }
 export default createStore({

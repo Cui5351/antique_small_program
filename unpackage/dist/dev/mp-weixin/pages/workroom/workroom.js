@@ -8,15 +8,6 @@ const _sfc_main = {
     });
     this.get_moments();
   },
-  onPullDownRefresh() {
-    console.log("refresh");
-    setTimeout(function() {
-      common_vendor.index.stopPullDownRefresh();
-    }, 1e3);
-  },
-  onReachBottom() {
-    console.log("bottom");
-  },
   setup() {
     let reqs = common_vendor.reactive({
       state: false,
@@ -41,18 +32,29 @@ const _sfc_main = {
         }
       });
     }
+    function publish_moment2() {
+      if (common_vendor.index.current_this.check_login_state()) {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u5148\u767B\u5F55",
+          icon: "none"
+        });
+        return;
+      }
+      common_vendor.index.chooseMedia({
+        count: 1,
+        mediaType: ["video"],
+        success(res) {
+          res.tempFilePaths;
+          console.log(res);
+        }
+      });
+    }
     function check_pict(path, index) {
       common_vendor.index.previewImage({
         urls: path,
         current: index,
         longPressActions: {
-          itemList: ["\u53D1\u9001\u7ED9\u670B\u53CB", "\u4FDD\u5B58\u56FE\u7247", "\u6536\u85CF"],
-          success: function(data) {
-            console.log("\u9009\u4E2D\u4E86\u7B2C" + (data.tapIndex + 1) + "\u4E2A\u6309\u94AE,\u7B2C" + (data.index + 1) + "\u5F20\u56FE\u7247");
-          },
-          fail: function(err) {
-            console.log(err.errMsg);
-          }
+          itemList: ["\u53D1\u9001\u7ED9\u670B\u53CB", "\u4FDD\u5B58\u56FE\u7247", "\u6536\u85CF"]
         }
       });
     }
@@ -62,14 +64,12 @@ const _sfc_main = {
       });
     }
     function show_head(e) {
-      console.log(e.detail.scrollTop);
     }
     function lower() {
       if (reqs.state) {
         return;
       }
       get_moments();
-      console.log("load more than");
     }
     function get_moments() {
       reqs.state = true;
@@ -112,7 +112,6 @@ const _sfc_main = {
           uuid: common_vendor.index.current_this.store.state.moments[0].uuid
         },
         success(res) {
-          console.log(res.data, "res");
           if (common_vendor.index.current_this.check_res_state(res))
             return;
           if (res.data.data.length <= 0) {
@@ -134,7 +133,22 @@ const _sfc_main = {
         }
       });
     }
-    return { back, moment, upper, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
+    function user_info(item) {
+      if (item.openid == common_vendor.index.current_this.store.getters.openid) {
+        common_vendor.index.switchTab({
+          url: "/pages/person/person"
+        });
+        return;
+      }
+      common_vendor.index.navigateTo({
+        url: `/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
+          avatar: item.avatar,
+          name: item.name,
+          openid: item.openid
+        })}`
+      });
+    }
+    return { back, moment, user_info, upper, publish_moment2, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
   }
 };
 if (!Array) {
@@ -165,26 +179,29 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: item.avatar,
         b: common_vendor.t(item.name),
         c: common_vendor.t(item.place),
-        d: common_vendor.t(item.content),
-        e: item.src[0] != null
+        d: common_vendor.o(($event) => $setup.user_info(item)),
+        e: common_vendor.t(item.content),
+        f: common_vendor.o(($event) => $setup.detail(item)),
+        g: item.src[0] != null
       }, item.src[0] != null ? {
-        f: common_vendor.f(item.src, (item2, index2, i1) => {
+        h: common_vendor.f(item.src, (item2, index2, i1) => {
           return {
             a: common_vendor.o(($event) => $setup.check_pict(item.src, index2), index2),
             b: item2,
             c: index2
           };
-        })
+        }),
+        i: common_vendor.o(($event) => $setup.detail(item))
       } : {}, {
-        g: "0672b006-1-" + i0,
-        h: "0672b006-2-" + i0,
-        i: common_vendor.t(item.browse),
-        j: "0672b006-3-" + i0,
-        k: common_vendor.t(item.moment_count),
-        l: "0672b006-4-" + i0,
-        m: common_vendor.t(item.send_date),
-        n: index,
-        o: common_vendor.o(($event) => $setup.detail(item), index)
+        j: "0672b006-1-" + i0,
+        k: "0672b006-2-" + i0,
+        l: common_vendor.t(item.browse),
+        m: "0672b006-3-" + i0,
+        n: common_vendor.t(item.moment_count),
+        o: "0672b006-4-" + i0,
+        p: common_vendor.t(item.send_date),
+        q: common_vendor.o(($event) => $setup.detail(item)),
+        r: index
       });
     }),
     e: common_vendor.p({

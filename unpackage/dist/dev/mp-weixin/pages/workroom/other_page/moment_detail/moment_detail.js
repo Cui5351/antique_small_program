@@ -48,7 +48,22 @@ const _sfc_main = {
           return;
         }
         if (res.data.state == 2) {
+          if (res.data.mes == "\u8BE5\u4F5C\u54C1\u88AB\u9690\u85CF" && that.info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
+            res.data.data.forEach((item) => {
+              item.date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.date));
+            });
+            that.moments.push(...res.data.data);
+            that.info.show = false;
+            console.log("hid");
+            return;
+          }
           common_vendor.index.navigateBack();
+          if (that.info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
+            common_vendor.index.current_this.store.state.user_info.moments.forEach((item, index) => {
+              if (item.uuid == that.info.uuid)
+                common_vendor.index.current_this.store.state.user_info.moments.splice(index, 1);
+            });
+          }
           common_vendor.index.current_this.store.state.moments.forEach((item, index) => {
             if (item.uuid == that.info.uuid)
               common_vendor.index.current_this.store.state.moments.splice(index, 1);
@@ -164,6 +179,12 @@ const _sfc_main = {
                 if (item.uuid == info.uuid)
                   common_vendor.index.current_this.store.state.moments.splice(index, 1);
               });
+              if (info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
+                common_vendor.index.current_this.store.state.user_info.moments.forEach((item, index) => {
+                  if (item.uuid == info.uuid)
+                    common_vendor.index.current_this.store.state.user_info.moments.splice(index, 1);
+                });
+              }
               common_vendor.index.showToast({
                 title: `\u5220\u9664\u4F5C\u54C1\u6210\u529F`
               });

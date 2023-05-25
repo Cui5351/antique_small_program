@@ -18,7 +18,8 @@ const state = {
     introduce: "",
     sex: "",
     background: "https://www.mynameisczy.asia/antique/user_background/default_background.jpg",
-    works: []
+    works: [],
+    moments: []
   }
 };
 const mutations = {
@@ -88,6 +89,9 @@ const getters = {
   },
   moments(state2) {
     return state2.moments;
+  },
+  my_moments(state2) {
+    return state2.user_info.moments;
   }
 };
 var store = common_vendor.createStore({

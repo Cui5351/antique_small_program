@@ -202,6 +202,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/person/other_page/author_info/author_info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"backgroundColor": "#fffbf2",

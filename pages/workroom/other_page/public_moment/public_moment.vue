@@ -5,7 +5,12 @@
       	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="150"></textarea>
       </view>
 	  <view class="picture">
-			<image :src="item" v-for="(item,index) in info.paths" @click="check_pict(info.paths,index)" :key="index" mode="aspectFill"></image>
+		  <view class="pic" v-for="(item,index) in info.paths" :key="index">
+			<image :src="item" mode="aspectFill"  @click="check_pict(info.paths,index)"></image>
+			<view class="err flex_j_a_c">
+				<uni-icons type="closeempty" @click="delPic(index)" size="25" color="white"></uni-icons>
+			</view>
+		  </view>
 	  </view>
 	  <view class="place">
 		  <view class="flex_j_a_r" >添加地点
@@ -157,8 +162,16 @@ export default{
 					}
 	})
 	}
-	function add_pic(){
-		
+	function delPic(index){
+		uni.showModal({
+			title:'是否删除该图片',
+			success(res) {
+				if(res.cancel)
+					return
+				info.paths.splice(index,1)
+			}
+		})
+		console.log(info.paths[index],'delete');
 	}
 	function check_pict(path,index){
 				uni.previewImage({
@@ -175,7 +188,7 @@ export default{
 					}
 				});
 	}
-    return{info,develop,publish,state,check_pict}
+    return{info,develop,publish,state,check_pict,delPic}
   }
 }
 </script>

@@ -53,7 +53,8 @@
 	}
 }
 .container{
-	overflow: auto;
+	// overflow-y: auto;
+	// overflow-x: hidden;
 	height:100%;
 	width:100%;
 	&>view{
@@ -66,6 +67,7 @@
 		align-items: flex-end;
 		font-size: 20px;
 		font-weight: bold;
+		background-color: white;
 		z-index: 9999;
 		transition:.5s ease;
 		opacity:0%;
@@ -171,6 +173,74 @@
 						}
 					}
 				}
+			}
+		}
+	}
+.line2{
+	height:10px;
+	width:100%;
+	margin:30px 0 100px 0;
+	&>.lin{
+		height:0.5px;
+		background-color: rgba(0,0,0,.1);
+		width:30%;
+	}
+	&>.dot{
+		margin:0 3px;
+		height:4px;
+		background-color: rgba(0,0,0,.1);
+		width: 4px;
+		border-radius: 50%;
+	}
+}
+	.moment{
+		height:80px;
+		margin:15px 0;
+		display: flex;
+		&>view{
+			margin:0 5px;
+		}
+		&>.date{
+			overflow: hidden;
+			@include width(80px);
+			height:80px;
+			// background-color: darkred;
+			&>.d{
+				font-size:18px;
+			}
+			&>.place{
+				color: gray;
+				font-size:15px;
+			}
+		}
+		&>.mpic{
+			@include width(80px);
+			height:80px;
+			background-color: gray;
+			image{
+				height:100%;
+				width:100%;
+			}
+		}
+		&>.mtxt{
+			display: flex;
+			height:80px;
+			width: 100%;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 3;
+			display:-webkit-box;
+			-webkit-box-orient: vertical;
+			&>.mtx{
+				height:55px;
+			}
+			&>.item{
+				width:100%;
+				height:25px;
+				position: absolute;
+				z-index: 2;
+				background-color: white;
+				line-height:35px;
 			}
 		}
 	}

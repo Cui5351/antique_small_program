@@ -21,7 +21,7 @@
 		  </view>
 	  </view>
 	  <view class="content">
-		  <text selectable="true">
+		  <text selectable="true" space="nbsp">
 		  {{info.content}}
 		  </text>
 	  </view>
@@ -115,7 +115,23 @@ export default{
 				return
 			}
 			if(res.data.state==2){
+				if(res.data.mes=='该作品被隐藏'&&that.info.openid==uni.current_this.store.state.user_info.openid){
+					res.data.data.forEach(item=>{
+						item.date=uni.current_this.dateformat_accuracy(new Date(item.date))
+					})
+					that.moments.push(...res.data.data)
+					that.info.show=false
+					console.log('hid');
+					return
+				}
 				uni.navigateBack()
+				if(that.info.openid==uni.current_this.store.state.user_info.openid){
+					// 删除作品
+					uni.current_this.store.state.user_info.moments.forEach((item,index)=>{
+						if(item.uuid==that.info.uuid)
+							uni.current_this.store.state.user_info.moments.splice(index,1)
+					})
+				}
 				uni.current_this.store.state.moments.forEach((item,index)=>{
 					if(item.uuid==that.info.uuid)
 						uni.current_this.store.state.moments.splice(index,1)
@@ -230,6 +246,13 @@ export default{
 						if(item.uuid==info.uuid)
 							uni.current_this.store.state.moments.splice(index,1)
 					})
+					if(info.openid==uni.current_this.store.state.user_info.openid){
+						// 删除作品
+						uni.current_this.store.state.user_info.moments.forEach((item,index)=>{
+							if(item.uuid==info.uuid)
+								uni.current_this.store.state.user_info.moments.splice(index,1)
+						})
+					}
 					uni.showToast({
 						title:`删除作品成功`
 					})

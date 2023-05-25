@@ -18,26 +18,7 @@ const _sfc_main = {
     loading
   },
   mounted() {
-    let that = this;
-    this.reqs.state = true;
-    common_vendor.index.request({
-      url: common_vendor.index.current_this.baseURL + ":5001/get_hottest_video",
-      method: "GET",
-      data: {
-        skip: this.reqs.skip
-      },
-      success(res) {
-        if (common_vendor.index.current_this.check_res_state(res)) {
-          return;
-        }
-        that.video.push(...res.data.data);
-        console.log(that.video, "video");
-        that.reqs.skip += res.data.data.length;
-      },
-      complete() {
-        that.reqs.state = false;
-      }
-    });
+    this.lower();
   },
   setup() {
     let other = common_vendor.reactive([{

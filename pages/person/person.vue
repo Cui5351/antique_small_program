@@ -1,5 +1,5 @@
 <template>
-	<view class="container flex_c background">
+	<scroll-view class="container flex_c background" scroll-y="true" @scrolltolower="lower">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
 		<view class="top_img" @click="change_background">
 			<image :src="person_info.background"></image>
@@ -17,7 +17,7 @@
 					</view>
 					<view v-if='login_state'>
 						<view class="count flex_c">
-							<view>{{person_info.counts[0]}}</view>
+							<view>{{person_info.works.length}}</view>
 							<view>作品</view>
 						</view>
 						<view class="count flex_c">
@@ -31,7 +31,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="person_info flex_c" style="">
+			<view class="person_info flex_c">
 				<template v-if='login_state'>
 					<view class="name">{{person_info.name}}</view>
 					<view class="id">ID:{{person_info.openid}}</view>
@@ -78,19 +78,41 @@
 			<view class="title" :style="{top:top+'px'}">
 				<view class="t1 background">
 					<view @click="toggle(true)" class="ti">作品</view>
-					<view @click="toggle(false)" class="ti">收藏</view>
+					<view @click="toggle(false)" class="ti">动态</view>
 				</view>
 				<view class="t2">
 					<view class="line background1" :style="{left:person_info.toggle?'0%':'50%'}"></view>
 				</view>
 			</view>
 			<view class="two" v-if="!person_info.toggle" >
-				<view>博物馆</view>
-				<view>商品</view>
-				<view>文物</view>
-				<view>工作室</view>
+				<!-- <view>博物馆</view> -->
+				<!-- <view>商品</view> -->
+				<!-- <view>文物</view> -->
+				<!-- <view>工作室</view> -->
 			</view>
-			<view class="work" :class="(person_info.works.length<=0&&person_info.toggle)?'start_btn_cen':''" >
+			<view v-if="!person_info.toggle" >
+				<view class="moment" @click="detail(item)" v-for="(item,index) in person_info.works2" :key="index" >
+					<view class="date">
+						<view class="d">{{item.send_date}}</view>
+						<view class="place">{{item.place}}</view>
+					</view>
+					<view class="mpic" v-if="item.src.length">
+						<image :src="item.src[0]" mode="aspectFill"></image>
+					</view>
+					<view class="mtxt">
+						<view class="mtx">
+							{{item.content}}
+						</view>
+						<view class="item">{{item.src.length}}张</view>
+						</view>
+				</view>
+			<view class="line2 flex_j_a_r">
+				<view class="lin"></view>
+				<view class="dot"></view>
+				<view class="lin"></view>
+			</view>
+			</view>
+			<view class="work"  v-if="person_info.toggle" :class="(person_info.works.length<=0&&person_info.toggle)?'start_btn_cen':''" >
 				<view @click="start_" class="start_btn" v-if="person_info.works.length<=0&&person_info.toggle">
 					开启你的非遗之旅
 				</view>
@@ -102,7 +124,7 @@
 				</view>
 			</view>
 		</view>
-	</view>
+	</scroll-view>
 </template>
 
 <script>
@@ -116,13 +138,17 @@
 				avatar:computed(()=>uni.current_this.store.getters.avatar),
 				introduce:computed(()=>uni.current_this.store.getters.introduce),
 				counts:[0,0,0],
-				toggle:true,
+				toggle:false,
 				works:uni.current_this.store.state.user_info.works,
-				works2:[]
+				works2:computed(()=>uni.current_this.store.getters.my_moments)
 			})
 			function toggle(bool){
 				person_info.toggle=bool
 			}
+			const reqs=reactive({
+				state:false,
+				skip:0
+			})
 			let login_state=computed(()=>uni.current_this.store.getters.login_state)
 			let opacity=ref(true)
 			let top=ref(uni.getMenuButtonBoundingClientRect().height*2)
@@ -176,7 +202,6 @@
 									data:{
 										openid:res1.data.value.openid
 									},success(res) {
-										console.log(res.data);
 										if(res.data.state){
 											uni.current_this.store.state.user_info.openid=res1.data.value.openid
 											Object.keys(res.data.value).forEach(item=>{
@@ -192,7 +217,6 @@
 													openid:uni.current_this.store.state.user_info.openid
 												},
 												success(res) {
-													console.log(res,'res');
 													if(uni.current_this.check_res_state(res)){
 														return
 													}
@@ -200,6 +224,7 @@
 												}
 											})
 											uni.current_this.store.dispatch('set_login',1)
+											reqmoment()
 										}else{
 											uni.showToast({
 												title:'登录失败',
@@ -260,7 +285,44 @@
 					url:`/pages/person/other_page/manage_work/manage_work?work=${JSON.stringify(item)}`
 				})
 			}
-			return {works,start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}
+			function lower(){
+				if(person_info.toggle)
+					return
+				reqmoment()
+			}
+			function reqmoment(){
+				if(reqs.state||!login_state)
+					return
+				reqs.state=true
+				uni.request({
+					url:uni.current_this.baseURL+':5001/get_person_community_moments',
+					method:"POST",
+					data:{
+						openid:person_info.openid,
+						skip:reqs.skip
+					},success(res) {
+						let w=res.data.data
+						w.forEach(item=>{
+							item.send_date=uni.current_this.dateformat(new Date(item.send_date))
+						})
+						reqs.skip+=w.length
+						if(!w.length)
+							return
+						uni.current_this.store.state.user_info.moments.push(...w)
+					},
+					complete() {
+						setTimeout(()=>{
+							reqs.state=false
+						},1000)
+					}
+				})
+			}
+			function detail(item){
+				uni.navigateTo({
+					url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+				})
+			}
+			return {reqs,detail,lower,reqmoment,works,start_,change_background,login_state,login,opacity,person_info,toggle,top,toggle_page}
 		}
 	}
 </script>

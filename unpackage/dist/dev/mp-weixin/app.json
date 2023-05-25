@@ -23,7 +23,8 @@
     "pages/person/other_page/comment/comment",
     "pages/home/other_page/antique_repository/antique_repository",
     "pages/workroom/other_page/moment_detail/moment_detail",
-    "pages/person/other_page/manage_work/manage_work"
+    "pages/person/other_page/manage_work/manage_work",
+    "pages/person/other_page/author_info/author_info"
   ],
   "window": {
     "navigationBarTextStyle": "black",

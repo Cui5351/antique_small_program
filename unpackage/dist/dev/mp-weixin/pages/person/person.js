@@ -9,13 +9,17 @@ const _sfc_main = {
       avatar: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.avatar),
       introduce: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.introduce),
       counts: [0, 0, 0],
-      toggle: true,
+      toggle: false,
       works: common_vendor.index.current_this.store.state.user_info.works,
-      works2: []
+      works2: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.my_moments)
     });
     function toggle(bool) {
       person_info.toggle = bool;
     }
+    const reqs = common_vendor.reactive({
+      state: false,
+      skip: 0
+    });
     let login_state = common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.login_state);
     let opacity = common_vendor.ref(true);
     let top = common_vendor.ref(common_vendor.index.getMenuButtonBoundingClientRect().height * 2);
@@ -69,7 +73,6 @@ const _sfc_main = {
                   openid: res1.data.value.openid
                 },
                 success(res) {
-                  console.log(res.data);
                   if (res.data.state) {
                     common_vendor.index.current_this.store.state.user_info.openid = res1.data.value.openid;
                     Object.keys(res.data.value).forEach((item) => {
@@ -85,7 +88,6 @@ const _sfc_main = {
                         openid: common_vendor.index.current_this.store.state.user_info.openid
                       },
                       success(res2) {
-                        console.log(res2, "res");
                         if (common_vendor.index.current_this.check_res_state(res2)) {
                           return;
                         }
@@ -93,6 +95,7 @@ const _sfc_main = {
                       }
                     });
                     common_vendor.index.current_this.store.dispatch("set_login", 1);
+                    reqmoment();
                   } else {
                     common_vendor.index.showToast({
                       title: "\u767B\u5F55\u5931\u8D25"
@@ -129,7 +132,45 @@ const _sfc_main = {
         url: `/pages/person/other_page/manage_work/manage_work?work=${JSON.stringify(item)}`
       });
     }
-    return { works, start_, change_background, login_state, login, opacity, person_info, toggle, top, toggle_page };
+    function lower() {
+      if (person_info.toggle)
+        return;
+      reqmoment();
+    }
+    function reqmoment() {
+      if (reqs.state || !login_state)
+        return;
+      reqs.state = true;
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_person_community_moments",
+        method: "POST",
+        data: {
+          openid: person_info.openid,
+          skip: reqs.skip
+        },
+        success(res) {
+          let w = res.data.data;
+          w.forEach((item) => {
+            item.send_date = common_vendor.index.current_this.dateformat(new Date(item.send_date));
+          });
+          reqs.skip += w.length;
+          if (!w.length)
+            return;
+          common_vendor.index.current_this.store.state.user_info.moments.push(...w);
+        },
+        complete() {
+          setTimeout(() => {
+            reqs.state = false;
+          }, 1e3);
+        }
+      });
+    }
+    function detail(item) {
+      common_vendor.index.navigateTo({
+        url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+      });
+    }
+    return { reqs, detail, lower, reqmoment, works, start_, change_background, login_state, login, opacity, person_info, toggle, top, toggle_page };
   }
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -147,7 +188,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   } : {}, {
     j: $setup.login_state
   }, $setup.login_state ? {
-    k: common_vendor.t($setup.person_info.counts[0]),
+    k: common_vendor.t($setup.person_info.works.length),
     l: common_vendor.t($setup.person_info.counts[1]),
     m: common_vendor.t($setup.person_info.counts[2])
   } : {}, {
@@ -167,23 +208,44 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     y: $setup.top + "px",
     z: !$setup.person_info.toggle
   }, !$setup.person_info.toggle ? {} : {}, {
-    A: $setup.person_info.works.length <= 0 && $setup.person_info.toggle
+    A: !$setup.person_info.toggle
+  }, !$setup.person_info.toggle ? {
+    B: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
+      return common_vendor.e({
+        a: common_vendor.t(item.send_date),
+        b: common_vendor.t(item.place),
+        c: item.src.length
+      }, item.src.length ? {
+        d: item.src[0]
+      } : {}, {
+        e: common_vendor.t(item.content),
+        f: common_vendor.t(item.src.length),
+        g: common_vendor.o(($event) => $setup.detail(item), index),
+        h: index
+      });
+    })
+  } : {}, {
+    C: $setup.person_info.toggle
+  }, $setup.person_info.toggle ? common_vendor.e({
+    D: $setup.person_info.works.length <= 0 && $setup.person_info.toggle
   }, $setup.person_info.works.length <= 0 && $setup.person_info.toggle ? {
-    B: common_vendor.o((...args) => $setup.start_ && $setup.start_(...args))
+    E: common_vendor.o((...args) => $setup.start_ && $setup.start_(...args))
   } : {}, {
-    C: $setup.person_info.works.length > 0 && $setup.person_info.toggle
+    F: $setup.person_info.works.length > 0 && $setup.person_info.toggle
   }, $setup.person_info.works.length > 0 && $setup.person_info.toggle ? {
-    D: common_vendor.o((...args) => $setup.start_ && $setup.start_(...args))
+    G: common_vendor.o((...args) => $setup.start_ && $setup.start_(...args))
   } : {}, {
-    E: common_vendor.f($setup.person_info.works, (item, index, i0) => {
+    H: common_vendor.f($setup.person_info.works, (item, index, i0) => {
       return {
         a: item.mask,
         b: index,
         c: common_vendor.o(($event) => $setup.works(item), index)
       };
     }),
-    F: $setup.person_info.toggle,
-    G: common_vendor.n($setup.person_info.works.length <= 0 && $setup.person_info.toggle ? "start_btn_cen" : "")
+    I: $setup.person_info.toggle,
+    J: common_vendor.n($setup.person_info.works.length <= 0 && $setup.person_info.toggle ? "start_btn_cen" : "")
+  }) : {}, {
+    K: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-390a77b4"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/person.vue"]]);

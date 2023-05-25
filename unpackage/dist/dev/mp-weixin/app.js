@@ -28,6 +28,7 @@ if (!Math) {
   "./pages/home/other_page/antique_repository/antique_repository.js";
   "./pages/workroom/other_page/moment_detail/moment_detail.js";
   "./pages/person/other_page/manage_work/manage_work.js";
+  "./pages/person/other_page/author_info/author_info.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -48,6 +49,11 @@ const _sfc_main = {
         return `${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
       else
         return `${date.getFullYear()}\u5E74${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
+    };
+    this.dateformat2 = function(date) {
+      let month = date.getMonth() == 12 ? 1 : date.getMonth() + 1;
+      let day = date.getDate();
+      return { year: date.getFullYear(), month: `${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5` };
     };
     this.dateformat_accuracy = function(date) {
       let month = date.getMonth() == 12 ? 1 : date.getMonth() + 1;

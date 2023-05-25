@@ -11,7 +11,7 @@
 		</view>
       </view>
       	<view class="tit1">
-			<input type="text" placeholder="热搜1卫星,搜寻你期待的热点...">
+			<input type="text" placeholder="热搜卫星,搜寻你期待的热点...">
 			<!-- <view class="flex_j_a_r" @click="publish_moment">
 				<uni-icons type="plusempty" color="rgb(110,121,226)"></uni-icons>
 			</view> -->
@@ -21,8 +21,8 @@
 		  </view>
 	  </view>
 	  <view class="passage">
-		<view  v-for="(item,index) in moment" :key="index" @click="detail(item)">
-			<view class="person">
+		<view  v-for="(item,index) in moment" :key="index">
+			<view class="person" @click="user_info(item)">
 				<view class="avatar">
 					<image :src="item.avatar" mode=""></image>
 				</view>
@@ -31,15 +31,15 @@
 					<view style="color: gray;font-size: 13px;">{{item.place}}</view>
 				</view>
 			</view>
-			<view class="content">
+			<view class="content"  @click="detail(item)">
 				<text style="width:100%;height:100%;" selectable="true">
 				{{item.content}}
 				</text>
 			</view>
-			<view class="pic" v-if="item.src[0]!=null">
+			<view class="pic" v-if="item.src[0]!=null"  @click="detail(item)">
 				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
 			</view>
-			<view class="other flex_j_a_r">
+			<view class="other flex_j_a_r" @click="detail(item)">
 				<view class="flex_j_a_r">
 					<uni-icons type="heart" size="25"></uni-icons>0
 					<uni-icons type="eye" size="25"></uni-icons>{{item.browse}}
@@ -65,16 +65,6 @@ export default{
 	})
 	this.get_moments()
   },
-  	onPullDownRefresh() {
-  		console.log('refresh');
-		// 拿到最新的数据
-  		setTimeout(function () {
-  			uni.stopPullDownRefresh();
-  		}, 1000);
-  	},
-	onReachBottom() {
-		console.log('bottom');
-	},
   setup(){
 	let reqs=reactive({
 		state:false,
@@ -101,18 +91,34 @@ export default{
 			}
 		})
 	}
+	function publish_moment2(){
+		if(uni.current_this.check_login_state()){
+			uni.showToast({
+				title:'请先登录',
+				icon:'none'
+			})
+			return
+		}
+		uni.chooseMedia({
+			count:1,
+			mediaType:['video'],
+			// count:9默认为9
+			success(res) {
+				let paths=res.tempFilePaths
+				// 跳转
+				// uni.navigateTo({
+				// 	url:`/pages/workroom/other_page/public_moment/public_moment?paths=${JSON.stringify(paths)}`
+				// })
+				console.log(res);
+			}
+		})
+	}
 	function check_pict(path,index){
 				uni.previewImage({
 					urls:path,
 					current:index,
 					longPressActions: {
 						itemList: ['发送给朋友', '保存图片', '收藏'],
-						success: function(data) {
-							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-						},
-						fail: function(err) {
-							console.log(err.errMsg);
-						}
 					}
 				});
 	}
@@ -122,14 +128,13 @@ export default{
 		})
 	}
 	function show_head(e){
-		console.log(e.detail.scrollTop);
+		// console.log(e.detail.scrollTop);
 	}
 	function lower(){
 		if(reqs.state){
 			return
 		}
 		get_moments()
-		console.log('load more than');
 	}
 	function get_moments(){
 		reqs.state=true
@@ -171,7 +176,6 @@ export default{
 					uuid:uni.current_this.store.state.moments[0].uuid
 				},
 				success(res) {
-					console.log(res.data,'res');
 					if(uni.current_this.check_res_state(res))
 						return
 					if(res.data.data.length<=0){
@@ -193,7 +197,22 @@ export default{
 				}
 			})
 	}
-    return{back,moment,upper,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
+	function user_info(item){
+		if(item.openid==uni.current_this.store.getters.openid){
+			uni.switchTab({
+				url:'/pages/person/person'
+			})
+			return
+		}
+		uni.navigateTo({
+			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
+				avatar:item.avatar,
+				name:item.name,
+				openid:item.openid
+			})}`
+		})
+	}
+    return{back,moment,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
   }
 }
 </script>

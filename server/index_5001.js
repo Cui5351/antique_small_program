@@ -620,7 +620,7 @@ app.post('/get_video',(req,res)=>{
     }
     const {uuid}=req.body
     update(dbs,table('works'),{uuid:uuid},'score',1,'number','+')
-    query(dbs,table('work'),['name','src','video_id','mask'],{work_uuid:uuid}).then(e=>{
+    query(dbs,table('work'),['name','src','video_id','mask',"publish_date"],{work_uuid:uuid}).then(e=>{
         send(res,e)
     })
 })
@@ -761,7 +761,7 @@ app.get('/get_community_moments',(req,res)=>{
     const {skip}=req.query
 
     // 方法一
-    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,content,uuid from antique.community_moments c where show_moment='show' order by c.id desc limit ${skip},10`,async function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where show_moment='show' and state='show' order by c.id desc limit ${skip},10`,async function(err,result){
         if(err)
             send_err(res,err)
 
@@ -952,7 +952,7 @@ app.post('/send_community_comment',(req,res)=>{
     })
 })
 app.get('/get_community_comment',(req,res)=>{
-    if(!req.query.hasOwnProperty('uuid')){
+    if(!req.query.hasOwnProperty('uuid')||!req.query.hasOwnProperty('openid')){
         res.send({
             state:0,
             error:1,
@@ -961,6 +961,8 @@ app.get('/get_community_comment',(req,res)=>{
         return 
     }    
     Object.keys(req.query).forEach(item=>{
+        if(item=='openid')
+            return
         if(typeof req.body[item] == 'string'&&req.body[item].length<1){
             res.send({
                 state:0,
@@ -969,8 +971,39 @@ app.get('/get_community_comment',(req,res)=>{
             })
         }
     })
-    const {uuid}=req.query
-    // query(dbs,table('community_moment_comment'),['content','openid'])
+    const {uuid,openid}=req.query
+    // 查询状态是否被删除/隐藏
+    query(dbs,table('community_moments'),['show_moment','openid'],{uuid:uuid,state:'show'}).then(e=>{
+        if(!e.length){
+            res.send({
+                // 被删除
+                state:2,
+                mes:'该作品已被删除'
+            })
+            return
+        }
+        if(e[0].show_moment=='hid'&&e[0].openid==openid){
+            dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' order by date desc`,function(err,result){
+                if(err){
+                    send_err(res,err)
+                    return
+                }
+                res.send({
+                    state:2,
+                    mes:'该作品被隐藏',
+                    data:result
+                })
+            })            
+            return
+        }
+        if(e[0].show_moment=='hid'){
+            // 被隐藏
+            res.send({
+                state:2,
+                mes:'该作品被隐藏'
+            })
+            return
+        }
     update(dbs,table('community_moments'),{uuid:uuid},'browse',1,'number','+')
     dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' order by date desc`,function(err,result){
         if(err){
@@ -979,6 +1012,7 @@ app.get('/get_community_comment',(req,res)=>{
         }
         send(res,result)
     })
+})
 })
 
 app.post('/upload_work_info',(req,res)=>{
@@ -1009,11 +1043,228 @@ app.post('/upload_work_info',(req,res)=>{
     
 })
 
+app.post('/show_hid_works',(req,res)=>{
+    if(!req.body.hasOwnProperty('uuid')||!req.body.hasOwnProperty('state')||!req.body.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.query).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+
+    const {uuid,state,openid}=req.body
+    update(dbs,table('community_moments'),{uuid:uuid,openid:openid},'show_moment',state,'string').then(_=>{
+        send(res)
+    }).catch(_=>{
+        send_err(res)
+    })
+})
+
+app.post('/delete_works',(req,res)=>{
+    if(!req.body.hasOwnProperty('uuid')||!req.body.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.query).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+
+    const {uuid,openid}=req.body
+    update(dbs,table('community_moments'),{uuid:uuid,openid:openid},'state','deleted','string').then(_=>{
+        send(res)
+    }).catch(_=>{
+        send_err(res)
+    })
+})
+
+app.post('/get_new_community_moments',(req,res)=>{
+    if(!req.body.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.body).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+
+    const {uuid}=req.body
+    // select * from community_moments c where id >(select id from community_moments where uuid=c.uuid)
+    // 方法一
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where id >(select id from community_moments where uuid="${uuid}") and show_moment='show' and state='show' order by c.id desc limit 0,3`,async function(err,result){
+        if(err)
+            send_err(res,err)
+            if(result.length<=0){
+                send(res,[])
+                return
+            }
+    try{
+        await new Promise(async(resolve,reject)=>{
+            for(let i=0;i<result.length;i++){
+                try{
+                    await new Promise((resolve2,reject2)=>{
+                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                            result[i].src=e.map(e=>e.src)
+                            resolve2()
+                        }).catch(e=>{
+                            reject2()
+                        })
+                    })
+                }catch(e){
+                    reject()
+                }
+                if(i==result.length-1)
+                    resolve()
+            }
+        })
+        send(res,result)
+    }catch(e){
+        send(res,result)
+    }
+    })
+})
+
+app.post('/get_person_community_moments',(req,res)=>{
+    if(!req.body.hasOwnProperty('skip')||!req.body.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    const {skip,openid}=req.body
+
+    // 方法一
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where openid='${openid}' and state='show' order by c.id desc limit ${skip},7`,async function(err,result){
+        if(err)
+            send_err(res,err)
+
+    try{
+        await new Promise(async(resolve,reject)=>{
+            for(let i=0;i<result.length;i++){
+                try{
+                    await new Promise((resolve2,reject2)=>{
+                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                            result[i].src=e.map(e=>e.src)
+                            resolve2()
+                        }).catch(e=>{
+                            reject2()
+                        })
+                    })
+                }catch(e){
+                    reject()
+                }
+                if(i==result.length-1)
+                    resolve()
+            }
+        })
+        send(res,result)
+    }catch(e){
+        send(res,result)
+    }
+    })
+})
+app.post('/get_person_community_moments2',(req,res)=>{
+    if(!req.body.hasOwnProperty('skip')||!req.body.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    const {skip,openid}=req.body
+
+    // 方法一
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where openid='${openid}' and state='show' and show_moment='show' order by c.id desc limit ${skip},7`,async function(err,result){
+        if(err)
+            send_err(res,err)
+
+    try{
+        await new Promise(async(resolve,reject)=>{
+            for(let i=0;i<result.length;i++){
+                try{
+                    await new Promise((resolve2,reject2)=>{
+                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                            result[i].src=e.map(e=>e.src)
+                            resolve2()
+                        }).catch(e=>{
+                            reject2()
+                        })
+                    })
+                }catch(e){
+                    reject()
+                }
+                if(i==result.length-1)
+                    resolve()
+            }
+        })
+        send(res,result)
+    }catch(e){
+        send(res,result)
+    }
+    })
+})
+
+app.post('/get_author_info',(req,res)=>{
+    if(!req.body.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    Object.keys(req.body).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {openid}=req.body
+    query(dbs,table('main_table'),['background','introduce','sex'],{openid:openid}).then(e=>{
+        send(res,e[0])
+    }).catch(e=>{
+        send_err(res)
+    })
+})
 }
 
-function send(res,data=null){
+function send(res,data=null,state=1){
     res.send({
-        state:1,
+        state:state,
         error:0,
         data:data
     })
