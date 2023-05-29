@@ -221,7 +221,14 @@ const _sfc_main = {
         }
       });
     }
-    return { info, send_mes, check_pict, text, moments, delW, hidW };
+    let more = common_vendor.ref(false);
+    function more_click() {
+      more.value = true;
+    }
+    function more_stop() {
+      more.value = false;
+    }
+    return { info, more_stop, more_click, more, send_mes, check_pict, text, moments, delW, hidW };
   }
 };
 if (!Array) {
@@ -244,26 +251,32 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: common_vendor.t($setup.info.place),
     f: $setup.info.state
   }, $setup.info.state ? {
-    g: common_vendor.o($setup.hidW),
+    g: common_vendor.o($setup.more_click),
     h: common_vendor.p({
+      type: "more-filled",
+      size: "25"
+    }),
+    i: common_vendor.o($setup.hidW),
+    j: common_vendor.p({
       type: $setup.info.show ? "eye" : "eye-slash",
       size: "25"
     }),
-    i: common_vendor.o($setup.delW),
-    j: common_vendor.p({
-      type: "close",
+    k: common_vendor.o($setup.delW),
+    l: common_vendor.p({
+      type: "trash",
       size: "25"
-    })
+    }),
+    m: $setup.more ? "90px" : "0px"
   } : {
-    k: common_vendor.p({
+    n: common_vendor.p({
       type: "star",
       size: "25"
     })
   }, {
-    l: common_vendor.t($setup.info.content),
-    m: $setup.info.src[0] != null
+    o: common_vendor.t($setup.info.content),
+    p: $setup.info.src[0] != null
   }, $setup.info.src[0] != null ? {
-    n: common_vendor.f($setup.info.src, (item2, index, i0) => {
+    q: common_vendor.f($setup.info.src, (item2, index, i0) => {
       return {
         a: item2,
         b: common_vendor.o(($event) => $setup.check_pict(index), index),
@@ -271,12 +284,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    o: common_vendor.o(_ctx.send_friend),
-    p: common_vendor.p({
+    r: common_vendor.o(_ctx.send_friend),
+    s: common_vendor.p({
       type: "redo",
       size: "25"
     }),
-    q: common_vendor.f($setup.moments, (item, index, i0) => {
+    t: common_vendor.f($setup.moments, (item, index, i0) => {
       return {
         a: item.avatar,
         b: common_vendor.t(item.name),
@@ -285,17 +298,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    r: common_vendor.p({
+    v: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
+    w: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    s: $setup.text,
-    t: common_vendor.o(($event) => $setup.text = $event.detail.value),
-    v: common_vendor.p({
+    x: $setup.text,
+    y: common_vendor.o(($event) => $setup.text = $event.detail.value),
+    z: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    w: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
+    A: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2a14840c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);

@@ -37,7 +37,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="storys flex_c">
+<!-- 			<view class="storys flex_c">
 				<view class="story_title">
 					<view>非遗故事</view>
 					<view @click="more('more_category')">更多分类<uni-icons color="rgb(59,92,130)" type="right"></uni-icons>
@@ -48,7 +48,7 @@
 						<image :src="base_url+'/image/antique/story'+item+'.jpg'" mode=""></image>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="works">
 				<view class="story_title">
 					<view>推荐视频</view>

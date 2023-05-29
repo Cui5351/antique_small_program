@@ -1,6 +1,6 @@
 <template>
 	<back name="返回"></back>
-  <view class="containe">
+  <view class="containe" @touchstart="more_stop">
       <view class="person">
 		  <view class="hd">
 			  <view class="avatar">
@@ -12,9 +12,16 @@
 				  <view class="place">发布于:{{info.place}}</view>
 			  </view>
 		  </view>
-		  <view class="flex_j_a_r" v-if="info.state">
-			  <uni-icons :type="info.show?'eye':'eye-slash'" style="margin-right:10px;" @click="hidW" size="25"></uni-icons>
-			  <uni-icons type="close" @click="delW" size="25"></uni-icons>
+		  <view class="flex_j_a_r more" v-if="info.state">
+			  <uni-icons type="more-filled" @click="more_click" size="25"></uni-icons>
+			  <view class="se" :style="{height:more?'90px':'0px'}">
+				  <view>
+					  <uni-icons :type="info.show?'eye':'eye-slash'" @click="hidW" size="25"></uni-icons>
+				  </view>
+				  <view>
+					  <uni-icons type="trash" @click="delW" size="25"></uni-icons>
+				  </view>
+			  </view>
 		  </view>
 		  <view class="flex_j_a_c" v-else>
 			  <uni-icons type="star" size="25"></uni-icons>
@@ -289,7 +296,14 @@ export default{
 			}
 		})
 	}
-    return{info,send_mes,check_pict,text,moments,delW,hidW}
+	let more=ref(false)
+	function more_click(){
+		more.value=true
+	}
+	function more_stop(){
+		more.value=false
+	}
+    return{info,more_stop,more_click,more,send_mes,check_pict,text,moments,delW,hidW}
   }
 }
 </script>

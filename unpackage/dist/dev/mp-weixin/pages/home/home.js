@@ -221,20 +221,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    i: common_vendor.o(($event) => $setup.more("more_category")),
-    j: common_vendor.f([1, 2, 3], (item, index, i0) => {
-      return {
-        a: $setup.base_url + "/image/antique/story" + item + ".jpg",
-        b: common_vendor.o(($event) => $setup.story(item), index),
-        c: index
-      };
-    }),
-    k: common_vendor.p({
-      color: "rgb(59,92,130)",
-      type: "right"
-    }),
-    l: common_vendor.o((...args) => $setup.search_page && $setup.search_page(...args)),
-    m: common_vendor.f($setup.video, (item, index, i0) => {
+    i: common_vendor.o((...args) => $setup.search_page && $setup.search_page(...args)),
+    j: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,
         b: item.avatar,
@@ -242,7 +230,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $setup.inter(item))
       };
     }),
-    n: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
+    k: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-92bb8f34"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/home.vue"]]);

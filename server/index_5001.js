@@ -620,7 +620,7 @@ app.post('/get_video',(req,res)=>{
     }
     const {uuid}=req.body
     update(dbs,table('works'),{uuid:uuid},'score',1,'number','+')
-    query(dbs,table('work'),['name','src','video_id','mask',"publish_date"],{work_uuid:uuid}).then(e=>{
+    query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work"],{work_uuid:uuid,state:'show'}).then(e=>{
         send(res,e)
     })
 })
@@ -1260,6 +1260,68 @@ app.post('/get_author_info',(req,res)=>{
         send_err(res)
     })
 })
+
+app.post('/deleted_video',(req,res)=>{
+    if(typeof req.body === 'string')
+    req.body=JSON.parse(req.body)
+    if(!req.body.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    Object.keys(req.body).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {uuid}=req.body
+    update(dbs,table('work'),{video_id:uuid},'state','deleted','string').then(e=>{
+        send(res)
+    }).catch(e=>{
+        send_err(res,e)
+    })
+})
+
+app.post('/set_video',(req,res)=>{
+    if(typeof req.body === 'string')
+    req.body=JSON.parse(req.body)
+    if(!req.body.hasOwnProperty('uuid')||!req.body.hasOwnProperty('state')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    Object.keys(req.body).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {uuid,state}=req.body
+    update(dbs,table('work'),{video_id:uuid},'show_work',state?'show':'hid','string').then(e=>{
+        send(res,state?'show':'hid')
+    }).catch(e=>{
+        send_err(res,e)
+    })
+})
+
+// 实现周热榜
+
+
+
+
 }
 
 function send(res,data=null,state=1){

@@ -3,6 +3,46 @@
 	height:100%;
 	overflow: hidden;
 }
+	.more{
+		position: relative;
+	}
+	// .more:active .se{
+		// height:90px;
+		// }
+		.se{
+			height:0px;
+			display: flex;
+			&::after{
+				content:'';
+				position:absolute;
+				height:10px;
+				width:10px;
+				background-color: white;
+				z-index:100;
+				left:50%;
+				transform: translate(-50%,-90%);
+			}
+			display: flex;
+			// display: none;
+			flex-direction: column;
+			&>view{
+				height:45px;
+				width:100%;
+				text-align: center;
+				line-height: 45px;
+				&:active{
+					background-color:rgba(0,0,0,0.1);
+				}
+			}
+			background-color: white;
+			box-shadow:1px -1px 20px 5px rgba(0,0,0,0.1);
+			position: absolute;
+			width:50px;
+			transform: translateY(70%);
+			// height:80px;
+			overflow: hidden;
+			transition: .2s ease;
+		}
 .tit{
 	@include height(20%);
 	background-color: white;
@@ -51,6 +91,10 @@
 	}
 }
 .works{
+	.bu{
+		height:100px;
+		background-color: transparent;
+	}
 	overflow-y: auto;
 	width:100%;
 	@include height(70%);
