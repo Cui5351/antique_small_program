@@ -389,7 +389,7 @@ image.data-v-390a77b4 {
 }
 .container .moment.data-v-390a77b4 {
   height: 80px;
-  margin: 15px 0;
+  margin: 20px 0;
   display: flex;
 }
 .container .moment > view.data-v-390a77b4 {

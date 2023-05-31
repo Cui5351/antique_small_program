@@ -183,7 +183,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         h: common_vendor.o(($event) => $setup.trash(item, index)),
         i: "297aef67-4-" + i0,
         j: item.more ? "90px" : "0px",
-        k: index
+        k: item.more ? "flex" : "none",
+        l: index
       };
     }),
     k: $setup.person.avatar,

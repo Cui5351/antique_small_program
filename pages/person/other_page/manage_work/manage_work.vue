@@ -42,7 +42,7 @@
 					  </view>
 					  <view class="c flex_j_a_r more">
 						  <uni-icons  @click="more_click(item)" type="more-filled" size="25"></uni-icons>
-						  <view class="se" :style="{height:item.more?'90px':'0px'}">
+						  <view class="se" :style="{height:item.more?'90px':'0px',display:item.more?'flex':'none'}">
 							  <view>
 								  <uni-icons @click="hid_work(item)" :type="item.show_work=='show'?'eye':'eye-slash'" size="25"></uni-icons>
 							  </view>

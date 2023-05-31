@@ -1,8 +1,18 @@
 <template>
-	<view class="flex_j_a_r pub" @click="publish_moment">
-		<uni-icons type="plusempty" size="25" color="white"></uni-icons>
+	<view class="flex_j_a_r pub" @click="show_add=true">
+		<view class='ad flex_j_a_c'>
+			<uni-icons type="plusempty" size="25" color="white"></uni-icons>
+		</view>
+		<view :class="show_add?'add show_add flex_j_a_c':'add flex_j_a_c'">
+		</view>
+		<view :class="show_add?'add show_add2 flex_j_a_c':'add flex_j_a_c'" @click.prevent="publish_moment">
+			<uni-icons type="chatbubble-filled" size="25"></uni-icons>
+		</view>
+		<view :class="show_add?'add show_add3 flex_j_a_c':'add flex_j_a_c'"  @click.prevent="publish_moment2">
+			<uni-icons type="videocam-filled" size='25'></uni-icons>
+		</view>
 	</view>
-  <scroll-view scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
+  <scroll-view @touchstart="show_add=false" scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
 	  <view  class="containe">
 	<!-- <view class="show_head head_tit">非遗社区</view> -->
       <view class="head">
@@ -66,6 +76,7 @@ export default{
 	this.get_moments()
   },
   setup(){
+	  let show_add=ref(false)
 	let reqs=reactive({
 		state:false,
 		skip:0,
@@ -104,12 +115,24 @@ export default{
 			mediaType:['video'],
 			// count:9默认为9
 			success(res) {
-				let paths=res.tempFilePaths
+				let paths=res.tempFiles[0]
+				if((paths.size/1024/1024)>=200){
+					uni.showToast({
+						title:'上传视频大小必须小于200Mb',
+						icon:'none'
+					})
+					return
+				}
 				// 跳转
-				// uni.navigateTo({
-				// 	url:`/pages/workroom/other_page/public_moment/public_moment?paths=${JSON.stringify(paths)}`
-				// })
-				console.log(res);
+				uni.navigateTo({
+					url:`/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`
+				})
+			},
+			fail(e) {
+				uni.showToast({
+					title:'上传视频大小必须小于200Mb',
+					icon:'none'
+				})
 			}
 		})
 	}
@@ -212,7 +235,7 @@ export default{
 			})}`
 		})
 	}
-    return{back,moment,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
+    return{back,show_add,moment,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
   }
 }
 </script>

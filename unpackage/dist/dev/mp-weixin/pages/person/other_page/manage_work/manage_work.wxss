@@ -283,7 +283,6 @@ image.data-v-297aef67 {
   transition: 0.2s ease;
 }
 .se.data-v-297aef67::after {
-  content: "";
   position: absolute;
   height: 10px;
   width: 10px;

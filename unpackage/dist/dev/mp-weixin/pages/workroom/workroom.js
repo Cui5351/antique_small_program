@@ -9,6 +9,7 @@ const _sfc_main = {
     this.get_moments();
   },
   setup() {
+    let show_add = common_vendor.ref(false);
     let reqs = common_vendor.reactive({
       state: false,
       skip: 0
@@ -44,8 +45,23 @@ const _sfc_main = {
         count: 1,
         mediaType: ["video"],
         success(res) {
-          res.tempFilePaths;
-          console.log(res);
+          let paths = res.tempFiles[0];
+          if (paths.size / 1024 / 1024 >= 200) {
+            common_vendor.index.showToast({
+              title: "\u4E0A\u4F20\u89C6\u9891\u5927\u5C0F\u5FC5\u987B\u5C0F\u4E8E200Mb",
+              icon: "none"
+            });
+            return;
+          }
+          common_vendor.index.navigateTo({
+            url: `/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`
+          });
+        },
+        fail(e) {
+          common_vendor.index.showToast({
+            title: "\u4E0A\u4F20\u89C6\u9891\u5927\u5C0F\u5FC5\u987B\u5C0F\u4E8E200Mb",
+            icon: "none"
+          });
         }
       });
     }
@@ -148,7 +164,7 @@ const _sfc_main = {
         })}`
       });
     }
-    return { back, moment, user_info, upper, publish_moment2, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
+    return { back, show_add, moment, user_info, upper, publish_moment2, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
   }
 };
 if (!Array) {
@@ -166,15 +182,28 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "25",
       color: "white"
     }),
-    b: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
-    c: common_vendor.f(["\u4F20\u627F\u975E\u9057", "\u5DE5\u5320\u7CBE\u795E", "\u4E60\u603B\u4E66\u8BB0\u8BF4\u975E\u9057", "\u6765\u81EA\u975E\u9057\u5DE5\u4F5C\u5BA4\u7684\u79D8\u5BC6", "\u975E\u9057\u5143\u5B87\u5B99", "\u548C\u6211\u4EEC\u4E00\u8D77\u7545\u6E38\u975E\u9057\u5427"], (item, index, i0) => {
+    b: common_vendor.n($setup.show_add ? "add show_add flex_j_a_c" : "add flex_j_a_c"),
+    c: common_vendor.p({
+      type: "chatbubble-filled",
+      size: "25"
+    }),
+    d: common_vendor.n($setup.show_add ? "add show_add2 flex_j_a_c" : "add flex_j_a_c"),
+    e: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
+    f: common_vendor.p({
+      type: "videocam-filled",
+      size: "25"
+    }),
+    g: common_vendor.n($setup.show_add ? "add show_add3 flex_j_a_c" : "add flex_j_a_c"),
+    h: common_vendor.o((...args) => $setup.publish_moment2 && $setup.publish_moment2(...args)),
+    i: common_vendor.o(($event) => $setup.show_add = true),
+    j: common_vendor.f(["\u4F20\u627F\u975E\u9057", "\u5DE5\u5320\u7CBE\u795E", "\u4E60\u603B\u4E66\u8BB0\u8BF4\u975E\u9057", "\u6765\u81EA\u975E\u9057\u5DE5\u4F5C\u5BA4\u7684\u79D8\u5BC6", "\u975E\u9057\u5143\u5B87\u5B99", "\u548C\u6211\u4EEC\u4E00\u8D77\u7545\u6E38\u975E\u9057\u5427"], (item, index, i0) => {
       return {
         a: common_vendor.t(index + 1),
         b: common_vendor.t(item),
         c: index
       };
     }),
-    d: common_vendor.f($setup.moment, (item, index, i0) => {
+    k: common_vendor.f($setup.moment, (item, index, i0) => {
       return common_vendor.e({
         a: item.avatar,
         b: common_vendor.t(item.name),
@@ -193,35 +222,36 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         i: common_vendor.o(($event) => $setup.detail(item))
       } : {}, {
-        j: "0672b006-1-" + i0,
-        k: "0672b006-2-" + i0,
+        j: "0672b006-3-" + i0,
+        k: "0672b006-4-" + i0,
         l: common_vendor.t(item.browse),
-        m: "0672b006-3-" + i0,
+        m: "0672b006-5-" + i0,
         n: common_vendor.t(item.moment_count),
-        o: "0672b006-4-" + i0,
+        o: "0672b006-6-" + i0,
         p: common_vendor.t(item.send_date),
         q: common_vendor.o(($event) => $setup.detail(item)),
         r: index
       });
     }),
-    e: common_vendor.p({
+    l: common_vendor.p({
       type: "heart",
       size: "25"
     }),
-    f: common_vendor.p({
+    m: common_vendor.p({
       type: "eye",
       size: "25"
     }),
-    g: common_vendor.p({
+    n: common_vendor.p({
       type: "chat",
       size: "25"
     }),
-    h: common_vendor.p({
+    o: common_vendor.p({
       type: "paperplane",
       size: "25"
     }),
-    i: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
-    j: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
+    p: common_vendor.o(($event) => $setup.show_add = false),
+    q: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
+    r: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);

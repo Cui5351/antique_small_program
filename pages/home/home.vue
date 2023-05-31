@@ -147,15 +147,8 @@
 					uni.navigateTo({
 						url:'/pages/home/other_page/antique_repository/antique_repository'
 					})
-				}
-				// switch(item.name){
-					// case '焦点新闻':{
-						// uni.navigateTo({
-							// url:'/pages/home/other_page/news/news'
-						// })
-					// };
-				// }
 				return
+				}
 				uni.showToast({
 					icon:'none',
 					title:item.name+'暂未开放'
@@ -228,6 +221,7 @@
 										})
 										return
 									}
+									console.log(res);
 									uni.navigateTo({
 										url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}`
 									})

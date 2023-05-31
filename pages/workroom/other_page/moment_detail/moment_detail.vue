@@ -14,7 +14,7 @@
 		  </view>
 		  <view class="flex_j_a_r more" v-if="info.state">
 			  <uni-icons type="more-filled" @click="more_click" size="25"></uni-icons>
-			  <view class="se" :style="{height:more?'90px':'0px'}">
+			  <view class="se" :style="{height:more?'90px':'0px',diplay:more?'flex':'none'}">
 				  <view>
 					  <uni-icons :type="info.show?'eye':'eye-slash'" @click="hidW" size="25"></uni-icons>
 				  </view>

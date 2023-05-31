@@ -441,7 +441,7 @@ image.data-v-ae4c9f56 {
 }
 .container .moment.data-v-ae4c9f56 {
   height: 80px;
-  margin: 15px 0;
+  margin: 20px 0;
   display: flex;
 }
 .container .moment > view.data-v-ae4c9f56 {

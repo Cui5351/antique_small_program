@@ -13,7 +13,6 @@
 			height:0px;
 			display: flex;
 			&::after{
-				content:'';
 				position:absolute;
 				height:10px;
 				width:10px;
@@ -23,7 +22,6 @@
 				transform: translate(-50%,-90%);
 			}
 			display: flex;
-			// display: none;
 			flex-direction: column;
 			&>view{
 				height:45px;
@@ -39,7 +37,6 @@
 			position: absolute;
 			width:50px;
 			transform: translateY(70%);
-			// height:80px;
 			overflow: hidden;
 			transition: .2s ease;
 		}

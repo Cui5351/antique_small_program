@@ -52,8 +52,12 @@ const _sfc_main = {
         common_vendor.index.navigateTo({
           url: "/pages/home/other_page/antique_repository/antique_repository"
         });
+        return;
       }
-      return;
+      common_vendor.index.showToast({
+        icon: "none",
+        title: item.name + "\u6682\u672A\u5F00\u653E"
+      });
     }
     function more(name) {
       if (name == "all") {
@@ -121,6 +125,7 @@ const _sfc_main = {
             });
             return;
           }
+          console.log(res);
           common_vendor.index.navigateTo({
             url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}`
           });

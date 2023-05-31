@@ -24,6 +24,7 @@ if (!Math) {
   "./pages/home/other_page/news/news.js";
   "./pages/person/other_page/new_work_collection/new_work_collection.js";
   "./pages/workroom/other_page/public_moment/public_moment.js";
+  "./pages/workroom/other_page/public_moment/public_moment_v.js";
   "./pages/person/other_page/comment/comment.js";
   "./pages/home/other_page/antique_repository/antique_repository.js";
   "./pages/workroom/other_page/moment_detail/moment_detail.js";
