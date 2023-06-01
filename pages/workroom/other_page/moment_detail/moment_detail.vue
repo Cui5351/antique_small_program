@@ -32,9 +32,13 @@
 		  {{info.content}}
 		  </text>
 	  </view>
-	  <view class="pic" v-if="info.src[0]!=null">
+	  <view class="pic" v-if="info.src[0]!=null&&info.type=='p'">
 	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="aspectFill"></image>
 	  </view>
+	  <view class="pic" v-if="info.type=='v'">
+		  <video :src="info.src" :poster="info.mask" autoplay="true"></video>
+	  </view>
+	  
 	  <view class="other">
 		  <button open-type="share" plain >
 			<uni-icons type="redo" @click="send_friend" size="25"></uni-icons>
@@ -89,11 +93,11 @@ export default{
 		title:'加载中'
 	  })
 	let tmp=JSON.parse(info)
+	console.log('info',info);
 	let that=this
 	Object.keys(this.info).forEach(item=>{
-		if(item=='src'){
+		if(tmp[item] instanceof Array){
 			this.info[item].push(...tmp[item])
-			return
 		}
 		if(item=='state'){
 			if(tmp.openid==uni.current_this.store.state.user_info.openid)
@@ -109,6 +113,7 @@ export default{
 		}
 		this.info[item]=tmp[item]
 	})
+	console.log(this.info);
 	
 	uni.request({
 		url:uni.current_this.baseURL+':5001/get_community_comment',
@@ -173,6 +178,8 @@ export default{
 					uuid:'',
 					state:false,
 					openid:'',
+					type:'',
+					mask:[],
 					show:true})
 	let moments=reactive([])
 	let text=ref('')

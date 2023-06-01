@@ -96,14 +96,17 @@
 						<view class="d">{{item.send_date}}</view>
 						<view class="place">{{item.place}}</view>
 					</view>
-					<view class="mpic" v-if="item.src.length">
+					<view class="mpic" v-if="item.src.length&&item.type=='p'">
 						<image :src="item.src[0]" mode="aspectFill"></image>
+					</view>
+					<view class="mpic" v-if="item.type=='v'">
+						<image :src="item.mask[0]" mode="aspectFill"></image>
 					</view>
 					<view class="mtxt">
 						<view class="mtx">
 							{{item.content}}
 						</view>
-						<view class="item">{{item.src.length}}张</view>
+						<view class="item" v-if="item.type=='p'">{{item.src.length}}张</view>
 						</view>
 				</view>
 			<view class="line2 flex_j_a_r">
@@ -303,6 +306,12 @@
 					},success(res) {
 						let w=res.data.data
 						w.forEach(item=>{
+							if(item.src[0]){
+								if(item.src[0].substring(item.src[0].length-3)=='mp4')
+									item.type='v'
+								else
+									item.type='p'
+							}
 							item.send_date=uni.current_this.dateformat(new Date(item.send_date))
 						})
 						reqs.skip+=w.length

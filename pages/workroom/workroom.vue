@@ -46,7 +46,10 @@
 				{{item.content}}
 				</text>
 			</view>
-			<view class="pic" v-if="item.src[0]!=null"  @click="detail(item)">
+			<view class="pic" v-if="item.type=='v'" @click="detail(item)">
+				<video :src="item.src" :poster="item.mask" @click.prevent="()=>{}"></video>
+			</view>
+			<view class="pic" v-if="item.src[0]!=null&&item.type=='p'"  @click="detail(item)">
 				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
 			</view>
 			<view class="other flex_j_a_r" @click="detail(item)">
@@ -150,9 +153,6 @@ export default{
 			url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
 		})
 	}
-	function show_head(e){
-		// console.log(e.detail.scrollTop);
-	}
 	function lower(){
 		if(reqs.state){
 			return
@@ -171,8 +171,15 @@ export default{
 				if(uni.current_this.check_res_state(res))
 					return
 					res.data.data.forEach(item=>{
+						if(item.src[0]){
+							if(item.src[0].substring(item.src[0].length-3)=='mp4')
+								item.type='v'
+							else
+								item.type='p'
+						}
 						item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
 					})
+					console.log(res.data);
 					uni.current_this.store.state.moments.push(...res.data.data)
 					reqs.skip+=res.data.data.length
 			},complete() {
@@ -235,7 +242,7 @@ export default{
 			})}`
 		})
 	}
-    return{back,show_add,moment,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,show_head,lower}
+    return{back,show_add,moment,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,lower}
   }
 }
 </script>

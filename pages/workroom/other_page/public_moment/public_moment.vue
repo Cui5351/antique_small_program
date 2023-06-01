@@ -5,7 +5,7 @@
       	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="150"></textarea>
       </view>
 	  <view class="picture">
-		  <view class="pic" v-for="(item,index) in info.paths" :key="index">
+		  <view class="pic2" v-for="(item,index) in info.paths" :key="index">
 			<image :src="item" mode="aspectFill"  @click="check_pict(info.paths,index)"></image>
 			<view class="err flex_j_a_c">
 				<uni-icons type="closeempty" @click="delPic(index)" size="25" color="white"></uni-icons>
@@ -115,11 +115,17 @@ export default{
 		  					count++
 		  					i--
 		  				}
-		  			if(count)
+		  			if(count){
 		  				uni.showToast({
 		  					icon:'error',
 		  					title:`有${count}张图片加载失败`
 		  				})
+						// 删除所有
+						let i=info.sus.length
+						for(let k=0;k<i;k++)
+							info.sus.pop()
+						return
+					}
 				uni.showLoading({
 					title:'发布作品中',
 					mask:true
@@ -145,6 +151,7 @@ export default{
 							content:info.content,
 							place:info.place.length?info.place:'火星',
 							src:res.data.data.sus,
+							type:'p',
 							send_date:uni.current_this.dateformat_accuracy(new Date()),
 							browser:0,
 							uuid:res.data.data.uuid,

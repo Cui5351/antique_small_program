@@ -79,8 +79,6 @@ const _sfc_main = {
         url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
       });
     }
-    function show_head(e) {
-    }
     function lower() {
       if (reqs.state) {
         return;
@@ -99,8 +97,15 @@ const _sfc_main = {
           if (common_vendor.index.current_this.check_res_state(res))
             return;
           res.data.data.forEach((item) => {
+            if (item.src[0]) {
+              if (item.src[0].substring(item.src[0].length - 3) == "mp4")
+                item.type = "v";
+              else
+                item.type = "p";
+            }
             item.send_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.send_date));
           });
+          console.log(res.data);
           common_vendor.index.current_this.store.state.moments.push(...res.data.data);
           reqs.skip += res.data.data.length;
         },
@@ -164,7 +169,7 @@ const _sfc_main = {
         })}`
       });
     }
-    return { back, show_add, moment, user_info, upper, publish_moment2, publish_moment, get_moments, reqs, check_pict, detail, show_head, lower };
+    return { back, show_add, moment, user_info, upper, publish_moment2, publish_moment, get_moments, reqs, check_pict, detail, lower };
   }
 };
 if (!Array) {
@@ -211,26 +216,34 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $setup.user_info(item)),
         e: common_vendor.t(item.content),
         f: common_vendor.o(($event) => $setup.detail(item)),
-        g: item.src[0] != null
-      }, item.src[0] != null ? {
-        h: common_vendor.f(item.src, (item2, index2, i1) => {
+        g: item.type == "v"
+      }, item.type == "v" ? {
+        h: item.src,
+        i: item.mask,
+        j: common_vendor.o(() => {
+        }),
+        k: common_vendor.o(($event) => $setup.detail(item))
+      } : {}, {
+        l: item.src[0] != null && item.type == "p"
+      }, item.src[0] != null && item.type == "p" ? {
+        m: common_vendor.f(item.src, (item2, index2, i1) => {
           return {
             a: common_vendor.o(($event) => $setup.check_pict(item.src, index2), index2),
             b: item2,
             c: index2
           };
         }),
-        i: common_vendor.o(($event) => $setup.detail(item))
+        n: common_vendor.o(($event) => $setup.detail(item))
       } : {}, {
-        j: "0672b006-3-" + i0,
-        k: "0672b006-4-" + i0,
-        l: common_vendor.t(item.browse),
-        m: "0672b006-5-" + i0,
-        n: common_vendor.t(item.moment_count),
-        o: "0672b006-6-" + i0,
-        p: common_vendor.t(item.send_date),
-        q: common_vendor.o(($event) => $setup.detail(item)),
-        r: index
+        o: "0672b006-3-" + i0,
+        p: "0672b006-4-" + i0,
+        q: common_vendor.t(item.browse),
+        r: "0672b006-5-" + i0,
+        s: common_vendor.t(item.moment_count),
+        t: "0672b006-6-" + i0,
+        v: common_vendor.t(item.send_date),
+        w: common_vendor.o(($event) => $setup.detail(item)),
+        x: index
       });
     }),
     l: common_vendor.p({

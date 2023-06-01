@@ -17,7 +17,7 @@ const _sfc_main = {
       place: "",
       path: "",
       mask: "",
-      sus: ""
+      sus: []
     });
     let state = common_vendor.ref(false);
     function develop(name) {
@@ -27,11 +27,113 @@ const _sfc_main = {
       });
     }
     async function publish() {
-      common_vendor.index.showToast({
-        title: "\u529F\u80FD\u6682\u672A\u5F00\u653E",
-        icon: "none"
+      if (state.value)
+        return;
+      if (common_vendor.index.current_this.store.state.user_info.openid.length <= 0) {
+        common_vendor.index.showToast({
+          title: "\u8BF7\u91CD\u65B0\u767B\u5F55\u540E\u5C1D\u8BD5",
+          icon: "none"
+        });
+        return;
+      }
+      if (info.content.length <= 0) {
+        common_vendor.index.showToast({
+          title: "\u5E16\u5B50\u5185\u5BB9\u4E0D\u5141\u8BB8\u4E3A\u7A7A",
+          icon: "none"
+        });
+        return;
+      }
+      state.value = true;
+      common_vendor.index.showLoading({
+        title: "\u4E0A\u4F20\u4E2D",
+        mask: true
       });
-      return;
+      let p = [info.path, info.mask];
+      for (let i = 0; i < p.length; i++) {
+        try {
+          let url = await new Promise((resolve, reject) => {
+            common_vendor.index.uploadFile({
+              url: common_vendor.index.current_this.baseURL + ":5001/upload_moment_material",
+              filePath: p[i],
+              name: "moment",
+              success(res) {
+                let data = JSON.parse(res.data);
+                if (data.state != 1) {
+                  reject();
+                  return;
+                }
+                resolve(data.data);
+              },
+              fail(e) {
+                reject();
+              }
+            });
+          });
+          info.sus.push(url);
+        } catch (e) {
+          info.sus.push(0);
+        }
+      }
+      let count = 0;
+      for (let i = 0; i < info.sus.length; i++)
+        if (info.sus[i] == 0) {
+          info.sus.splice(i, 1);
+          count++;
+          i--;
+        }
+      if (count) {
+        common_vendor.index.showToast({
+          icon: "error",
+          title: `\u4E0A\u4F20\u5931\u8D25`
+        });
+        let i = info.sus.length;
+        for (let k = 0; k < i; k++)
+          info.sus.pop();
+        return;
+      }
+      common_vendor.index.showLoading({
+        title: "\u53D1\u5E03\u4F5C\u54C1\u4E2D",
+        mask: true
+      });
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/upload_moment",
+        method: "POST",
+        data: {
+          paths: [info.sus[0]],
+          openid: common_vendor.index.current_this.store.state.user_info.openid,
+          show_work: info.show_work ? "show" : "hid",
+          place: info.place,
+          content: info.content,
+          mask: info.sus[1]
+        },
+        success(res) {
+          if (common_vendor.index.current_this.check_res_state(res))
+            return;
+          common_vendor.index.current_this.store.state.moments.unshift({
+            avatar: common_vendor.index.current_this.store.state.user_info.avatar,
+            openid: common_vendor.index.current_this.store.state.user_info.openid,
+            name: common_vendor.index.current_this.store.state.user_info.name,
+            type: "v",
+            src: info.sus[0],
+            mask: info.sus[1],
+            content: info.content,
+            place: info.place.length ? info.place : "\u706B\u661F",
+            send_date: common_vendor.index.current_this.dateformat_accuracy(new Date()),
+            browser: 0,
+            uuid: res.data.data.uuid,
+            moment_count: 0
+          });
+          common_vendor.index.navigateBack();
+          common_vendor.index.showToast({
+            title: "\u53D1\u5E03\u6210\u529F",
+            icon: "success"
+          });
+        },
+        complete() {
+          state.value = false;
+          common_vendor.index.hideLoading();
+        }
+      });
     }
     function delPic() {
       common_vendor.index.showModal({

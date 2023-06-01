@@ -53,7 +53,7 @@ export default{
 		place:'',
 		path:'',
 		mask:'',
-		sus:''
+		sus:[]
 	  })    
 	  let state=ref(false)
 	  function develop(name){
@@ -63,11 +63,6 @@ export default{
 	  	})
 	  }
 	  async function publish(){
-		  uni.showToast({
-		  	title:'功能暂未开放',
-			icon:'none'
-		  })
-		  return
 		  if(state.value)
 			return
 		if(uni.current_this.store.state.user_info.openid.length<=0){
@@ -86,13 +81,17 @@ export default{
 		  }
 		  state.value=true
 		  // 1上传多张图片
-		  let c=0
-		  		  for(let i=0;i<info.paths.length;i++){
+		  uni.showLoading({
+		  	title:'上传中',
+		  	mask:true
+		  })
+		  let p=[info.path,info.mask]
+		  		  for(let i=0;i<p.length;i++){
 		  			  try{ 
 		  				  let url=await new Promise((resolve,reject)=>{
 		  					  uni.uploadFile({
 		  						  url:uni.current_this.baseURL+':5001/upload_moment_material',
-		  						  filePath:info.paths[i],
+		  						  filePath:p[i],
 		  						  name:'moment',
 		  						  success(res) {
 		  							  let data=JSON.parse(res.data)
@@ -100,10 +99,6 @@ export default{
 		  								  reject()
 		  								  return
 		  							  }
-		  							  uni.showLoading({
-		  							  	title:'上传中'+(++c),
-		  							  	mask:true
-		  							  })
 		  							  resolve(data.data)
 		  						  },fail(e) {
 		  							reject()
@@ -122,11 +117,17 @@ export default{
 		  					count++
 		  					i--
 		  				}
-		  			if(count)
+		  			if(count){
 		  				uni.showToast({
 		  					icon:'error',
-		  					title:`有${count}张图片加载失败`
+		  					title:`上传失败`
 		  				})
+						// 删除所有
+						let i=info.sus.length
+						for(let k=0;k<i;k++)
+							info.sus.pop()
+						return
+					}
 				uni.showLoading({
 					title:'发布作品中',
 					mask:true
@@ -136,11 +137,12 @@ export default{
 					url:uni.current_this.baseURL+':5001/upload_moment',
 					method:'POST',
 					data:{
-						paths:info.sus,
+						paths:[info.sus[0]],
 						openid:uni.current_this.store.state.user_info.openid,
 						show_work:info.show_work?'show':'hid',
 						place:info.place,
-						content:info.content
+						content:info.content,
+						mask:info.sus[1]
 					},
 					success(res) {
 						if(uni.current_this.check_res_state(res))
@@ -149,9 +151,11 @@ export default{
 							avatar:uni.current_this.store.state.user_info.avatar,
 							openid:uni.current_this.store.state.user_info.openid,
 							name:uni.current_this.store.state.user_info.name,
+							type:'v',
+							src:info.sus[0],
+							mask:info.sus[1],
 							content:info.content,
 							place:info.place.length?info.place:'火星',
-							src:res.data.data.sus,
 							send_date:uni.current_this.dateformat_accuracy(new Date()),
 							browser:0,
 							uuid:res.data.data.uuid,

@@ -319,11 +319,11 @@ image.data-v-7edb8074 {
   height: 100px;
   margin-right: 2px;
 }
-.picture > .pic > video.data-v-7edb8074 {
+.picture > .pic video.data-v-7edb8074, .picture > .pic image.data-v-7edb8074 {
   width: 100%;
   height: 100%;
 }
-.picture > .pic > .err.data-v-7edb8074 {
+.picture .err.data-v-7edb8074 {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   width: 25px;
@@ -332,6 +332,16 @@ image.data-v-7edb8074 {
   left: 100%;
   transform: translateX(-100%);
   z-index: 999;
+}
+.picture > .pic2.data-v-7edb8074 {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-right: 2px;
+}
+.picture > .pic2 > image.data-v-7edb8074 {
+  width: 100%;
+  height: 100%;
 }
 .btn2.data-v-7edb8074 {
   margin-top: 20px;

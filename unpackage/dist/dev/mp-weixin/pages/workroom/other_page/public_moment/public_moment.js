@@ -79,11 +79,16 @@ const _sfc_main = {
           count++;
           i--;
         }
-      if (count)
+      if (count) {
         common_vendor.index.showToast({
           icon: "error",
           title: `\u6709${count}\u5F20\u56FE\u7247\u52A0\u8F7D\u5931\u8D25`
         });
+        let i = info.sus.length;
+        for (let k = 0; k < i; k++)
+          info.sus.pop();
+        return;
+      }
       common_vendor.index.showLoading({
         title: "\u53D1\u5E03\u4F5C\u54C1\u4E2D",
         mask: true
@@ -108,6 +113,7 @@ const _sfc_main = {
             content: info.content,
             place: info.place.length ? info.place : "\u706B\u661F",
             src: res.data.data.sus,
+            type: "p",
             send_date: common_vendor.index.current_this.dateformat_accuracy(new Date()),
             browser: 0,
             uuid: res.data.data.uuid,

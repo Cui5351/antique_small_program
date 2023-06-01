@@ -57,11 +57,12 @@
 			width:150px;
 			height:100px;
 			margin-right:2px;
-			&>video{
+			video,image{
 				width:100%;
 				height:100%;
 			}
-			&>.err{
+		}
+			.err{
 				position: absolute;
 				background-color: rgba(0,0,0,.5);
 				width:25px;
@@ -70,6 +71,15 @@
 				left:100%;
 				transform: translateX(-100%);
 				z-index:999;
+			}
+		&>.pic2{
+			position: relative;
+			width:100px;
+			height:100px;
+			margin-right:2px;
+			&>image{
+				width:100%;
+				height:100%;
 			}
 		}
 	}

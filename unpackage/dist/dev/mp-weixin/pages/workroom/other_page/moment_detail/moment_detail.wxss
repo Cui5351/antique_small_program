@@ -358,6 +358,10 @@ image.data-v-2a14840c {
   height: 150px;
   margin: 3px;
 }
+.containe .pic > video.data-v-2a14840c {
+  width: 300px;
+  height: 180px;
+}
 .moment.data-v-2a14840c {
   padding-bottom: 200px;
 }

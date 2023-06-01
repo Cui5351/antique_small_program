@@ -16,11 +16,11 @@ const _sfc_main = {
       title: "\u52A0\u8F7D\u4E2D"
     });
     let tmp = JSON.parse(info);
+    console.log("info", info);
     let that = this;
     Object.keys(this.info).forEach((item) => {
-      if (item == "src") {
+      if (tmp[item] instanceof Array) {
         this.info[item].push(...tmp[item]);
-        return;
       }
       if (item == "state") {
         if (tmp.openid == common_vendor.index.current_this.store.state.user_info.openid)
@@ -36,6 +36,7 @@ const _sfc_main = {
       }
       this.info[item] = tmp[item];
     });
+    console.log(this.info);
     common_vendor.index.request({
       url: common_vendor.index.current_this.baseURL + ":5001/get_community_comment",
       method: "GET",
@@ -99,6 +100,8 @@ const _sfc_main = {
       uuid: "",
       state: false,
       openid: "",
+      type: "",
+      mask: [],
       show: true
     });
     let moments = common_vendor.reactive([]);
@@ -275,8 +278,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, {
     p: common_vendor.t($setup.info.content),
-    q: $setup.info.src[0] != null
-  }, $setup.info.src[0] != null ? {
+    q: $setup.info.src[0] != null && $setup.info.type == "p"
+  }, $setup.info.src[0] != null && $setup.info.type == "p" ? {
     r: common_vendor.f($setup.info.src, (item2, index, i0) => {
       return {
         a: item2,
@@ -285,12 +288,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    s: common_vendor.o(_ctx.send_friend),
-    t: common_vendor.p({
+    s: $setup.info.type == "v"
+  }, $setup.info.type == "v" ? {
+    t: $setup.info.src,
+    v: $setup.info.mask
+  } : {}, {
+    w: common_vendor.o(_ctx.send_friend),
+    x: common_vendor.p({
       type: "redo",
       size: "25"
     }),
-    v: common_vendor.f($setup.moments, (item, index, i0) => {
+    y: common_vendor.f($setup.moments, (item, index, i0) => {
       return {
         a: item.avatar,
         b: common_vendor.t(item.name),
@@ -299,18 +307,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    w: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
-    x: common_vendor.p({
+    z: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
+    A: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    y: $setup.text,
-    z: common_vendor.o(($event) => $setup.text = $event.detail.value),
-    A: common_vendor.p({
+    B: $setup.text,
+    C: common_vendor.o(($event) => $setup.text = $event.detail.value),
+    D: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    B: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
+    E: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2a14840c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);

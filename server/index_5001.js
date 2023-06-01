@@ -598,7 +598,7 @@ app.get('/get_hottest_video',(req,res)=>{
         return 
     }
     const {skip}=req.query
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from antique.works w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -621,7 +621,12 @@ app.post('/get_video',(req,res)=>{
     const {uuid}=req.body
     update(dbs,table('works'),{uuid:uuid},'score',1,'number','+')
     query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work"],{work_uuid:uuid,state:'show'}).then(e=>{
-        send(res,e)
+        let arr=[]
+        e.forEach(item=>{
+            if(item.show_work=='show')
+                arr.push(item)
+        })
+        send(res,arr)
     })
 })
 
@@ -770,8 +775,9 @@ app.get('/get_community_moments',(req,res)=>{
             for(let i=0;i<result.length;i++){
                 try{
                     await new Promise((resolve2,reject2)=>{
-                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
                             result[i].src=e.map(e=>e.src)
+                            result[i].mask=e.map(e=>e.mask)
                             resolve2()
                         }).catch(e=>{
                             reject2()
@@ -909,7 +915,7 @@ app.post('/upload_moment',async function(req,res){
             for(let i=0;i<paths.length;i++){
                 try{
                     await new Promise((resolve,reject)=>{
-                        insertData(dbs,table('community_moment_pic'),{uuid:id,src:paths[i]}).then(e=>{
+                        insertData(dbs,table('community_moment_pic'),{uuid:id,src:paths[i],mask:req.body.hasOwnProperty('mask')?req.body.mask:'none'}).then(e=>{
                             resolve()
                         }).catch(e=>{
                             reject()
@@ -924,7 +930,6 @@ app.post('/upload_moment',async function(req,res){
     }catch(e){
         send_err(res)
     }
-
 })
 app.post('/send_community_comment',(req,res)=>{
     if(!req.body.hasOwnProperty('uuid')||!req.body.hasOwnProperty('openid')||!req.body.hasOwnProperty('content')){
@@ -1173,8 +1178,9 @@ app.post('/get_person_community_moments',(req,res)=>{
             for(let i=0;i<result.length;i++){
                 try{
                     await new Promise((resolve2,reject2)=>{
-                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
                             result[i].src=e.map(e=>e.src)
+                            result[i].mask=e.map(e=>e.mask)
                             resolve2()
                         }).catch(e=>{
                             reject2()
