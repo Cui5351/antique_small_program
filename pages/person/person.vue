@@ -142,7 +142,7 @@
 				introduce:computed(()=>uni.current_this.store.getters.introduce),
 				counts:[0,0,0],
 				toggle:false,
-				works:uni.current_this.store.state.user_info.works,
+				works:computed(()=>uni.current_this.store.getters.works),
 				works2:computed(()=>uni.current_this.store.getters.my_moments)
 			})
 			function toggle(bool){

@@ -13,16 +13,16 @@
 		  </view>
 		  <view class="author flex_j_a_r">
 			  <view class="flex_j_a_r">
-				  <view class="avatar" @click="no_develop('查看博主信息')">
+				  <view class="avatar" @click="user_info">
 					  <image :src="person.avatar" mode=""></image>
 				  </view>
 				  <view>{{person.name}}</view>
 			  </view>
 			  <view class="icon">
-				  <uni-icons type="heart" size="25" @click="increment('stars')"></uni-icons>{{current_video.stars}}
-				  <uni-icons type="star" size="25" @click="increment('collection')"></uni-icons>{{current_video.collection}}
+				  <uni-icons :type="current_video.stars>0?'heart-filled':'heart'" :color="current_video.stars>0?'red':''" size="25" @click="increment('stars')"></uni-icons>{{current_video.stars}}
+				  <uni-icons :type="current_video.collection>0?'star-filled':'star'" :color="current_video.collection>0?'gold':''" size="25" @click="increment('collection')"></uni-icons>{{current_video.collection}}
 				  <button open-type="share" plain > 
-					<uni-icons size="25" type="paperplane"></uni-icons>
+					<uni-icons size="25" :type="current_video.share>0?'paperplane-filled':'paperplane'" :color="current_video.share>0?'yellowgreen':''"></uni-icons>
 				  </button>
 					{{current_video.share}}
 			  </view>
@@ -38,7 +38,7 @@
 		  </view>
 		  <view class="vi">
 			<view class="vide" v-for="(item,index) in video" :key="index"  @click="toggle(index)"  style="position: relative;">
-				<image :src="item.mask" mode=""></image>
+				<image :src="item.mask"></image>
 				<image style="background-color: rgba(0,0,0,0);position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="/play.svg"></image>
 			</view>
 		</view>
@@ -59,7 +59,7 @@
 				  </view>
 				  <view class="right flex_j_a_r">
 					  <!-- <uni-icons size="20" type="chat"></uni-icons> -->
-					  <uni-icons size="20" type="heart"  @click="item.stars++"></uni-icons>
+					  <uni-icons size="20"  :type="item.stars>0?'hand-up-filled':'hand-up'" :color="item.stars>0?'red':''"  @click="item.stars++"></uni-icons>
 					  {{item.stars}}
 					  <!-- <uni-icons size="20" type="paperplane"></uni-icons> -->
 				  </view>
@@ -85,6 +85,7 @@ export default{
   onLoad(res){
 	  this.person.name=res.name
 	  this.person.avatar=res.avatar
+	  this.person.openid=res.openid
 	  let v=JSON.parse(res.video)
 	  v.forEach(item=>{
 				item.publish_date=uni.current_this.dateformat_accuracy(new Date(item.publish_date))
@@ -149,7 +150,8 @@ export default{
 	})
 	let person=reactive({	
 		avatar:'',
-		name:''
+		name:'',
+		openid:''
 	})
 	let danmu=ref('')
 	let state=ref(true);
@@ -257,11 +259,18 @@ export default{
 	}
 	let no_develop=uni.current_this.no_develop
 	function increment(pro){
-		console.log(current_video[pro]);
-		console.log(current_video);
 		current_video[pro]++;
 	}
-    return{video,current_video,person,title,state,timeupdate,danmu,send,toggle,no_develop,increment}
+	function user_info(){
+		uni.navigateTo({
+			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
+				avatar:person.avatar,
+				name:person.name,
+				openid:person.openid
+			})}`
+		})
+	}
+    return{user_info,video,current_video,person,title,state,timeupdate,danmu,send,toggle,no_develop,increment}
   }
 }
 </script>

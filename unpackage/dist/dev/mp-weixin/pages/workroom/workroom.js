@@ -155,12 +155,6 @@ const _sfc_main = {
       });
     }
     function user_info(item) {
-      if (item.openid == common_vendor.index.current_this.store.getters.openid) {
-        common_vendor.index.switchTab({
-          url: "/pages/person/person"
-        });
-        return;
-      }
       common_vendor.index.navigateTo({
         url: `/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
           avatar: item.avatar,
@@ -211,39 +205,36 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     k: common_vendor.f($setup.moment, (item, index, i0) => {
       return common_vendor.e({
         a: item.avatar,
-        b: common_vendor.t(item.name),
-        c: common_vendor.t(item.place),
-        d: common_vendor.o(($event) => $setup.user_info(item)),
+        b: common_vendor.o(($event) => $setup.user_info(item)),
+        c: common_vendor.t(item.name),
+        d: common_vendor.t(item.place),
         e: common_vendor.t(item.content),
-        f: common_vendor.o(($event) => $setup.detail(item)),
-        g: item.type == "v"
+        f: item.type == "v"
       }, item.type == "v" ? {
-        h: item.src,
-        i: item.mask,
-        j: common_vendor.o(() => {
-        }),
-        k: common_vendor.o(($event) => $setup.detail(item))
+        g: item.src,
+        h: item.mask,
+        i: common_vendor.o(() => {
+        })
       } : {}, {
-        l: item.src[0] != null && item.type == "p"
+        j: item.src[0] != null && item.type == "p"
       }, item.src[0] != null && item.type == "p" ? {
-        m: common_vendor.f(item.src, (item2, index2, i1) => {
+        k: common_vendor.f(item.src, (item2, index2, i1) => {
           return {
             a: common_vendor.o(($event) => $setup.check_pict(item.src, index2), index2),
             b: item2,
             c: index2
           };
-        }),
-        n: common_vendor.o(($event) => $setup.detail(item))
+        })
       } : {}, {
-        o: "0672b006-3-" + i0,
-        p: "0672b006-4-" + i0,
-        q: common_vendor.t(item.browse),
-        r: "0672b006-5-" + i0,
-        s: common_vendor.t(item.moment_count),
-        t: "0672b006-6-" + i0,
-        v: common_vendor.t(item.send_date),
-        w: common_vendor.o(($event) => $setup.detail(item)),
-        x: index
+        l: "0672b006-3-" + i0,
+        m: "0672b006-4-" + i0,
+        n: common_vendor.t(item.browse),
+        o: "0672b006-5-" + i0,
+        p: common_vendor.t(item.moment_count),
+        q: "0672b006-6-" + i0,
+        r: common_vendor.t(item.send_date),
+        s: index,
+        t: common_vendor.o(($event) => $setup.detail(item), index)
       });
     }),
     l: common_vendor.p({
@@ -263,8 +254,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "25"
     }),
     p: common_vendor.o(($event) => $setup.show_add = false),
-    q: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
-    r: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
+    q: common_vendor.o(($event) => $setup.show_add = false),
+    r: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
+    s: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);

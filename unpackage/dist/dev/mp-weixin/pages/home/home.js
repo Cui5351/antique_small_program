@@ -127,7 +127,7 @@ const _sfc_main = {
           }
           console.log(res);
           common_vendor.index.navigateTo({
-            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}`
+            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}&openid=${item.openid}`
           });
         }
       });

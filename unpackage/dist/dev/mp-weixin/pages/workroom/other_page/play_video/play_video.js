@@ -6,6 +6,7 @@ const _sfc_main = {
   onLoad(res) {
     this.person.name = res.name;
     this.person.avatar = res.avatar;
+    this.person.openid = res.openid;
     let v = JSON.parse(res.video);
     v.forEach((item) => {
       item.publish_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.publish_date));
@@ -70,7 +71,8 @@ const _sfc_main = {
     });
     let person = common_vendor.reactive({
       avatar: "",
-      name: ""
+      name: "",
+      openid: ""
     });
     let danmu = common_vendor.ref("");
     let state = common_vendor.ref(true);
@@ -179,11 +181,18 @@ const _sfc_main = {
     }
     let no_develop = common_vendor.index.current_this.no_develop;
     function increment(pro) {
-      console.log(current_video[pro]);
-      console.log(current_video);
       current_video[pro]++;
     }
-    return { video, current_video, person, title, state, timeupdate, danmu, send, toggle, no_develop, increment };
+    function user_info() {
+      common_vendor.index.navigateTo({
+        url: `/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
+          avatar: person.avatar,
+          name: person.name,
+          openid: person.openid
+        })}`
+      });
+    }
+    return { user_info, video, current_video, person, title, state, timeupdate, danmu, send, toggle, no_develop, increment };
   }
 };
 if (!Array) {
@@ -204,23 +213,26 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     f: common_vendor.t($setup.current_video.name),
     g: common_vendor.t($setup.current_video.publish_date),
     h: $setup.person.avatar,
-    i: common_vendor.o(($event) => $setup.no_develop("\u67E5\u770B\u535A\u4E3B\u4FE1\u606F")),
+    i: common_vendor.o((...args) => $setup.user_info && $setup.user_info(...args)),
     j: common_vendor.t($setup.person.name),
     k: common_vendor.o(($event) => $setup.increment("stars")),
     l: common_vendor.p({
-      type: "heart",
+      type: $setup.current_video.stars > 0 ? "heart-filled" : "heart",
+      color: $setup.current_video.stars > 0 ? "red" : "",
       size: "25"
     }),
     m: common_vendor.t($setup.current_video.stars),
     n: common_vendor.o(($event) => $setup.increment("collection")),
     o: common_vendor.p({
-      type: "star",
+      type: $setup.current_video.collection > 0 ? "star-filled" : "star",
+      color: $setup.current_video.collection > 0 ? "gold" : "",
       size: "25"
     }),
     p: common_vendor.t($setup.current_video.collection),
     q: common_vendor.p({
       size: "25",
-      type: "paperplane"
+      type: $setup.current_video.share > 0 ? "paperplane-filled" : "paperplane",
+      color: $setup.current_video.share > 0 ? "yellowgreen" : ""
     }),
     r: common_vendor.t($setup.current_video.share),
     s: common_vendor.t($setup.video.length),
@@ -244,21 +256,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.t(item.date),
         e: common_vendor.o(($event) => item.stars++),
         f: "5d1767d0-4-" + i0,
-        g: common_vendor.t(item.stars),
-        h: index
+        g: common_vendor.p({
+          size: "20",
+          type: item.stars > 0 ? "hand-up-filled" : "hand-up",
+          color: item.stars > 0 ? "red" : ""
+        }),
+        h: common_vendor.t(item.stars),
+        i: index
       };
     }),
     y: common_vendor.p({
-      size: "20",
-      type: "heart"
-    }),
-    z: common_vendor.p({
       type: "location",
       size: "30"
     }),
-    A: $setup.danmu,
-    B: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
-    C: common_vendor.o((...args) => $setup.send && $setup.send(...args))
+    z: $setup.danmu,
+    A: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
+    B: common_vendor.o((...args) => $setup.send && $setup.send(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5d1767d0"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/play_video/play_video.vue"]]);

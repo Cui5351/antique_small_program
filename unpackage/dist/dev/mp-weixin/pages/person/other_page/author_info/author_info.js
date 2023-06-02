@@ -80,6 +80,12 @@ const _sfc_main = {
         success(res) {
           let w = res.data.data;
           w.forEach((item) => {
+            if (item.src[0]) {
+              if (item.src[0].substring(item.src[0].length - 3) == "mp4")
+                item.type = "v";
+              else
+                item.type = "p";
+            }
             item.send_date = common_vendor.index.current_this.dateformat(new Date(item.send_date));
           });
           reqs.skip += w.length;
@@ -121,7 +127,7 @@ const _sfc_main = {
             return;
           }
           common_vendor.index.navigateTo({
-            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${info.avatar}&name=${info.name}`
+            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${info.avatar}&name=${info.name}&openid=${info.openid}`
           });
         }
       });

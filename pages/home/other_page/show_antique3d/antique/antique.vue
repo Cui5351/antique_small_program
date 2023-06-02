@@ -9,7 +9,7 @@
 			  <image :src="info.src" mode=""></image>
 		  </view>
 		  <view class="des">
-			  <image class="background_antique" src="/static/show_antique_background2.svg"></image>
+			  <image class="background_antique" style="background-color:antiquewhite;"></image>
 			  <view class="flex_j_a_c title">
 					<view style="font-size:35px;margin-bottom:5px;">{{info.name}}</view>
 					<view class="flex_j_a_r">

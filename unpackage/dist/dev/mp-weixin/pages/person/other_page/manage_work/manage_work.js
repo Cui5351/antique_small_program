@@ -82,12 +82,45 @@ const _sfc_main = {
         return;
       ite.more = false;
     }
+    function delete_work() {
+      common_vendor.index.showModal({
+        title: "\u662F\u5426\u5220\u9664\u8BE5\u4F5C\u54C1\u96C6\u548C\u5168\u90E8\u4F5C\u54C1",
+        success(res) {
+          if (res.cancel)
+            return;
+          common_vendor.index.request({
+            url: common_vendor.index.current_this.baseURL + ":5001/deleted_video_collection",
+            method: "POST",
+            data: {
+              uuid: info.uuid
+            },
+            success(res2) {
+              console.log(res2);
+              if (common_vendor.index.current_this.check_res_state(res2))
+                return;
+              common_vendor.index.current_this.store.state.user_info.works.forEach((ite2, i) => {
+                if (ite2.uuid == info.uuid)
+                  common_vendor.index.current_this.store.state.user_info.works.splice(i, 1);
+              });
+              common_vendor.index.navigateBack();
+              common_vendor.index.showToast({
+                title: "\u5220\u9664\u6210\u529F"
+              });
+            }
+          });
+        }
+      });
+    }
     function trash(item, index) {
       common_vendor.index.showModal({
         title: "\u662F\u5426\u5220\u9664\u8BE5\u4F5C\u54C1",
         success(res) {
           if (res.cancel)
             return;
+          common_vendor.index.showLoading({
+            title: "\u5220\u9664\u4E2D",
+            mask: true
+          });
           common_vendor.index.request({
             url: common_vendor.index.current_this.baseURL + ":5001/deleted_video",
             method: "POST",
@@ -140,7 +173,52 @@ const _sfc_main = {
         }
       });
     }
-    return { info, person, hid_work, addWork, trash, more_stop, more_click };
+    function see() {
+      common_vendor.index.previewImage({
+        urls: [info.mask]
+      });
+    }
+    function download(item) {
+      common_vendor.index.showModal({
+        title: "\u662F\u5426\u4FDD\u5B58\u8BE5\u89C6\u9891",
+        success(res) {
+          if (res.cancel)
+            return;
+          common_vendor.index.showLoading({
+            title: "\u4E0B\u8F7D\u5230\u672C\u5730\u4E2D"
+          });
+          common_vendor.index.downloadFile({
+            url: item.src,
+            success({ tempFilePath }) {
+              common_vendor.index.showLoading({
+                title: "\u4FDD\u5B58\u4E2D"
+              });
+              common_vendor.index.saveVideoToPhotosAlbum({
+                filePath: tempFilePath,
+                success() {
+                  common_vendor.index.showToast({
+                    title: "\u4FDD\u5B58\u6210\u529F"
+                  });
+                },
+                fail(e) {
+                  common_vendor.index.showToast({
+                    title: "\u4FDD\u5B58\u5931\u8D25",
+                    icon: "error"
+                  });
+                },
+                complete() {
+                  common_vendor.index.hideLoading();
+                }
+              });
+            },
+            complete() {
+              common_vendor.index.hideLoading();
+            }
+          });
+        }
+      });
+    }
+    return { info, person, hid_work, download, see, addWork, trash, more_stop, more_click, delete_work };
   }
 };
 if (!Array) {
@@ -159,45 +237,55 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     b: common_vendor.t($setup.info.title),
     c: common_vendor.t($setup.info.description),
-    d: $setup.info.mask,
-    e: $setup.person.avatar,
-    f: common_vendor.t($setup.person.name),
-    g: common_vendor.t($setup.info.works.length),
-    h: common_vendor.p({
+    d: common_vendor.o((...args) => $setup.see && $setup.see(...args)),
+    e: $setup.info.mask,
+    f: $setup.person.avatar,
+    g: common_vendor.t($setup.person.name),
+    h: common_vendor.t($setup.info.works.length),
+    i: common_vendor.o($setup.delete_work),
+    j: common_vendor.p({
       type: "trash",
       size: "25"
     }),
-    i: common_vendor.o((...args) => $setup.addWork && $setup.addWork(...args)),
-    j: common_vendor.f($setup.info.works, (item, index, i0) => {
+    k: common_vendor.o((...args) => $setup.addWork && $setup.addWork(...args)),
+    l: common_vendor.f($setup.info.works, (item, index, i0) => {
       return {
         a: item.mask,
         b: common_vendor.t(item.name),
         c: common_vendor.o(($event) => $setup.more_click(item)),
         d: "297aef67-2-" + i0,
-        e: common_vendor.o(($event) => $setup.hid_work(item)),
-        f: "297aef67-3-" + i0,
-        g: common_vendor.p({
+        e: item.more,
+        f: common_vendor.o(($event) => $setup.hid_work(item)),
+        g: "297aef67-3-" + i0,
+        h: common_vendor.p({
           type: item.show_work == "show" ? "eye" : "eye-slash",
           size: "25"
         }),
-        h: common_vendor.o(($event) => $setup.trash(item, index)),
-        i: "297aef67-4-" + i0,
-        j: item.more ? "90px" : "0px",
-        k: item.more ? "flex" : "none",
-        l: index
+        i: item.more,
+        j: common_vendor.o(($event) => $setup.trash(item, index)),
+        k: "297aef67-4-" + i0,
+        l: item.more,
+        m: common_vendor.o(($event) => $setup.download(item)),
+        n: "297aef67-5-" + i0,
+        o: item.more ? "120px" : "0px",
+        p: index
       };
     }),
-    k: $setup.person.avatar,
-    l: common_vendor.t($setup.person.name),
-    m: common_vendor.p({
+    m: $setup.person.avatar,
+    n: common_vendor.t($setup.person.name),
+    o: common_vendor.p({
       type: "more-filled",
       size: "25"
     }),
-    n: common_vendor.p({
+    p: common_vendor.p({
       type: "trash",
       size: "25"
     }),
-    o: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args))
+    q: common_vendor.p({
+      type: "download",
+      size: "25"
+    }),
+    r: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-297aef67"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/manage_work/manage_work.vue"]]);

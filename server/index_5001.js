@@ -598,7 +598,7 @@ app.get('/get_hottest_video',(req,res)=>{
         return 
     }
     const {skip}=req.query
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid,w.openid as openid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -1318,6 +1318,36 @@ app.post('/set_video',(req,res)=>{
     const {uuid,state}=req.body
     update(dbs,table('work'),{video_id:uuid},'show_work',state?'show':'hid','string').then(e=>{
         send(res,state?'show':'hid')
+    }).catch(e=>{
+        send_err(res,e)
+    })
+})
+
+
+app.post('/deleted_video_collection',(req,res)=>{
+    if(typeof req.body === 'string')
+    req.body=JSON.parse(req.body)
+    if(!req.body.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    Object.keys(req.body).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {uuid}=req.body
+    // 隐藏
+    update(dbs,table('works'),{uuid:uuid},'state','deleted','string').then(e=>{
+        send(res)
     }).catch(e=>{
         send_err(res,e)
     })

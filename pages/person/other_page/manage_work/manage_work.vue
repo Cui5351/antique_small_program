@@ -8,7 +8,7 @@
 				<view class="d">&emsp;{{info.description}}</view>
 				</view>
 			  <view class="mask">
-				  <image :src="info.mask" mode="aspectFill"></image>
+				  <image @click="see" :src="info.mask" mode="aspectFill"></image>
 			  </view>
 		  </view>
 		  <view class="other">
@@ -19,7 +19,7 @@
 				  </view>
 			  </view>
 			  <view style="color: gray;">作品·{{info.works.length}}
-			  <uni-icons type="trash" size="25"></uni-icons>
+			  <uni-icons type="trash" @click="delete_work" size="25"></uni-icons>
 			  </view>
 		  </view>
 	  </view>
@@ -42,19 +42,21 @@
 					  </view>
 					  <view class="c flex_j_a_r more">
 						  <uni-icons  @click="more_click(item)" type="more-filled" size="25"></uni-icons>
-						  <view class="se" :style="{height:item.more?'90px':'0px',display:item.more?'flex':'none'}">
+						  <view class="se" :style="{height:item.more?'120px':'0px'}">
 							  <view>
-								  <uni-icons @click="hid_work(item)" :type="item.show_work=='show'?'eye':'eye-slash'" size="25"></uni-icons>
+								  <uni-icons  v-show="item.more" @click="hid_work(item)" :type="item.show_work=='show'?'eye':'eye-slash'" size="25"></uni-icons>
 							  </view>
 							  <view>
-								  <uni-icons @click="trash(item,index)" type="trash" size="25"></uni-icons>
+								  <uni-icons  v-show="item.more" @click="trash(item,index)" type="trash" size="25"></uni-icons>
 							  </view>
+								<view>
+									<uni-icons  v-show="item.more" @click="download(item)" type="download" size="25"></uni-icons>
+								</view>
 						  </view>
 					  </view>
 				  </view>
 			  </view>
 		  </view>
-		  <view class="bu"></view>
 	  </view>
   </view>
 </template>
@@ -147,12 +149,45 @@ export default{
 			return
 		ite.more=false
 	}
+	function delete_work(){
+		uni.showModal({
+			title:'是否删除该作品集和全部作品',
+			success(res) {
+				if(res.cancel)
+					return
+				uni.request({
+					url:uni.current_this.baseURL+':5001/deleted_video_collection',
+					method:"POST",
+					data:{
+						uuid:info.uuid
+					},
+					success(res) {
+						console.log(res);
+						if(uni.current_this.check_res_state(res))
+							return
+						uni.current_this.store.state.user_info.works.forEach((ite,i)=>{
+							if(ite.uuid==info.uuid)
+								uni.current_this.store.state.user_info.works.splice(i,1)	
+						})
+						uni.navigateBack()
+						uni.showToast({
+							title:'删除成功'
+						})
+					}
+				})
+			}	
+		})
+	}
 	function trash(item,index){
 		uni.showModal({
 			title:'是否删除该作品',
 			success(res) {
 				if(res.cancel)
 					return				
+					uni.showLoading({
+						title:'删除中',
+						mask:true
+					})
 				uni.request({
 					url:uni.current_this.baseURL+':5001/deleted_video',
 					method:"POST",
@@ -203,7 +238,50 @@ export default{
 				}
 			})
 	}
-    return{info,person,hid_work,addWork,trash,more_stop,more_click}
+	function see(){
+		uni.previewImage({
+			urls:[info.mask]
+		})
+	}
+	function download(item){
+		uni.showModal({
+			title:'是否保存该视频',
+			success(res) {
+				if(res.cancel)
+					return
+		uni.showLoading({
+			title:'下载到本地中'
+		})
+		uni.downloadFile({
+			url:item.src,
+			success({tempFilePath}) {
+				uni.showLoading({
+					title:'保存中'
+				})
+				uni.saveVideoToPhotosAlbum({
+					filePath:tempFilePath,
+					success() {
+						uni.showToast({
+							title:'保存成功'
+						})
+					},fail(e) {
+						uni.showToast({
+							title:'保存失败',
+							icon:'error'
+						})
+					},
+					complete() {
+						uni.hideLoading()
+					}
+				})
+			},
+			complete() {
+				uni.hideLoading()
+			}
+		})
+		}})
+	}
+    return{info,person,hid_work,download,see,addWork,trash,more_stop,more_click,delete_work}
   }
 }
 </script>

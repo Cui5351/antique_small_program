@@ -12,22 +12,22 @@
 		.se{
 			height:0px;
 			display: flex;
-			&::after{
-				position:absolute;
-				height:10px;
-				width:10px;
-				background-color: white;
-				z-index:100;
-				left:50%;
-				transform: translate(-50%,-90%);
-			}
+			// &::after{
+			// 	position:absolute;
+			// 	height:10px;
+			// 	width:10px;
+			// 	background-color: white;
+			// 	z-index:100;
+			// 	left:50%;
+			// 	transform: translate(-50%,-90%);
+			// }
 			display: flex;
 			flex-direction: column;
 			&>view{
-				height:45px;
+				height:40px;
 				width:100%;
 				text-align: center;
-				line-height: 45px;
+				line-height: 40px;
 				&:active{
 					background-color:rgba(0,0,0,0.1);
 				}
@@ -36,7 +36,7 @@
 			box-shadow:1px -1px 20px 5px rgba(0,0,0,0.1);
 			position: absolute;
 			width:50px;
-			transform: translateY(70%);
+			transform: translateY(60%);
 			overflow: hidden;
 			transition: .2s ease;
 		}
@@ -88,17 +88,13 @@
 	}
 }
 .works{
-	.bu{
-		height:100px;
-		background-color: transparent;
-	}
 	overflow-y: auto;
 	width:100%;
 	@include height(70%);
 	display: flex;
 	flex-wrap: wrap;
 	column-count: 2;
-	padding:10px 10px 20px 10px;
+	padding:10px 10px 130px 10px;
 	box-sizing: border-box;
 	justify-content: space-between;
 	&>.item{

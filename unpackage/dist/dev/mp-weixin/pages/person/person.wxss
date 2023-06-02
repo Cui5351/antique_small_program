@@ -389,6 +389,8 @@ image.data-v-390a77b4 {
 }
 .container .moment.data-v-390a77b4 {
   height: 80px;
+  padding: 0 10px;
+  box-sizing: border-box;
   margin: 20px 0;
   display: flex;
 }

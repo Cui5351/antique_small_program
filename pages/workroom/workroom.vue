@@ -12,7 +12,7 @@
 			<uni-icons type="videocam-filled" size='25'></uni-icons>
 		</view>
 	</view>
-  <scroll-view @touchstart="show_add=false" scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
+  <scroll-view @touchstart="show_add=false" @scroll="show_add=false" scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
 	  <view  class="containe">
 	<!-- <view class="show_head head_tit">非遗社区</view> -->
       <view class="head">
@@ -31,9 +31,9 @@
 		  </view>
 	  </view>
 	  <view class="passage">
-		<view  v-for="(item,index) in moment" :key="index">
-			<view class="person" @click="user_info(item)">
-				<view class="avatar">
+		<view  v-for="(item,index) in moment" :key="index"  @click="detail(item)">
+			<view class="person">
+				<view class="avatar" @click.prevent="user_info(item)">
 					<image :src="item.avatar" mode=""></image>
 				</view>
 				<view>
@@ -41,18 +41,18 @@
 					<view style="color: gray;font-size: 13px;">{{item.place}}</view>
 				</view>
 			</view>
-			<view class="content"  @click="detail(item)">
+			<view class="content">
 				<text style="width:100%;height:100%;" selectable="true">
 				{{item.content}}
 				</text>
 			</view>
-			<view class="pic" v-if="item.type=='v'" @click="detail(item)">
+			<view class="pic" v-if="item.type=='v'">
 				<video :src="item.src" :poster="item.mask" @click.prevent="()=>{}"></video>
 			</view>
-			<view class="pic" v-if="item.src[0]!=null&&item.type=='p'"  @click="detail(item)">
+			<view class="pic" v-if="item.src[0]!=null&&item.type=='p'" >
 				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
 			</view>
-			<view class="other flex_j_a_r" @click="detail(item)">
+			<view class="other flex_j_a_r">
 				<view class="flex_j_a_r">
 					<uni-icons type="heart" size="25"></uni-icons>0
 					<uni-icons type="eye" size="25"></uni-icons>{{item.browse}}
@@ -228,12 +228,12 @@ export default{
 			})
 	}
 	function user_info(item){
-		if(item.openid==uni.current_this.store.getters.openid){
-			uni.switchTab({
-				url:'/pages/person/person'
-			})
-			return
-		}
+		// if(item.openid==uni.current_this.store.getters.openid){
+		// 	uni.switchTab({
+		// 		url:'/pages/person/person'
+		// 	})
+		// 	return
+		// }
 		uni.navigateTo({
 			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
 				avatar:item.avatar,

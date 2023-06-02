@@ -92,6 +92,9 @@ const getters = {
   },
   my_moments(state2) {
     return state2.user_info.moments;
+  },
+  works(state2) {
+    return state2.user_info.works;
   }
 };
 var store = common_vendor.createStore({

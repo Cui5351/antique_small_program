@@ -92,6 +92,9 @@ const getters={
 	},
 	my_moments(state){
 		return state.user_info.moments
+	},
+	works(state){
+		return state.user_info.works
 	}
 }
 export default createStore({

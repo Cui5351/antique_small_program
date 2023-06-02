@@ -441,6 +441,8 @@ image.data-v-ae4c9f56 {
 }
 .container .moment.data-v-ae4c9f56 {
   height: 80px;
+  padding: 0 10px;
+  box-sizing: border-box;
   margin: 20px 0;
   display: flex;
 }

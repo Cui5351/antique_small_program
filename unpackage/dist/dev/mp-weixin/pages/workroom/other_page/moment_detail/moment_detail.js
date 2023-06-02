@@ -259,28 +259,29 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "more-filled",
       size: "25"
     }),
-    i: common_vendor.o($setup.hidW),
-    j: common_vendor.p({
+    i: $setup.more,
+    j: common_vendor.o($setup.hidW),
+    k: common_vendor.p({
       type: $setup.info.show ? "eye" : "eye-slash",
       size: "25"
     }),
-    k: common_vendor.o($setup.delW),
-    l: common_vendor.p({
+    l: $setup.more,
+    m: common_vendor.o($setup.delW),
+    n: common_vendor.p({
       type: "trash",
       size: "25"
     }),
-    m: $setup.more ? "90px" : "0px",
-    n: $setup.more ? "flex" : "none"
+    o: $setup.more ? "90px" : "0px"
   } : {
-    o: common_vendor.p({
+    p: common_vendor.p({
       type: "star",
       size: "25"
     })
   }, {
-    p: common_vendor.t($setup.info.content),
-    q: $setup.info.src[0] != null && $setup.info.type == "p"
+    q: common_vendor.t($setup.info.content),
+    r: $setup.info.src[0] != null && $setup.info.type == "p"
   }, $setup.info.src[0] != null && $setup.info.type == "p" ? {
-    r: common_vendor.f($setup.info.src, (item2, index, i0) => {
+    s: common_vendor.f($setup.info.src, (item2, index, i0) => {
       return {
         a: item2,
         b: common_vendor.o(($event) => $setup.check_pict(index), index),
@@ -288,17 +289,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    s: $setup.info.type == "v"
+    t: $setup.info.type == "v"
   }, $setup.info.type == "v" ? {
-    t: $setup.info.src,
-    v: $setup.info.mask
+    v: $setup.info.src,
+    w: $setup.info.mask
   } : {}, {
-    w: common_vendor.o(_ctx.send_friend),
-    x: common_vendor.p({
+    x: common_vendor.o(_ctx.send_friend),
+    y: common_vendor.p({
       type: "redo",
       size: "25"
     }),
-    y: common_vendor.f($setup.moments, (item, index, i0) => {
+    z: common_vendor.f($setup.moments, (item, index, i0) => {
       return {
         a: item.avatar,
         b: common_vendor.t(item.name),
@@ -307,18 +308,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    z: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
-    A: common_vendor.p({
+    A: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
+    B: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    B: $setup.text,
-    C: common_vendor.o(($event) => $setup.text = $event.detail.value),
-    D: common_vendor.p({
+    C: $setup.text,
+    D: common_vendor.o(($event) => $setup.text = $event.detail.value),
+    E: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    E: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
+    F: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2a14840c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);

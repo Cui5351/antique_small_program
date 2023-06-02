@@ -415,9 +415,8 @@ image.data-v-0672b006 {
   margin: 3px;
 }
 .passage .pic > video.data-v-0672b006 {
-  width: 200px;
-  height: 150px;
-  margin: 3px;
+  width: 80%;
+  height: 160px;
 }
 .passage .other.data-v-0672b006 {
   overflow: hidden;

@@ -10,7 +10,7 @@ const _sfc_main = {
       introduce: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.introduce),
       counts: [0, 0, 0],
       toggle: false,
-      works: common_vendor.index.current_this.store.state.user_info.works,
+      works: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.works),
       works2: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.my_moments)
     });
     function toggle(bool) {
