@@ -437,7 +437,9 @@ image.data-v-390a77b4 {
 }
 .container .moment > .mtxt > .item.data-v-390a77b4 {
   width: 100%;
+  color: gray;
   height: 25px;
+  font-size: 14px;
   position: absolute;
   z-index: 2;
   background-color: white;

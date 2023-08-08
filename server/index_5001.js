@@ -1220,8 +1220,9 @@ app.post('/get_person_community_moments2',(req,res)=>{
             for(let i=0;i<result.length;i++){
                 try{
                     await new Promise((resolve2,reject2)=>{
-                        query(dbs,table('community_moment_pic'),'src',{uuid:result[i].uuid}).then(e=>{
+                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
                             result[i].src=e.map(e=>e.src)
+                            result[i].mask=e.map(e=>e.mask)
                             resolve2()
                         }).catch(e=>{
                             reject2()

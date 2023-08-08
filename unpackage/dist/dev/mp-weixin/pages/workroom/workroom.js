@@ -155,6 +155,7 @@ const _sfc_main = {
       });
     }
     function user_info(item) {
+      console.log(item, "item");
       common_vendor.index.navigateTo({
         url: `/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
           avatar: item.avatar,
@@ -182,27 +183,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: "white"
     }),
     b: common_vendor.n($setup.show_add ? "add show_add flex_j_a_c" : "add flex_j_a_c"),
-    c: common_vendor.p({
-      type: "chatbubble-filled",
-      size: "25"
-    }),
-    d: common_vendor.n($setup.show_add ? "add show_add2 flex_j_a_c" : "add flex_j_a_c"),
-    e: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
-    f: common_vendor.p({
-      type: "videocam-filled",
-      size: "25"
-    }),
-    g: common_vendor.n($setup.show_add ? "add show_add3 flex_j_a_c" : "add flex_j_a_c"),
-    h: common_vendor.o((...args) => $setup.publish_moment2 && $setup.publish_moment2(...args)),
-    i: common_vendor.o(($event) => $setup.show_add = true),
-    j: common_vendor.f(["\u4F20\u627F\u975E\u9057", "\u5DE5\u5320\u7CBE\u795E", "\u4E60\u603B\u4E66\u8BB0\u8BF4\u975E\u9057", "\u6765\u81EA\u975E\u9057\u5DE5\u4F5C\u5BA4\u7684\u79D8\u5BC6", "\u975E\u9057\u5143\u5B87\u5B99", "\u548C\u6211\u4EEC\u4E00\u8D77\u7545\u6E38\u975E\u9057\u5427"], (item, index, i0) => {
+    c: common_vendor.n($setup.show_add ? "add show_add2 flex_j_a_c" : "add flex_j_a_c"),
+    d: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
+    e: common_vendor.n($setup.show_add ? "add show_add3 flex_j_a_c" : "add flex_j_a_c"),
+    f: common_vendor.o((...args) => $setup.publish_moment2 && $setup.publish_moment2(...args)),
+    g: common_vendor.o(($event) => $setup.show_add = true),
+    h: common_vendor.f(["\u4F20\u627F\u975E\u9057", "\u5DE5\u5320\u7CBE\u795E", "\u4E60\u603B\u4E66\u8BB0\u8BF4\u975E\u9057", "\u6765\u81EA\u975E\u9057\u5DE5\u4F5C\u5BA4\u7684\u79D8\u5BC6", "\u975E\u9057\u5143\u5B87\u5B99", "\u548C\u6211\u4EEC\u4E00\u8D77\u7545\u6E38\u975E\u9057\u5427"], (item, index, i0) => {
       return {
         a: common_vendor.t(index + 1),
         b: common_vendor.t(item),
         c: index
       };
     }),
-    k: common_vendor.f($setup.moment, (item, index, i0) => {
+    i: common_vendor.f($setup.moment, (item, index, i0) => {
       return common_vendor.e({
         a: item.avatar,
         b: common_vendor.o(($event) => $setup.user_info(item)),
@@ -224,39 +217,40 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             b: item2,
             c: index2
           };
-        })
+        }),
+        l: common_vendor.n(item.src.length > 1 ? "pic" : "pic2")
       } : {}, {
-        l: "0672b006-3-" + i0,
-        m: "0672b006-4-" + i0,
-        n: common_vendor.t(item.browse),
-        o: "0672b006-5-" + i0,
-        p: common_vendor.t(item.moment_count),
-        q: "0672b006-6-" + i0,
-        r: common_vendor.t(item.send_date),
-        s: index,
-        t: common_vendor.o(($event) => $setup.detail(item), index)
+        m: "0672b006-1-" + i0,
+        n: "0672b006-2-" + i0,
+        o: common_vendor.t(item.browse),
+        p: "0672b006-3-" + i0,
+        q: common_vendor.t(item.moment_count),
+        r: "0672b006-4-" + i0,
+        s: common_vendor.t(item.send_date),
+        t: index,
+        v: common_vendor.o(($event) => $setup.detail(item), index)
       });
     }),
-    l: common_vendor.p({
+    j: common_vendor.p({
       type: "heart",
       size: "25"
     }),
-    m: common_vendor.p({
+    k: common_vendor.p({
       type: "eye",
       size: "25"
     }),
-    n: common_vendor.p({
+    l: common_vendor.p({
       type: "chat",
       size: "25"
     }),
-    o: common_vendor.p({
+    m: common_vendor.p({
       type: "paperplane",
       size: "25"
     }),
-    p: common_vendor.o(($event) => $setup.show_add = false),
-    q: common_vendor.o(($event) => $setup.show_add = false),
-    r: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
-    s: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
+    n: common_vendor.o(($event) => $setup.show_add = false),
+    o: common_vendor.o(($event) => $setup.show_add = false),
+    p: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
+    q: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0672b006"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/workroom.vue"]]);

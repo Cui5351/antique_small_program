@@ -233,8 +233,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       }, item.type == "p" ? {
         i: common_vendor.t(item.src.length)
       } : {}, {
-        j: common_vendor.o(($event) => $setup.detail(item), index),
-        k: index
+        j: item.type == "v"
+      }, item.type == "v" ? {} : {}, {
+        k: common_vendor.o(($event) => $setup.detail(item), index),
+        l: index
       });
     })
   } : {}, {

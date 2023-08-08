@@ -4,12 +4,14 @@
 			<uni-icons type="plusempty" size="25" color="white"></uni-icons>
 		</view>
 		<view :class="show_add?'add show_add flex_j_a_c':'add flex_j_a_c'">
+			<image src="../../static/forbid.svg" mode=""  style="transform: scale(.7);"></image>
 		</view>
 		<view :class="show_add?'add show_add2 flex_j_a_c':'add flex_j_a_c'" @click.prevent="publish_moment">
-			<uni-icons type="chatbubble-filled" size="25"></uni-icons>
+			<!-- <uni-icons type="chatbubble-filled" size="25"></uni-icons> -->
+			<image src="../../static/message.svg" mode=""></image>
 		</view>
 		<view :class="show_add?'add show_add3 flex_j_a_c':'add flex_j_a_c'"  @click.prevent="publish_moment2">
-			<uni-icons type="videocam-filled" size='25'></uni-icons>
+			<image style="transform: scale(.65);" src="../../static/video.svg" mode=""></image>
 		</view>
 	</view>
   <scroll-view @touchstart="show_add=false" @scroll="show_add=false" scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
@@ -49,7 +51,7 @@
 			<view class="pic" v-if="item.type=='v'">
 				<video :src="item.src" :poster="item.mask" @click.prevent="()=>{}"></video>
 			</view>
-			<view class="pic" v-if="item.src[0]!=null&&item.type=='p'" >
+			<view :class="item.src.length>1?'pic':'pic2'" v-if="item.src[0]!=null&&item.type=='p'" >
 				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
 			</view>
 			<view class="other flex_j_a_r">
@@ -234,6 +236,7 @@ export default{
 		// 	})
 		// 	return
 		// }
+		console.log(item,'item');
 		uni.navigateTo({
 			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
 				avatar:item.avatar,

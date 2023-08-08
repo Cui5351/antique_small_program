@@ -175,14 +175,23 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       return common_vendor.e({
         a: common_vendor.t(item.send_date),
         b: common_vendor.t(item.place),
-        c: item.src.length
-      }, item.src.length ? {
+        c: item.src.length && item.type == "p"
+      }, item.src.length && item.type == "p" ? {
         d: item.src[0]
       } : {}, {
-        e: common_vendor.t(item.content),
-        f: common_vendor.t(item.src.length),
-        g: common_vendor.o(($event) => $setup.detail(item), index),
-        h: index
+        e: item.type == "v"
+      }, item.type == "v" ? {
+        f: item.mask[0]
+      } : {}, {
+        g: common_vendor.t(item.content),
+        h: item.type == "p"
+      }, item.type == "p" ? {
+        i: common_vendor.t(item.src.length)
+      } : {}, {
+        j: item.type == "v"
+      }, item.type == "v" ? {} : {}, {
+        k: common_vendor.o(($event) => $setup.detail(item), index),
+        l: index
       });
     })
   } : {}, {

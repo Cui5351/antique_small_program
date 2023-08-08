@@ -97,8 +97,12 @@ image.data-v-ae4c9f56 {
   min-height: 23% !important;
   height: 23% !important;
 }
+.avatar_right.data-v-ae4c9f56 {
+  margin-top: 15px;
+}
 .in.data-v-ae4c9f56 {
   margin-top: 30px;
+  font-size: 15px;
 }
 .in > view.data-v-ae4c9f56 {
   margin: 2px 0;
@@ -489,7 +493,9 @@ image.data-v-ae4c9f56 {
 }
 .container .moment > .mtxt > .item.data-v-ae4c9f56 {
   width: 100%;
+  color: gray;
   height: 25px;
+  font-size: 14px;
   position: absolute;
   z-index: 2;
   background-color: white;

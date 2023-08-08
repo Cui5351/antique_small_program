@@ -52,6 +52,11 @@ const actions={
 		}
 		commit("BUY")
 	},
+	addmoment({state},value){
+		state.user_info.moments.unshift({...JSON.parse(value)})
+		state.moments.unshift({...JSON.parse(value)})
+		console.log(state);
+	},
 	deleteBill({commit},value){
 		let val=JSON.parse(value)
 		let len=state.cars.length;

@@ -260,6 +260,9 @@
 						reqs.skip+=res.data.data.length
 					},complete() {
 						setTimeout(()=>{
+							// 首页视频最多20
+							if(video.push.length>=20)
+								return
 							reqs.state=false
 						},1000)
 						uni.hideLoading()

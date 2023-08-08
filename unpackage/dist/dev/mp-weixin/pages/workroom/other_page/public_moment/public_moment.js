@@ -106,7 +106,7 @@ const _sfc_main = {
         success(res) {
           if (common_vendor.index.current_this.check_res_state(res))
             return;
-          common_vendor.index.current_this.store.state.moments.unshift({
+          common_vendor.index.current_this.store.dispatch("addmoment", JSON.stringify({
             avatar: common_vendor.index.current_this.store.state.user_info.avatar,
             openid: common_vendor.index.current_this.store.state.user_info.openid,
             name: common_vendor.index.current_this.store.state.user_info.name,
@@ -118,7 +118,7 @@ const _sfc_main = {
             browser: 0,
             uuid: res.data.data.uuid,
             moment_count: 0
-          });
+          }));
           common_vendor.index.navigateBack();
           common_vendor.index.showToast({
             title: "\u53D1\u5E03\u6210\u529F",

@@ -1,4 +1,20 @@
 "use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
 var common_vendor = require("../common/vendor.js");
 common_vendor.index.getStorage({
   key: "cars",
@@ -51,6 +67,11 @@ const actions = {
         state2.cars.push(val);
     }
     commit("BUY");
+  },
+  addmoment({ state: state2 }, value) {
+    state2.user_info.moments.unshift(__spreadValues({}, JSON.parse(value)));
+    state2.moments.unshift(__spreadValues({}, JSON.parse(value)));
+    console.log(state2);
   },
   deleteBill({ commit }, value) {
     let val = JSON.parse(value);

@@ -147,20 +147,20 @@ export default{
 					success(res) {
 						if(uni.current_this.check_res_state(res))
 							return
-						uni.current_this.store.state.moments.unshift({
+						uni.current_this.store.dispatch('addmoment',JSON.stringify({
 							avatar:uni.current_this.store.state.user_info.avatar,
 							openid:uni.current_this.store.state.user_info.openid,
 							name:uni.current_this.store.state.user_info.name,
 							type:'v',
 							src:info.sus[0],
-							mask:info.sus[1],
+							mask:[info.sus[1]],
 							content:info.content,
 							place:info.place.length?info.place:'火星',
 							send_date:uni.current_this.dateformat_accuracy(new Date()),
 							browser:0,
 							uuid:res.data.data.uuid,
-							moment_count:0
-						})
+							moment_count:0,
+						}))
 						uni.navigateBack()
 						uni.showToast({
 							title:'发布成功',

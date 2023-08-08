@@ -3,7 +3,7 @@
   <view class="containe" @touchstart="more_stop">
       <view class="person">
 		  <view class="hd">
-			  <view class="avatar">
+			  <view class="avatar" @click="author_info">
 				  <image :src="info.avatar" mode=""></image>
 			  </view>
 			  <view>
@@ -310,7 +310,15 @@ export default{
 	function more_stop(){
 		more.value=false
 	}
-    return{info,more_stop,more_click,more,send_mes,check_pict,text,moments,delW,hidW}
+	function author_info(){
+		uni.navigateTo({
+			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
+				avatar:info.avatar,
+				name:info.name,
+				openid:info.openid
+			})}`})
+	}
+    return{info,more_stop,author_info,more_click,more,send_mes,check_pict,text,moments,delW,hidW}
   }
 }
 </script>

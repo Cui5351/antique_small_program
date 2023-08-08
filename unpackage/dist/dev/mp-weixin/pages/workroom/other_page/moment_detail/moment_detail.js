@@ -231,7 +231,16 @@ const _sfc_main = {
     function more_stop() {
       more.value = false;
     }
-    return { info, more_stop, more_click, more, send_mes, check_pict, text, moments, delW, hidW };
+    function author_info() {
+      common_vendor.index.navigateTo({
+        url: `/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
+          avatar: info.avatar,
+          name: info.name,
+          openid: info.openid
+        })}`
+      });
+    }
+    return { info, more_stop, author_info, more_click, more, send_mes, check_pict, text, moments, delW, hidW };
   }
 };
 if (!Array) {
@@ -249,39 +258,40 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       name: "\u8FD4\u56DE"
     }),
     b: $setup.info.avatar,
-    c: common_vendor.t($setup.info.name),
-    d: common_vendor.t($setup.info.send_date),
-    e: common_vendor.t($setup.info.place),
-    f: $setup.info.state
+    c: common_vendor.o((...args) => $setup.author_info && $setup.author_info(...args)),
+    d: common_vendor.t($setup.info.name),
+    e: common_vendor.t($setup.info.send_date),
+    f: common_vendor.t($setup.info.place),
+    g: $setup.info.state
   }, $setup.info.state ? {
-    g: common_vendor.o($setup.more_click),
-    h: common_vendor.p({
+    h: common_vendor.o($setup.more_click),
+    i: common_vendor.p({
       type: "more-filled",
       size: "25"
     }),
-    i: $setup.more,
-    j: common_vendor.o($setup.hidW),
-    k: common_vendor.p({
+    j: $setup.more,
+    k: common_vendor.o($setup.hidW),
+    l: common_vendor.p({
       type: $setup.info.show ? "eye" : "eye-slash",
       size: "25"
     }),
-    l: $setup.more,
-    m: common_vendor.o($setup.delW),
-    n: common_vendor.p({
+    m: $setup.more,
+    n: common_vendor.o($setup.delW),
+    o: common_vendor.p({
       type: "trash",
       size: "25"
     }),
-    o: $setup.more ? "90px" : "0px"
+    p: $setup.more ? "90px" : "0px"
   } : {
-    p: common_vendor.p({
+    q: common_vendor.p({
       type: "star",
       size: "25"
     })
   }, {
-    q: common_vendor.t($setup.info.content),
-    r: $setup.info.src[0] != null && $setup.info.type == "p"
+    r: common_vendor.t($setup.info.content),
+    s: $setup.info.src[0] != null && $setup.info.type == "p"
   }, $setup.info.src[0] != null && $setup.info.type == "p" ? {
-    s: common_vendor.f($setup.info.src, (item2, index, i0) => {
+    t: common_vendor.f($setup.info.src, (item2, index, i0) => {
       return {
         a: item2,
         b: common_vendor.o(($event) => $setup.check_pict(index), index),
@@ -289,17 +299,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     })
   } : {}, {
-    t: $setup.info.type == "v"
+    v: $setup.info.type == "v"
   }, $setup.info.type == "v" ? {
-    v: $setup.info.src,
-    w: $setup.info.mask
+    w: $setup.info.src,
+    x: $setup.info.mask
   } : {}, {
-    x: common_vendor.o(_ctx.send_friend),
-    y: common_vendor.p({
+    y: common_vendor.o(_ctx.send_friend),
+    z: common_vendor.p({
       type: "redo",
       size: "25"
     }),
-    z: common_vendor.f($setup.moments, (item, index, i0) => {
+    A: common_vendor.f($setup.moments, (item, index, i0) => {
       return {
         a: item.avatar,
         b: common_vendor.t(item.name),
@@ -308,18 +318,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: index
       };
     }),
-    A: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
-    B: common_vendor.p({
+    B: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
+    C: common_vendor.p({
       type: "star",
       size: "25"
     }),
-    C: $setup.text,
-    D: common_vendor.o(($event) => $setup.text = $event.detail.value),
-    E: common_vendor.p({
+    D: $setup.text,
+    E: common_vendor.o(($event) => $setup.text = $event.detail.value),
+    F: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    F: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
+    G: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
   });
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2a14840c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);

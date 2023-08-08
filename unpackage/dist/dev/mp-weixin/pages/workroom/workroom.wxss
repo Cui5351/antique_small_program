@@ -284,6 +284,12 @@ image.data-v-0672b006 {
   background-color: white;
   transform: translate(0%, 0%);
 }
+.add > image.data-v-0672b006 {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  transform: scale(0.8);
+}
 .show_add.data-v-0672b006 {
   box-shadow: -2px -2px 15px -3px gray;
   transform: translate(-150%, -120%);
@@ -403,6 +409,20 @@ image.data-v-0672b006 {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+.passage .pic2.data-v-0672b006 {
+  display: flex;
+  column-count: 3;
+  flex-wrap: wrap;
+}
+.passage .pic2 > image.data-v-0672b006 {
+  max-width: 200px;
+  height: 130px;
+  margin: 3px;
+}
+.passage .pic2 > video.data-v-0672b006 {
+  width: 80%;
+  height: 160px;
 }
 .passage .pic.data-v-0672b006 {
   display: flex;

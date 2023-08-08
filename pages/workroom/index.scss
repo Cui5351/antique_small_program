@@ -20,6 +20,12 @@
 	transition:.3s ease;
 	background-color: white;
 	transform: translate(-0%,-0%);
+	&>image{
+		height:100%;
+		width:100%;
+		background-color: rgba(0,0,0,0);
+		transform: scale(.8);
+	}
 }
 .show_add{
 	box-shadow:-2px -2px 15px -3px gray;
@@ -165,12 +171,27 @@
 			}
 		}
 	}
+	.pic2{
+		display: flex;
+		column-count: 3;
+		flex-wrap: wrap;
+		&>image{
+			max-width:200px;
+			height:130px;
+			margin:3px;
+		}
+		&>video{
+			width:80%;
+			height:160px;
+		}
+	}
 	.pic{
 		display: flex;
 		column-count: 3;
 		flex-wrap: wrap;
 		&>image{
 			width:100px;
+			// max-width:200px;
 			height:130px;
 			margin:3px;
 		}

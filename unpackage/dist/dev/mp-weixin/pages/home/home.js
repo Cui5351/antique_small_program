@@ -167,6 +167,8 @@ const _sfc_main = {
         },
         complete() {
           setTimeout(() => {
+            if (video.push.length >= 20)
+              return;
             reqs.state = false;
           }, 1e3);
           common_vendor.index.hideLoading();

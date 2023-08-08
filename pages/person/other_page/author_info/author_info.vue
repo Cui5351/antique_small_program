@@ -57,14 +57,23 @@
 						<view class="d">{{item.send_date}}</view>
 						<view class="place">{{item.place}}</view>
 					</view>
-					<view class="mpic" v-if="item.src.length">
+					<view class="mpic" v-if="item.src.length&&item.type=='p'">
+						<!-- {{item.src}} -->
 						<image :src="item.src[0]" mode="aspectFill"></image>
 					</view>
+					<view class="mpic" v-if="item.type=='v'">
+						<!-- {{item.type}} -->
+						<image :src="item.mask[0]" mode="aspectFill"></image>
+					</view>
+					<!-- <view class="mpic" v-if="item.src.length"> -->
+						<!-- <image :src="item.src[0]" mode="aspectFill"></image> -->
+					<!-- </view> -->
 					<view class="mtxt">
 						<view class="mtx">
 							{{item.content}}
 						</view>
-						<view class="item">{{item.src.length}}张</view>
+						<view class="item" v-if="item.type=='p'">({{item.src.length}}张)</view>
+						<view class="item" v-if="item.type=='v'">(视频)</view>
 						</view>
 				</view>
 			<view class="line2 flex_j_a_r">

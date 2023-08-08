@@ -144,7 +144,7 @@ export default{
 					success(res) {
 						if(uni.current_this.check_res_state(res))
 							return
-						uni.current_this.store.state.moments.unshift({
+						uni.current_this.store.dispatch('addmoment',JSON.stringify({
 							avatar:uni.current_this.store.state.user_info.avatar,
 							openid:uni.current_this.store.state.user_info.openid,
 							name:uni.current_this.store.state.user_info.name,
@@ -156,7 +156,7 @@ export default{
 							browser:0,
 							uuid:res.data.data.uuid,
 							moment_count:0
-						})
+						}))
 						uni.navigateBack()
 						uni.showToast({
 							title:'发布成功',

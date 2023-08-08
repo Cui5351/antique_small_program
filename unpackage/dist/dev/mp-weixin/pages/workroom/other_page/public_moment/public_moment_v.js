@@ -109,20 +109,20 @@ const _sfc_main = {
         success(res) {
           if (common_vendor.index.current_this.check_res_state(res))
             return;
-          common_vendor.index.current_this.store.state.moments.unshift({
+          common_vendor.index.current_this.store.dispatch("addmoment", JSON.stringify({
             avatar: common_vendor.index.current_this.store.state.user_info.avatar,
             openid: common_vendor.index.current_this.store.state.user_info.openid,
             name: common_vendor.index.current_this.store.state.user_info.name,
             type: "v",
             src: info.sus[0],
-            mask: info.sus[1],
+            mask: [info.sus[1]],
             content: info.content,
             place: info.place.length ? info.place : "\u706B\u661F",
             send_date: common_vendor.index.current_this.dateformat_accuracy(new Date()),
             browser: 0,
             uuid: res.data.data.uuid,
             moment_count: 0
-          });
+          }));
           common_vendor.index.navigateBack();
           common_vendor.index.showToast({
             title: "\u53D1\u5E03\u6210\u529F",

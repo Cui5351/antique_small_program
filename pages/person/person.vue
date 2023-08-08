@@ -106,7 +106,8 @@
 						<view class="mtx">
 							{{item.content}}
 						</view>
-						<view class="item" v-if="item.type=='p'">{{item.src.length}}张</view>
+						<view class="item" v-if="item.type=='p'">({{item.src.length}}张)</view>
+						<view class="item" v-if="item.type=='v'">(视频)</view>
 						</view>
 				</view>
 			<view class="line2 flex_j_a_r">
