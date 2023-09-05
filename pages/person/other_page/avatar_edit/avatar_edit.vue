@@ -39,7 +39,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 								title:'修改中'
 							})
 							let image_path=e.tempFilePath
-							// let url='https://www.mynameisczy.asia:5001/upload_avatar'
+							// let url='https://mynameisczy.cn:5001/upload_avatar'
 							uni.uploadFile({
 								url:url.value,
 								filePath:image_path,

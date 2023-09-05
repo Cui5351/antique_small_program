@@ -130,6 +130,7 @@ export default{
 					title:'发布作品中',
 					mask:true
 				})
+				console.log(info.sus,'sus');
 		  // 2上传帖子
 		uni.request({
 					url:uni.current_this.baseURL+':5001/upload_moment',
@@ -142,6 +143,7 @@ export default{
 						content:info.content
 					},
 					success(res) {
+						console.log(res,'res');
 						if(uni.current_this.check_res_state(res))
 							return
 						uni.current_this.store.dispatch('addmoment',JSON.stringify({
@@ -166,6 +168,9 @@ export default{
 					complete() {
 						state.value=false
 						uni.hideLoading()
+					},
+					fail(e) {
+						console.log(e,'fail');
 					}
 	})
 	}

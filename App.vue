@@ -3,7 +3,8 @@
 	export default {
 		onLaunch: function() {
 			uni.current_this=this
-			this.baseURL='https://www.mynameisczy.asia'
+			// this.baseURL='https://www.mynameisczy.asia'
+			this.baseURL='https://mynameisczy.cn'
 			this.store=useStore()
 			this.no_develop=function(name){
 				uni.showToast({

@@ -249,7 +249,7 @@
 					return
 				}
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background&name=avatar'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://mynameisczy.cn:5001/upload_background&height=500&width=700&property=background&name=avatar'
 				})
 				
 				return
@@ -306,13 +306,18 @@
 						skip:reqs.skip
 					},success(res) {
 						let w=res.data.data
+						console.log(res);
 						w.forEach(item=>{
-							if(item.src[0]){
-								if(item.src[0].substring(item.src[0].length-3)=='mp4')
-									item.type='v'
-								else
-									item.type='p'
+							if(item.hasOwnProperty("src")){
+								if(item.src[0]){
+									if(item.src[0].substring(item.src[0].length-3)=='mp4')
+										item.type='v'
+									else
+										item.type='p'
+								}
 							}
+							else
+								item.src=[]
 							item.send_date=uni.current_this.dateformat(new Date(item.send_date))
 						})
 						reqs.skip+=w.length

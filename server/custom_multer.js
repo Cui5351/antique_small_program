@@ -3,7 +3,7 @@ const {randomUUID}=require('crypto')
 exports.storage_mask=multer.diskStorage({
     //设置保存路径
     destination: function (req, file, cb) {
-        cb(null, '/backup/server_data/books/antique/video_masks')
+        cb(null, '/www/wwwroot/server/antique/video_masks')
         //注意这里的文件路径,不是相对路径，直接填写从项目根路径开始写就行了
 },
 //设置保存的name
@@ -18,7 +18,7 @@ filename: function (req, file, cb) {
 exports.storage_avatar=multer.diskStorage({
     //设置保存路径
     destination: function (req, file, cb) {
-        cb(null, '/backup/server_data/books/antique/user_avatar')
+        cb(null, '/www/wwwroot/server/antique/user_avatar')
         //注意这里的文件路径,不是相对路径，直接填写从项目根路径开始写就行了
 },
 //设置保存的name
@@ -30,7 +30,7 @@ filename: function (req, file, cb) {
 })
 exports.store_picture=multer.diskStorage({
     destination(req,file,cb){
-        cb(null, '/backup/server_data/books/antique/store_picture')
+        cb(null, '/www/wwwroot/server/antique/store_picture')
     },
     filename(req, file, cb){
         // 1拿到图片的类型
@@ -41,7 +41,7 @@ exports.store_picture=multer.diskStorage({
 exports.storage_background=multer.diskStorage({
     //设置保存路径
     destination: function (req, file, cb) {
-        cb(null, '/backup/server_data/books/antique/user_background')
+        cb(null, '/www/wwwroot/server/antique/user_background')
         //注意这里的文件路径,不是相对路径，直接填写从项目根路径开始写就行了
 },
 //设置保存的name
@@ -56,9 +56,9 @@ exports.antique=multer.diskStorage({
     //设置保存路径
     destination: function (req, file, cb) {
         if((/(jpg|jpeg|png)/g).test(file.mimetype)){
-            cb(null, '/backup/server_data/books/antique/antiques')
+            cb(null, '/www/wwwroot/server/antique/antiques')
         }else if((/(mp4)/g).test(file.mimetype)){
-            cb(null, '/backup/server_data/books/antique/videos')
+            cb(null, '/www/wwwroot/server/antique/videos')
         }else{
             cb(null,null)
         }
@@ -79,7 +79,7 @@ exports.antique=multer.diskStorage({
 exports.moments=multer.diskStorage({
     //设置保存路径
     destination: function (req, file, cb) {
-            cb(null, '/backup/server_data/books/antique/moment_picture')
+            cb(null, '/www/wwwroot/server/antique/moment_picture')
     },
     //设置保存的name
     filename: function (req, file, cb) {    
@@ -99,7 +99,7 @@ exports.WORK=multer.diskStorage({
     //设置保存路径
     destination: function (req, file, cb) {
         if((/(mp4)/g).test(file.mimetype)){
-            cb(null, '/backup/server_data/books/antique/works')
+            cb(null, '/www/wwwroot/server/antique/works')
         }else{
             cb(null,null)
         }

@@ -90,12 +90,12 @@ const _sfc_main = {
 \u4F73\u535A\u7269\u9986\u4E4B\u9996\u201D\u7684\u79F0\u53F7\u30022008\u5E74 \u7269\u9986\u88AB\u5217\u5165\u56FD\u5BB6\u4E00\u7EA7\u535A\u7269\u9986
 \u540D\u5355\u3002`],
         antique: [
-          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u7C89\u5F69\u7F20\u679D\u82B1\u5349\u7897.jpg" },
-          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u9752\u74F7\u72D7.jpg" },
-          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.asia/image/antique/\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F.jpg" }
+          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://124.71.192.181/image/antique/\u7C89\u5F69\u7F20\u679D\u82B1\u5349\u7897.jpg" },
+          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://124.71.192.181/image/antique/\u9752\u74F7\u72D7.jpg" },
+          { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://124.71.192.181/image/antique/\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F.jpg" }
         ],
-        max_pic: ["https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99861.jpg", "https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99862.jpg", "https://www.mynameisczy.asia/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99863.jpg"],
-        full_src: "https://www.mynameisczy.asia/image/antique/\u8346\u5DDE\u535A\u7269\u9986\u5168\u666F\u56FE.jpg"
+        max_pic: ["https://124.71.192.181/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99861.jpg", "https://124.71.192.181/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99862.jpg", "https://124.71.192.181/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99863.jpg"],
+        full_src: "https://124.71.192.181/image/antique/\u8346\u5DDE\u535A\u7269\u9986\u5168\u666F\u56FE.jpg"
       };
       common_vendor.index.navigateTo({
         url: `./other_page/museum/museum?data=${JSON.stringify(result)}`
@@ -134,9 +134,9 @@ const _sfc_main = {
     }
     let video = common_vendor.reactive([]);
     let head_img = common_vendor.reactive([
-      "https://www.mynameisczy.asia/image/antique/home_top/title1.jpg",
-      "https://www.mynameisczy.asia/image/antique/home_top/title2.jpg",
-      "https://www.mynameisczy.asia/image/antique/home_top/title3.jpg"
+      "https://124.71.192.181/image/antique/home_top/title1.jpg",
+      "https://124.71.192.181/image/antique/home_top/title2.jpg",
+      "https://124.71.192.181/image/antique/home_top/title3.jpg"
     ]);
     function lower(e) {
       if (reqs.state)

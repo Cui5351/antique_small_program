@@ -30,10 +30,10 @@ const state = {
   user_info: {
     openid: "",
     name: "",
-    avatar: "https://www.mynameisczy.asia/antique/user_avatar/default_avatar.jpg",
+    avatar: "https://124.71.192.181/antique/user_avatar/default_avatar.jpg",
     introduce: "",
     sex: "",
-    background: "https://www.mynameisczy.asia/antique/user_background/default_background.jpg",
+    background: "https://124.71.192.181/antique/user_background/default_background.jpg",
     works: [],
     moments: []
   }

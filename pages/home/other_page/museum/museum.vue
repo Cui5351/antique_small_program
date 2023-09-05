@@ -149,7 +149,7 @@
 					title:'加载中'
 				})
 				uni.request({
-					url:'https://www.mynameisczy.asia:5000/small_program_state',
+					url:'https://mynameisczy.cn:5000/small_program_state',
 					method:"POST",
 					data:{
 						small_program_name:'antique_small_program'

@@ -186,11 +186,11 @@
 址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
 佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
 名单。`],
-						antique:[{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/粉彩缠枝花卉碗.jpg'},
-						{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/青瓷狗.jpg'},
-						{name:'黑秞执壶',src:'https://www.mynameisczy.asia/image/antique/黄地粉彩龙纹杯.jpg'}],
-						max_pic:['https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆1.jpg','https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆2.jpg','https://www.mynameisczy.asia/image/antique/inter_top/荆州博物馆3.jpg'],
-						full_src:'https://www.mynameisczy.asia/image/antique/荆州博物馆全景图.jpg'
+						antique:[{name:'黑秞执壶',src:'https://mynameisczy.cn/image/antique/粉彩缠枝花卉碗.jpg'},
+						{name:'黑秞执壶',src:'https://mynameisczy.cn/image/antique/青瓷狗.jpg'},
+						{name:'黑秞执壶',src:'https://mynameisczy.cn/image/antique/黄地粉彩龙纹杯.jpg'}],
+						max_pic:['https://mynameisczy.cn/image/antique/inter_top/荆州博物馆1.jpg','https://mynameisczy.cn/image/antique/inter_top/荆州博物馆2.jpg','https://mynameisczy.cn/image/antique/inter_top/荆州博物馆3.jpg'],
+						full_src:'https://mynameisczy.cn/image/antique/荆州博物馆全景图.jpg'
 				}
 				uni.navigateTo({
 					url:`./other_page/museum/museum?data=${JSON.stringify(result)}`
@@ -229,9 +229,9 @@
 							})
 						}
 			let video=reactive([])
-			let head_img=reactive(['https://www.mynameisczy.asia/image/antique/home_top/title1.jpg',
-			'https://www.mynameisczy.asia/image/antique/home_top/title2.jpg',
-			'https://www.mynameisczy.asia/image/antique/home_top/title3.jpg'])
+			let head_img=reactive(['https://mynameisczy.cn/image/antique/home_top/title1.jpg',
+			'https://mynameisczy.cn/image/antique/home_top/title2.jpg',
+			'https://mynameisczy.cn/image/antique/home_top/title3.jpg'])
 			function lower(e){
 				if(reqs.state)
 					return

@@ -93,6 +93,7 @@ const _sfc_main = {
         title: "\u53D1\u5E03\u4F5C\u54C1\u4E2D",
         mask: true
       });
+      console.log(info.sus, "sus");
       common_vendor.index.request({
         url: common_vendor.index.current_this.baseURL + ":5001/upload_moment",
         method: "POST",
@@ -104,6 +105,7 @@ const _sfc_main = {
           content: info.content
         },
         success(res) {
+          console.log(res, "res");
           if (common_vendor.index.current_this.check_res_state(res))
             return;
           common_vendor.index.current_this.store.dispatch("addmoment", JSON.stringify({
@@ -128,6 +130,9 @@ const _sfc_main = {
         complete() {
           state.value = false;
           common_vendor.index.hideLoading();
+        },
+        fail(e) {
+          console.log(e, "fail");
         }
       });
     }

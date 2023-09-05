@@ -170,16 +170,22 @@ export default{
 				skip:reqs.skip
 			},
 			success(res) {
+				console.log(res,'res');
 				if(uni.current_this.check_res_state(res))
 					return
 					res.data.data.forEach(item=>{
-						if(item.src[0]){
-							if(item.src[0].substring(item.src[0].length-3)=='mp4')
-								item.type='v'
-							else
-								item.type='p'
+						if(item.hasOwnProperty("src")){
+							if(item.src[0]){
+								if(item.src[0].substring(item.src[0].length-3)=='mp4')
+									item.type='v'
+								else
+									item.type='p'
+							}
+						}else{
+							item.src=[]
 						}
 						item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
+						
 					})
 					console.log(res.data);
 					uni.current_this.store.state.moments.push(...res.data.data)

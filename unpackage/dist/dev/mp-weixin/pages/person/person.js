@@ -116,7 +116,7 @@ const _sfc_main = {
         return;
       }
       common_vendor.index.navigateTo({
-        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.asia:5001/upload_background&height=500&width=700&property=background&name=avatar"
+        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://124.71.192.181:5001/upload_background&height=500&width=700&property=background&name=avatar"
       });
       return;
     }
@@ -150,13 +150,17 @@ const _sfc_main = {
         },
         success(res) {
           let w = res.data.data;
+          console.log(res);
           w.forEach((item) => {
-            if (item.src[0]) {
-              if (item.src[0].substring(item.src[0].length - 3) == "mp4")
-                item.type = "v";
-              else
-                item.type = "p";
-            }
+            if (item.hasOwnProperty("src")) {
+              if (item.src[0]) {
+                if (item.src[0].substring(item.src[0].length - 3) == "mp4")
+                  item.type = "v";
+                else
+                  item.type = "p";
+              }
+            } else
+              item.src = [];
             item.send_date = common_vendor.index.current_this.dateformat(new Date(item.send_date));
           });
           reqs.skip += w.length;

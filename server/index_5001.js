@@ -130,7 +130,7 @@ app.post('/upload_avatar',(req,res)=>{
         })
         return
     }
-    let path=`https://www.mynameisczy.asia/antique/user_avatar/${req.file.filename}`
+    let path=`https://mynameisczy.cn/antique/user_avatar/${req.file.filename}`
     if(req.file.filename.length<=0){
         send_err(res)
         return
@@ -175,7 +175,7 @@ app.post('/upload_background',(req,res)=>{
         })
         return
     }
-    let path=`https://www.mynameisczy.asia/antique/user_background/${req.file.filename}`
+    let path=`https://mynameisczy.cn/antique/user_background/${req.file.filename}`
     // 写入数据库
     update(dbs,db_config.database+'.main_table',{openid:req.body.openid},'background',path,'string').then(()=>{
         // 保存成功
@@ -540,7 +540,7 @@ app.post('/upload_store',(req,res)=>{
             })
             return
         }
-    let path=`https://www.mynameisczy.asia/antique/store_picture/${req.file.filename}`
+    let path=`https://mynameisczy.cn/antique/store_picture/${req.file.filename}`
     if(req.file.filename.length<=0){
         send_err(res)
         return
@@ -584,7 +584,7 @@ app.post('/upload_work',(req,res)=>{
             return
         }
     // 写入数据库
-    send(res,{src:'https://www.mynameisczy.asia/antique/works/'+req.file.filename,uuid:req.work_uuid})
+    send(res,{src:'https://mynameisczy.cn/antique/works/'+req.file.filename,uuid:req.work_uuid})
     })
 })
 
@@ -700,7 +700,7 @@ app.post('/upload_mask',(req,res)=>{
             send_err(res)
             return
         }
-        send(res,{mask:('https://www.mynameisczy.asia/antique/video_masks/'+req.file.filename)})
+        send(res,{mask:('https://mynameisczy.cn/antique/video_masks/'+req.file.filename)})
     })
 })
 
@@ -871,7 +871,7 @@ app.post('/upload_moment_material',function(req,res){
             send_err(res)
             return
         }
-        send(res,'https://www.mynameisczy.asia/antique/moment_picture/'+req.file.filename)
+        send(res,'https://mynameisczy.cn/antique/moment_picture/'+req.file.filename)
     })
 })
 // paths:info.paths,

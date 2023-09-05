@@ -63,7 +63,7 @@ const _sfc_main = {
         title: "\u52A0\u8F7D\u4E2D"
       });
       common_vendor.index.request({
-        url: "https://www.mynameisczy.asia:5000/small_program_state",
+        url: "https://124.71.192.181:5000/small_program_state",
         method: "POST",
         data: {
           small_program_name: "antique_small_program"
