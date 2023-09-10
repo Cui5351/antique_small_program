@@ -218,7 +218,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     d: common_vendor.t($setup.info.money),
-    e: common_vendor.t($setup.info.description),
+    e: common_vendor.t($setup.info.description.length >= 20 ? $setup.info.description.substring(0, 20) + "..." : $setup.info.description),
     f: common_vendor.p({
       type: "redo",
       size: "20"

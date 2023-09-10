@@ -116,7 +116,7 @@ const _sfc_main = {
         return;
       }
       common_vendor.index.navigateTo({
-        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://124.71.192.181:5001/upload_background&height=500&width=700&property=background&name=avatar"
+        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.cn:5001/upload_background&height=500&width=700&property=background&name=avatar"
       });
       return;
     }
@@ -232,7 +232,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       }, item.type == "v" ? {
         f: item.mask[0]
       } : {}, {
-        g: common_vendor.t(item.content),
+        g: common_vendor.t(item.content.length >= 20 ? item.content.substring(0, 20) + "..." : item.content),
         h: item.type == "p"
       }, item.type == "p" ? {
         i: common_vendor.t(item.src.length)

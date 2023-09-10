@@ -45,11 +45,11 @@
 			</view>
 			<view class="content">
 				<text style="width:100%;height:100%;" selectable="true">
-				{{item.content}}
+				{{item.content.length>=100?item.content.substring(0,100)+'...':item.content}}
 				</text>
 			</view>
 			<view class="pic" v-if="item.type=='v'">
-				<video :src="item.src" :poster="item.mask" @click.prevent="()=>{}"></video>
+				<video :src="item.src" enable-progress-gesture :poster="item.mask" @click.prevent="()=>{}"></video>
 			</view>
 			<view :class="item.src.length>1?'pic':'pic2'" v-if="item.src[0]!=null&&item.type=='p'" >
 				<image @click.prevent="check_pict(item.src,index)" :src="item2" v-for="(item2,index) in item.src" :key="index" mode="aspectFill"></image>
@@ -128,6 +128,7 @@ export default{
 					})
 					return
 				}
+				console.log(res,'res');
 				// 跳转
 				uni.navigateTo({
 					url:`/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`

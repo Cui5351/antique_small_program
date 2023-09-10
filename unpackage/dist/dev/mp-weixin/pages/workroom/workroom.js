@@ -53,6 +53,7 @@ const _sfc_main = {
             });
             return;
           }
+          console.log(res, "res");
           common_vendor.index.navigateTo({
             url: `/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`
           });
@@ -206,7 +207,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.o(($event) => $setup.user_info(item)),
         c: common_vendor.t(item.name),
         d: common_vendor.t(item.place),
-        e: common_vendor.t(item.content),
+        e: common_vendor.t(item.content.length >= 100 ? item.content.substring(0, 100) + "..." : item.content),
         f: item.type == "v"
       }, item.type == "v" ? {
         g: item.src,

@@ -113,6 +113,7 @@
 			loading
 		},
 		mounted() {
+			uni.current_this.inter=this.inter;
 			this.lower()
 		},
 		setup(){
@@ -163,34 +164,47 @@
 				}
 			}
 			function museum(name){
+				let result;
 				// 查看资源是否存在
-				if(name!='荆州博物馆'){
-					uni.showToast({
-						title:name+'暂未开放',
-						icon:'none'
-					})
-					return
-				}
+				if(name=='荆州博物馆'){
 				// 实现预加载
-				let result={
-					name:'荆州博物馆',
-					description:[`  荆州博物馆位于湖北省荆州市荆 路166号，是一座地方综
-合性博物馆，为国家AAAA级旅游景区，占地4.8万平方米。始
-建于1958年，馆舍占地面积5万余平方米，建筑面积达2.3万平
-方米，绿化面积11000多平方米。`,`荆州博物馆有馆藏文物13万余件，其中国家一级文物492件
-套。荆州博物馆配合各项工程建设，发掘出土珍贵文物12万余
-件。其中，有战国丝绸；吴王夫差矛；有战国秦汉漆器；有中
-国也是世界上最早的数学专著《算数书》和萧和“二年造律”
-的《二年律令》等汉初简牍；有西汉男尸。该馆配合各种基本
-建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
-址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
-佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
-名单。`],
-						antique:[{name:'黑秞执壶',src:'https://mynameisczy.cn/image/antique/粉彩缠枝花卉碗.jpg'},
-						{name:'黑秞执壶',src:'https://mynameisczy.cn/image/antique/青瓷狗.jpg'},
-						{name:'黑秞执壶',src:'https://mynameisczy.cn/image/antique/黄地粉彩龙纹杯.jpg'}],
-						max_pic:['https://mynameisczy.cn/image/antique/inter_top/荆州博物馆1.jpg','https://mynameisczy.cn/image/antique/inter_top/荆州博物馆2.jpg','https://mynameisczy.cn/image/antique/inter_top/荆州博物馆3.jpg'],
-						full_src:'https://mynameisczy.cn/image/antique/荆州博物馆全景图.jpg'
+					result={
+						name:'荆州博物馆',
+						description:[`  荆州博物馆位于湖北省荆州市荆 路166号，是一座地方综
+	合性博物馆，为国家AAAA级旅游景区，占地4.8万平方米。始
+	建于1958年，馆舍占地面积5万余平方米，建筑面积达2.3万平
+	方米，绿化面积11000多平方米。`,`荆州博物馆有馆藏文物13万余件，其中国家一级文物492件
+	套。荆州博物馆配合各项工程建设，发掘出土珍贵文物12万余
+	件。其中，有战国丝绸；吴王夫差矛；有战国秦汉漆器；有中
+	国也是世界上最早的数学专著《算数书》和萧和“二年造律”
+	的《二年律令》等汉初简牍；有西汉男尸。该馆配合各种基本
+	建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
+	址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
+	佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
+	名单。`],
+							antique:[{name:'黑秞执壶',src:'https://www.mynameisczy.cn/image/antique/粉彩缠枝花卉碗.jpg'},
+							{name:'黑秞执壶',src:'https://www.mynameisczy.cn/image/antique/青瓷狗.jpg'},
+							{name:'黑秞执壶',src:'https://www.mynameisczy.cn/image/antique/黄地粉彩龙纹杯.jpg'}],
+							max_pic:['https://www.mynameisczy.cn/image/antique/inter_top/荆州博物馆1.jpg','https://www.mynameisczy.cn/image/antique/inter_top/荆州博物馆2.jpg','https://www.mynameisczy.cn/image/antique/inter_top/荆州博物馆3.jpg'],
+							full_src:'https://www.mynameisczy.cn/image/antique/荆州博物馆全景图.jpg'
+					}
+				}else if(name=="长江艺术工程职业学院非遗传承院"){
+					result={
+										name:'长江艺术工程职业学院非遗传承院',
+										description:[`荆州市荆楚非物质文化遗产技能传承院(简称传承院) ，是经荆州市文化和旅游局、荆州
+										市非遗保护中心批准，依托长江艺术工程职业学院设立的非遗传习保护基地。
+										`,`2015年被授予国家3A级旅游景区。`,`2017年10月，文化和旅游部在荆楚非遗传承院设立国家传统工艺(荆州)工作站，由清华大学美术学院为驻站单位，
+										 以“见人、见物、见生活"为理念，为新时代振兴传统工艺提供示范，让传统工艺在当代生活得到新的广泛应用。`],
+											antique:[{name:'淡水贝雕',src:'https://www.mynameisczy.cn/image/antique/changyi/淡水贝雕.jpeg'},
+											{name:'葫芦烙画',src:'https://www.mynameisczy.cn/image/antique/changyi/葫芦.jpeg'},
+											{name:'古筝',src:'https://www.mynameisczy.cn/image/antique/changyi/古筝.jpeg'},
+											{name:'漆艺',src:'https://www.mynameisczy.cn/image/antique/changyi/漆艺.jpeg'}],
+											max_pic:['https://www.mynameisczy.cn/image/antique/changyi/传承院.jpg',
+											'https://www.mynameisczy.cn/image/antique/changyi/传承院2.jpg',
+												'https://www.mynameisczy.cn/image/antique/museum1.jpg'
+												],
+											full_src:'https://www.mynameisczy.cn/image/antique/changyi/full.jpg'
+									}
 				}
 				uni.navigateTo({
 					url:`./other_page/museum/museum?data=${JSON.stringify(result)}`
@@ -214,24 +228,24 @@
 									if(uni.current_this.check_res_state(res)){
 										return
 									}
-									if(!res.data.data.length){
+									console.log(res,'inter');
+									if(!res.data.data.arr.length){
 										uni.showToast({
 											title:'该作品集为空',
 											icon:'none'
 										})
 										return
 									}
-									console.log(res);
 									uni.navigateTo({
-										url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${item.avatar}&name=${item.name}&openid=${item.openid}`
+										url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data.arr)}&title=${res.data.data.arr[0].title}&avatar=${res.data.data.avatar}&name=${res.data.data.name}&openid=${res.data.data.openid}`
 									})
 								}
 							})
 						}
 			let video=reactive([])
-			let head_img=reactive(['https://mynameisczy.cn/image/antique/home_top/title1.jpg',
-			'https://mynameisczy.cn/image/antique/home_top/title2.jpg',
-			'https://mynameisczy.cn/image/antique/home_top/title3.jpg'])
+			let head_img=reactive(['https://www.mynameisczy.cn/image/antique/home_top/title1.jpg',
+			'https://www.mynameisczy.cn/image/antique/home_top/title2.jpg',
+			'https://www.mynameisczy.cn/image/antique/home_top/title3.jpg'])
 			function lower(e){
 				if(reqs.state)
 					return

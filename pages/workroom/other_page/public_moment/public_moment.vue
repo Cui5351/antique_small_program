@@ -2,7 +2,7 @@
 	<back name='新帖子'></back>
   <view class="containe">
       <view class="description">
-      	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="150"></textarea>
+      	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="2000"></textarea>
       </view>
 	  <view class="picture">
 		  <view class="pic2" v-for="(item,index) in info.paths" :key="index">

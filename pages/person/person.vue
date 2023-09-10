@@ -104,7 +104,7 @@
 					</view>
 					<view class="mtxt">
 						<view class="mtx">
-							{{item.content}}
+							{{item.content.length>=20?item.content.substring(0,20)+'...':item.content}}
 						</view>
 						<view class="item" v-if="item.type=='p'">({{item.src.length}}张)</view>
 						<view class="item" v-if="item.type=='v'">(视频)</view>
@@ -249,7 +249,7 @@
 					return
 				}
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://mynameisczy.cn:5001/upload_background&height=500&width=700&property=background&name=avatar'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.cn:5001/upload_background&height=500&width=700&property=background&name=avatar'
 				})
 				
 				return

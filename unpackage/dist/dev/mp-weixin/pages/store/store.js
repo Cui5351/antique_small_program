@@ -81,6 +81,7 @@ const _sfc_main = {
             name: item.name
           },
           success(res) {
+            console.log(res, "res");
             if (res.data.state != 1) {
               common_vendor.index.showToast({
                 title: "\u53D1\u751F\u4E86\u672A\u77E5\u7684\u9519\u8BEF",

@@ -39,7 +39,7 @@
 				<view>
 					<view class="museums_one flex_j_a_c" @click="show_antique(item)" v-for="(item,index) in data.antique" :key="index">
 						<view class="img">
-							<image :src="item.src" mode=""></image>
+							<image :src="item.src" mode="aspectFit"></image>
 						</view>
 						<view class="">
 							{{item.name}}
@@ -145,24 +145,27 @@
 			}
 			function all_antique(){
 				// 进行网络请求
-				uni.showLoading({
-					title:'加载中'
-				})
-				uni.request({
-					url:'https://mynameisczy.cn:5000/small_program_state',
-					method:"POST",
-					data:{
-						small_program_name:'antique_small_program'
-					},
-					success(res) {
-						if(res.data.value==0){
-							uni.showToast({
-								icon:'none',
-								title:'网络状态不佳'
-							})
-							return
-						}
+				// uni.showLoading({
+					// title:'加载中'
+				// })
+			// 1
+				// uni.request({
+				// 	url:'https://www.mynameisczy.cn:5002/small_program_state',
+				// 	method:"POST",
+				// 	data:{
+				// 		small_program_name:'antique_small_program'
+				// 	},
+				// 	success(res) {
+				// 		if(res.data.value==0){
+				// 			uni.showToast({
+				// 				icon:'none',
+				// 				title:'网络状态不佳'
+				// 			})
+				// 			return
+				// 		}
 						// 现代风1
+						if(data.name=='长江艺术工程职业学院非遗传承院')
+							return
 						uni.navigateTo({
 							url:`/pages/home/other_page/show_antique3d/show_antique3d`,
 						})
@@ -170,11 +173,13 @@
 						// uni.navigateTo({
 							// url:'/pages/home/other_page/all_anitique/all_anitique'
 						// })
-					},
-					complete() {
-						uni.hideLoading()
-					}
-				})
+						
+			// 1
+					// },
+					// complete() {
+					// 	uni.hideLoading()
+					// }
+				// })
 			}
 			function show_all(){
 				data_height.state=!data_height.state

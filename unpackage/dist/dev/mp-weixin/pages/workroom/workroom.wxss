@@ -266,6 +266,9 @@ image.data-v-0672b006 {
   height: 100%;
   width: 100%;
 }
+.containe.data-v-0672b006 {
+  overflow-x: hidden;
+}
 .ad.data-v-0672b006 {
   position: absolute;
   border-radius: 50%;
@@ -326,6 +329,7 @@ image.data-v-0672b006 {
 .head .pic > image.data-v-0672b006 {
   height: 100%;
   width: 100%;
+  transform: scaleX(1.15);
 }
 .pub.data-v-0672b006 {
   position: absolute;

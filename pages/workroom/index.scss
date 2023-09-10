@@ -3,6 +3,9 @@
 	height:100%;
 	width:100%;
 }
+.containe{
+	overflow-x: hidden;
+}
 .ad{
 	position: absolute;
 	border-radius:50%;
@@ -64,6 +67,7 @@
 		&>image{
 			height:100%;
 			width:100%;
+			transform: scaleX(1.15);
 		}
 	}
 	

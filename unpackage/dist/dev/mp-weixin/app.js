@@ -34,7 +34,7 @@ if (!Math) {
 const _sfc_main = {
   onLaunch: function() {
     common_vendor.index.current_this = this;
-    this.baseURL = "https://124.71.192.181";
+    this.baseURL = "https://www.mynameisczy.cn";
     this.store = common_vendor.useStore();
     this.no_develop = function(name) {
       common_vendor.index.showToast({

@@ -2,11 +2,11 @@
 	<back name='新帖子'></back>
   <view class="containe">
       <view class="description">
-      	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="150"></textarea>
+      	<textarea v-model="info.content" cols="50" placeholder="添加内容..." rows="7" maxlength="2000"></textarea>
       </view>
 	  <view class="picture" v-if="info.path.length>0">
 		  <view class="pic">
-			<video :src="info.path" :poster='info.mask' ></video>
+			<video :src="info.path" :poster='info.mask'></video>
 			<view class="err flex_j_a_c">
 				<uni-icons type="closeempty" @click="delPic" size="25" color="white"></uni-icons>
 			</view>

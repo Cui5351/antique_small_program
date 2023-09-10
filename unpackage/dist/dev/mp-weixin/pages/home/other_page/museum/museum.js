@@ -59,30 +59,10 @@ const _sfc_main = {
       });
     }
     function all_antique() {
-      common_vendor.index.showLoading({
-        title: "\u52A0\u8F7D\u4E2D"
-      });
-      common_vendor.index.request({
-        url: "https://124.71.192.181:5000/small_program_state",
-        method: "POST",
-        data: {
-          small_program_name: "antique_small_program"
-        },
-        success(res) {
-          if (res.data.value == 0) {
-            common_vendor.index.showToast({
-              icon: "none",
-              title: "\u7F51\u7EDC\u72B6\u6001\u4E0D\u4F73"
-            });
-            return;
-          }
-          common_vendor.index.navigateTo({
-            url: `/pages/home/other_page/show_antique3d/show_antique3d`
-          });
-        },
-        complete() {
-          common_vendor.index.hideLoading();
-        }
+      if (data.name == "\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u975E\u9057\u4F20\u627F\u9662")
+        return;
+      common_vendor.index.navigateTo({
+        url: `/pages/home/other_page/show_antique3d/show_antique3d`
       });
     }
     function show_all() {

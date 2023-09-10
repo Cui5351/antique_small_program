@@ -110,6 +110,7 @@
 						data:{
 							name:item.name
 						},success(res) {
+							console.log(res,'res');
 							if(res.data.state!=1){
 								uni.showToast({
 									title:'发生了未知的错误',

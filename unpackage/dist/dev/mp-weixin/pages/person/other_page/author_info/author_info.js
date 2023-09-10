@@ -183,7 +183,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       }, item.type == "v" ? {
         f: item.mask[0]
       } : {}, {
-        g: common_vendor.t(item.content),
+        g: common_vendor.t(item.content.length >= 20 ? item.content.substring(0, 20) + "..." : item.content),
         h: item.type == "p"
       }, item.type == "p" ? {
         i: common_vendor.t(item.src.length)

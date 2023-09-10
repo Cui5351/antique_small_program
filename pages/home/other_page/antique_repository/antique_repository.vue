@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-	  <web-view src="https://mynameisczy.asia/threejs/index.html"></web-view>
+	  <web-view src="https://www.mynameisczy.cn/threejs/index.html"></web-view>
   </view>
 </template>
 

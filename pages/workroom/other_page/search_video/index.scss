@@ -30,6 +30,55 @@
 .search{
 	@include height(50px);
 }
+.video_set{
+	padding:0 15px;
+	box-sizing: border-box;
+	@include height(81%);
+	.item{
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		height:110px;
+		width:100%;
+		display: flex;
+		align-items: center;
+		.mask{
+			height:90px;
+			width:150px;
+			margin-right:10px;
+			image{
+				border-radius: 5px;
+				height:100%;
+				width:100%;
+			}
+		}
+		.right_menu{
+			color: gray;
+			width:55%;
+			height:90px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			.video_tit{
+				display: block;
+				font-size:20px;
+				color: black;
+				height:40px;
+			}
+			.video_tit_small{
+					.high{
+						color: red;
+					}
+			}
+		}
+	}
+}
+.v_result{
+	@include height(81%);
+	.item{
+		height:45px;
+		line-height: 45px;
+		border-bottom: 0.1px solid rgba(0,0,0,0.1);
+	}
+}
 .containe{
 	height:100%;
 	background-color: white;

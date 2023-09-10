@@ -70,7 +70,7 @@
 					<!-- </view> -->
 					<view class="mtxt">
 						<view class="mtx">
-							{{item.content}}
+							{{item.content.length>=20?item.content.substring(0,20)+'...':item.content}}
 						</view>
 						<view class="item" v-if="item.type=='p'">({{item.src.length}}张)</view>
 						<view class="item" v-if="item.type=='v'">(视频)</view>

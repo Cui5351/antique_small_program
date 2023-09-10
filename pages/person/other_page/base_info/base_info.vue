@@ -87,7 +87,7 @@
 			}
 			function show_corp_fun(){
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://mynameisczy.cn:5001/upload_avatar&height=500&width=500&property=avatar&name=avatar'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.cn:5001/upload_avatar&height=500&width=500&property=avatar&name=avatar'
 				})
 			}
 			// 提交数据
@@ -103,7 +103,7 @@
 							mask:true
 						})
 						uni.request({
-							url:'https://mynameisczy.cn:5001/set_user_property',
+							url:'https://www.mynameisczy.cn:5001/set_user_property',
 							method:'POST',
 							data:{
 								openid:userInfo.openid,

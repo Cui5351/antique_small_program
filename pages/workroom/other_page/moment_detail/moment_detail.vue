@@ -36,7 +36,7 @@
 	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="aspectFill"></image>
 	  </view>
 	  <view class="pic" v-if="info.type=='v'">
-		  <video :src="info.src" :poster="info.mask" autoplay="true"></video>
+		  <video enable-progress-gesture :src="info.src" :poster="info.mask" autoplay="true"></video>
 	  </view>
 	  
 	  <view class="other">

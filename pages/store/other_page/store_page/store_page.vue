@@ -18,8 +18,8 @@
 		<view class="description flex_j_a_r">
 			<view class="des flex_j_a_c">
 				<view class="money">￥{{info.money}}</view>
-				<view>
-					{{info.description}}
+				<view style="margin-top: 5px;">
+					{{info.description.length>=20?info.description.substring(0,20)+'...':info.description}}
 				</view>
 			</view>
 			<button open-type="share" plain class="three_size flex_j_a_c share">
@@ -32,7 +32,7 @@
 			<view class="tit two_size">排行榜</view>
 			<view class="flex_j_a_r three_size">店铺商品热榜第
 				<view style="color:#6E79E2">
-					7
+					3
 				</view>
 			名</view>
 		</view>
@@ -67,7 +67,7 @@
 		<view class="bought_person_count2 cc flex_j_a_c">
 			<view class="tit">
 				<view class="">商品评价({{info.comment.length}})</view>
-				<view class="small_title" @click="show_all">好评率：100%
+				<view class="small_title" @click="show_all">好评率：0%
 					<uni-icons type="right"></uni-icons>
 				</view>
 			</view>
@@ -89,7 +89,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="store_other">store_other</view>
+		<view class="store_other"><!-- store_other --></view>
 		
 	</view>
   </view>
