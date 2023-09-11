@@ -41,6 +41,18 @@ export default{
   async onLoad(res){
 	  let path=JSON.parse(res.path)
 	  this.info.mask=path.thumbTempFilePath
+	  this.info.duration=''+path.duration
+	  let duration=path.duration
+	  // 计算出分和秒
+	  if(((duration/60+'').split('.')[0])!=0){
+		  // 有分拿分
+		  let minute=(duration/60+'').split('.')[0]
+		  let second=duration.toFixed()-minute*60
+		  this.info.duration=(minute<10?`0${minute}:${second<10?`0${second}`:(second)}`:`${minute}:${second<10?`0${second}`:(second)}`)
+	  }else{
+		  // 没分上秒
+			this.info.duration=duration.toFixed()<10?`00:0${duration.toFixed()}`:`00:${duration.toFixed()}`
+	  }
 	  this.info.path=path.tempFilePath
   },
   components:{
@@ -49,6 +61,7 @@ export default{
   setup(){
 	  let info=reactive({
 	  	content:'',
+		duration:'0.0',
 	  	show_work:true,
 		place:'',
 		path:'',
@@ -142,7 +155,8 @@ export default{
 						show_work:info.show_work?'show':'hid',
 						place:info.place,
 						content:info.content,
-						mask:info.sus[1]
+						mask:info.sus[1],
+						duration:info.duration
 					},
 					success(res) {
 						if(uni.current_this.check_res_state(res))

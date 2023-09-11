@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-09-05 11:33:35
+-- 生成日期： 2023-09-11 20:36:29
 -- 服务器版本： 8.0.24
 -- PHP 版本： 7.4.33
 
@@ -30,8 +30,8 @@ USE `antique`;
 --
 
 DROP TABLE IF EXISTS `bills`;
-CREATE TABLE IF NOT EXISTS `bills` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bills` (
+  `id` int NOT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `state` enum('show','deleted') COLLATE utf8mb4_general_ci DEFAULT 'show',
@@ -41,9 +41,7 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `uuid` varchar(36) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `store` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `state2` enum('待发货','待收货','完成') COLLATE utf8mb4_general_ci DEFAULT '待发货',
-  PRIMARY KEY (`id`),
-  KEY `openid_bills` (`openid`)
+  `state2` enum('待发货','待收货','完成') COLLATE utf8mb4_general_ci DEFAULT '待发货'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -53,15 +51,12 @@ CREATE TABLE IF NOT EXISTS `bills` (
 --
 
 DROP TABLE IF EXISTS `bought_log`;
-CREATE TABLE IF NOT EXISTS `bought_log` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bought_log` (
+  `id` int NOT NULL,
   `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `bought_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `bought_count` int DEFAULT NULL,
-  `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `goods_id` (`name`),
-  KEY `bought_openid` (`openid`)
+  `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -71,13 +66,11 @@ CREATE TABLE IF NOT EXISTS `bought_log` (
 --
 
 DROP TABLE IF EXISTS `collections`;
-CREATE TABLE IF NOT EXISTS `collections` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `collections` (
+  `id` int NOT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `collection` text COLLATE utf8mb4_general_ci,
-  `type` enum('museum','store','antique','workroom') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `openid_collections` (`openid`)
+  `type` enum('museum','store','antique','workroom') COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -87,19 +80,16 @@ CREATE TABLE IF NOT EXISTS `collections` (
 --
 
 DROP TABLE IF EXISTS `community_moments`;
-CREATE TABLE IF NOT EXISTS `community_moments` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `community_moments` (
+  `id` int NOT NULL,
   `openid` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `content` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `browse` int DEFAULT '0',
   `send_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `uuid` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `show_moment` enum('show','hid') COLLATE utf8mb4_general_ci DEFAULT 'show',
   `state` enum('show','deleted') COLLATE utf8mb4_general_ci DEFAULT 'show',
-  `place` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '火星',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uuid` (`uuid`),
-  KEY `community_moments` (`openid`)
+  `place` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '火星'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -109,14 +99,12 @@ CREATE TABLE IF NOT EXISTS `community_moments` (
 --
 
 DROP TABLE IF EXISTS `community_moment_comment`;
-CREATE TABLE IF NOT EXISTS `community_moment_comment` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `community_moment_comment` (
+  `id` int NOT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `content` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `uuid` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `community_moment_comment_uuid` (`uuid`)
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -126,13 +114,12 @@ CREATE TABLE IF NOT EXISTS `community_moment_comment` (
 --
 
 DROP TABLE IF EXISTS `community_moment_pic`;
-CREATE TABLE IF NOT EXISTS `community_moment_pic` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `community_moment_pic` (
+  `id` int NOT NULL,
   `uuid` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `src` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `mask` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `community_moments_p` (`uuid`)
+  `duration` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -142,16 +129,13 @@ CREATE TABLE IF NOT EXISTS `community_moment_pic` (
 --
 
 DROP TABLE IF EXISTS `danmu`;
-CREATE TABLE IF NOT EXISTS `danmu` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `danmu` (
+  `id` int NOT NULL,
   `video_id` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `danmu` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `video_time` int DEFAULT '0',
-  `send_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `damu_openid` (`openid`),
-  KEY `video_id` (`video_id`)
+  `send_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -161,13 +145,10 @@ CREATE TABLE IF NOT EXISTS `danmu` (
 --
 
 DROP TABLE IF EXISTS `focus`;
-CREATE TABLE IF NOT EXISTS `focus` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `focus` (
+  `id` int NOT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `other_openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `openid_focus` (`openid`),
-  KEY `other_openid_focus` (`other_openid`)
+  `other_openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -177,8 +158,8 @@ CREATE TABLE IF NOT EXISTS `focus` (
 --
 
 DROP TABLE IF EXISTS `goods`;
-CREATE TABLE IF NOT EXISTS `goods` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `goods` (
+  `id` int NOT NULL,
   `store` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_general_ci,
@@ -186,10 +167,7 @@ CREATE TABLE IF NOT EXISTS `goods` (
   `money` decimal(10,2) DEFAULT '0.00',
   `transport_money` decimal(8,2) DEFAULT '0.00',
   `sale` int DEFAULT '0',
-  `depository` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `store` (`store`)
+  `depository` int DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -199,16 +177,14 @@ CREATE TABLE IF NOT EXISTS `goods` (
 --
 
 DROP TABLE IF EXISTS `goods_comment`;
-CREATE TABLE IF NOT EXISTS `goods_comment` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `goods_comment` (
+  `id` int NOT NULL,
   `user_avatar` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `goods_name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `user_name` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `comment` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `grade` enum('1','2','3','4','5') COLLATE utf8mb4_general_ci DEFAULT '5',
-  `comment_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `goods_id2` (`goods_name`)
+  `comment_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -218,12 +194,10 @@ CREATE TABLE IF NOT EXISTS `goods_comment` (
 --
 
 DROP TABLE IF EXISTS `goods_pic`;
-CREATE TABLE IF NOT EXISTS `goods_pic` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `goods_pic` (
+  `id` int NOT NULL,
   `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `src` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `goods_id3` (`name`)
+  `src` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -233,16 +207,14 @@ CREATE TABLE IF NOT EXISTS `goods_pic` (
 --
 
 DROP TABLE IF EXISTS `main_table`;
-CREATE TABLE IF NOT EXISTS `main_table` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `main_table` (
+  `id` int NOT NULL,
   `name` varchar(20) COLLATE utf8mb4_general_ci DEFAULT '网友',
   `avatar` varchar(300) COLLATE utf8mb4_general_ci DEFAULT 'https://www.mynameisczy.cn/antique/user_avatar/default_avatar.jpg',
   `sex` enum('男','女','未知') COLLATE utf8mb4_general_ci DEFAULT '未知',
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `background` varchar(300) COLLATE utf8mb4_general_ci DEFAULT 'https://www.mynameisczy.cn/antique/user_background/default_background.jpg',
-  `introduce` varchar(120) COLLATE utf8mb4_general_ci DEFAULT '这个家伙很懒,什么也没留下',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `openid` (`openid`)
+  `introduce` varchar(120) COLLATE utf8mb4_general_ci DEFAULT '这个家伙很懒,什么也没留下'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -252,13 +224,10 @@ CREATE TABLE IF NOT EXISTS `main_table` (
 --
 
 DROP TABLE IF EXISTS `persons`;
-CREATE TABLE IF NOT EXISTS `persons` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persons` (
+  `id` int NOT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `other_openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `openid_persons` (`openid`),
-  KEY `other_openid_persons` (`other_openid`)
+  `other_openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -268,13 +237,11 @@ CREATE TABLE IF NOT EXISTS `persons` (
 --
 
 DROP TABLE IF EXISTS `store`;
-CREATE TABLE IF NOT EXISTS `store` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `store` (
+  `id` int NOT NULL,
   `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_general_ci,
-  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -284,8 +251,8 @@ CREATE TABLE IF NOT EXISTS `store` (
 --
 
 DROP TABLE IF EXISTS `work`;
-CREATE TABLE IF NOT EXISTS `work` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `work` (
+  `id` int NOT NULL,
   `title` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -299,10 +266,7 @@ CREATE TABLE IF NOT EXISTS `work` (
   `state` enum('show','deleted') COLLATE utf8mb4_general_ci DEFAULT 'show',
   `work_uuid` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `publish_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `video_id` (`video_id`),
-  KEY `work_title` (`title`),
-  KEY `work_openid` (`openid`)
+  `duration` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -312,8 +276,8 @@ CREATE TABLE IF NOT EXISTS `work` (
 --
 
 DROP TABLE IF EXISTS `works`;
-CREATE TABLE IF NOT EXISTS `works` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `works` (
+  `id` int NOT NULL,
   `title` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `openid` varchar(150) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `show_work` enum('show','hid') COLLATE utf8mb4_general_ci DEFAULT 'show',
@@ -322,11 +286,233 @@ CREATE TABLE IF NOT EXISTS `works` (
   `score` int DEFAULT '0',
   `description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT '作者很懒，没有给出作品简介',
   `uuid` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `publish_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  KEY `openid_works` (`openid`)
+  `publish_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 转储表的索引
+--
+
+--
+-- 表的索引 `bills`
+--
+ALTER TABLE `bills`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `openid_bills` (`openid`);
+
+--
+-- 表的索引 `bought_log`
+--
+ALTER TABLE `bought_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `goods_id` (`name`),
+  ADD KEY `bought_openid` (`openid`);
+
+--
+-- 表的索引 `collections`
+--
+ALTER TABLE `collections`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `openid_collections` (`openid`);
+
+--
+-- 表的索引 `community_moments`
+--
+ALTER TABLE `community_moments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uuid` (`uuid`),
+  ADD KEY `community_moments` (`openid`);
+
+--
+-- 表的索引 `community_moment_comment`
+--
+ALTER TABLE `community_moment_comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `community_moment_comment_uuid` (`uuid`);
+
+--
+-- 表的索引 `community_moment_pic`
+--
+ALTER TABLE `community_moment_pic`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `community_moments_p` (`uuid`);
+
+--
+-- 表的索引 `danmu`
+--
+ALTER TABLE `danmu`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `damu_openid` (`openid`),
+  ADD KEY `video_id` (`video_id`);
+
+--
+-- 表的索引 `focus`
+--
+ALTER TABLE `focus`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `openid_focus` (`openid`),
+  ADD KEY `other_openid_focus` (`other_openid`);
+
+--
+-- 表的索引 `goods`
+--
+ALTER TABLE `goods`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `store` (`store`);
+
+--
+-- 表的索引 `goods_comment`
+--
+ALTER TABLE `goods_comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `goods_id2` (`goods_name`);
+
+--
+-- 表的索引 `goods_pic`
+--
+ALTER TABLE `goods_pic`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `goods_id3` (`name`);
+
+--
+-- 表的索引 `main_table`
+--
+ALTER TABLE `main_table`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `openid` (`openid`);
+
+--
+-- 表的索引 `persons`
+--
+ALTER TABLE `persons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `openid_persons` (`openid`),
+  ADD KEY `other_openid_persons` (`other_openid`);
+
+--
+-- 表的索引 `store`
+--
+ALTER TABLE `store`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- 表的索引 `work`
+--
+ALTER TABLE `work`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `video_id` (`video_id`),
+  ADD KEY `work_title` (`title`),
+  ADD KEY `work_openid` (`openid`);
+
+--
+-- 表的索引 `works`
+--
+ALTER TABLE `works`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`),
+  ADD KEY `openid_works` (`openid`);
+
+--
+-- 在导出的表使用AUTO_INCREMENT
+--
+
+--
+-- 使用表AUTO_INCREMENT `bills`
+--
+ALTER TABLE `bills`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `bought_log`
+--
+ALTER TABLE `bought_log`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `collections`
+--
+ALTER TABLE `collections`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `community_moments`
+--
+ALTER TABLE `community_moments`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `community_moment_comment`
+--
+ALTER TABLE `community_moment_comment`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `community_moment_pic`
+--
+ALTER TABLE `community_moment_pic`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `danmu`
+--
+ALTER TABLE `danmu`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `focus`
+--
+ALTER TABLE `focus`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `goods`
+--
+ALTER TABLE `goods`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `goods_comment`
+--
+ALTER TABLE `goods_comment`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `goods_pic`
+--
+ALTER TABLE `goods_pic`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `main_table`
+--
+ALTER TABLE `main_table`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `persons`
+--
+ALTER TABLE `persons`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `store`
+--
+ALTER TABLE `store`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `work`
+--
+ALTER TABLE `work`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `works`
+--
+ALTER TABLE `works`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- 限制导出的表

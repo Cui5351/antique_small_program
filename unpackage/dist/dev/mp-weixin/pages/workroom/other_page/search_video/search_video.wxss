@@ -304,6 +304,10 @@ image.data-v-1633f750 {
   min-height: 81%;
   height: 81%;
 }
+.video_set .noContent.data-v-1633f750 {
+  margin-top: 100px;
+  text-align: center;
+}
 .video_set .item.data-v-1633f750 {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   height: 110px;
@@ -315,6 +319,17 @@ image.data-v-1633f750 {
   height: 90px;
   width: 150px;
   margin-right: 10px;
+  position: relative;
+}
+.video_set .item .mask .duration.data-v-1633f750 {
+  top: 100%;
+  left: 100%;
+  transform: translate(-100%, -100%);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1px 3px;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
 }
 .video_set .item .mask image.data-v-1633f750 {
   border-radius: 5px;

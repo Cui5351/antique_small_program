@@ -86,17 +86,17 @@ export default{
 	  			if(uni.current_this.check_res_state(res)){
 	  				return
 	  			}
-	  			if(!res.data.data.length){
+	  			if(!res.data.data.arr.length){
 	  				uni.showToast({
 	  					title:'该作品集为空',
 	  					icon:'none'
 	  				})
 	  				return
 	  			}
-				res.data.data.forEach(item=>{
+				res.data.data.arr.forEach(item=>{
 					item.more=false
 				})
-				that.info.works.push(...res.data.data)
+				that.info.works.push(...res.data.data.arr)
 	  		},
 			complete() {
 				uni.hideLoading()
@@ -131,9 +131,19 @@ export default{
 			// maxDuration:1800,
 			extension:['mp4'],
 			success(res) {
-				const {tempFilePath,thumbTempFilePath}=res.tempFiles[0]
+				let {tempFilePath,thumbTempFilePath,duration}=res.tempFiles[0]
+				// 计算出分和秒
+				if(((duration/60+'').split('.')[0])!=0){
+						  // 有分拿分
+						  let minute=(duration/60+'').split('.')[0]
+						  let second=duration.toFixed()-minute*60
+						  duration=(minute<10?`0${minute}:${second<10?`0${second}`:(second)}`:`${minute}:${second<10?`0${second}`:(second)}`)
+				}else{
+						  // 没分上秒
+							duration=duration.toFixed()<10?`00:0${duration.toFixed()}`:`00:${duration.toFixed()}`
+				}
 				uni.navigateTo({
-					url:`/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
+					url:`/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}&duration=${duration}`
 				})
 			}
 		})

@@ -128,7 +128,6 @@ export default{
 					})
 					return
 				}
-				console.log(res,'res');
 				// 跳转
 				uni.navigateTo({
 					url:`/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`
@@ -243,7 +242,6 @@ export default{
 		// 	})
 		// 	return
 		// }
-		console.log(item,'item');
 		uni.navigateTo({
 			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
 				avatar:item.avatar,

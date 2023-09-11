@@ -53,7 +53,6 @@ const _sfc_main = {
             });
             return;
           }
-          console.log(res, "res");
           common_vendor.index.navigateTo({
             url: `/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`
           });
@@ -161,7 +160,6 @@ const _sfc_main = {
       });
     }
     function user_info(item) {
-      console.log(item, "item");
       common_vendor.index.navigateTo({
         url: `/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
           avatar: item.avatar,

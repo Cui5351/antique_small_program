@@ -22,8 +22,10 @@
 		  </view>
 	  </view>
 	  <scroll-view v-show="show_state=='video'" class="video_set">
+		  <view class="noContent" v-show="!videos.length">暂无内容</view>
 		  <view class="item" v-for="(item,index) in videos" :key="index"  @click="inter({uuid:item.work_uuid})">
 			  <view class="mask">
+				  <view class="duration">{{item.duration}}</view>
 				  <image :src="item.mask" mode="aspectFill"></image>
 			  </view>
 			  <view class="right_menu">
@@ -115,12 +117,16 @@ export default{
 			search_state=true
 			text.value=t
 		}
+		console.log(t,'t');
 		uni.request({
 			url:uni.current_this.baseURL+':5001/get_video_by_name',
 			data:{
 				name:t,
 				skip:skip.value
 			},success(data) {
+				if(data.data.error){
+					return
+				}
 				skip.value+=data.data.length
 				show_state.value='video'
 				videos.push(...data.data.data)

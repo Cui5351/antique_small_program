@@ -55,6 +55,7 @@ const _sfc_main = {
         search_state = true;
         text.value = t;
       }
+      console.log(t, "t");
       common_vendor.index.request({
         url: common_vendor.index.current_this.baseURL + ":5001/get_video_by_name",
         data: {
@@ -62,6 +63,9 @@ const _sfc_main = {
           skip: skip.value
         },
         success(data) {
+          if (data.data.error) {
+            return;
+          }
           skip.value += data.data.length;
           show_state.value = "video";
           videos.push(...data.data.data);
@@ -189,39 +193,41 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     h: $setup.show_state == "empty",
-    i: common_vendor.f($setup.videos, (item, index, i0) => {
+    i: !$setup.videos.length,
+    j: common_vendor.f($setup.videos, (item, index, i0) => {
       return {
-        a: item.mask,
-        b: common_vendor.t(item.title.length >= 10 ? item.title.substring(0, 9) + "..." : item.title),
-        c: common_vendor.f(item.arr, (word, i, i1) => {
+        a: common_vendor.t(item.duration),
+        b: item.mask,
+        c: common_vendor.t(item.title.length >= 10 ? item.title.substring(0, 9) + "..." : item.title),
+        d: common_vendor.f(item.arr, (word, i, i1) => {
           return {
             a: common_vendor.t(word.txt),
             b: common_vendor.n(word.flag ? "high" : "")
           };
         }),
-        d: index,
-        e: common_vendor.t(item.user_name),
-        f: index,
-        g: common_vendor.o(($event) => $setup.inter({
+        e: index,
+        f: common_vendor.t(item.user_name),
+        g: index,
+        h: common_vendor.o(($event) => $setup.inter({
           uuid: item.work_uuid
         }), index)
       };
     }),
-    j: $setup.show_state == "video",
-    k: common_vendor.p({
+    k: $setup.show_state == "video",
+    l: common_vendor.p({
       type: "refreshempty"
     }),
-    l: common_vendor.p({
+    m: common_vendor.p({
       type: "eye"
     }),
-    m: common_vendor.f(["\u624B\u5DE5\u5236\u4F5C", "\u975E\u9057\u4F20\u627F\u89C6\u9891", "\u975E\u9057\u6587\u7269\u5236\u4F5C\u89C6\u9891", "\u975E\u9057", "\u6587\u7269"], (item, index, i0) => {
+    n: common_vendor.f(["\u624B\u5DE5\u5236\u4F5C", "\u975E\u9057\u4F20\u627F\u89C6\u9891", "\u975E\u9057\u6587\u7269\u5236\u4F5C\u89C6\u9891", "\u975E\u9057", "\u6587\u7269"], (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: index,
         c: common_vendor.o(($event) => $setup.fill(item), index)
       };
     }),
-    n: $setup.show_state == "empty"
+    o: $setup.show_state == "empty"
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1633f750"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/search_video/search_video.vue"]]);

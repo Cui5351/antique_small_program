@@ -100,6 +100,7 @@
 						<image :src="item.src[0]" mode="aspectFill"></image>
 					</view>
 					<view class="mpic" v-if="item.type=='v'">
+						<view class="duration">{{item.duration[0]}}</view>
 						<image :src="item.mask[0]" mode="aspectFill"></image>
 					</view>
 					<view class="mtxt">
@@ -306,7 +307,6 @@
 						skip:reqs.skip
 					},success(res) {
 						let w=res.data.data
-						console.log(res);
 						w.forEach(item=>{
 							if(item.hasOwnProperty("src")){
 								if(item.src[0]){

@@ -34,7 +34,7 @@
 import back from '/components/back.vue'
 import {ref,reactive,computed} from 'vue'
 export default{
-  async onLoad({path,uuid,mask,title}){
+  async onLoad({path,uuid,mask,title,duration}){
 		if(path.length<=0||uuid.length<=0||mask.length<=0){
 			uni.showToast({
 				title:'加载错误',
@@ -46,6 +46,7 @@ export default{
 		this.info.mask=mask
 		this.info.uuid=uuid
 		this.info.title=title
+		this.info.duration=duration
   },
   components:{
 	  back
@@ -60,7 +61,8 @@ export default{
 		title:'',
 		su_path:'',
 		su_mask:'',
-		su_uuid:''
+		su_uuid:'',
+		duration:''
 	  })    
 	  let state=ref(0)
 	  function develop(name){
@@ -185,7 +187,8 @@ export default{
 														src:info.su_path,
 														mask:info.su_mask,
 														work_uuid:info.uuid,
-														video_id:info.su_uuid
+														video_id:info.su_uuid,
+														duration:info.duration
 										  			},
 										  			success(res3) {
 														console.log(res3,'res');;
@@ -198,7 +201,8 @@ export default{
 																mask:info.su_mask,
 																name:computed(()=>uni.current_this.store.getters.name),
 																uuid:info.su_uuid,
-																title:info.name
+																title:info.name,
+																duration:info.duration
 															})
 															uni.navigateBack()
 															resolve()

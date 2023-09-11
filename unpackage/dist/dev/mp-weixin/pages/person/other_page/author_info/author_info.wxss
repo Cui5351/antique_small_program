@@ -100,6 +100,19 @@ image.data-v-ae4c9f56 {
 .avatar_right.data-v-ae4c9f56 {
   margin-top: 15px;
 }
+.duration.data-v-ae4c9f56 {
+  top: 100%;
+  left: 100%;
+  transform: translate(-100%, -100%);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1px 3px;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+}
+.mpic.data-v-ae4c9f56 {
+  position: relative;
+}
 .in.data-v-ae4c9f56 {
   margin-top: 30px;
   font-size: 15px;
@@ -245,6 +258,19 @@ image.data-v-ae4c9f56 {
 .btn2.data-v-ae4c9f56:active {
   background-color: white;
   color: #4f46e5;
+}
+.duration.data-v-ae4c9f56 {
+  top: 100%;
+  left: 100%;
+  transform: translate(-100%, -100%);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1px 3px;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+}
+.mpic.data-v-ae4c9f56 {
+  position: relative;
 }
 .start_btn_cen.data-v-ae4c9f56 {
   justify-content: center;

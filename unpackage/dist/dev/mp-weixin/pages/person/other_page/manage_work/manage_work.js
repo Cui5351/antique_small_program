@@ -23,17 +23,17 @@ const _sfc_main = {
         if (common_vendor.index.current_this.check_res_state(res)) {
           return;
         }
-        if (!res.data.data.length) {
+        if (!res.data.data.arr.length) {
           common_vendor.index.showToast({
             title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
             icon: "none"
           });
           return;
         }
-        res.data.data.forEach((item) => {
+        res.data.data.arr.forEach((item) => {
           item.more = false;
         });
-        that.info.works.push(...res.data.data);
+        that.info.works.push(...res.data.data.arr);
       },
       complete() {
         common_vendor.index.hideLoading();
@@ -65,9 +65,16 @@ const _sfc_main = {
         mediaType: ["video"],
         extension: ["mp4"],
         success(res) {
-          const { tempFilePath, thumbTempFilePath } = res.tempFiles[0];
+          let { tempFilePath, thumbTempFilePath, duration } = res.tempFiles[0];
+          if ((duration / 60 + "").split(".")[0] != 0) {
+            let minute = (duration / 60 + "").split(".")[0];
+            let second = duration.toFixed() - minute * 60;
+            duration = minute < 10 ? `0${minute}:${second < 10 ? `0${second}` : second}` : `${minute}:${second < 10 ? `0${second}` : second}`;
+          } else {
+            duration = duration.toFixed() < 10 ? `00:0${duration.toFixed()}` : `00:${duration.toFixed()}`;
+          }
           common_vendor.index.navigateTo({
-            url: `/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}`
+            url: `/pages/person/other_page/publish_video/publish_video?path=${tempFilePath}&uuid=${info.uuid}&mask=${thumbTempFilePath}&title=${info.title}&duration=${duration}`
           });
         }
       });

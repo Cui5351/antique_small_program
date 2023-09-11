@@ -150,7 +150,6 @@ const _sfc_main = {
         },
         success(res) {
           let w = res.data.data;
-          console.log(res);
           w.forEach((item) => {
             if (item.hasOwnProperty("src")) {
               if (item.src[0]) {
@@ -230,17 +229,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       } : {}, {
         e: item.type == "v"
       }, item.type == "v" ? {
-        f: item.mask[0]
+        f: common_vendor.t(item.duration[0]),
+        g: item.mask[0]
       } : {}, {
-        g: common_vendor.t(item.content.length >= 20 ? item.content.substring(0, 20) + "..." : item.content),
-        h: item.type == "p"
+        h: common_vendor.t(item.content.length >= 20 ? item.content.substring(0, 20) + "..." : item.content),
+        i: item.type == "p"
       }, item.type == "p" ? {
-        i: common_vendor.t(item.src.length)
+        j: common_vendor.t(item.src.length)
       } : {}, {
-        j: item.type == "v"
+        k: item.type == "v"
       }, item.type == "v" ? {} : {}, {
-        k: common_vendor.o(($event) => $setup.detail(item), index),
-        l: index
+        l: common_vendor.o(($event) => $setup.detail(item), index),
+        m: index
       });
     })
   } : {}, {

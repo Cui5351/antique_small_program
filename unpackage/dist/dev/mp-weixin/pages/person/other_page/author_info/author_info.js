@@ -119,7 +119,7 @@ const _sfc_main = {
           if (common_vendor.index.current_this.check_res_state(res)) {
             return;
           }
-          if (!res.data.data.length) {
+          if (!res.data.data.arr.length) {
             common_vendor.index.showToast({
               title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
               icon: "none"
@@ -127,7 +127,7 @@ const _sfc_main = {
             return;
           }
           common_vendor.index.navigateTo({
-            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${info.avatar}&name=${info.name}&openid=${info.openid}`
+            url: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data.arr)}&title=${item.title}&avatar=${info.avatar}&name=${info.name}&openid=${info.openid}`
           });
         }
       });
@@ -181,17 +181,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       } : {}, {
         e: item.type == "v"
       }, item.type == "v" ? {
-        f: item.mask[0]
+        f: common_vendor.t(item.duration[0]),
+        g: item.mask[0]
       } : {}, {
-        g: common_vendor.t(item.content.length >= 20 ? item.content.substring(0, 20) + "..." : item.content),
-        h: item.type == "p"
+        h: common_vendor.t(item.content.length >= 20 ? item.content.substring(0, 20) + "..." : item.content),
+        i: item.type == "p"
       }, item.type == "p" ? {
-        i: common_vendor.t(item.src.length)
+        j: common_vendor.t(item.src.length)
       } : {}, {
-        j: item.type == "v"
+        k: item.type == "v"
       }, item.type == "v" ? {} : {}, {
-        k: common_vendor.o(($event) => $setup.detail(item), index),
-        l: index
+        l: common_vendor.o(($event) => $setup.detail(item), index),
+        m: index
       });
     })
   } : {}, {

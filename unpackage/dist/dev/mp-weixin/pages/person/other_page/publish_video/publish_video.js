@@ -2,7 +2,7 @@
 var common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
-  async onLoad({ path, uuid, mask, title }) {
+  async onLoad({ path, uuid, mask, title, duration }) {
     if (path.length <= 0 || uuid.length <= 0 || mask.length <= 0) {
       common_vendor.index.showToast({
         title: "\u52A0\u8F7D\u9519\u8BEF",
@@ -14,6 +14,7 @@ const _sfc_main = {
     this.info.mask = mask;
     this.info.uuid = uuid;
     this.info.title = title;
+    this.info.duration = duration;
   },
   components: {
     back
@@ -28,7 +29,8 @@ const _sfc_main = {
       title: "",
       su_path: "",
       su_mask: "",
-      su_uuid: ""
+      su_uuid: "",
+      duration: ""
     });
     let state = common_vendor.ref(0);
     function develop(name) {
@@ -152,7 +154,8 @@ const _sfc_main = {
                       src: info.su_path,
                       mask: info.su_mask,
                       work_uuid: info.uuid,
-                      video_id: info.su_uuid
+                      video_id: info.su_uuid,
+                      duration: info.duration
                     },
                     success(res3) {
                       console.log(res3, "res");
@@ -166,7 +169,8 @@ const _sfc_main = {
                           mask: info.su_mask,
                           name: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.name),
                           uuid: info.su_uuid,
-                          title: info.name
+                          title: info.name,
+                          duration: info.duration
                         });
                         common_vendor.index.navigateBack();
                         resolve();

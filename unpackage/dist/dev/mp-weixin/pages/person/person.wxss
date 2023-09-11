@@ -190,6 +190,19 @@ image.data-v-390a77b4 {
   background-color: white;
   color: #4f46e5;
 }
+.duration.data-v-390a77b4 {
+  top: 100%;
+  left: 100%;
+  transform: translate(-100%, -100%);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1px 3px;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+}
+.mpic.data-v-390a77b4 {
+  position: relative;
+}
 .start_btn_cen.data-v-390a77b4 {
   justify-content: center;
   align-items: center;

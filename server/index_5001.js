@@ -588,6 +588,47 @@ app.post('/upload_work',(req,res)=>{
     })
 })
 
+app.get('/get_label_by_name',(req,res)=>{
+
+    // 最大拿10条
+    if(!req.query.hasOwnProperty('name')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    const {name}=req.query
+    dbs.query(`select name from ${table('work')} where name like '%${name}%' and state='show' and show_work='show' limit 0,10`,(err,result)=>{
+        if(err){
+            send_err(res)
+            return
+        }
+        send(res,result)
+    })
+})
+app.get('/get_video_by_name',(req,res)=>{
+
+    // 最大拿10条
+    if(!req.query.hasOwnProperty('name')||!req.query.hasOwnProperty('skip')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    const {name,skip}=req.query
+    dbs.query(`select title,name,duration,(select name from ${table('main_table')} where openid=w.openid) as user_name,mask,work_uuid from ${table('work')} w where name like '%${name}%' and state='show' and show_work='show' limit ${skip},10`,(err,result)=>{
+        if(err){
+            send_err(res)
+            return
+        }
+        send(res,result)
+    })
+})
+
 app.get('/get_hottest_video',(req,res)=>{
     if(!req.query.hasOwnProperty('skip')){
         res.send({
@@ -598,7 +639,11 @@ app.get('/get_hottest_video',(req,res)=>{
         return 
     }
     const {skip}=req.query
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid,w.openid as openid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
+    
+    // 后通过uuid获取
+    // dbs.query(`select title,mask,uuid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
+    // 自己获取作者信息
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid,w.openid as openid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid and state='show' and show_work='show')>0 order by score desc limit ${skip},3`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -620,13 +665,37 @@ app.post('/get_video',(req,res)=>{
     }
     const {uuid}=req.body
     update(dbs,table('works'),{uuid:uuid},'score',1,'number','+')
-    query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work"],{work_uuid:uuid,state:'show'}).then(e=>{
+    // dbs.query(`select name,src,video_id,mask,publish_date,show_work,title,(select avatar from main_table m2 where m2.openid=m.openid) user_avatar,(select name from main_table m2 where m2.openid=m.openid) user_name,openid from ${table('work')} m`,(err,e)=>{
+    //     console.log(e,'e');
+    //     console.log(err,'err');
+    //     let arr=[]
+    //     e.forEach(item=>{
+    //         if(item.show_work=='show')
+    //             arr.push(item)
+    //     })
+    //     send(res,arr)
+    // })
+    query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work","title","openid"],{work_uuid:uuid,state:'show'}).then(e=>{
+            //     console.log(e,'e');
+    //     console.log(err,'err');
         let arr=[]
         e.forEach(item=>{
             if(item.show_work=='show')
                 arr.push(item)
         })
-        send(res,arr)
+        if(arr.length>0){
+            let openid=arr[0].openid
+            query(dbs,table('main_table'),['avatar','name'],{openid:openid}).then(e1=>{
+                if(e1.length<=0){
+                    send(res,{arr:[]})
+                    return
+                }
+                send(res,{arr:arr,name:e1[0].name,avatar:e1[0].avatar,openid:openid})
+            })
+        }else{
+            send(res,{arr:[]})
+        }
+        
     })
 })
 
@@ -905,17 +974,25 @@ app.post('/upload_moment',async function(req,res){
         let sus=[]
         await new Promise(async(resolve1,reject1)=>{
                 if(place.length<=0)
-                    insertData(dbs,table('community_moments'),{openid,content,uuid:id,show_moment:show_work,}).catch(e=>{
-                        reject1()
-                    })
+                    await new Promise((reso,reje)=>{
+                    insertData(dbs,table('community_moments'),{openid,content,uuid:id,show_moment:show_work}).then(e=>{
+                        reso()
+                    }).catch(e=>{
+                            reject1()
+                        })
+                })
                 else
-                    insertData(dbs,table('community_moments'),{openid,content,uuid:id,show_moment:show_work,place}).catch(e=>{
+                    await new Promise((reso,reje)=>{
+                        insertData(dbs,table('community_moments'),{openid,content,uuid:id,show_moment:show_work,place}).then(e=>{
+                            reso()
+                        }).catch(e=>{
                         reject1()
+            })
                     })
             for(let i=0;i<paths.length;i++){
                 try{
                     await new Promise((resolve,reject)=>{
-                        insertData(dbs,table('community_moment_pic'),{uuid:id,src:paths[i],mask:req.body.hasOwnProperty('mask')?req.body.mask:'none'}).then(e=>{
+                        insertData(dbs,table('community_moment_pic'),{uuid:id,src:paths[i],mask:req.body.hasOwnProperty('mask')?req.body.mask:'none',duration:req.body.hasOwnProperty('duration')?req.body.duration:null}).then(e=>{
                             resolve()
                         }).catch(e=>{
                             reject()
@@ -1021,7 +1098,7 @@ app.get('/get_community_comment',(req,res)=>{
 })
 
 app.post('/upload_work_info',(req,res)=>{
-    if(!req.body.hasOwnProperty('openid')||!req.body.hasOwnProperty('show_work')||!req.body.hasOwnProperty('title')||!req.body.hasOwnProperty('name')||!req.body.hasOwnProperty('src')||!req.body.hasOwnProperty('mask')||!req.body.hasOwnProperty('work_uuid')||!req.body.hasOwnProperty('video_id')){
+    if(!req.body.hasOwnProperty('openid')||!req.body.hasOwnProperty('show_work')||!req.body.hasOwnProperty('title')||!req.body.hasOwnProperty('name')||!req.body.hasOwnProperty('src')||!req.body.hasOwnProperty('mask')||!req.body.hasOwnProperty('work_uuid')||!req.body.hasOwnProperty('video_id')||!req.body.hasOwnProperty('duration')){
         res.send({
             state:0,
             error:1,
@@ -1039,8 +1116,8 @@ app.post('/upload_work_info',(req,res)=>{
         }
     })
 
-    const {openid,show_work,title,name,src,mask,work_uuid,video_id}=req.body
-    insertData(dbs,table('work'),{openid,show_work,title,name,src,mask,work_uuid,video_id}).then(s=>{
+    const {openid,show_work,title,name,src,mask,work_uuid,video_id,duration}=req.body
+    insertData(dbs,table('work'),{openid,show_work,title,name,src,mask,work_uuid,video_id,duration}).then(s=>{
         send(res)
     }).catch(e=>{
         send_err(res)
@@ -1169,7 +1246,7 @@ app.post('/get_person_community_moments',(req,res)=>{
     const {skip,openid}=req.body
 
     // 方法一
-    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where openid='${openid}' and state='show' order by c.id desc limit ${skip},7`,async function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from ${table('community_moments')} c where openid='${openid}' and state='show' order by c.id desc limit ${skip},7`,async function(err,result){
         if(err)
             send_err(res,err)
 
@@ -1178,9 +1255,10 @@ app.post('/get_person_community_moments',(req,res)=>{
             for(let i=0;i<result.length;i++){
                 try{
                     await new Promise((resolve2,reject2)=>{
-                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
+                        query(dbs,table('community_moment_pic'),['src','mask','duration'],{uuid:result[i].uuid}).then(e=>{
                             result[i].src=e.map(e=>e.src)
                             result[i].mask=e.map(e=>e.mask)
+                            result[i].duration=e.map(e=>e.duration)
                             resolve2()
                         }).catch(e=>{
                             reject2()
@@ -1220,9 +1298,10 @@ app.post('/get_person_community_moments2',(req,res)=>{
             for(let i=0;i<result.length;i++){
                 try{
                     await new Promise((resolve2,reject2)=>{
-                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
+                        query(dbs,table('community_moment_pic'),['src','mask','duration'],{uuid:result[i].uuid}).then(e=>{
                             result[i].src=e.map(e=>e.src)
                             result[i].mask=e.map(e=>e.mask)
+                            result[i].duration=e.map(e=>e.duration)
                             resolve2()
                         }).catch(e=>{
                             reject2()

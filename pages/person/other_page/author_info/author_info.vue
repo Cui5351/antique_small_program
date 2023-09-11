@@ -63,6 +63,7 @@
 					</view>
 					<view class="mpic" v-if="item.type=='v'">
 						<!-- {{item.type}} -->
+						<view class="duration">{{item.duration[0]}}</view>
 						<image :src="item.mask[0]" mode="aspectFill"></image>
 					</view>
 					<!-- <view class="mpic" v-if="item.src.length"> -->
@@ -217,7 +218,7 @@ export default{
 				if(uni.current_this.check_res_state(res)){
 					return
 				}
-				if(!res.data.data.length){
+				if(!res.data.data.arr.length){
 					uni.showToast({
 						title:'该作品集为空',
 						icon:'none'
@@ -225,7 +226,7 @@ export default{
 					return
 				}
 				uni.navigateTo({
-					url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data)}&title=${item.title}&avatar=${info.avatar}&name=${info.name}&openid=${info.openid}`
+					url:`/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(res.data.data.arr)}&title=${item.title}&avatar=${info.avatar}&name=${info.name}&openid=${info.openid}`
 				})
 			}
 		})

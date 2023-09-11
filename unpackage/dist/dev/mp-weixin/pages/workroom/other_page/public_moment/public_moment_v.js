@@ -5,6 +5,15 @@ const _sfc_main = {
   async onLoad(res) {
     let path = JSON.parse(res.path);
     this.info.mask = path.thumbTempFilePath;
+    this.info.duration = "" + path.duration;
+    let duration = path.duration;
+    if ((duration / 60 + "").split(".")[0] != 0) {
+      let minute = (duration / 60 + "").split(".")[0];
+      let second = duration.toFixed() - minute * 60;
+      this.info.duration = minute < 10 ? `0${minute}:${second < 10 ? `0${second}` : second}` : `${minute}:${second < 10 ? `0${second}` : second}`;
+    } else {
+      this.info.duration = duration.toFixed() < 10 ? `00:0${duration.toFixed()}` : `00:${duration.toFixed()}`;
+    }
     this.info.path = path.tempFilePath;
   },
   components: {
@@ -13,6 +22,7 @@ const _sfc_main = {
   setup() {
     let info = common_vendor.reactive({
       content: "",
+      duration: "0.0",
       show_work: true,
       place: "",
       path: "",
@@ -104,7 +114,8 @@ const _sfc_main = {
           show_work: info.show_work ? "show" : "hid",
           place: info.place,
           content: info.content,
-          mask: info.sus[1]
+          mask: info.sus[1],
+          duration: info.duration
         },
         success(res) {
           if (common_vendor.index.current_this.check_res_state(res))
