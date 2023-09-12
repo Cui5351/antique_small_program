@@ -35,6 +35,14 @@ const app=express()
     const upload=multer({storage:storage_avatar}).single('avatar')
     const upload_background=multer({storage:storage_background}).single('avatar')
 
+app.use((req,res,next)=>{
+	const referer=req.get('referer')
+	if(!referer||!(referer=='https://servicewechat.com/wxa30b9f23a9cc5e65/0/page-frame.html'||referer=='https://www.mynameisczy.cn/'||referer=='https://mynameisczy.cn/'||referer=='https://servicewechat.com/wxa30b9f23a9cc5e65/devtools/page-frame.html')){
+	    res.status(403).send('权限不够')
+	}else{
+	    next()
+	}
+})
 app.use(cors())
 const options = {
   key: readFileSync(resolve(__dirname,'..', 'cert','a.key')),
