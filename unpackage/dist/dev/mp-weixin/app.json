@@ -25,7 +25,9 @@
     "pages/home/other_page/antique_repository/antique_repository",
     "pages/workroom/other_page/moment_detail/moment_detail",
     "pages/person/other_page/manage_work/manage_work",
-    "pages/person/other_page/author_info/author_info"
+    "pages/person/other_page/author_info/author_info",
+    "pages/store/other_page/storeDetail/storeDetail",
+    "pages/store/other_page/storeOrder/storeOrder"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -64,5 +66,15 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "需要获取您的地理位置"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation",
+    "chooseAddress"
+  ],
   "usingComponents": {}
 }

@@ -138,7 +138,8 @@ export default{
 																mask:info.su_mask,
 																name:computed(()=>uni.current_this.store.getters.name),
 																uuid:info.su_uuid,
-																title:info.name
+																title:info.name,
+																show_work:'show'
 															})
 															uni.navigateBack()
 														resolve()
@@ -246,7 +247,10 @@ export default{
 					}
 				});
 	}
-    return{info,develop,publish,state,check_pict}
+	function public_work(e){
+		info.show_work=e.detail.value
+	}
+    return{info,develop,publish,state,check_pict,public_work}
   }
 }
 </script>

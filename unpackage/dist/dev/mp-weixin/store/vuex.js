@@ -1,21 +1,5 @@
 "use strict";
-var __defProp = Object.defineProperty;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var common_vendor = require("../common/vendor.js");
+const common_vendor = require("../common/vendor.js");
 common_vendor.index.getStorage({
   key: "cars",
   success(res) {
@@ -30,10 +14,10 @@ const state = {
   user_info: {
     openid: "",
     name: "",
-    avatar: "https://www.mynameisczy.cn/antique/user_avatar/default_avatar.jpg",
+    avatar: "https://www.mengzhiyuan.email/image/no.jpg",
     introduce: "",
     sex: "",
-    background: "https://www.mynameisczy.cn/antique/user_background/default_background.jpg",
+    background: "https://www.mengzhiyuan.email/image/antique/home_top/title3.jpg",
     works: [],
     moments: []
   }
@@ -69,8 +53,8 @@ const actions = {
     commit("BUY");
   },
   addmoment({ state: state2 }, value) {
-    state2.user_info.moments.unshift(__spreadValues({}, JSON.parse(value)));
-    state2.moments.unshift(__spreadValues({}, JSON.parse(value)));
+    state2.user_info.moments.unshift({ ...JSON.parse(value) });
+    state2.moments.unshift({ ...JSON.parse(value) });
     console.log(state2);
   },
   deleteBill({ commit }, value) {
@@ -118,7 +102,7 @@ const getters = {
     return state2.user_info.works;
   }
 };
-var store = common_vendor.createStore({
+const store = common_vendor.createStore({
   actions,
   mutations,
   getters,

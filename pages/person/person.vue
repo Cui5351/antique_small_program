@@ -2,7 +2,7 @@
 	<scroll-view class="container flex_c background" scroll-y="true" @scrolltolower="lower">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
 		<view class="top_img" @click="change_background">
-			<image :src="person_info.background"></image>
+			<image :src="person_info.background" mode="aspectFill"></image>
 		</view>
 		<view class="info flex_c">
 			<view class="top">
@@ -94,7 +94,7 @@
 				<view class="moment" @click="detail(item)" v-for="(item,index) in person_info.works2" :key="index" >
 					<view class="date">
 						<view class="d">{{item.send_date}}</view>
-						<view class="place">{{item.place}}</view>
+						<view class="place">{{item.place.length >= 12 ? (item.place.substring(0,12) + '...') : item.place}}</view>
 					</view>
 					<view class="mpic" v-if="item.src.length&&item.type=='p'">
 						<image :src="item.src[0]" mode="aspectFill"></image>
@@ -145,10 +145,24 @@
 				counts:[0,0,0],
 				toggle:false,
 				works:computed(()=>uni.current_this.store.getters.works),
-				works2:computed(()=>uni.current_this.store.getters.my_moments)
+				// works2:computed(()=>uni.current_this.store.getters.my_moments)
+				works2:[]
 			})
 			function toggle(bool){
 				person_info.toggle=bool
+				if(uni.current_this.store.getters.openid == '')
+					return
+					
+				if(bool){
+					// 作品
+					getWorksAll()
+				}else{
+					// 动态
+					reqs.skip = 0
+					reqs.state = false
+					person_info.works2.splice(0,person_info.works2.length)
+					reqmoment()
+				}
 			}
 			const reqs=reactive({
 				state:false,
@@ -180,10 +194,14 @@
 					return
 				}
 				uni.showLoading({
-					title:'登录中'
+					title:'登录中',
+					mask:true
 				})
 				uni.login({
 					provider:'weixin',
+					fail(fail) {
+						console.log(fail,'fail');
+					},
 					success({code}) {
 						// 获取openid
 						uni.request({
@@ -215,19 +233,7 @@
 											uni.showToast({
 												title:'登录成功',
 											})
-											uni.request({
-												url:uni.current_this.baseURL+':5001/get_workAll',
-												method:"POST",
-												data:{
-													openid:uni.current_this.store.state.user_info.openid
-												},
-												success(res) {
-													if(uni.current_this.check_res_state(res)){
-														return
-													}
-													uni.current_this.store.state.user_info.works.push(...res.data.data)
-												}
-											})
+										getWorksAll()
 											uni.current_this.store.dispatch('set_login',1)
 											reqmoment()
 										}else{
@@ -245,12 +251,35 @@
 					}
 				})
 			}
+			const getWorksAll = () => {
+				uni.showLoading({
+					title:'加载中',
+					mask:true
+				})
+					uni.request({
+						url:uni.current_this.baseURL+':5001/get_workAll',
+						method:"POST",
+						data:{
+							openid:uni.current_this.store.state.user_info.openid
+						},
+						success(res) {
+							if(uni.current_this.check_res_state(res)){
+								return
+							}
+							person_info.works.splice(0,person_info.works.length)
+							person_info.works.push(...res.data.data)
+						},
+						complete() {
+								uni.hideLoading()
+						}
+					})
+			}
 			function change_background(){
 				if(!uni.current_this.store.getters.login_state){
 					return
 				}
 				uni.navigateTo({
-					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.cn:5001/upload_background&height=500&width=700&property=background&name=avatar'
+					url:'/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mengzhiyuan.email:5001/upload_background&height=500&width=700&property=background&name=avatar'
 				})
 				
 				return
@@ -265,7 +294,8 @@
 				})
 				function choosePortrait(e){
 					uni.showLoading({
-						title:'修改中'
+						title:'修改中',
+						mask:true
 					})
 					let image_path=e.tempFilePath
 					uni.uploadFile({
@@ -298,7 +328,11 @@
 			function reqmoment(){
 				if(reqs.state||!login_state)
 					return
-				reqs.state=true
+				reqs.state = true
+				// uni.showLoading({
+				// 	title:'加载中',
+				// 	mask:true
+				// })
 				uni.request({
 					url:uni.current_this.baseURL+':5001/get_person_community_moments',
 					method:"POST",
@@ -323,9 +357,11 @@
 						reqs.skip+=w.length
 						if(!w.length)
 							return
-						uni.current_this.store.state.user_info.moments.push(...w)
+						// uni.current_this.store.state.user_info.moments.push(...w)
+						person_info.works2.push(...w)
 					},
 					complete() {
+						uni.hideLoading()
 						setTimeout(()=>{
 							reqs.state=false
 						},1000)

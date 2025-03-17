@@ -1,21 +1,29 @@
 "use strict";
-var common_vendor = require("../../common/vendor.js");
+const common_vendor = require("../../common/vendor.js");
 const loading = () => "../loading/loading.js";
 const _sfc_main = {
   onShareAppMessage() {
     return {
-      title: "\u535A\u5B66\u82D1",
+      title: "博学苑",
+      //分享的名称
       path: "/pages/home/home"
+      // mpId:'' //此处配置微信小程序的AppId
     };
   },
+  //分享到朋友圈
   onShareTimeline() {
     return {
-      title: "\u535A\u5B66\u82D1",
+      title: "博学苑",
       type: 0
     };
   },
   components: {
     loading
+  },
+  onTabItemTap() {
+    this.reqs.skip = 0;
+    this.video.splice(0, this.video.length);
+    this.lower();
   },
   mounted() {
     common_vendor.index.current_this.inter = this.inter;
@@ -23,16 +31,16 @@ const _sfc_main = {
   },
   setup() {
     let other = common_vendor.reactive([{
-      name: "\u5730\u56FE\u5BFC\u89C8",
+      name: "地图导览",
       pic: "/static/map.svg"
     }, {
-      name: "\u6587\u7269\u5E93",
+      name: "文物库",
       pic: "/static/storehouse.svg"
     }, {
-      name: "\u7126\u70B9\u65B0\u95FB",
+      name: "焦点新闻",
       pic: "/static/news.svg"
     }, {
-      name: "\u7EBF\u4E0B\u4F53\u9A8C\u9986",
+      name: "线下体验馆",
       pic: "/static/feelhouse.svg"
     }]);
     let show_loading = common_vendor.ref(false);
@@ -44,12 +52,12 @@ const _sfc_main = {
         show_loading.value = false;
         common_vendor.index.showToast({
           icon: "none",
-          title: "\u8BE5\u535A\u7269\u9986\u5C1A\u672A\u5F00\u653E"
+          title: "该博物馆尚未开放"
         });
       }, 1e3 * Math.random() * 10);
     }
     function toggle_other(item) {
-      if (item.name == "\u6587\u7269\u5E93") {
+      if (item.name == "文物库") {
         common_vendor.index.navigateTo({
           url: "/pages/home/other_page/antique_repository/antique_repository"
         });
@@ -57,7 +65,7 @@ const _sfc_main = {
       }
       common_vendor.index.showToast({
         icon: "none",
-        title: item.name + "\u6682\u672A\u5F00\u653E"
+        title: item.name + "暂未开放"
       });
     }
     function more(name) {
@@ -70,48 +78,48 @@ const _sfc_main = {
     }
     function museum(name) {
       let result;
-      if (name == "\u8346\u5DDE\u535A\u7269\u9986") {
+      if (name == "荆州博物馆") {
         result = {
-          name: "\u8346\u5DDE\u535A\u7269\u9986",
-          description: [`  \u8346\u5DDE\u535A\u7269\u9986\u4F4D\u4E8E\u6E56\u5317\u7701\u8346\u5DDE\u5E02\u8346 \u8DEF166\u53F7\uFF0C\u662F\u4E00\u5EA7\u5730\u65B9\u7EFC
-	\u5408\u6027\u535A\u7269\u9986\uFF0C\u4E3A\u56FD\u5BB6AAAA\u7EA7\u65C5\u6E38\u666F\u533A\uFF0C\u5360\u57304.8\u4E07\u5E73\u65B9\u7C73\u3002\u59CB
-	\u5EFA\u4E8E1958\u5E74\uFF0C\u9986\u820D\u5360\u5730\u9762\u79EF5\u4E07\u4F59\u5E73\u65B9\u7C73\uFF0C\u5EFA\u7B51\u9762\u79EF\u8FBE2.3\u4E07\u5E73
-	\u65B9\u7C73\uFF0C\u7EFF\u5316\u9762\u79EF11000\u591A\u5E73\u65B9\u7C73\u3002`, `\u8346\u5DDE\u535A\u7269\u9986\u6709\u9986\u85CF\u6587\u726913\u4E07\u4F59\u4EF6\uFF0C\u5176\u4E2D\u56FD\u5BB6\u4E00\u7EA7\u6587\u7269492\u4EF6
-	\u5957\u3002\u8346\u5DDE\u535A\u7269\u9986\u914D\u5408\u5404\u9879\u5DE5\u7A0B\u5EFA\u8BBE\uFF0C\u53D1\u6398\u51FA\u571F\u73CD\u8D35\u6587\u726912\u4E07\u4F59
-	\u4EF6\u3002\u5176\u4E2D\uFF0C\u6709\u6218\u56FD\u4E1D\u7EF8\uFF1B\u5434\u738B\u592B\u5DEE\u77DB\uFF1B\u6709\u6218\u56FD\u79E6\u6C49\u6F06\u5668\uFF1B\u6709\u4E2D
-	\u56FD\u4E5F\u662F\u4E16\u754C\u4E0A\u6700\u65E9\u7684\u6570\u5B66\u4E13\u8457\u300A\u7B97\u6570\u4E66\u300B\u548C\u8427\u548C\u201C\u4E8C\u5E74\u9020\u5F8B\u201D
-	\u7684\u300A\u4E8C\u5E74\u5F8B\u4EE4\u300B\u7B49\u6C49\u521D\u7B80\u724D\uFF1B\u6709\u897F\u6C49\u7537\u5C38\u3002\u8BE5\u9986\u914D\u5408\u5404\u79CD\u57FA\u672C
-	\u5EFA\u8BBE\uFF0C\u5148\u540E\u53D1\u6398\u4E867000\u591A\u5EA7\u53E4\u5893\u846C\u548C\u8FD120\u4E07\u5E73\u65B9\u7C73\u7684\u53E4\u6587\u5316\u9057
-	\u5740\u3002`, `1994\u5E74\u7ECF\u56FD\u5BB6\u6587\u7269\u5C40\u4E13\u5BB6\u8BC4\u9009\uFF0C\u8BE5\u9986\u8363\u83B7\u4E2D\u56FD\u5730\u5E02\u7EA7\u201C\u5341
-	\u4F73\u535A\u7269\u9986\u4E4B\u9996\u201D\u7684\u79F0\u53F7\u30022008\u5E74 \u7269\u9986\u88AB\u5217\u5165\u56FD\u5BB6\u4E00\u7EA7\u535A\u7269\u9986
-	\u540D\u5355\u3002`],
+          name: "荆州博物馆",
+          description: [`  荆州博物馆位于湖北省荆州市荆 路166号，是一座地方综
+	合性博物馆，为国家AAAA级旅游景区，占地4.8万平方米。始
+	建于1958年，馆舍占地面积5万余平方米，建筑面积达2.3万平
+	方米，绿化面积11000多平方米。`, `荆州博物馆有馆藏文物13万余件，其中国家一级文物492件
+	套。荆州博物馆配合各项工程建设，发掘出土珍贵文物12万余
+	件。其中，有战国丝绸；吴王夫差矛；有战国秦汉漆器；有中
+	国也是世界上最早的数学专著《算数书》和萧和“二年造律”
+	的《二年律令》等汉初简牍；有西汉男尸。该馆配合各种基本
+	建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
+	址。`, `1994年经国家文物局专家评选，该馆荣获中国地市级“十
+	佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
+	名单。`],
           antique: [
-            { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.cn/image/antique/\u7C89\u5F69\u7F20\u679D\u82B1\u5349\u7897.jpg" },
-            { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.cn/image/antique/\u9752\u74F7\u72D7.jpg" },
-            { name: "\u9ED1\u79DE\u6267\u58F6", src: "https://www.mynameisczy.cn/image/antique/\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F.jpg" }
+            { name: "黑秞执壶", src: "https://www.mengzhiyuan.email/image/antique/粉彩缠枝花卉碗.jpg" },
+            { name: "黑秞执壶", src: "https://www.mengzhiyuan.email/image/antique/青瓷狗.jpg" },
+            { name: "黑秞执壶", src: "https://www.mengzhiyuan.email/image/antique/黄地粉彩龙纹杯.jpg" }
           ],
-          max_pic: ["https://www.mynameisczy.cn/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99861.jpg", "https://www.mynameisczy.cn/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99862.jpg", "https://www.mynameisczy.cn/image/antique/inter_top/\u8346\u5DDE\u535A\u7269\u99863.jpg"],
-          full_src: "https://www.mynameisczy.cn/image/antique/\u8346\u5DDE\u535A\u7269\u9986\u5168\u666F\u56FE.jpg"
+          max_pic: ["https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆1.jpg", "https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆2.jpg", "https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆3.jpg"],
+          full_src: "https://www.mengzhiyuan.email/image/antique/荆州博物馆全景图.jpg"
         };
-      } else if (name == "\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u975E\u9057\u4F20\u627F\u9662") {
+      } else if (name == "长江艺术工程职业学院非遗传承院") {
         result = {
-          name: "\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u975E\u9057\u4F20\u627F\u9662",
-          description: [`\u8346\u5DDE\u5E02\u8346\u695A\u975E\u7269\u8D28\u6587\u5316\u9057\u4EA7\u6280\u80FD\u4F20\u627F\u9662(\u7B80\u79F0\u4F20\u627F\u9662) \uFF0C\u662F\u7ECF\u8346\u5DDE\u5E02\u6587\u5316\u548C\u65C5\u6E38\u5C40\u3001\u8346\u5DDE
-										\u5E02\u975E\u9057\u4FDD\u62A4\u4E2D\u5FC3\u6279\u51C6\uFF0C\u4F9D\u6258\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u8BBE\u7ACB\u7684\u975E\u9057\u4F20\u4E60\u4FDD\u62A4\u57FA\u5730\u3002
-										`, `2015\u5E74\u88AB\u6388\u4E88\u56FD\u5BB63A\u7EA7\u65C5\u6E38\u666F\u533A\u3002`, `2017\u5E7410\u6708\uFF0C\u6587\u5316\u548C\u65C5\u6E38\u90E8\u5728\u8346\u695A\u975E\u9057\u4F20\u627F\u9662\u8BBE\u7ACB\u56FD\u5BB6\u4F20\u7EDF\u5DE5\u827A(\u8346\u5DDE)\u5DE5\u4F5C\u7AD9\uFF0C\u7531\u6E05\u534E\u5927\u5B66\u7F8E\u672F\u5B66\u9662\u4E3A\u9A7B\u7AD9\u5355\u4F4D\uFF0C
-										 \u4EE5\u201C\u89C1\u4EBA\u3001\u89C1\u7269\u3001\u89C1\u751F\u6D3B"\u4E3A\u7406\u5FF5\uFF0C\u4E3A\u65B0\u65F6\u4EE3\u632F\u5174\u4F20\u7EDF\u5DE5\u827A\u63D0\u4F9B\u793A\u8303\uFF0C\u8BA9\u4F20\u7EDF\u5DE5\u827A\u5728\u5F53\u4EE3\u751F\u6D3B\u5F97\u5230\u65B0\u7684\u5E7F\u6CDB\u5E94\u7528\u3002`],
+          name: "长江艺术工程职业学院非遗传承院",
+          description: [`荆州市荆楚非物质文化遗产技能传承院(简称传承院) ，是经荆州市文化和旅游局、荆州
+										市非遗保护中心批准，依托长江艺术工程职业学院设立的非遗传习保护基地。
+										`, `2015年被授予国家3A级旅游景区。`, `2017年10月，文化和旅游部在荆楚非遗传承院设立国家传统工艺(荆州)工作站，由清华大学美术学院为驻站单位，
+										 以“见人、见物、见生活"为理念，为新时代振兴传统工艺提供示范，让传统工艺在当代生活得到新的广泛应用。`],
           antique: [
-            { name: "\u6DE1\u6C34\u8D1D\u96D5", src: "https://www.mynameisczy.cn/image/antique/changyi/\u6DE1\u6C34\u8D1D\u96D5.jpeg" },
-            { name: "\u846B\u82A6\u70D9\u753B", src: "https://www.mynameisczy.cn/image/antique/changyi/\u846B\u82A6.jpeg" },
-            { name: "\u53E4\u7B5D", src: "https://www.mynameisczy.cn/image/antique/changyi/\u53E4\u7B5D.jpeg" },
-            { name: "\u6F06\u827A", src: "https://www.mynameisczy.cn/image/antique/changyi/\u6F06\u827A.jpeg" }
+            { name: "淡水贝雕", src: "https://www.mengzhiyuan.email/image/antique/changyi/淡水贝雕.jpeg" },
+            { name: "葫芦烙画", src: "https://www.mengzhiyuan.email/image/antique/changyi/葫芦.jpeg" },
+            { name: "古筝", src: "https://www.mengzhiyuan.email/image/antique/changyi/古筝.jpeg" },
+            { name: "漆艺", src: "https://www.mengzhiyuan.email/image/antique/changyi/漆艺.jpeg" }
           ],
           max_pic: [
-            "https://www.mynameisczy.cn/image/antique/changyi/\u4F20\u627F\u9662.jpg",
-            "https://www.mynameisczy.cn/image/antique/changyi/\u4F20\u627F\u96622.jpg",
-            "https://www.mynameisczy.cn/image/antique/museum1.jpg"
+            "https://www.mengzhiyuan.email/image/antique/changyi/传承院.jpg",
+            "https://www.mengzhiyuan.email/image/antique/changyi/传承院2.jpg",
+            "https://www.mengzhiyuan.email/image/antique/museum1.jpg"
           ],
-          full_src: "https://www.mynameisczy.cn/image/antique/changyi/full.jpg"
+          full_src: "https://www.mengzhiyuan.email/image/antique/changyi/full.jpg"
         };
       }
       common_vendor.index.navigateTo({
@@ -121,7 +129,7 @@ const _sfc_main = {
     function story(name) {
       common_vendor.index.showToast({
         icon: "none",
-        title: "\u975E\u9057\u6545\u4E8B" + name + "\u6682\u65F6\u672A\u5F00\u653E"
+        title: "非遗故事" + name + "暂时未开放"
       });
     }
     function inter(item) {
@@ -138,7 +146,7 @@ const _sfc_main = {
           console.log(res, "inter");
           if (!res.data.data.arr.length) {
             common_vendor.index.showToast({
-              title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
+              title: "该作品集为空",
               icon: "none"
             });
             return;
@@ -151,16 +159,16 @@ const _sfc_main = {
     }
     let video = common_vendor.reactive([]);
     let head_img = common_vendor.reactive([
-      "https://www.mynameisczy.cn/image/antique/home_top/title1.jpg",
-      "https://www.mynameisczy.cn/image/antique/home_top/title2.jpg",
-      "https://www.mynameisczy.cn/image/antique/home_top/title3.jpg"
+      "https://www.mengzhiyuan.email/image/antique/home_top/title1.jpg",
+      "https://www.mengzhiyuan.email/image/antique/home_top/title2.jpg",
+      "https://www.mengzhiyuan.email/image/antique/home_top/title3.jpg"
     ]);
     function lower(e) {
       if (reqs.state)
         return;
       reqs.state = true;
       common_vendor.index.showLoading({
-        title: "\u52A0\u8F7D\u4E2D",
+        title: "加载中",
         mask: true
       });
       common_vendor.index.request({
@@ -175,7 +183,7 @@ const _sfc_main = {
           }
           if (res.data.data.length <= 0) {
             common_vendor.index.showToast({
-              title: "\u5DF2\u7ECF\u6ED1\u5230\u5E95\u4E86"
+              title: "已经滑到底了"
             });
             return;
           }
@@ -233,7 +241,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "right"
     }),
     f: common_vendor.o(($event) => $setup.more("all")),
-    g: common_vendor.f(["\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u975E\u9057\u4F20\u627F\u9662", "\u8346\u5DDE\u535A\u7269\u9986"], (item, index, i0) => {
+    g: common_vendor.f(["长江艺术工程职业学院非遗传承院", "荆州博物馆"], (item, index, i0) => {
       return {
         a: $setup.base_url + "/image/antique/museum" + (index + 1) + ".jpg",
         b: common_vendor.t(item),
@@ -257,6 +265,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     k: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-92bb8f34"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/home.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-07e72d3c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/home/home.vue"]]);
 _sfc_main.__runtimeHooks = 6;
 wx.createPage(MiniProgramPage);

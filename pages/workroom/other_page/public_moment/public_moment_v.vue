@@ -16,7 +16,8 @@
 		  <view class="flex_j_a_r" >添加地点
 		  <uni-icons type="location-filled" color="rgb(110,121,226)"></uni-icons>
 		  </view>
-		<input type="text" placeholder="请输入地区" v-model="info.place" maxlength="20">
+		  <view @click="getLocation">{{info.place == '' ? '请选择地区':info.place}}</view>
+		<!-- <input type="text" placeholder="请输入地区" v-model="info.place" maxlength="20"> -->
 	  </view>
 	  <view class="range">
 	  		  <view class="tit">选择分享范围</view>
@@ -54,11 +55,13 @@ export default{
 			this.info.duration=duration.toFixed()<10?`00:0${duration.toFixed()}`:`00:${duration.toFixed()}`
 	  }
 	  this.info.path=path.tempFilePath
+	  this.channel = this.getOpenerEventChannel()
   },
   components:{
 	  back
   },
   setup(){
+	  let channel = ref(null)
 	  let info=reactive({
 	  	content:'',
 		duration:'0.0',
@@ -74,6 +77,19 @@ export default{
 	  		icon:'none',
 	  		title:name+'暂时未开放'
 	  	})
+	  }
+	  const getLocation = () => {
+	  		  uni.getLocation({
+	  		  	success({latitude,longitude}) {
+	  				  uni.chooseLocation({
+	  					  latitude,longitude,
+	  					success(res) {
+	  						console.log(res,'res');
+	  						info.place = res.name
+	  					}
+	  				  })
+	  		  	}
+	  		  })
 	  }
 	  async function publish(){
 		  if(state.value)
@@ -161,20 +177,21 @@ export default{
 					success(res) {
 						if(uni.current_this.check_res_state(res))
 							return
-						uni.current_this.store.dispatch('addmoment',JSON.stringify({
-							avatar:uni.current_this.store.state.user_info.avatar,
-							openid:uni.current_this.store.state.user_info.openid,
-							name:uni.current_this.store.state.user_info.name,
-							type:'v',
-							src:info.sus[0],
-							mask:[info.sus[1]],
-							content:info.content,
-							place:info.place.length?info.place:'火星',
-							send_date:uni.current_this.dateformat_accuracy(new Date()),
-							browser:0,
-							uuid:res.data.data.uuid,
-							moment_count:0,
-						}))
+						// uni.current_this.store.dispatch('addmoment',JSON.stringify({
+						// 	avatar:uni.current_this.store.state.user_info.avatar,
+						// 	openid:uni.current_this.store.state.user_info.openid,
+						// 	name:uni.current_this.store.state.user_info.name,
+						// 	type:'v',
+						// 	src:info.sus[0],
+						// 	mask:[info.sus[1]],
+						// 	content:info.content,
+						// 	place:info.place.length?info.place:'火星',
+						// 	send_date:uni.current_this.dateformat_accuracy(new Date()),
+						// 	browser:0,
+						// 	uuid:res.data.data.uuid,
+						// 	moment_count:0,
+						// }))
+						channel.value.emit('loadData')
 						uni.navigateBack()
 						uni.showToast({
 							title:'发布成功',
@@ -212,7 +229,10 @@ export default{
 					}
 				});
 	}
-    return{info,develop,publish,state,check_pict,delPic}
+	const public_work = (e) => {
+		info.show_work = e.detail
+	}
+    return{info,develop,publish,state,check_pict,delPic,getLocation,public_work,channel}
   }
 }
 </script>

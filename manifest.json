@@ -58,6 +58,12 @@
         "setting" : {
             "urlCheck" : false
         },
+		"permission": {
+			"scope.userLocation": {
+				"desc": "需要获取您的地理位置"
+			}
+		},
+		"requiredPrivateInfos" : [ "chooseLocation", "getLocation", "chooseAddress" ],
         "usingComponents" : true,
         "optimization" : {
             "subPackages" : true

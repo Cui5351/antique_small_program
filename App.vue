@@ -4,7 +4,7 @@
 		onLaunch: function() {
 			uni.current_this=this
 			// this.baseURL='https://www.mynameisczy.asia'
-			this.baseURL='https://www.mynameisczy.cn'
+			this.baseURL='https://www.mengzhiyuan.email'
 			this.store=useStore()
 			this.no_develop=function(name){
 				uni.showToast({

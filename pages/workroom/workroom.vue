@@ -74,10 +74,20 @@
 import {ref,reactive,computed} from 'vue'
 export default{
   mounted() {
-	uni.showLoading({
-		title:'加载中',
-		mask:true
-	})
+	// uni.showLoading({
+	// 	title:'加载中',
+	// 	mask:true
+	// })
+	// this.get_moments()
+  },
+  onTabItemTap() {
+	  uni.showLoading({
+	  	title:'加载中',
+	  	mask:true
+	  })
+  	this.moment.splice(0,this.moment.length)
+	this.reqs.skip = 0
+	this.reqs.state = false
 	this.get_moments()
   },
   setup(){
@@ -86,9 +96,19 @@ export default{
 		state:false,
 		skip:0,
 	})
-	let moment=computed(()=>uni.current_this.store.getters.moments)
+	// let moment=computed(()=>uni.current_this.store.getters.moments)
+	let moment = reactive([])
 	let back=uni.current_this.back
 	function publish_moment(){
+		// wx.getPrivacySetting({
+		// 	success(){
+		// 		console.log("success");
+		// 	},
+		// 	fail(){
+		// 		console.log("fail");
+		// 	}
+		// })
+		
 		if(uni.current_this.check_login_state()){
 			uni.showToast({
 				title:'请先登录',
@@ -96,13 +116,27 @@ export default{
 			})
 			return
 		}
-		uni.chooseImage({
+		uni.chooseMedia({
 			// count:9默认为9
+			sourceType: ['album'], //从相册选择
+			mediaType:["image"],
 			success(res) {
-				let paths=res.tempFilePaths
+				let paths=res.tempFiles
+				paths=paths.map(item=>{
+					return item.tempFilePath
+				})
 				// 跳转
 				uni.navigateTo({
-					url:`/pages/workroom/other_page/public_moment/public_moment?paths=${JSON.stringify(paths)}`
+					url:`/pages/workroom/other_page/public_moment/public_moment?paths=${JSON.stringify(paths)}`,
+					events:{
+						loadData(){
+							console.log('loadData');
+							moment.splice(0,moment.length)
+							reqs.skip = 0
+							reqs.state = false
+							get_moments()
+						}
+					}
 				})
 			}
 		})
@@ -128,9 +162,19 @@ export default{
 					})
 					return
 				}
+				console.log(paths,'paths');
 				// 跳转
 				uni.navigateTo({
-					url:`/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`
+					url:`/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`,
+					events:{
+						loadData(){
+							console.log('loadData');
+							moment.splice(0,moment.length)
+							reqs.skip = 0
+							reqs.state = false
+							get_moments()
+						}
+					}
 				})
 			},
 			fail(e) {
@@ -163,6 +207,7 @@ export default{
 	}
 	function get_moments(){
 		reqs.state=true
+		console.log('get_moments');
 		uni.request({
 			url:uni.current_this.baseURL+':5001/get_community_moments',
 			method:'GET',
@@ -170,7 +215,6 @@ export default{
 				skip:reqs.skip
 			},
 			success(res) {
-				console.log(res,'res');
 				if(uni.current_this.check_res_state(res))
 					return
 					res.data.data.forEach(item=>{
@@ -188,13 +232,16 @@ export default{
 						
 					})
 					console.log(res.data);
-					uni.current_this.store.state.moments.push(...res.data.data)
+					// uni.current_this.store.state.moments.push(...res.data.data)
+					moment.push(...res.data.data)
 					reqs.skip+=res.data.data.length
 			},complete() {
 				setTimeout(()=>{
 					reqs.state=false
 				},1000)
 				uni.hideLoading()
+			},fail(err) {
+				console.log(err,'err');
 			}
 		})
 	}
@@ -211,7 +258,7 @@ export default{
 				url:uni.current_this.baseURL+':5001/get_new_community_moments',
 				method:'POST',
 				data:{
-					uuid:uni.current_this.store.state.moments[0].uuid
+					uuid:moment[0].uuid
 				},
 				success(res) {
 					if(uni.current_this.check_res_state(res))
@@ -225,7 +272,7 @@ export default{
 					res.data.data.forEach(item=>{
 						item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
 					})
-					uni.current_this.store.state.moments.unshift(...res.data.data)
+					moment.unshift(...res.data.data)
 				},
 				complete() {
 					setTimeout(()=>{
@@ -250,7 +297,7 @@ export default{
 			})}`
 		})
 	}
-    return{back,show_add,moment,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,lower}
+    return{back,show_add,moment,reqs,user_info,upper,publish_moment2,publish_moment,get_moments,reqs,check_pict,detail,lower}
   }
 }
 </script>

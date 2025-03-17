@@ -37,6 +37,8 @@
 						</view>
 					</view>
 					<view class="user_name">up:{{item.user_name}}</view>
+					<view class="user_name">{{item.date}}</view>
+					
 				  </view>
 			  </view>
 		  </view>
@@ -129,6 +131,9 @@ export default{
 				}
 				skip.value+=data.data.length
 				show_state.value='video'
+				data.data.data.forEach(item => {
+					item.date = uni.current_this.dateformat_accuracy(new Date(item.publish_date))
+				})
 				videos.push(...data.data.data)
 				// name分为三个元素【数组】，1为红色标记部分
 				videos.forEach(item=>{
@@ -219,9 +224,9 @@ export default{
 	}
 	function fill(item){
 		text.value=item
-		search({detail:{
-			value:item
-		}})
+		// search({detail:{
+		// 	value:item
+		// }})
 	}
 	let inter=uni.current_this.inter
     return{text,input,search,record,fill,show_state,video_label,inter,search_result,videos}

@@ -7,7 +7,7 @@
 	box-sizing: border-box;
 }
 .swiper{
-	@include height(27%);
+	@include height(30%);
 	width:100%;
 }
 .swiper_item{
@@ -22,7 +22,7 @@
 	background-color: rebeccapurple;
 	padding:0 0px 30px;
 	box-sizing: border-box;
-	height:80%;
+	height:77%;
 	position: relative;
 	border-top-left-radius:25px;
 	border-top-right-radius:25px;

@@ -1,6 +1,6 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
-var common_assets = require("../../../../common/assets.js");
+const common_vendor = require("../../../../common/vendor.js");
+const common_assets = require("../../../../common/assets.js");
 const _sfc_main = {
   name: "",
   onLoad(res) {
@@ -50,8 +50,10 @@ const _sfc_main = {
     this.current_video.share++;
     return {
       title: this.current_video.name,
+      //分享的名称
       imageUrl: this.current_video.mask,
       path: `/pages/workroom/other_page/play_video/play_video?video=${JSON.stringify(this.video)}&title:${this.title}`
+      // mpId:'' //此处配置微信小程序的AppId
     };
   },
   setup() {
@@ -84,7 +86,7 @@ const _sfc_main = {
       if (ind == index.value)
         return;
       common_vendor.index.showLoading({
-        title: "\u8D44\u6E90\u52A0\u8F7D\u4E2D",
+        title: "资源加载中",
         mask: true
       });
       Object.keys(current_video).forEach((item) => {
@@ -130,21 +132,21 @@ const _sfc_main = {
     function send() {
       if (common_vendor.index.current_this.store.state.user_info.openid.length < 1) {
         common_vendor.index.showToast({
-          title: "\u6E05\u5148\u767B\u5F55",
+          title: "清先登录",
           icon: "none"
         });
         return;
       }
       if (!state.value) {
         common_vendor.index.showToast({
-          title: "\u60A8\u8F93\u5165\u7684\u901F\u5EA6\u592A\u5FEB\u4E86,\u4F11\u606F\u4E00\u4E0B\u5427",
+          title: "您输入的速度太快了,休息一下吧",
           icon: "none"
         });
         return;
       }
       if (danmu.value.length <= 0) {
         common_vendor.index.showToast({
-          title: "\u8F93\u5165\u5185\u5BB9\u4E3A\u7A7A",
+          title: "输入内容为空",
           icon: "error"
         });
         return;
@@ -168,7 +170,7 @@ const _sfc_main = {
             text: danmu.value,
             time: current_video.time,
             color: "white",
-            date: common_vendor.index.current_this.dateformat_accuracy(new Date())
+            date: common_vendor.index.current_this.dateformat_accuracy(/* @__PURE__ */ new Date())
           });
         },
         complete() {
@@ -254,8 +256,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.t(item.user_name),
         c: common_vendor.t(item.text),
         d: common_vendor.t(item.date),
-        e: common_vendor.o(($event) => item.stars++),
-        f: "5d1767d0-4-" + i0,
+        e: common_vendor.o(($event) => item.stars++, index),
+        f: "fb163685-4-" + i0,
         g: common_vendor.p({
           size: "20",
           type: item.stars > 0 ? "hand-up-filled" : "hand-up",
@@ -274,6 +276,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     B: common_vendor.o((...args) => $setup.send && $setup.send(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-5d1767d0"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/play_video/play_video.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fb163685"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/workroom/other_page/play_video/play_video.vue"]]);
 _sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);

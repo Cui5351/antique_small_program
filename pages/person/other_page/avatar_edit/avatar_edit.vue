@@ -39,7 +39,7 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 								title:'修改中'
 							})
 							let image_path=e.tempFilePath
-							// let url='https://www.mynameisczy.cn:5001/upload_avatar'
+							// let url='https://www.mengzhiyuan.email:5001/upload_avatar'
 							uni.uploadFile({
 								url:url.value,
 								filePath:image_path,
@@ -49,7 +49,6 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 								},
 								success(e) {
 									// 返回
-									uni.navigateBack()
 									let data=JSON.parse(e.data)
 									if(data.error){
 										uni.showToast({
@@ -63,7 +62,8 @@ import QfImageCropper from '@/uni_modules/qf-image-cropper/components/qf-image-c
 										uni.showToast({
 											icon:'success',
 											title:'修改成功'
-										})									
+										})		
+								uni.navigateBack()
 								},fail(e) {
 									uni.hideLoading()
 								}

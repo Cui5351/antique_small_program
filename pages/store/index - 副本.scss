@@ -1,0 +1,109 @@
+@import '@/uni.scss';
+.container{
+	height:100%;
+	width:100%;
+	display: flex;
+	flex-direction: column;
+	&>view{
+		flex-grow: 1;
+	}
+}
+.head{
+	background-color: white;
+	@include height(10%);
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+}
+.body{
+	@include height(90%);
+	// padding:10px 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	&>view{
+		flex-grow: 1;
+	}
+	.search{
+		color: gray;
+		@include height(7%);
+	}
+	.list{
+		@include height(93%);
+		overflow: auto;
+		display: flex;
+		&>view{
+			flex-grow: 1;
+		}
+		.culture{
+			.dot{
+				height:10px;
+				width:10px;
+				position: relative;
+				transform: translateX(-100%);
+				left:0px;
+				border-radius: 50%;
+			}
+			&>.active{
+				// background-color: #fffbf2;
+				background-color: white;
+			}
+			@include width(30%);
+			&>view{
+				@include height(10%);
+			}
+		}
+		.culture_right{
+			overflow: auto;
+			display: flex;
+			padding:10px 10px 0 10px;
+			box-sizing: border-box;
+			flex-direction: column;
+			&>.pic{
+				@include height(30%);
+				&>image{
+					background-color: rgba(0,0,0,.1);
+					height:100%;
+					width:100%;
+				}
+			}
+			&>.culture_store{
+				@include height(70%);
+				&>view{
+					flex-grow: 1;
+				}
+				&>.title{
+					@include height(10%);
+					// background-color: black;
+					display: flex;
+					align-items: center;
+				}
+
+				&>.goods_all{
+					display: flex;
+					column-count: 2;
+					flex-wrap: wrap;
+					// justify-content: space-between;
+					.goods{
+						@include width(48%);
+						margin:0 0.5% 10px 0.5%;
+						// @include height(33%);
+						height:150px;
+						&>image{
+							height:100%;
+							width:100%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.search_btn{
+	@include width(80%);
+	@include height(70%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius:20px;
+}

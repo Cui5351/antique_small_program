@@ -173,7 +173,6 @@
 		        "navigationBarTitleText": "",
 		        "enablePullDownRefresh": false
 		    }
-		    
 		}
         ,{
             "path" : "pages/person/other_page/comment/comment",
@@ -219,6 +218,24 @@
                 "enablePullDownRefresh": false
             }
             
+        },
+        {
+        	"path" : "pages/store/other_page/storeDetail/storeDetail",
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "店铺详情",
+        		"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+        	}
+        },
+        {
+        	"path" : "pages/store/other_page/storeOrder/storeOrder",
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "下单",
+        		"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+        	}
         }
     ],
 	"tabBar": {

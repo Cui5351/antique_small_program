@@ -1,39 +1,32 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
+const request_baseUrl = require("../../../../request/baseUrl.js");
+const request_request = require("../../../../request/request.js");
 const _sfc_main = {
-  onLoad(res) {
-    common_vendor.index.showLoading({
-      title: "\u5546\u54C1\u52A0\u8F7D\u4E2D"
-    });
-    let that = this;
-    if (res.state == 1) {
-      if (!common_vendor.index.current_this.store.getters.login_state) {
-        common_vendor.index.showToast({
-          title: "\u8BF7\u5148\u767B\u5F55",
-          icon: "none"
-        });
-        common_vendor.index.switchTab({
-          url: "/pages/person/person"
-        });
-        return;
-      }
+  methods: {
+    loadData() {
+      common_vendor.index.showLoading({
+        title: "商品加载中"
+      });
+      let that = this;
       common_vendor.index.request({
-        url: common_vendor.index.current_this.baseURL + ":5001/getStoreInfo",
-        method: "POST",
+        url: request_baseUrl.baseURL + "/StoreItem/findById",
+        method: "GET",
         data: {
-          name: res.name
+          id: this.id
         },
         success(res2) {
-          if (res2.data.state != 1) {
+          if (res2.data.code != 1) {
             common_vendor.index.showToast({
-              title: "\u53D1\u751F\u4E86\u672A\u77E5\u7684\u9519\u8BEF",
+              title: "发生了未知的错误",
               icon: "error"
             });
             return;
           }
-          let info2 = {
+          let info = {
             name: "",
             money: 0,
+            id: "",
             sale: 0,
             depository: 0,
             src: "",
@@ -42,77 +35,101 @@ const _sfc_main = {
             pic: [],
             transport_money: 0
           };
-          info2.pic.push(...res2.data.data.pic.map((item) => item.src));
-          Object.keys(info2).forEach((item) => {
+          that.info.pic.splice(0, that.info.pic.length);
+          that.info.pic.push(...res2.data.data.src.map((item) => item.src));
+          Object.keys(info).forEach((item) => {
             if (item == "pic" || item == "bought_log" || item == "comment")
               return;
-            that.info[item] = res2.data.data.info[item];
+            that.info[item] = res2.data.data[item];
           });
-          get_count(res.name);
+          that.loadStore();
+          that.get_count();
         },
         complete() {
           common_vendor.index.hideLoading();
         }
       });
-      return;
-    }
-    let data = JSON.parse(res.info);
-    Object.keys(this.info).forEach((item) => {
-      if (item == "pic") {
-        this.info.pic.push(...data.pic);
-        return;
-      }
-      if (data[item] == void 0)
-        return;
-      this.info[item] = data[item];
-    });
-    get_count(data.name);
-    common_vendor.index.hideLoading();
-    function get_count(name) {
+    },
+    loadStore() {
+      common_vendor.index.showLoading({
+        title: "加载商品中"
+      });
+      request_request.instance.get("/StoreItem/list", {
+        store: this.info.store,
+        ...this.search
+      }).then((res) => {
+        this.services.splice(0, this.services.length);
+        this.services.push(...res.list);
+      }).catch((err) => {
+        console.log(err, "err");
+      }).finally(() => {
+        common_vendor.index.hideLoading();
+      });
+    },
+    get_count() {
+      let that = this;
       common_vendor.index.request({
         url: common_vendor.index.current_this.baseURL + ":5001/get_goods",
+        // url:baseURL+':8666/get_goods',
         method: "POST",
         data: {
-          goods_name: name
+          id: this.id
         },
-        success(res2) {
-          if (res2.data.state != 1) {
+        success(res) {
+          if (res.data.state != 1) {
             return;
           }
           function format(date) {
             let month = date.getMonth() == 12 ? 1 : date.getMonth() + 1;
             let day = date.getDate();
-            let now = new Date();
+            let now = /* @__PURE__ */ new Date();
             if (now.getFullYear() == date.getFullYear())
-              return `${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
+              return `${month < 10 ? "0" + month : month}月${day < 10 ? "0" + day : day}日`;
             else
-              return `${date.getFullYear()}\u5E74${month < 10 ? "0" + month : month}\u6708${day < 10 ? "0" + day : day}\u65E5`;
+              return `${date.getFullYear()}年${month < 10 ? "0" + month : month}月${day < 10 ? "0" + day : day}日`;
           }
-          res2.data.data.forEach((item) => {
-            item.bought_date = format(new Date(item.bought_date));
+          res.data.data.forEach((item) => {
+            item.bought_date = format(new Date(item.date));
           });
-          that.info.bought_log.push(...res2.data.data.reverse().slice(0, 3));
-          that.full.bought_log.push(...res2.data.data);
+          that.info.bought_log.splice(0, that.info.bought_log.length);
+          that.full.bought_log.splice(0, that.full.bought_log.length);
+          that.info.bought_log.push(...res.data.data.reverse().slice(0, 3));
+          that.full.bought_log.push(...res.data.data);
         }
       });
     }
+  },
+  onShow() {
+    this.loadData();
+  },
+  onLoad(res) {
+    this.id = res.id;
+    return;
   },
   onShareAppMessage(res) {
     return {
       imageUrl: this.info.pic[0],
       title: this.info.name,
-      path: `/pages/store/other_page/store_page/store_page?name=${info.name}&state=1`
+      //分享的名称
+      path: `/pages/store/other_page/store_page/store_page?name=${this.info.name}&id=${this.id}`
     };
   },
+  //分享到朋友圈
   onShareTimeline() {
     return {
       imageUrl: this.info.pic[0],
       title: this.info.name,
+      //分享的名称
       type: 0
     };
   },
   setup() {
-    let info2 = common_vendor.reactive({
+    let id = common_vendor.ref(null);
+    const search = common_vendor.reactive({
+      page: 1,
+      pageSize: 10
+    });
+    let info = common_vendor.reactive({
       count: 1,
       name: "",
       money: 0,
@@ -120,12 +137,14 @@ const _sfc_main = {
       depository: 0,
       src: "",
       description: "",
+      id: "",
       store: "",
       pic: [],
       comment: [],
       bought_log: [],
       transport_money: 0
     });
+    let services = common_vendor.reactive([]);
     let full = common_vendor.reactive({
       bought_log: [],
       comment: []
@@ -133,65 +152,43 @@ const _sfc_main = {
     let back = common_vendor.index.current_this.back;
     function join_car() {
       common_vendor.index.showToast({
-        title: "\u6682\u672A\u5F00\u653E",
+        title: "暂未开放",
         icon: "none"
       });
     }
     function show_all() {
       common_vendor.index.showToast({
-        title: "\u6682\u672A\u5F00\u653E",
+        title: "暂未开放",
         icon: "none"
       });
     }
     function buy() {
       if (!common_vendor.index.current_this.store.getters.login_state) {
-        common_vendor.index.showToast({
-          title: "\u8BF7\u5148\u767B\u5F55",
-          icon: "none"
-        });
-        common_vendor.index.switchTab({
-          url: "/pages/person/person"
+        common_vendor.index.showModal({
+          title: "系统提示",
+          content: "亲！下单前请先登录",
+          showCancel: false,
+          success() {
+            common_vendor.index.switchTab({
+              url: "/pages/person/person"
+            });
+          }
         });
         return;
       }
-      common_vendor.index.showLoading({
-        title: "\u8D2D\u4E70\u4E2D",
-        mask: true
-      });
-      common_vendor.index.request({
-        url: common_vendor.index.current_this.baseURL + ":5001/buy_goods",
-        method: "POST",
-        data: {
-          openid: common_vendor.index.current_this.store.getters.openid,
-          goods_name: info2.name,
-          count: 1
-        },
-        success(res) {
-          console.log(res, "res");
-          if (res.data.state !== 1) {
-            common_vendor.index.hideLoading();
-            common_vendor.index.showToast({
-              title: "\u8D2D\u4E70\u5931\u8D25",
-              icon: "error"
-            });
-          }
-          setTimeout(() => {
-            common_vendor.index.hideLoading();
-            common_vendor.index.showToast({
-              title: "\u8D2D\u4E70\u6210\u529F",
-              mask: true
-            });
-            setTimeout(() => {
-              common_vendor.index.reLaunch({
-                url: "/pages/person/other_page/bills/bills"
-              });
-            }, 500);
-          }, Math.random() * 1e3);
-        }
+      if (info.depository <= 0) {
+        common_vendor.index.showModal({
+          title: "该商品暂时没有库存了，请等待店主补库存!",
+          showCancel: false
+        });
+        return;
+      }
+      common_vendor.index.navigateTo({
+        url: `/pages/store/other_page/storeOrder/storeOrder?info=${JSON.stringify(info)}`
       });
       return;
     }
-    return { back, info: info2, join_car, show_all, buy, full };
+    return { back, info, join_car, show_all, buy, full, id, services, search };
   }
 };
 if (!Array) {
@@ -205,7 +202,8 @@ if (!Math) {
   (_easycom_uni_icons + _easycom_uni_rate)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  var _a;
+  return common_vendor.e({
     a: common_vendor.p({
       type: "left",
       size: "25"
@@ -217,30 +215,31 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: index
       };
     }),
-    d: common_vendor.t($setup.info.money),
-    e: common_vendor.t($setup.info.description.length >= 20 ? $setup.info.description.substring(0, 20) + "..." : $setup.info.description),
-    f: common_vendor.p({
+    d: common_vendor.t((_a = $setup.info.money) == null ? void 0 : _a.toFixed(2)),
+    e: common_vendor.t($setup.info.name),
+    f: common_vendor.t($setup.info.description.length >= 20 ? $setup.info.description.substring(0, 20) + "..." : $setup.info.description),
+    g: common_vendor.p({
       type: "redo",
       size: "20"
     }),
-    g: common_vendor.t($setup.info.transport_money),
-    h: common_vendor.t($setup.info.sale),
-    i: common_vendor.t($setup.info.depository),
-    j: common_vendor.t($setup.full.bought_log.length),
-    k: common_vendor.p({
+    h: common_vendor.t($setup.info.transport_money),
+    i: common_vendor.t($setup.info.sale),
+    j: common_vendor.t($setup.info.depository),
+    k: common_vendor.t($setup.full.bought_log.length),
+    l: common_vendor.p({
       type: "right"
     }),
-    l: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
-    m: common_vendor.f($setup.info.bought_log, (item, index, i0) => {
+    m: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
+    n: common_vendor.f($setup.info.bought_log, (item, index, i0) => {
       return {
         a: item.user_avatar,
         b: common_vendor.t(item.user_name),
         c: common_vendor.t(item.bought_date),
         d: common_vendor.t(item.bought_count),
-        e: index
+        e: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args), index),
+        f: index
       };
     }),
-    n: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
     o: common_vendor.t($setup.info.comment.length),
     p: common_vendor.p({
       type: "right"
@@ -250,7 +249,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       return {
         a: item.avatar,
         b: common_vendor.t(item.name),
-        c: "92cbb4f6-4-" + i0,
+        c: "cdeee895-4-" + i0,
         d: common_vendor.t(item.info),
         e: index
       };
@@ -260,13 +259,30 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       readonly: true,
       value: 5
     }),
-    t: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
-    v: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
-    w: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
-    x: common_vendor.o((...args) => $setup.join_car && $setup.join_car(...args)),
-    y: common_vendor.o((...args) => $setup.buy && $setup.buy(...args))
-  };
+    t: common_vendor.t($setup.info.store),
+    v: $setup.services.length > 0
+  }, $setup.services.length > 0 ? {
+    w: common_vendor.f([...$setup.services], (item, index, i0) => {
+      var _a2;
+      return {
+        a: item.url,
+        b: common_vendor.t(item.name),
+        c: common_vendor.t(item.description.length >= 15 ? item.description.substring(0, 15) + "..." : item.description),
+        d: common_vendor.t((_a2 = item.money) == null ? void 0 : _a2.toFixed(2)),
+        e: common_vendor.t(item.sale),
+        f: common_vendor.t(item.depository),
+        g: index,
+        h: common_vendor.o(($event) => _ctx.enterService(item), index)
+      };
+    })
+  } : {}, {
+    x: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
+    y: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
+    z: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args)),
+    A: common_vendor.o((...args) => $setup.join_car && $setup.join_car(...args)),
+    B: common_vendor.o((...args) => $setup.buy && $setup.buy(...args))
+  });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-92cbb4f6"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/store/other_page/store_page/store_page.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-cdeee895"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/store/other_page/store_page/store_page.vue"]]);
 _sfc_main.__runtimeHooks = 6;
 wx.createPage(MiniProgramPage);

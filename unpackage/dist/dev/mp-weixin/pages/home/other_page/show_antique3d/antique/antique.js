@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../../common/vendor.js");
+const common_vendor = require("../../../../../common/vendor.js");
 const _sfc_main = {
   onLoad(res) {
     let data = JSON.parse(res.data);
@@ -44,5 +44,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     g: common_vendor.t($setup.info.description)
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-07a217b0"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/other_page/show_antique3d/antique/antique.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a9a7e72e"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/home/other_page/show_antique3d/antique/antique.vue"]]);
 wx.createPage(MiniProgramPage);

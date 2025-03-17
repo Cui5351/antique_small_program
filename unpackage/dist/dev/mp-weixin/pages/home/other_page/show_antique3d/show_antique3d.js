@@ -1,85 +1,85 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const _sfc_main = {
   name: "",
   setup() {
     let static_data = common_vendor.reactive([
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u9752\u74F7\u53CC\u7CFB\u8033\u58F6.jpg",
-        born: "\u8346\u5DDE\u533A\u738B\u6C0F\u5830\u51FA\u571F",
-        date: "\u897F\u6C49\u65F6\u671F",
-        name: "\u9752\u74F7\u53CC\u7CFB\u8033\u58F6",
-        description: "\u8BE5\u5668\u7269\u901A\u9AD842\u5398\u7C73\uFF0C\u53E3\u5F8417.5\u5398\u7C73\uFF0C\u5E95\u5F8416.5\u5398\u7C73\u3002\u655E\u53E3\uFF0C\u5587\u53ED\u72B6\uFF0C\u9AD8\u9888\u659C\u80A9\uFF0C\u9F13\u8179\uFF0C\u5367\u5708\u8DB3\u3002\u80A9\u9644\u6241\u5F62\u7AD6\u7CFB\uFF0C\u9888\u4E0B\u53CA\u6CBF\u4E0B\u9970\u6C34\u6CE2\u7EB9\uFF0C\u80A9\u90E8\u9970\u4E09\u7EC4\u5F26\u7EB9\uFF0C\u7CFB\u4E0A\u9970\u53F6\u8109\u7EB9\uFF0C\u4E0B\u6709\u4E00\u73AF\uFF0C\u8179\u4E0B\u78E8\u5149\uFF0C\u53E3\u5185\u53CA\u80A9\u90E8\u65BD\u9752\u9EC4\u91C9\u4E0D\u5747\u5300\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/青瓷双系耳壶.jpg",
+        born: "荆州区王氏堰出土",
+        date: "西汉时期",
+        name: "青瓷双系耳壶",
+        description: "该器物通高42厘米，口径17.5厘米，底径16.5厘米。敞口，喇叭状，高颈斜肩，鼓腹，卧圈足。肩附扁形竖系，颈下及沿下饰水波纹，肩部饰三组弦纹，系上饰叶脉纹，下有一环，腹下磨光，口内及肩部施青黄釉不均匀。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u767D\u91C9\u5B69\u7AE5\u6795.jpg",
-        born: "\u8346\u5DDE\u57CE\u51FA\u571F",
-        date: "\u5317\u5B8B\u65F6\u671F",
-        name: "\u767D\u91C9\u5B69\u7AE5\u6795",
-        description: "\u74F7\u6795\u662F\u6211\u56FD\u53E4\u4EE3\u7684\u590F\u4EE4\u5BDD\u5177,\u59CB\u521B\u4E8E\u968B\u4EE3\uFF0C\u6D41\u884C\u4E8E\u5510\u3001\u5B8B\u3001\u5143\u95F4\uFF0C\u201C\u5B69\u513F\u6795\u201D\u662F\u74F7\u6795\u7684\u4E00\u79CD\u6837\u5F0F\uFF0C\u4EE5\u5B9A\u7A91\u3001\u666F\u5FB7\u9547\u7A91\u70E7\u5236\u7684\u6700\u4E3A\u7CBE\u7F8E\u3002\u5B9A\u7A91\u662F\u5B8B\u4EE3\u5317\u65B9\u8457\u540D\u74F7\u7A91\u3002\u7A91\u5740\u5728\u4ECA\u5929\u7684\u6CB3\u5317\u7701\u66F2\u9633\u53BF,\u4EE5\u767D\u74F7\u4E3A\u4E3B\uFF0C\u4E5F\u70E7\u5236\u5176\u4ED6\u7684\u54C1\u79CD,\u5B83\u7684\u80CE\u8272\u767D\u8272\u5FAE\u9EC4\uFF0C\u8F83\u575A\u81F4\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/白釉孩童枕.jpg",
+        born: "荆州城出土",
+        date: "北宋时期",
+        name: "白釉孩童枕",
+        description: "瓷枕是我国古代的夏令寝具,始创于隋代，流行于唐、宋、元间，“孩儿枕”是瓷枕的一种样式，以定窑、景德镇窑烧制的最为精美。定窑是宋代北方著名瓷窑。窑址在今天的河北省曲阳县,以白瓷为主，也烧制其他的品种,它的胎色白色微黄，较坚致。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u7C89\u5F69\u7F20\u679D\u82B1\u5349\u7897.jpg",
-        born: "\u8346\u5DDE\u57CE\u51FA\u571F",
-        date: "\u6E05\u671D\u65F6\u671F",
-        name: "\u7C89\u5F69\u7F20\u679D\u82B1\u5349\u7897",
-        description: `\u7C89\u5F69\u74F7\u53C8\u53EB\u201C\u8F6F\u5F69\u74F7\u201D\uFF0C\u662F\u5EB7\u7199\u665A\u671F\u53D7\u73D0\u7405\u5F69\u74F7\u5F71\u54CD\u548C\u542F\u53D1\u800C\u51FA\u73B0\u7684\u91C9\u4E0A\u5F69\u74F7\u65B0\u54C1\u79CD\uFF0C\u7D20\u6709\u201C\u59CB\u4E8E\u5EB7\u7199\uFF0C\u7CBE\u4E8E\u96CD\u6B63\uFF0C\u76DB\u4E8E\u4E7E\u9686\u201D\u4E4B\u8BF4\uFF0C\u8FC4\u4ECA\u5DF2\u6709300\u591A\u5E74\u5386\u53F2\u3002\u7C89\u5F69\u74F7\u4E4B\u6240\u4EE5\u4E3A\u85CF\u5BB6\u9752\u7750\uFF0C\u4E3B\u8981\u51ED\u501F\u5176\u72EC\u6709\u7684\u201C\u73BB\u7483\u767D\u201D\u3002\u6240\u8C13\u201C\u73BB\u7483\u767D\u201D\u662F\u6307\u4E0D\u900F\u660E\u7684\u767D\u8272\u4E73\u6D4A\u5242\uFF0C\u5176\u5236\u4F5C\u5DE5\u827A\u662F\u5728\u70E7\u6210\u7684\u767D\u74F7\u4E0A\u52FE\u52D2\u51FA\u7EB9\u9970\u56FE\u6848\u7684\u8F6E\u5ED3\uFF0C\u5728\u8F6E\u5ED3\u5185\u5148\u7528\u542B\u6709\u6C27\u5316\u7845\u3001\u6C27\u5316\u7837\u548C\u6C27\u5316\u94C5\u7684\u201C\u73BB\u7483\u767D\u201D\u6253\u5E95\uFF0C\u7136\u540E\u6309\u6240\u9700\u989C\u8272\u5728\u4E0A\u9762\u7ED8\u753B\u6E32\u67D3\uFF0C\u518D\u6B21\u5165\u7A91\u70D8\u70E7\u800C\u6210\u3002\u5229\u7528\u5176\u4E73\u6D4A\u4F5C\u7528\uFF0C\u53EF\u4EE5\u8BA9\u6240\u7ED8\u4EBA\u7269\u3001\u82B1\u9E1F\u3001\u5C71\u6C34\u7B49\u753B\u9762\u7C89\u6DA6\u67D4\u548C\u3001\u751F\u52A8\u903C\u771F\u3001\u5E26\u6709\u7ACB\u4F53\u611F\u8F83\u5F3A\u7684\u56FD\u753B\u98CE\u683C\u3002\u636E\u884C\u5BB6\u4ECB\u7ECD\uFF0C\u4E7E\u9686\u7C89\u5F69\u7684\u9020\u578B\u6781\u4E3A\u4E30\u5BCC\uFF0C\u4E00\u6539\u5EB7\u7199\u65F6\u671F\u53E4\u62D9\u539A\u91CD\u7684\u98CE\u683C\u3002\u5927\u578B\u5668\u89C4\u6574\u4E0D\u53D8\u5F62\uFF0C\u5C0F\u578B\u5668\u5404\u90E8\u4F4D\u5904\u7406\u4E25\u8C28\u5F97\u5F53\uFF0C\u53CD\u6620\u5F53\u65F6\u5236\u4F5C\u6280\u5DE7\u7684\u9AD8\u8D85\u3002\u5176\u9752\u82B1\u6B3E\u8BC6\u516D\u5B57\u4E8C\u884C\u8005\u4E3A\u4E13\u4EBA\u4E66\u5199\uFF0C\u5B57\u4F53\u5DE5\u6574\u6709\u529B\uFF0C\u9752\u82B1\u8272\u8C03\u7EAF\u6B63\u3002\u516D\u5B57\u4E09\u884C\u8005\u4E66\u5199\u8349\u7387\uFF0C\u800C\u9752\u82B1\u82B1\u62BC\u6B3E\u3001\u658B\u5802\u6B3E\u5219\u6BD4\u8F83\u7A00\u5C11`
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/粉彩缠枝花卉碗.jpg",
+        born: "荆州城出土",
+        date: "清朝时期",
+        name: "粉彩缠枝花卉碗",
+        description: `粉彩瓷又叫“软彩瓷”，是康熙晚期受珐琅彩瓷影响和启发而出现的釉上彩瓷新品种，素有“始于康熙，精于雍正，盛于乾隆”之说，迄今已有300多年历史。粉彩瓷之所以为藏家青睐，主要凭借其独有的“玻璃白”。所谓“玻璃白”是指不透明的白色乳浊剂，其制作工艺是在烧成的白瓷上勾勒出纹饰图案的轮廓，在轮廓内先用含有氧化硅、氧化砷和氧化铅的“玻璃白”打底，然后按所需颜色在上面绘画渲染，再次入窑烘烧而成。利用其乳浊作用，可以让所绘人物、花鸟、山水等画面粉润柔和、生动逼真、带有立体感较强的国画风格。据行家介绍，乾隆粉彩的造型极为丰富，一改康熙时期古拙厚重的风格。大型器规整不变形，小型器各部位处理严谨得当，反映当时制作技巧的高超。其青花款识六字二行者为专人书写，字体工整有力，青花色调纯正。六字三行者书写草率，而青花花押款、斋堂款则比较稀少`
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u9ED1\u91C9\u6267\u58F6.jpg",
-        born: "\u6C99\u5E02\u533A\u57CE\u968D\u5E99\u51FA\u571F",
-        date: "\u5317\u5B8B\u65F6\u671F",
-        name: "\u9ED1\u91C9\u6267\u58F6",
-        description: "\u676F\u53E3\u5C16\u5507\uFF0C\u957F\u9888\uFF0C\u5E7F\u80A9\uFF0C\u5706\u8179\u4E0A\u9F13\uFF0C\u5708\u8DB3\u5FAE\u5916\u659C\u3002\u5728\u58F6\u80A9\u7684\u4E00\u4FA7\u7F6E\u6709\u4E0B\u5BBD\u4E0A\u7A84\u5F2F\u66F2\u5F62\u7684\u957F\u6D41\uFF0C\u5BF9\u5E94\u7684\u53E6\u4E00\u4FA7\u6709\u53CC\u6761\u5E76\u5217\u76F8\u8FDE\u800C\u6210\u7684\u5355\u67C4\u628A\u624B\u3002\u901A\u4F53\u9970\u9ED1\u91C9\uFF0C\u91C9\u5C42\u8F83\u539A\u5448\u5931\u900F\u72B6\uFF0C\u5728\u9ED1\u91C9\u7684\u91C9\u9762\u4E0A\u6709\u5927\u7247\u7684\u96FE\u72B6\u6591\u9970\uFF0C\u5668\u8179\u4E0B\u91C9\u8272\u5FAE\u8910\u3002\u5E95\u8DB3\u9732\u80CE\uFF0C\u80CE\u7070\u8272\uFF0C\u8D28\u8F83\u7EC6\u3002\u8000\u5DDE\u7A91\u53D1\u5C55\u5230\u5B8B\u4EE3\u4EE5\u70E7\u9752\u74F7\u4E3A\u4E3B\u6D41\uFF0C\u4EA6\u517C\u70E7\u9ED1\u91C9\u3001\u9171\u91C9\u3001\u7ED3\u6676\u91C9\u74F7\uFF0C\u6B64\u58F6\u662F\u5B8B\u4EE3\u8BE5\u7A91\u6240\u70E7\u7684\u5C11\u91CF\u9ED1\u91C9\u6267\u58F6\u7684\u4E00\u4EF6\u4EE3\u8868\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/黑釉执壶.jpg",
+        born: "沙市区城隍庙出土",
+        date: "北宋时期",
+        name: "黑釉执壶",
+        description: "杯口尖唇，长颈，广肩，圆腹上鼓，圈足微外斜。在壶肩的一侧置有下宽上窄弯曲形的长流，对应的另一侧有双条并列相连而成的单柄把手。通体饰黑釉，釉层较厚呈失透状，在黑釉的釉面上有大片的雾状斑饰，器腹下釉色微褐。底足露胎，胎灰色，质较细。耀州窑发展到宋代以烧青瓷为主流，亦兼烧黑釉、酱釉、结晶釉瓷，此壶是宋代该窑所烧的少量黑釉执壶的一件代表。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u7EA2\u9676\u76C9.jpg",
-        born: "\u5929\u95E8\u8096\u5BB6\u5C4B\u810A\u51FA\u571F",
-        date: "\u65B0\u77F3\u5668\u65F6\u4EE3\u540E\u77F3\u5BB6\u6CB3\u6587\u5316\u65F6\u671F",
-        name: "\u7EA2\u9676\u76C9",
-        description: "\u9AD815cm\uFF0C\u53E3\u5F849cm\uFF0C\u5E95\u5F845.7cm\u3002\u76C9\uFF08h\xE9 \u97F3\u79BE\uFF09\uFF0C\u9614\u9888\uFF0C\u6E9C\u80A9\uFF0C\u9F13\u8179\uFF0C\u8179\u4EE5\u4E0B\u5185\u6536\uFF0C\u5E73\u5E95\u3002\u4E00\u4FA7\u7F6E\u77ED\u6D41\uFF0C\u53E6\u4E00\u4FA7\u7F6E\u5BBD\u67C4\u3002\u6CE5\u8D28\u7EA2\u9676\u3002\u5668\u8868\u6253\u78E8\u5149\u6ED1\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/红陶盉.jpg",
+        born: "天门肖家屋脊出土",
+        date: "新石器时代后石家河文化时期",
+        name: "红陶盉",
+        description: "高15cm，口径9cm，底径5.7cm。盉（hé 音禾），阔颈，溜肩，鼓腹，腹以下内收，平底。一侧置短流，另一侧置宽柄。泥质红陶。器表打磨光滑。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u864E\u5EA7\u9E1F\u67B6\u9F13.jpg",
-        born: "\u6E56\u5317\u7701\u8346\u5DDE\u5E02",
-        date: "\u6218\u56FD\u65F6\u671F",
-        name: "\u864E\u5EA7\u9E1F\u67B6\u9F13",
-        description: "\u4E24\u53EA\u6602\u9996\u5377\u5C3E\u3001\u56DB\u80A2\u5C48\u4F0F\u3001\u80CC\u5411\u800C\u8E1E\u7684\u5367\u864E\u4E3A\u5E95\u5EA7\uFF0C\u864E\u80CC\u4E0A\u5404\u7ACB\u4E00\u53EA\u957F\u817F\u6602\u9996\u5F15\u542D\u9AD8\u6B4C\u7684\u9E23\u51E4\uFF0C\u80CC\u5411\u800C\u7ACB\u7684\u9E23\u51E4\u4E2D\u95F4\uFF0C\u4E00\u9762\u5927\u9F13\u7528\u7EA2\u7EF3\u5E26\u60AC\u4E8E\u51E4\u51A0\u4E4B\u4E0A\u3002\u901A\u4F53\u9AF9\u9ED1\u6F06\u4E3A\u5730\uFF0C\u4EE5\u7EA2\u3001\u9EC4\u3001\u91D1\u3001\u84DD\u7B49\u8272\u7ED8\u51FA\u864E\u6591\u7EB9\u548C\u51E4\u7684\u7FBD\u6BDB\u3002\u5168\u5668\u9020\u578B\u903C\u771F\uFF0C\u5F69\u7ED8\u7EDA\u4E3D\u8F89\u714C\uFF0C\u65E2\u662F\u9F13\u4E50\uFF0C\u4E5F\u662F\u827A\u672F\u4F73\u4F5C\u3002\u503C\u5F97\u6307\u51FA\u7684\u662F\uFF0C\u5728\u8FD9\u4E00\u51E4\u4E0E\u864E\u7684\u7EC4\u5408\u5F62\u8C61\u4E2D\uFF0C\u51E4\u9AD8\u5927\u8F69\u6602\uFF0C\u50B2\u89C6\u82CD\u7A79\uFF0C\u864E\u5374\u77EE\u5C0F\u745F\u7F29\u8DB4\u4F0F\u4E8E\u5730\uFF0C\u53CD\u6620\u4E86\u695A\u4EBA\u5D07\u9E23\u51E4\u3001\u5411\u5F80\u5B89\u8BE6\u7684\u610F\u8BC6\u548C\u5F81\u670D\u731B\u517D\u3001\u4E0D\u754F\u5F3A\u66B4\u7684\u7CBE\u795E\u3002\u73B0\u6536\u85CF\u4E8E\u6E56\u5317\u7701\u8346\u5DDE\u5E02\u535A\u7269\u9986 \u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/虎座鸟架鼓.jpg",
+        born: "湖北省荆州市",
+        date: "战国时期",
+        name: "虎座鸟架鼓",
+        description: "两只昂首卷尾、四肢屈伏、背向而踞的卧虎为底座，虎背上各立一只长腿昂首引吭高歌的鸣凤，背向而立的鸣凤中间，一面大鼓用红绳带悬于凤冠之上。通体髹黑漆为地，以红、黄、金、蓝等色绘出虎斑纹和凤的羽毛。全器造型逼真，彩绘绚丽辉煌，既是鼓乐，也是艺术佳作。值得指出的是，在这一凤与虎的组合形象中，凤高大轩昂，傲视苍穹，虎却矮小瑟缩趴伏于地，反映了楚人崇鸣凤、向往安详的意识和征服猛兽、不畏强暴的精神。现收藏于湖北省荆州市博物馆 。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F.jpg",
-        born: "\u8346\u5DDE\u57CE\u51FA\u571F",
-        date: "\u6E05\u671D\u65F6\u671F",
-        name: "\u9EC4\u5730\u7C89\u5F69\u9F99\u7EB9\u676F",
-        description: "\u5C3A\u5BF8:\u53E3\u5F846cm,\u9AD84.3cm\u3002\u9EC4\u91C9\u5730\uFF0C\u7ED8\u7EFF\u5F69\u6D77\u6C34\u9F99\u7EB9\uFF0C\u7EBF\u6761\u6D41\u7545\uFF0C\u5DE5\u827A\u7CBE\u6E5B\uFF0C\u6EE1\u7EC6\u5C0F\u5F00\u7247\uFF0C\u843D\u6B3E\u201C\u5927\u6E05\u540C\u6CBB\u5E74\u5236\u201D\uFF0C\u5178\u578B\u4F20\u7EDF\u5B98\u7A91\u5236\u5F0F\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/黄地粉彩龙纹杯.jpg",
+        born: "荆州城出土",
+        date: "清朝时期",
+        name: "黄地粉彩龙纹杯",
+        description: "尺寸:口径6cm,高4.3cm。黄釉地，绘绿彩海水龙纹，线条流畅，工艺精湛，满细小开片，落款“大清同治年制”，典型传统官窑制式。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u9752\u74F7\u9F99\u67C4\u76D8\u53E3\u58F6.jpg",
-        born: "\u8346\u5DDE\u533A\u6C5F\u9675\u7816\u74E6\u5382\u51FA\u571F",
-        date: "\u968B\u671D\u65F6\u671F",
-        name: "\u9752\u74F7\u9F99\u67C4\u76D8\u53E3\u58F6",
-        description: " \u6D45\u76D8\u53E3\uFF0C\u5706\u5507\uFF0C\u4E30\u80A9\uFF0C\u7EC6\u957F\u9888\uFF0C\u9F13\u8179\uFF0C\u4E0B\u8179\u5185\u6536\uFF0C\u9888\u90E8\u9970\u7AF9\u8282\u7EB9\uFF0C\u80A9\u90E8\u5B89\u4E24\u7CFB\u5448\u5BF9\u79F0\u5206\u5E03\uFF0C\u80A9\u53E6\u4E00\u4FA7\u7F6E\u4E00\u53CC\u9F99\u5934\u67C4\uFF0C\u5668\u578B\u89C4\u5219\u3001\u5C11\u89C1"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/青瓷龙柄盘口壶.jpg",
+        born: "荆州区江陵砖瓦厂出土",
+        date: "隋朝时期",
+        name: "青瓷龙柄盘口壶",
+        description: " 浅盘口，圆唇，丰肩，细长颈，鼓腹，下腹内收，颈部饰竹节纹，肩部安两系呈对称分布，肩另一侧置一双龙头柄，器型规则、少见"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u9752\u74F7\u74FF.jpg",
-        born: "\u8346\u5DDE\u533A\u738B\u6C0F\u5830\u51FA\u571F",
-        date: "\u897F\u6C49\u65F6\u671F",
-        name: "\u9752\u74F7\u74FF",
-        description: "\u6B64\u7269\u9AD823\u3001\u53E3\u5F8410\u5398\u7C73\u3002\u74FF\u65B9\u5507\u655B\u53E3\uFF0C\u5F27\u80A9\uFF0C\u6241\u7403\u8179\uFF0C\u5FAE\u663E\u6298\u8170\uFF0C\u5E73\u5E95\u5185\u51F9\u3002\u80A9\u90E8\u7F6E\u5BF9\u79F0\u65B9\u8033\u3002\u8033\u9762\u6A21\u5370\u517D\u9762\u7EB9\uFF0C\u4E24\u8033\u4E4B\u95F4\u5BF9\u79F0\u8D34\u9970\u6A21\u5370\u7684\u517D\u9762\u8854\u73AF\u3002\u80A9\u52123\u7EC4\u5F26\u7EB9\u95F4\u4E24\u9053\u6C34\u6CE2\u7EB9\u3002\u7070\u8910\u8272\u80CE\uFF0C\u65BD\u534A\u622A\u9752\u7EFF\u8272\u91C9\u3002\u8BE5\u74FF\u7684\u94FA\u9996\u8854\u73AF\u8D34\u4E8E\u4E24\u8033\u4E4B\u95F4\uFF0C\u6709\u522B\u4E8E\u4E00\u822C\u7684\u6C49\u4EE3\u9676\u74FF\u8D34\u9970\u4E8E\u53CC\u8033\u4E4B\u4E0B\uFF0C\u8F83\u4E3A\u5C11\u89C1\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/青瓷瓿.jpg",
+        born: "荆州区王氏堰出土",
+        date: "西汉时期",
+        name: "青瓷瓿",
+        description: "此物高23、口径10厘米。瓿方唇敛口，弧肩，扁球腹，微显折腰，平底内凹。肩部置对称方耳。耳面模印兽面纹，两耳之间对称贴饰模印的兽面衔环。肩划3组弦纹间两道水波纹。灰褐色胎，施半截青绿色釉。该瓿的铺首衔环贴于两耳之间，有别于一般的汉代陶瓿贴饰于双耳之下，较为少见。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u77F3\u7259\u748B.jpg",
-        born: "\u6C99\u5E02\u6C6A\u5BB6\u5C4B\u573A\u51FA\u571F",
-        date: "\u65B0\u77F3\u5668\u65F6\u4EE3\u540E\u77F3\u5BB6\u6CB3\u6587\u5316\u65F6\u671F",
-        name: "\u77F3\u7259\u748B",
-        description: "\u7259\u748B\u662F\u4E00\u79CD\u6709\u5203\u7684\u793C\u5668\uFF0C\u5668\u8EAB\u4E0A\u7AEF\u6709\u5203\uFF0C\u4E0B\u7AEF\u5448\u957F\u65B9\u5F62\uFF0C\u5E95\u90E8\u4E24\u4FA7\u6709\u7A81\u51FA\u7684\u924F\u7259\u3002\u8003\u53E4\u7814\u7A76\u8868\u660E\uFF0C\u5B83\u53EF\u80FD\u8D77\u6E90\u4E8E\u9EC4\u6CB3\u4E2D\u4E0B\u6E38\u4E00\u5E26\u3002\u5728\u6C82\u5357\u53BF\u535A\u7269\u9986\u5C31\u6536\u85CF\u7740\u4E09\u4EF6\u9020\u578B\u6BD4\u8F83\u89C4\u6574\u3001\u94BB\u5B54\u3001\u5236\u4F5C\u7CBE\u826F\u7684\u65B0\u77F3\u5668\u65F6\u4EE3\u7259\u748B\u3002\u8FD9\u4E09\u4EF6\u7259\u748B\u5668\u4F53\u5747\u7ECF\u78E8\u5236\uFF0C\u5203\u90E8\u7ECF\u8FC7\u7CBE\u78E8\uFF0C\u901A\u4F53\u78E8\u5149\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/石牙璋.jpg",
+        born: "沙市汪家屋场出土",
+        date: "新石器时代后石家河文化时期",
+        name: "石牙璋",
+        description: "牙璋是一种有刃的礼器，器身上端有刃，下端呈长方形，底部两侧有突出的鉏牙。考古研究表明，它可能起源于黄河中下游一带。在沂南县博物馆就收藏着三件造型比较规整、钻孔、制作精良的新石器时代牙璋。这三件牙璋器体均经磨制，刃部经过精磨，通体磨光。"
       },
       {
-        src: "https://www.mynameisczy.cn/image/antique/antiques/\u7389\u8986\u9762.jpg",
-        born: "\u8346\u5DDE\u79E6\u5BB6\u5C71\u4E8C\u53F7\u5893\u51FA\u571F",
-        date: "\u6218\u56FD\u65F6\u671F",
-        name: "\u7389\u8986\u9762",
-        description: "\u957F25\u5398\u7C73\uFF0C\u5BBD28\u5398\u7C73\u3002\u7389\u8986\u9762\uFF0C\u7389\u8D28\u9752\u767D\uFF0C\u6709\u6C81\u8272\uFF0C\u5171\u7531\u5341\u56DB\u5757\u7389\u9970\u7EC4\u5408\u800C\u6210\uFF0C\u5176\u4E2D\u989D\u9876\u5C16\u89D2\u548C\u5507\u820C\u7531\u788E\u7389\u5E9F\u6599\u6539\u5236\u3002\u773C\u3001\u988A\u7531\u9F99\u5F62\u7389\u7247\u7EC4\u6210\uFF0C\u96D5\u523B\u5DE5\u827A\u7CBE\u7EC6\uFF0C\u5C40\u90E8\u6709\u6731\u7802\u6B8B\u7559\u3002\u5176\u4ED6\u7389\u9970\u7247\u4E0A\u6709\u5FAE\u5B54\uFF0C\u5E94\u662F\u4F4D\u7A7F\u7F00\u6240\u7559\u3002"
+        src: "https://www.mengzhiyuan.email/image/antique/antiques/玉覆面.jpg",
+        born: "荆州秦家山二号墓出土",
+        date: "战国时期",
+        name: "玉覆面",
+        description: "长25厘米，宽28厘米。玉覆面，玉质青白，有沁色，共由十四块玉饰组合而成，其中额顶尖角和唇舌由碎玉废料改制。眼、颊由龙形玉片组成，雕刻工艺精细，局部有朱砂残留。其他玉饰片上有微孔，应是位穿缀所留。"
       }
     ]);
     function detail_info(item) {
@@ -90,7 +90,7 @@ const _sfc_main = {
     let back = common_vendor.index.current_this.back;
     function tip(title) {
       common_vendor.index.showToast({
-        title: title + "\u529F\u80FD\u6682\u672A\u5F00\u653E",
+        title: title + "功能暂未开放",
         icon: "none"
       });
     }
@@ -116,14 +116,16 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.f($setup.static_data, (item, index, i0) => {
       return {
         a: common_vendor.t(item.date),
-        b: "bbcabe76-1-" + i0,
+        b: "bb50cbb7-1-" + i0,
         c: item.src,
-        d: "bbcabe76-2-" + i0,
-        e: common_vendor.t(item.name),
-        f: "bbcabe76-3-" + i0,
-        g: common_vendor.o(($event) => $setup.detail_info(item)),
-        h: "bbcabe76-4-" + i0,
-        i: index
+        d: "bb50cbb7-2-" + i0,
+        e: common_vendor.o(($event) => $setup.tip("3D"), index),
+        f: common_vendor.o(($event) => $setup.tip("语音讲解"), index),
+        g: common_vendor.t(item.name),
+        h: "bb50cbb7-3-" + i0,
+        i: common_vendor.o(($event) => $setup.detail_info(item), index),
+        j: "bb50cbb7-4-" + i0,
+        k: index
       };
     }),
     d: common_vendor.p({
@@ -133,16 +135,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: common_vendor.p({
       type: "right"
     }),
-    f: common_vendor.o(($event) => $setup.tip("3D")),
-    g: common_vendor.o(($event) => $setup.tip("\u8BED\u97F3\u8BB2\u89E3")),
-    h: common_vendor.p({
+    f: common_vendor.p({
       type: "right"
     }),
-    i: common_vendor.p({
+    g: common_vendor.p({
       color: "background-color: rgba(0,0,0,0)",
       type: "location"
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-bbcabe76"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/other_page/show_antique3d/show_antique3d.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-bb50cbb7"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/home/other_page/show_antique3d/show_antique3d.vue"]]);
 wx.createPage(MiniProgramPage);

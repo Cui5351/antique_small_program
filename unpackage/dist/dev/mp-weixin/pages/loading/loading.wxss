@@ -1,46 +1,46 @@
 /* 水平间距 */
 /* 水平间距 */
-image.data-v-b1b56100 {
+image.data-v-13a8254b {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.flex_c.data-v-b1b56100 {
+.flex_c.data-v-13a8254b {
   display: flex;
   flex-direction: column;
 }
-.flex_c_b.data-v-b1b56100 {
+.flex_c_b.data-v-13a8254b {
   justify-content: space-between;
   align-items: center;
   display: flex;
 }
-.containe.data-v-b1b56100 {
+.containe.data-v-13a8254b {
   overflow-y: auto;
 }
-.flex_j_a_c.data-v-b1b56100 {
+.flex_j_a_c.data-v-13a8254b {
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
-.flex_j_a_r.data-v-b1b56100 {
+.flex_j_a_r.data-v-13a8254b {
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: row;
 }
-.data-v-b1b56100::-webkit-scrollbar {
+.data-v-13a8254b::-webkit-scrollbar {
   display: none;
 }
-.grows > view.data-v-b1b56100 {
+.grows > view.data-v-13a8254b {
   flex-grow: 1;
 }
-.max_image.data-v-b1b56100 {
+.max_image.data-v-13a8254b {
   height: 100%;
   width: 100%;
 }
-.head_tit.data-v-b1b56100 {
+.head_tit.data-v-13a8254b {
   font-size: 20px;
 }
-.head_two.data-v-b1b56100 {
+.head_two.data-v-13a8254b {
   font-size: 20px;
   background-color: white;
   display: flex;
@@ -52,41 +52,41 @@ image.data-v-b1b56100 {
   min-height: 10%;
   height: 10%;
 }
-.small_title.data-v-b1b56100 {
+.small_title.data-v-13a8254b {
   color: gray;
   font-size: 15px;
 }
-.one_size.data-v-b1b56100 {
+.one_size.data-v-13a8254b {
   font-size: 20px;
 }
-.two_size.data-v-b1b56100 {
+.two_size.data-v-13a8254b {
   font-size: 17px;
 }
-.three_size.data-v-b1b56100 {
+.three_size.data-v-13a8254b {
   font-size: 14px;
 }
-.container.data-v-b1b56100 {
+.container.data-v-13a8254b {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.container > view.data-v-b1b56100 {
+.container > view.data-v-13a8254b {
   flex-grow: 1;
 }
-.background1.data-v-b1b56100 {
+.background1.data-v-13a8254b {
   background-color: #6E79E2;
 }
-.background.data-v-b1b56100 {
+.background.data-v-13a8254b {
   background-color: white;
 }
-.background1_active.data-v-b1b56100:active {
+.background1_active.data-v-13a8254b:active {
   background-color: #6E79E2;
 }
-.font_color.data-v-b1b56100 {
+.font_color.data-v-13a8254b {
   color: #1E3659;
 }
-.container.data-v-b1b56100 {
+.container.data-v-13a8254b {
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@ image.data-v-b1b56100 {
   justify-content: center;
   align-items: center;
 }
-.vessel.data-v-b1b56100 {
+.vessel.data-v-13a8254b {
   height: 300px;
   position: absolute;
   width: 100%;
@@ -105,7 +105,7 @@ image.data-v-b1b56100 {
   justify-content: center;
   align-items: center;
 }
-.vessel > image.data-v-b1b56100 {
+.vessel > image.data-v-13a8254b {
   height: 100%;
   width: 100%;
 }

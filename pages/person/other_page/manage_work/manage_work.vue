@@ -77,10 +77,11 @@ export default{
 	  uni.manage_work_this=this
 	  work=JSON.parse(work)
 	  	uni.request({
-	  		url:uni.current_this.baseURL+':5001/get_video',
+	  		url:uni.current_this.baseURL+':5001/get_my_video',
 	  		method:"POST",
 	  		data:{
-	  			uuid:work.uuid
+	  			uuid:work.uuid,
+				openid:uni.current_this.store.getters.openid
 	  		},
 	  		success(res) {
 	  			if(uni.current_this.check_res_state(res)){

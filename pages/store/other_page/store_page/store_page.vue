@@ -17,8 +17,14 @@
 		</view>
 		<view class="description flex_j_a_r">
 			<view class="des flex_j_a_c">
-				<view class="money">￥{{info.money}}</view>
-				<view style="margin-top: 5px;">
+					<view class="money">
+						¥{{info.money?.toFixed(2)}}
+						<view style="color: black;display: inline;">{{info.name}}</view>
+						</view>
+				<!-- <view style="margin-top: 5px;min-width:500rpx;"> -->
+					<!-- {{info.name}} -->
+				<!-- </view> -->
+				<view style="margin-top: 5px;min-width:500rpx;color: rgba(0,0,0,.5);">
 					{{info.description.length>=20?info.description.substring(0,20)+'...':info.description}}
 				</view>
 			</view>
@@ -38,7 +44,7 @@
 		</view>
 		<view class="transport flex_j_a_r three_size">
 			<view class="flex_j_a_r" style="color: gray;">运费
-			<view class="money" style="color: black;">￥{{info.transport_money}}.00</view>
+			<view class="money" style="color: black;">¥{{info.transport_money}}.00</view>
 			</view>
 			<view style="color: gray;">已售{{info.sale}} | 剩余{{info.depository}}</view>
 		</view>
@@ -79,7 +85,7 @@
 								<image :src="item.avatar" mode=""></image>
 							</view>{{item.name}}
 						</view>
-						<view class="">
+						<view class="">	
 							<uni-rate activeColor="#6E79E2" readonly :value="5"/>
 						</view>
 					</view>
@@ -89,7 +95,26 @@
 				</view>
 			</view>
 		</view>
-		<view class="store_other"><!-- store_other --></view>
+		<view class="other_store">
+				其他商品({{info.store}})
+		</view>
+		<view class="store_other" style="margin-top: 0;"><!-- store_other -->
+		<view class="service-item" v-for="(item, index) in [...services]" :key="index" @click="enterService(item)" v-if="services.length > 0">
+		  <image :src="item.url" mode="aspectFill" class="service-pic"></image>
+		  <view class="service-info">
+		    <view class="service-name">{{ item.name }}</view>
+		    <view class="service-desc">商品描述：{{ item.description.length >= 15 ? (item.description.substring(0,15) + '...') :item.description }}</view>
+		  </view>
+		    <view class="service-price">￥{{item.money?.toFixed(2)}}元</view>
+				  <view style="display: flex;justify-content: space-between;padding: 0 10rpx;color:rgba(0,0,0,.5);margin: 10rpx 0;">
+					  <view>销量：{{item.sale}}</view>
+					  <view>库存：{{item.depository}}</view>
+				  </view>
+		</view>
+		<view v-else class="reviews">
+		  暂无商品
+		</view>
+		</view>
 		
 	</view>
   </view>
@@ -121,81 +146,77 @@
 
 <script>
 import {ref,reactive} from 'vue'
+import { baseURL } from '../../../../request/baseUrl';
+import request from '@/request/request.js'
 export default{
-	onLoad(res) {
-		uni.showLoading({
-			title:'商品加载中'
-		})
-		let that=this
-		if(res.state==1){
-				if(!uni.current_this.store.getters.login_state){
-					uni.showToast({
-						title: '请先登录',
-						icon:'none'
-					});
-					uni.switchTab({
-						url:'/pages/person/person'
-					})
-					return
-				}
-				uni.request({
-					url:uni.current_this.baseURL+':5001/getStoreInfo',
-					method:'POST',
-					data:{
-						name:res.name
-					},success(res2) {
-						if(res2.data.state!=1){
-							uni.showToast({
-								title:'发生了未知的错误',
-								icon:'error'
-							})
-							return
-						}
-						let info={
-							name:'',
-							money:0,
-							sale:0,
-							depository:0,
-							src:'',
-							description:'',
-							store:'',
-							pic:[],
-							transport_money:0
-						}
-						info.pic.push(...res2.data.data.pic.map(item=>item.src))
-						Object.keys(info).forEach(item=>{
-							if(item=='pic'||item=='bought_log'||item=='comment')
-								return
-							that.info[item]=res2.data.data.info[item]
-						})
-						get_count(res.name)
-				},complete() {
-					uni.hideLoading()
-				}
-				})
-			return
-	}
-			let data=JSON.parse(res.info)
-			Object.keys(this.info).forEach(item=>{
-				if(item=='pic'){
-					this.info.pic.push(...data.pic)
-					return
-				}
-				if(data[item]==undefined)
-					return
-				this.info[item]=data[item]
+	methods:{
+		loadData(){
+			uni.showLoading({
+				title:'商品加载中'
 			})
-			get_count(data.name)
-			uni.hideLoading()
-			
-		function get_count(name){
-			
+			let that = this
+			uni.request({
+				url:baseURL+'/StoreItem/findById',
+				method:'GET',
+				data:{
+					id:this.id
+				},success(res2) {
+					if(res2.data.code!=1){
+						uni.showToast({
+							title:'发生了未知的错误',
+							icon:'error'
+						})
+						return
+					}
+					let info={
+						name:'',
+						money:0,
+						id:'',
+						sale:0,
+						depository:0,
+						src:'',
+						description:'',
+						store:'',
+						pic:[],
+						transport_money:0
+					}
+					that.info.pic.splice(0,that.info.pic.length)
+					that.info.pic.push(...res2.data.data.src.map(item=>item.src))
+					Object.keys(info).forEach(item=>{
+						if(item=='pic'||item=='bought_log'||item=='comment')
+							return
+						that.info[item]=res2.data.data[item]
+					})
+					that.loadStore()
+					that.get_count()
+			},complete() {
+				uni.hideLoading()
+			}
+			})
+		},
+		loadStore(){
+			uni.showLoading({
+				title:'加载商品中'
+			})
+			request.get('/StoreItem/list',{
+				store:this.info.store,
+				...this.search
+			}).then(res => {
+				this.services.splice(0,this.services.length)
+				this.services.push(...res.list)
+			}).catch(err => {
+				console.log(err,'err');
+							}).finally(() =>{uni.hideLoading()})
+		},
+		get_count(){
+			let that = this
 			// 获取购买商品数
 			uni.request({
 				url:uni.current_this.baseURL+':5001/get_goods',
+				// url:baseURL+':8666/get_goods',
 				method:"POST",
 				data:{
-					goods_name:name
+					id:this.id
 				},
 				success(res) {
 					if(res.data.state!=1){
@@ -211,8 +232,10 @@ export default{
 							return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日`
 					}
 					res.data.data.forEach(item=>{
-						item.bought_date=format(new Date(item.bought_date))
+						item.bought_date = format(new Date(item.date))
 					})
+					that.info.bought_log.splice(0,that.info.bought_log.length)
+					that.full.bought_log.splice(0,that.full.bought_log.length)
 					// 保存三条
 					that.info.bought_log.push(...(res.data.data.reverse().slice(0,3)))
 					// 保存全部的交易记录
@@ -221,11 +244,31 @@ export default{
 			})
 		}
 	},
+	onShow() {
+		this.loadData()
+	},
+	onLoad(res) {
+		this.id = res.id
+		let that=this
+				
+			return
+			let data=JSON.parse(res.info)
+			Object.keys(this.info).forEach(item=>{
+				if(item=='pic'){
+					this.info.pic.push(...data.pic)
+					return
+				}
+				if(data[item]==undefined)
+					return
+				this.info[item]=data[item]
+			})
+			uni.hideLoading()			
+	},
   onShareAppMessage(res) {
       return {
   		imageUrl:this.info.pic[0],
           title: this.info.name, //分享的名称
-          path: `/pages/store/other_page/store_page/store_page?name=${info.name}&state=1`,
+          path: `/pages/store/other_page/store_page/store_page?name=${this.info.name}&id=${this.id}`,
       }
   },
   //分享到朋友圈
@@ -237,6 +280,11 @@ export default{
       }
   },
   setup(){
+	  let id = ref(null)
+	  const search = reactive({
+	  	page:1,
+	  	pageSize:10
+	  })
 	let info=reactive({
 		count:1,
 		name:'',
@@ -245,12 +293,14 @@ export default{
 		depository:0,
 		src:'',
 		description:'',
+		id:'',
 		store:'',
 		pic:[],
 		comment:[],
 		bought_log:[],
 		transport_money:0
 	})
+	let services = reactive([])
 	let full=reactive({
 		bought_log:[],
 		comment:[]
@@ -270,21 +320,37 @@ export default{
 	}
 	function buy(){
 		if(!uni.current_this.store.getters.login_state){
-			uni.showToast({
-				title: '请先登录',
-				icon:'none'
-			});
-			uni.switchTab({
-				url:'/pages/person/person'
+			uni.showModal({
+				title:"系统提示",
+				content:"亲！下单前请先登录",
+				showCancel:false,
+				success() {
+					uni.switchTab({
+						url:'/pages/person/person'
+					})
+				}
 			})
 			return
 		}
+		if(info.depository <= 0){
+			uni.showModal({
+				title:'该商品暂时没有库存了，请等待店主补库存!',
+				showCancel:false
+			})
+			return
+		}
+		// 跳转下单页面
+		uni.navigateTo({
+			url:`/pages/store/other_page/storeOrder/storeOrder?info=${JSON.stringify(info)}`
+		})
+		return
 		uni.showLoading({
 			title:'购买中',
 			mask:true
 		})
 		uni.request({
-			url:uni.current_this.baseURL+':5001/buy_goods',
+			// url:uni.current_this.baseURL+':5001/buy_goods',
+			url:baseURL+':8666/buy_goods',
 			method:'POST',
 			data:{
 				openid:uni.current_this.store.getters.openid,
@@ -317,7 +383,7 @@ export default{
 		})
 		return
 	}
-    return{back,info,join_car,show_all,buy,full}
+    return{back,info,join_car,show_all,buy,full,id,services,search}
   }
 }
 </script>

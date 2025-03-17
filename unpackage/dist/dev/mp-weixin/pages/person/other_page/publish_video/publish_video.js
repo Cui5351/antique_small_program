@@ -1,11 +1,11 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
   async onLoad({ path, uuid, mask, title, duration }) {
     if (path.length <= 0 || uuid.length <= 0 || mask.length <= 0) {
       common_vendor.index.showToast({
-        title: "\u52A0\u8F7D\u9519\u8BEF",
+        title: "加载错误",
         icon: "error"
       });
       common_vendor.index.navigateBack();
@@ -36,24 +36,24 @@ const _sfc_main = {
     function develop(name) {
       common_vendor.index.showToast({
         icon: "none",
-        title: name + "\u6682\u65F6\u672A\u5F00\u653E"
+        title: name + "暂时未开放"
       });
     }
     async function publish() {
       common_vendor.index.showLoading({
-        title: "\u53D1\u5E03\u4E2D",
+        title: "发布中",
         mask: "true"
       });
       if (common_vendor.index.current_this.store.state.user_info.openid.length <= 0) {
         common_vendor.index.showToast({
-          title: "\u8BF7\u91CD\u65B0\u767B\u5F55\u540E\u5C1D\u8BD5",
+          title: "请重新登录后尝试",
           icon: "none"
         });
         return;
       }
       if (info.name.length <= 0) {
         common_vendor.index.showToast({
-          title: "\u4F5C\u54C1\u540D\u4E0D\u5141\u8BB8\u4E3A\u7A7A",
+          title: "作品名不允许为空",
           icon: "none"
         });
         return;
@@ -71,7 +71,7 @@ const _sfc_main = {
                     success(res2) {
                       res2.data = JSON.parse(res2.data);
                       if (res2.data.state !== 1) {
-                        reject("\u5C01\u9762\u4E0A\u4F20\u5931\u8D25");
+                        reject("封面上传失败");
                         return;
                       }
                       let { mask } = res2.data.data;
@@ -81,7 +81,7 @@ const _sfc_main = {
                   });
                 });
               } catch (e) {
-                reject("\u5C01\u9762\u4E0A\u4F20\u5931\u8D25");
+                reject("封面上传失败");
               }
             }
             common_vendor.index.request({
@@ -100,19 +100,20 @@ const _sfc_main = {
               success(res3) {
                 if (res3.data.state == 1) {
                   common_vendor.index.showToast({
-                    title: "\u53D1\u5E03\u6210\u529F"
+                    title: "发布成功"
                   });
                   common_vendor.index.manage_work_this.info.works.push({
-                    avatar: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.avatar),
+                    avatar: common_vendor.computed(() => common_vendor.index.current_this.store.getters.avatar),
                     mask: info.su_mask,
-                    name: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.name),
+                    name: common_vendor.computed(() => common_vendor.index.current_this.store.getters.name),
                     uuid: info.su_uuid,
-                    title: info.name
+                    title: info.name,
+                    show_work: "show"
                   });
                   common_vendor.index.navigateBack();
                   resolve();
                 } else {
-                  reject("\u53D1\u5E03\u5931\u8D25");
+                  reject("发布失败");
                 }
               }
             });
@@ -125,7 +126,7 @@ const _sfc_main = {
             success(res) {
               res.data = JSON.parse(res.data);
               if (res.data.state !== 1) {
-                reject("\u89C6\u9891\u4E0A\u4F20\u5931\u8D25");
+                reject("视频上传失败");
                 return;
               }
               let { uuid, src } = res.data.data;
@@ -138,7 +139,7 @@ const _sfc_main = {
                 success(res2) {
                   res2.data = JSON.parse(res2.data);
                   if (res2.data.state !== 1) {
-                    reject("\u5C01\u9762\u4E0A\u4F20\u5931\u8D25");
+                    reject("封面上传失败");
                     return;
                   }
                   let { mask } = res2.data.data;
@@ -162,12 +163,12 @@ const _sfc_main = {
                       ;
                       if (res3.data.state == 1) {
                         common_vendor.index.showToast({
-                          title: "\u53D1\u5E03\u6210\u529F"
+                          title: "发布成功"
                         });
                         common_vendor.index.manage_work_this.info.works.push({
-                          avatar: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.avatar),
+                          avatar: common_vendor.computed(() => common_vendor.index.current_this.store.getters.avatar),
                           mask: info.su_mask,
-                          name: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.name),
+                          name: common_vendor.computed(() => common_vendor.index.current_this.store.getters.name),
                           uuid: info.su_uuid,
                           title: info.name,
                           duration: info.duration
@@ -203,9 +204,9 @@ const _sfc_main = {
         urls: path,
         current: index,
         longPressActions: {
-          itemList: ["\u53D1\u9001\u7ED9\u670B\u53CB", "\u4FDD\u5B58\u56FE\u7247", "\u6536\u85CF"],
+          itemList: ["发送给朋友", "保存图片", "收藏"],
           success: function(data) {
-            console.log("\u9009\u4E2D\u4E86\u7B2C" + (data.tapIndex + 1) + "\u4E2A\u6309\u94AE,\u7B2C" + (data.index + 1) + "\u5F20\u56FE\u7247");
+            console.log("选中了第" + (data.tapIndex + 1) + "个按钮,第" + (data.index + 1) + "张图片");
           },
           fail: function(err2) {
             console.log(err2.errMsg);
@@ -213,7 +214,10 @@ const _sfc_main = {
         }
       });
     }
-    return { info, develop, publish, state, check_pict };
+    function public_work(e) {
+      info.show_work = e.detail.value;
+    }
+    return { info, develop, publish, state, check_pict, public_work };
   }
 };
 if (!Array) {
@@ -228,21 +232,21 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      name: "\u65B0\u5E16\u5B50"
+      name: "新帖子"
     }),
     b: $setup.info.name,
     c: common_vendor.o(($event) => $setup.info.name = $event.detail.value),
     d: $setup.info.mask,
     e: $setup.info.path,
-    f: common_vendor.o((...args) => _ctx.public_work && _ctx.public_work(...args)),
+    f: common_vendor.o((...args) => $setup.public_work && $setup.public_work(...args)),
     g: $setup.info.show_work,
     h: common_vendor.p({
       type: "plusempty",
       color: "rgb(110,121,226)"
     }),
-    i: common_vendor.o(($event) => $setup.develop("\u9009\u62E9\u597D\u53CB")),
+    i: common_vendor.o(($event) => $setup.develop("选择好友")),
     j: common_vendor.o((...args) => $setup.publish && $setup.publish(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fda038b2"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/publish_video/publish_video.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-c4d06b6c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/other_page/publish_video/publish_video.vue"]]);
 wx.createPage(MiniProgramPage);

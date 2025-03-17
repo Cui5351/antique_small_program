@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const QfImageCropper = () => "../../../../uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper.js";
 const _sfc_main = {
   components: {
@@ -15,7 +15,7 @@ const _sfc_main = {
     });
     function choosePortrait(e) {
       common_vendor.index.showLoading({
-        title: "\u4FEE\u6539\u4E2D"
+        title: "修改中"
       });
       common_vendor.index.current_this_publish_video.info.mask = e.tempFilePath;
       back();
@@ -54,5 +54,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-194b0d66"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/avatar_edit/choose.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-c4164a06"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/other_page/avatar_edit/choose.vue"]]);
 wx.createPage(MiniProgramPage);

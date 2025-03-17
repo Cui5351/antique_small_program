@@ -1,23 +1,25 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
   name: "",
   onShareAppMessage() {
     return {
       title: (this.info.content.length >= 7 ? this.info.content.substring(0, 7) : this.info.content) + "...",
+      //分享的名称
       imageUrl: this.info.src[0],
       url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(this.info)}`
+      // mpId:'' //此处配置微信小程序的AppId
     };
   },
   onLoad({ info }) {
     common_vendor.index.showLoading({
       mask: true,
-      title: "\u52A0\u8F7D\u4E2D"
+      title: "加载中"
     });
+    this.channel = this.getOpenerEventChannel();
     let tmp = JSON.parse(info);
     console.log("info", info);
-    let that = this;
     Object.keys(this.info).forEach((item) => {
       if (tmp[item] instanceof Array) {
         this.info[item].push(...tmp[item]);
@@ -37,59 +39,105 @@ const _sfc_main = {
       this.info[item] = tmp[item];
     });
     console.log(this.info);
-    common_vendor.index.request({
-      url: common_vendor.index.current_this.baseURL + ":5001/get_community_comment",
-      method: "GET",
-      data: {
-        uuid: this.info.uuid,
-        openid: common_vendor.index.current_this.store.state.user_info.openid
-      },
-      success(res) {
-        if (common_vendor.index.current_this.check_res_state(res)) {
-          return;
-        }
-        if (res.data.state == 2) {
-          if (res.data.mes == "\u8BE5\u4F5C\u54C1\u88AB\u9690\u85CF" && that.info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
-            res.data.data.forEach((item) => {
-              item.date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.date));
-            });
-            that.moments.push(...res.data.data);
-            that.info.show = false;
-            console.log("hid");
-            return;
-          }
-          common_vendor.index.navigateBack();
-          if (that.info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
-            common_vendor.index.current_this.store.state.user_info.moments.forEach((item, index) => {
-              if (item.uuid == that.info.uuid)
-                common_vendor.index.current_this.store.state.user_info.moments.splice(index, 1);
-            });
-          }
-          common_vendor.index.current_this.store.state.moments.forEach((item, index) => {
-            if (item.uuid == that.info.uuid)
-              common_vendor.index.current_this.store.state.moments.splice(index, 1);
-          });
-          common_vendor.index.showToast({
-            title: res.data.mes,
-            icon: "none",
-            duration: 3e3
-          });
-          return;
-        }
-        res.data.data.forEach((item) => {
-          item.date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.date));
-        });
-        that.moments.push(...res.data.data);
-      },
-      complete() {
-        common_vendor.index.hideLoading();
-      }
-    });
+    this.getComment();
+  },
+  onUnload() {
+    this.flag = false;
+  },
+  onBackPress() {
+    this.flag = false;
   },
   components: {
     back
   },
+  methods: {
+    delComment(comment) {
+      if (comment.openid != common_vendor.index.current_this.store.getters.openid)
+        return;
+      let that = this;
+      common_vendor.index.showModal({
+        title: "是否删除该评论",
+        success(confirm) {
+          if (!confirm.confirm)
+            return;
+          common_vendor.index.request({
+            url: common_vendor.index.current_this.baseURL + ":5001/del_community_comment",
+            method: "GET",
+            data: {
+              uuid: comment.uuid,
+              openid: common_vendor.index.current_this.store.getters.openid
+            },
+            success(res) {
+              if (common_vendor.index.current_this.check_res_state(res)) {
+                return;
+              }
+              that.getComment();
+            }
+          });
+        }
+      });
+    },
+    getComment() {
+      let that = this;
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_community_comment",
+        method: "GET",
+        data: {
+          uuid: this.info.uuid,
+          openid: common_vendor.index.current_this.store.state.user_info.openid
+        },
+        success(res) {
+          if (common_vendor.index.current_this.check_res_state(res)) {
+            return;
+          }
+          if (res.data.state == 2) {
+            if (res.data.mes == "该作品被隐藏" && that.info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
+              res.data.data.forEach((item) => {
+                item.date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.date));
+              });
+              that.moments.push(...res.data.data);
+              that.info.show = false;
+              this.channel.emit("loadData");
+              common_vendor.index.navigateBack();
+              return;
+            }
+            if (that.info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
+              common_vendor.index.current_this.store.state.user_info.moments.forEach((item, index) => {
+                if (item.uuid == that.info.uuid)
+                  common_vendor.index.current_this.store.state.user_info.moments.splice(index, 1);
+              });
+            }
+            common_vendor.index.current_this.store.state.moments.forEach((item, index) => {
+              if (item.uuid == that.info.uuid)
+                common_vendor.index.current_this.store.state.moments.splice(index, 1);
+            });
+            common_vendor.index.showToast({
+              title: res.data.mes,
+              icon: "none",
+              duration: 3e3
+            });
+            return;
+          }
+          res.data.data.forEach((item) => {
+            item.date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.date));
+          });
+          that.moments.splice(0, that.moments.length);
+          that.moments.push(...res.data.data);
+          if (that.flag) {
+            console.log(that.flag, "flag");
+            setTimeout(() => {
+              that.getComment();
+            }, 5e3);
+          }
+        },
+        complete() {
+          common_vendor.index.hideLoading();
+        }
+      });
+    }
+  },
   setup() {
+    let flag = common_vendor.ref(true);
     let info = common_vendor.reactive({
       avatar: "",
       name: "",
@@ -105,18 +153,19 @@ const _sfc_main = {
       show: true
     });
     let moments = common_vendor.reactive([]);
+    let channel = common_vendor.ref(null);
     let text = common_vendor.ref("");
     function send_mes() {
       if (!common_vendor.index.current_this.store.getters.login_state) {
         common_vendor.index.showToast({
-          title: "\u8BF7\u5148\u767B\u5F55",
+          title: "请先登录",
           icon: "none"
         });
         return;
       }
       if (text.value.length <= 0) {
         common_vendor.index.showToast({
-          title: "\u8F93\u5165\u5185\u5BB9\u4E0D\u80FD\u4E3A\u7A7A",
+          title: "输入内容不能为空",
           icon: "none"
         });
         return;
@@ -137,7 +186,7 @@ const _sfc_main = {
             avatar: common_vendor.index.current_this.store.state.user_info.avatar,
             name: common_vendor.index.current_this.store.state.user_info.name,
             content: text.value,
-            date: common_vendor.index.current_this.dateformat_accuracy(new Date())
+            date: common_vendor.index.current_this.dateformat_accuracy(/* @__PURE__ */ new Date())
           });
           text.value = "";
         }
@@ -148,9 +197,9 @@ const _sfc_main = {
         urls: info.src,
         current: index,
         longPressActions: {
-          itemList: ["\u53D1\u9001\u7ED9\u670B\u53CB", "\u4FDD\u5B58\u56FE\u7247", "\u6536\u85CF"],
+          itemList: ["发送给朋友", "保存图片", "收藏"],
           success: function(data) {
-            console.log("\u9009\u4E2D\u4E86\u7B2C" + (data.tapIndex + 1) + "\u4E2A\u6309\u94AE,\u7B2C" + (data.index + 1) + "\u5F20\u56FE\u7247");
+            console.log("选中了第" + (data.tapIndex + 1) + "个按钮,第" + (data.index + 1) + "张图片");
           },
           fail: function(err) {
             console.log(err.errMsg);
@@ -160,8 +209,8 @@ const _sfc_main = {
     }
     function delW() {
       common_vendor.index.showModal({
-        confirmText: "\u5220\u9664",
-        title: "\u662F\u5426\u5220\u9664\u8BE5\u4F5C\u54C1",
+        confirmText: "删除",
+        title: "是否删除该作品",
         success(e) {
           if (e.cancel)
             return;
@@ -177,20 +226,11 @@ const _sfc_main = {
               if (common_vendor.index.current_this.check_res_state(res)) {
                 return;
               }
-              common_vendor.index.navigateBack();
-              common_vendor.index.current_this.store.state.moments.forEach((item, index) => {
-                if (item.uuid == info.uuid)
-                  common_vendor.index.current_this.store.state.moments.splice(index, 1);
-              });
-              if (info.openid == common_vendor.index.current_this.store.state.user_info.openid) {
-                common_vendor.index.current_this.store.state.user_info.moments.forEach((item, index) => {
-                  if (item.uuid == info.uuid)
-                    common_vendor.index.current_this.store.state.user_info.moments.splice(index, 1);
-                });
-              }
               common_vendor.index.showToast({
-                title: `\u5220\u9664\u4F5C\u54C1\u6210\u529F`
+                title: `删除作品成功`
               });
+              channel.value.emit("loadData");
+              common_vendor.index.navigateBack();
             }
           });
         }
@@ -198,8 +238,8 @@ const _sfc_main = {
     }
     function hidW() {
       common_vendor.index.showModal({
-        confirmText: `${info.show ? "\u9690\u85CF" : "\u663E\u793A"}`,
-        title: `\u662F\u5426${info.show ? "\u9690\u85CF" : "\u663E\u793A"}\u8BE5\u4F5C\u54C1`,
+        confirmText: `${info.show ? "隐藏" : "显示"}`,
+        title: `是否${info.show ? "隐藏" : "显示"}该作品`,
         success(e) {
           if (e.cancel)
             return;
@@ -217,8 +257,9 @@ const _sfc_main = {
               }
               info.show = !info.show;
               common_vendor.index.showToast({
-                title: `${info.show ? "\u663E\u793A" : "\u9690\u85CF"}\u4F5C\u54C1\u6210\u529F`
+                title: `${info.show ? "显示" : "隐藏"}作品成功`
               });
+              channel.value.emit("loadData");
             }
           });
         }
@@ -240,7 +281,7 @@ const _sfc_main = {
         })}`
       });
     }
-    return { info, more_stop, author_info, more_click, more, send_mes, check_pict, text, moments, delW, hidW };
+    return { info, more_stop, author_info, more_click, more, send_mes, check_pict, text, moments, delW, hidW, channel, flag };
   }
 };
 if (!Array) {
@@ -255,7 +296,7 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
     a: common_vendor.p({
-      name: "\u8FD4\u56DE"
+      name: "返回"
     }),
     b: $setup.info.avatar,
     c: common_vendor.o((...args) => $setup.author_info && $setup.author_info(...args)),
@@ -315,7 +356,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: common_vendor.t(item.name),
         c: common_vendor.t(item.date),
         d: common_vendor.t(item.content),
-        e: index
+        e: index,
+        f: common_vendor.o(($event) => $options.delComment(item), index)
       };
     }),
     B: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args)),
@@ -323,15 +365,16 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "star",
       size: "25"
     }),
-    D: $setup.text,
-    E: common_vendor.o(($event) => $setup.text = $event.detail.value),
-    F: common_vendor.p({
+    D: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args)),
+    E: $setup.text,
+    F: common_vendor.o(($event) => $setup.text = $event.detail.value),
+    G: common_vendor.p({
       size: "25",
       type: "paperplane"
     }),
-    G: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
+    H: common_vendor.o((...args) => $setup.send_mes && $setup.send_mes(...args))
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-2a14840c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-0e974b8c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/workroom/other_page/moment_detail/moment_detail.vue"]]);
 _sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);

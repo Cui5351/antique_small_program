@@ -150,7 +150,7 @@
 				// })
 			// 1
 				// uni.request({
-				// 	url:'https://www.mynameisczy.cn:5002/small_program_state',
+				// 	url:'https://www.mengzhiyuan.email:5002/small_program_state',
 				// 	method:"POST",
 				// 	data:{
 				// 		small_program_name:'antique_small_program'

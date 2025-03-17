@@ -112,6 +112,12 @@
 		components:{
 			loading
 		},
+		onTabItemTap() {
+			// 重置
+			this.reqs.skip = 0
+			this.video.splice(0,this.video.length)
+			this.lower()
+		},
 		mounted() {
 			uni.current_this.inter=this.inter;
 			this.lower()
@@ -182,11 +188,11 @@
 	址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
 	佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
 	名单。`],
-							antique:[{name:'黑秞执壶',src:'https://www.mynameisczy.cn/image/antique/粉彩缠枝花卉碗.jpg'},
-							{name:'黑秞执壶',src:'https://www.mynameisczy.cn/image/antique/青瓷狗.jpg'},
-							{name:'黑秞执壶',src:'https://www.mynameisczy.cn/image/antique/黄地粉彩龙纹杯.jpg'}],
-							max_pic:['https://www.mynameisczy.cn/image/antique/inter_top/荆州博物馆1.jpg','https://www.mynameisczy.cn/image/antique/inter_top/荆州博物馆2.jpg','https://www.mynameisczy.cn/image/antique/inter_top/荆州博物馆3.jpg'],
-							full_src:'https://www.mynameisczy.cn/image/antique/荆州博物馆全景图.jpg'
+							antique:[{name:'黑秞执壶',src:'https://www.mengzhiyuan.email/image/antique/粉彩缠枝花卉碗.jpg'},
+							{name:'黑秞执壶',src:'https://www.mengzhiyuan.email/image/antique/青瓷狗.jpg'},
+							{name:'黑秞执壶',src:'https://www.mengzhiyuan.email/image/antique/黄地粉彩龙纹杯.jpg'}],
+							max_pic:['https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆1.jpg','https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆2.jpg','https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆3.jpg'],
+							full_src:'https://www.mengzhiyuan.email/image/antique/荆州博物馆全景图.jpg'
 					}
 				}else if(name=="长江艺术工程职业学院非遗传承院"){
 					result={
@@ -195,15 +201,15 @@
 										市非遗保护中心批准，依托长江艺术工程职业学院设立的非遗传习保护基地。
 										`,`2015年被授予国家3A级旅游景区。`,`2017年10月，文化和旅游部在荆楚非遗传承院设立国家传统工艺(荆州)工作站，由清华大学美术学院为驻站单位，
 										 以“见人、见物、见生活"为理念，为新时代振兴传统工艺提供示范，让传统工艺在当代生活得到新的广泛应用。`],
-											antique:[{name:'淡水贝雕',src:'https://www.mynameisczy.cn/image/antique/changyi/淡水贝雕.jpeg'},
-											{name:'葫芦烙画',src:'https://www.mynameisczy.cn/image/antique/changyi/葫芦.jpeg'},
-											{name:'古筝',src:'https://www.mynameisczy.cn/image/antique/changyi/古筝.jpeg'},
-											{name:'漆艺',src:'https://www.mynameisczy.cn/image/antique/changyi/漆艺.jpeg'}],
-											max_pic:['https://www.mynameisczy.cn/image/antique/changyi/传承院.jpg',
-											'https://www.mynameisczy.cn/image/antique/changyi/传承院2.jpg',
-												'https://www.mynameisczy.cn/image/antique/museum1.jpg'
+											antique:[{name:'淡水贝雕',src:'https://www.mengzhiyuan.email/image/antique/changyi/淡水贝雕.jpeg'},
+											{name:'葫芦烙画',src:'https://www.mengzhiyuan.email/image/antique/changyi/葫芦.jpeg'},
+											{name:'古筝',src:'https://www.mengzhiyuan.email/image/antique/changyi/古筝.jpeg'},
+											{name:'漆艺',src:'https://www.mengzhiyuan.email/image/antique/changyi/漆艺.jpeg'}],
+											max_pic:['https://www.mengzhiyuan.email/image/antique/changyi/传承院.jpg',
+											'https://www.mengzhiyuan.email/image/antique/changyi/传承院2.jpg',
+												'https://www.mengzhiyuan.email/image/antique/museum1.jpg'
 												],
-											full_src:'https://www.mynameisczy.cn/image/antique/changyi/full.jpg'
+											full_src:'https://www.mengzhiyuan.email/image/antique/changyi/full.jpg'
 									}
 				}
 				uni.navigateTo({
@@ -243,9 +249,9 @@
 							})
 						}
 			let video=reactive([])
-			let head_img=reactive(['https://www.mynameisczy.cn/image/antique/home_top/title1.jpg',
-			'https://www.mynameisczy.cn/image/antique/home_top/title2.jpg',
-			'https://www.mynameisczy.cn/image/antique/home_top/title3.jpg'])
+			let head_img=reactive(['https://www.mengzhiyuan.email/image/antique/home_top/title1.jpg',
+			'https://www.mengzhiyuan.email/image/antique/home_top/title2.jpg',
+			'https://www.mengzhiyuan.email/image/antique/home_top/title3.jpg'])
 			function lower(e){
 				if(reqs.state)
 					return

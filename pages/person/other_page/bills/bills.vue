@@ -11,18 +11,20 @@
 			</view>
 	  </view>
 	  <view class="content flex_j_a_c grows">
-			<view class="title flex_j_a_r grows">
-				<view :class="state==index?'hig':''" v-for="(item,index) in ['全部','待发货','待收货']" :key="index" @click="toggle_category(index)">{{item}}</view>
+			<view class="title flex_j_a_r grows" style="width: 100%;overflow-y: auto;">
+				<view style="width: fit-content;" :class="state==index?'hig':''" v-for="(item,index) in ['全部','待发货','待收货','已到达','已完成','已取消']" :key="index" @click="toggle_category(index)">{{item}}</view>
 			</view>
 			<view class="bill">
 				<view class=".flex_j_a_r" style="color: gray;" v-if="stores[Object.keys(stores)[state]].length?false:true">暂无商品</view>
 				<view class="store flex_j_a_c grows" v-for="(item,index) in stores[Object.keys(stores)[state]]" :key="index">
-					<view class="flex_j_a_r">
+					<view class="flex_j_a_r" @click="innerStore(item.store)">
 						<view style="font-weight:bold;">{{item.store}}
 						<uni-icons type="right" color="gray"></uni-icons>
 						</view>
 						<view class="title one_size">
-							交易成功</view>
+							<!-- 交易成功 -->
+							{{ item.state2 }}
+							</view>
 					</view>
 					<view class="pics flex_j_a_r grows">
 						<view class="pic flex_j_a_r">
@@ -32,7 +34,7 @@
 							<view>
 								<view class="flex_j_a_r two_size">
 									<view class="name">{{item.name}}</view>
-									<view>￥{{item.money.toFixed(2)}}</view>
+									<view>¥ {{item.money.toFixed(2)}}</view>
 								</view>
 								<view>
 									<view class="count">
@@ -47,19 +49,26 @@
 									<!-- </view> -->
 								</view>
 							</view>
-							<view class="money">
+					<!-- 		<view class="money">
 								<view class="done_pay">{{item.date}}</view>
-								合计￥{{(item.count*item.money).toFixed(2)}}</view>
+								合计¥{{(item.count*item.money).toFixed(2)}}</view> -->
 						</view>
 					</view>
+					<view class="money">
+						<view class="done_pay">{{item.date}}</view>
+						合计 ¥{{(item.count*item.money).toFixed(2)}}</view>
 					<view class="btns flex_j_a_r">
+						<view v-show="item.state2 == '已到达'">
+							取件码:{{item.code}}
+						</view>
 						<view class='flex_j_a_r' style="justify-content: flex-end">
-							<template v-if='state==0'>
-								<view @click="delete_store(item,index)">删除订单</view>
-								<view @click="again_bought(item)">再次购买</view>
-								<view @click="no_develop('评价')">评价</view>
-							</template>
-							<template v-if='state==1'>
+							<!-- <template v-if='state==0'> -->
+								<!-- <view @click="delete_store(item,index)">删除订单</view> -->
+								<!-- <view @click="no_develop('评价')">评价</view> -->
+							<!-- </template> -->
+							<view @click="again_bought(item)">再次购买</view>
+							<view v-if='item.state2 == "已完成"' @click="delete_store(item,index)">删除订单</view>
+							<template v-if='item.state2 == "待发货"'>
 								<view @click="no_develop('催发货')">催发货</view>
 							</template>
 							<template v-if='state==2'>
@@ -108,6 +117,15 @@ export default{
 				if(item.state2=='待收货'){
 					that.stores.wait_receive.push(item)
 				}
+				if(item.state2 == '已到达'){
+					that.stores.isReach.push(item)
+				}
+				if(item.state2 == '已完成'){
+					that.stores.isDone.push(item)
+				}
+				if(item.state2 == '已取消'){
+					that.stores.cancel.push(item)
+				}
 			})
 		}
   	})
@@ -118,8 +136,16 @@ export default{
 	let stores=reactive({
 		all:[],
 		wait_send:[],
-		wait_receive:[]
+		wait_receive:[],
+		isReach:[],
+		isDone:[],
+		cancel:[]
 	})
+	const innerStore = (name) => {
+		uni.navigateTo({
+			url:'/pages/store/other_page/storeDetail/storeDetail?name=' + name
+		})
+	}
 	function delete_store(item,index){
 		uni.showModal({
 			content:'是否删除该订单',
@@ -143,6 +169,14 @@ export default{
 		})
 	}
 	function no_develop(title){
+		if(title == '催发货'){
+			uni.showModal({
+				title:"系统提示",
+				content:'您的催促已返回给上架，请您耐心等候',
+				showCancel:false
+			})
+			return
+		}
 		uni.showToast({
 			title:title+'暂未开放',
 			icon:'none'
@@ -152,6 +186,10 @@ export default{
 		state.value=index
 	}
 	function again_bought(item){
+		uni.navigateTo({
+			url:`/pages/store/other_page/store_page/store_page?id=${item.goods_id}`
+		})
+		return
 		uni.request({
 			url:uni.current_this.baseURL+':5001/getStoreInfo',
 			method:'POST',
@@ -191,7 +229,7 @@ export default{
 	function receive_store(item){
 		console.log(item,'收');
 	}
-    return{back,again_bought,stores,delete_store,no_develop,state,toggle_category,receive_store}
+    return{back,again_bought,stores,delete_store,no_develop,state,toggle_category,receive_store,innerStore}
   }
 }
 </script>

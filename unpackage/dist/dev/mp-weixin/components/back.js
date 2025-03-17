@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../common/vendor.js");
+const common_vendor = require("../common/vendor.js");
 const _sfc_main = {
   name: "back",
   props: ["name"],
@@ -27,5 +27,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.o((...args) => $setup.back && $setup.back(...args))
   };
 }
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-026711bc"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/components/back.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1efe2ce6"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/components/back.vue"]]);
 wx.createComponent(Component);

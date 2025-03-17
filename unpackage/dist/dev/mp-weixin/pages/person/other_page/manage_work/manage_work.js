@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
   name: "",
@@ -8,16 +8,17 @@ const _sfc_main = {
   },
   onLoad({ work }) {
     common_vendor.index.showLoading({
-      title: "\u52A0\u8F7D\u4E2D"
+      title: "加载中"
     });
     let that = this;
     common_vendor.index.manage_work_this = this;
     work = JSON.parse(work);
     common_vendor.index.request({
-      url: common_vendor.index.current_this.baseURL + ":5001/get_video",
+      url: common_vendor.index.current_this.baseURL + ":5001/get_my_video",
       method: "POST",
       data: {
-        uuid: work.uuid
+        uuid: work.uuid,
+        openid: common_vendor.index.current_this.store.getters.openid
       },
       success(res) {
         if (common_vendor.index.current_this.check_res_state(res)) {
@@ -25,7 +26,7 @@ const _sfc_main = {
         }
         if (!res.data.data.arr.length) {
           common_vendor.index.showToast({
-            title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
+            title: "该作品集为空",
             icon: "none"
           });
           return;
@@ -56,13 +57,15 @@ const _sfc_main = {
       uuid: ""
     });
     let person = common_vendor.reactive({
-      avatar: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.avatar),
-      name: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.name)
+      avatar: common_vendor.computed(() => common_vendor.index.current_this.store.getters.avatar),
+      name: common_vendor.computed(() => common_vendor.index.current_this.store.getters.name)
     });
     function addWork() {
       common_vendor.index.chooseMedia({
         count: 1,
         mediaType: ["video"],
+        // 最长时间为30分钟
+        // maxDuration:1800,
         extension: ["mp4"],
         success(res) {
           let { tempFilePath, thumbTempFilePath, duration } = res.tempFiles[0];
@@ -91,7 +94,7 @@ const _sfc_main = {
     }
     function delete_work() {
       common_vendor.index.showModal({
-        title: "\u662F\u5426\u5220\u9664\u8BE5\u4F5C\u54C1\u96C6\u548C\u5168\u90E8\u4F5C\u54C1",
+        title: "是否删除该作品集和全部作品",
         success(res) {
           if (res.cancel)
             return;
@@ -111,7 +114,7 @@ const _sfc_main = {
               });
               common_vendor.index.navigateBack();
               common_vendor.index.showToast({
-                title: "\u5220\u9664\u6210\u529F"
+                title: "删除成功"
               });
             }
           });
@@ -120,12 +123,12 @@ const _sfc_main = {
     }
     function trash(item, index) {
       common_vendor.index.showModal({
-        title: "\u662F\u5426\u5220\u9664\u8BE5\u4F5C\u54C1",
+        title: "是否删除该作品",
         success(res) {
           if (res.cancel)
             return;
           common_vendor.index.showLoading({
-            title: "\u5220\u9664\u4E2D",
+            title: "删除中",
             mask: true
           });
           common_vendor.index.request({
@@ -139,7 +142,7 @@ const _sfc_main = {
                 return;
               info.works.splice(index, 1);
               common_vendor.index.showToast({
-                title: "\u5220\u9664\u6210\u529F"
+                title: "删除成功"
               });
             },
             complete() {
@@ -151,12 +154,12 @@ const _sfc_main = {
     }
     function hid_work(item) {
       common_vendor.index.showModal({
-        title: `\u662F\u5426${item.show_work == "show" ? "\u9690\u85CF" : "\u663E\u793A"}\u8BE5\u4F5C\u54C1`,
+        title: `是否${item.show_work == "show" ? "隐藏" : "显示"}该作品`,
         success(res) {
           if (res.cancel)
             return;
           common_vendor.index.showLoading({
-            title: `${item.show_work == "show" ? "\u9690\u85CF" : "\u663E\u793A"}\u4E2D`
+            title: `${item.show_work == "show" ? "隐藏" : "显示"}中`
           });
           common_vendor.index.request({
             url: common_vendor.index.current_this.baseURL + ":5001/set_video",
@@ -169,7 +172,7 @@ const _sfc_main = {
               if (common_vendor.index.current_this.check_res_state(res2))
                 return;
               common_vendor.index.showToast({
-                title: `${item.show_work == "show" ? "\u9690\u85CF" : "\u663E\u793A"}\u6210\u529F`
+                title: `${item.show_work == "show" ? "隐藏" : "显示"}成功`
               });
               item.show_work = res2.data.data;
             },
@@ -187,29 +190,29 @@ const _sfc_main = {
     }
     function download(item) {
       common_vendor.index.showModal({
-        title: "\u662F\u5426\u4FDD\u5B58\u8BE5\u89C6\u9891",
+        title: "是否保存该视频",
         success(res) {
           if (res.cancel)
             return;
           common_vendor.index.showLoading({
-            title: "\u4E0B\u8F7D\u5230\u672C\u5730\u4E2D"
+            title: "下载到本地中"
           });
           common_vendor.index.downloadFile({
             url: item.src,
             success({ tempFilePath }) {
               common_vendor.index.showLoading({
-                title: "\u4FDD\u5B58\u4E2D"
+                title: "保存中"
               });
               common_vendor.index.saveVideoToPhotosAlbum({
                 filePath: tempFilePath,
                 success() {
                   common_vendor.index.showToast({
-                    title: "\u4FDD\u5B58\u6210\u529F"
+                    title: "保存成功"
                   });
                 },
                 fail(e) {
                   common_vendor.index.showToast({
-                    title: "\u4FDD\u5B58\u5931\u8D25",
+                    title: "保存失败",
                     icon: "error"
                   });
                 },
@@ -240,7 +243,7 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      name: "\u4F5C\u54C1\u96C6\u7BA1\u7406"
+      name: "作品集管理"
     }),
     b: common_vendor.t($setup.info.title),
     c: common_vendor.t($setup.info.description),
@@ -259,21 +262,21 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       return {
         a: item.mask,
         b: common_vendor.t(item.name),
-        c: common_vendor.o(($event) => $setup.more_click(item)),
-        d: "297aef67-2-" + i0,
+        c: common_vendor.o(($event) => $setup.more_click(item), index),
+        d: "a418ed33-2-" + i0,
         e: item.more,
-        f: common_vendor.o(($event) => $setup.hid_work(item)),
-        g: "297aef67-3-" + i0,
+        f: common_vendor.o(($event) => $setup.hid_work(item), index),
+        g: "a418ed33-3-" + i0,
         h: common_vendor.p({
           type: item.show_work == "show" ? "eye" : "eye-slash",
           size: "25"
         }),
         i: item.more,
-        j: common_vendor.o(($event) => $setup.trash(item, index)),
-        k: "297aef67-4-" + i0,
+        j: common_vendor.o(($event) => $setup.trash(item, index), index),
+        k: "a418ed33-4-" + i0,
         l: item.more,
-        m: common_vendor.o(($event) => $setup.download(item)),
-        n: "297aef67-5-" + i0,
+        m: common_vendor.o(($event) => $setup.download(item), index),
+        n: "a418ed33-5-" + i0,
         o: item.more ? "120px" : "0px",
         p: index
       };
@@ -295,5 +298,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     r: common_vendor.o((...args) => $setup.more_stop && $setup.more_stop(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-297aef67"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/manage_work/manage_work.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-a418ed33"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/other_page/manage_work/manage_work.vue"]]);
 wx.createPage(MiniProgramPage);

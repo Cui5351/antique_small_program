@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
   name: "",
@@ -23,14 +23,14 @@ const _sfc_main = {
       for (let item of Info) {
         if (typeof info[item] !== "boolean" && info[item].length <= 0) {
           common_vendor.index.showToast({
-            title: (item == "title" ? "\u4F5C\u54C1\u6807\u9898" : item == "description" ? "\u4F5C\u54C1\u7B80\u4ECB" : item == "mask" ? "\u4F5C\u54C1\u5C01\u9762" : "") + "\u4E0D\u80FD\u4E3A\u7A7A"
+            title: (item == "title" ? "作品标题" : item == "description" ? "作品简介" : item == "mask" ? "作品封面" : "") + "不能为空"
           });
           return;
         }
       }
       common_vendor.index.showLoading({
         mask: true,
-        title: "\u65B0\u5EFA\u4E2D"
+        title: "新建中"
       });
       common_vendor.index.uploadFile({
         url: common_vendor.index.current_this.baseURL + ":5001/upload_mask",
@@ -41,7 +41,7 @@ const _sfc_main = {
           if (data.error) {
             common_vendor.index.showToast({
               icon: "error",
-              title: "\u4FEE\u6539\u5931\u8D25"
+              title: "修改失败"
             });
             common_vendor.index.hideLoading();
             return;
@@ -61,7 +61,7 @@ const _sfc_main = {
               if (common_vendor.index.current_this.check_res_state(res2))
                 return;
               common_vendor.index.showToast({
-                title: "\u6DFB\u52A0\u6210\u529F",
+                title: "添加成功",
                 icon: "none"
               });
               common_vendor.index.current_this.store.state.user_info.works.push({
@@ -82,7 +82,7 @@ const _sfc_main = {
       });
     }
     function set_mask() {
-      common_vendor.index.current_this.no_develop("\u9009\u62E9\u7167\u7247");
+      common_vendor.index.current_this.no_develop("选择照片");
     }
     function uploadMask() {
       common_vendor.index.navigateTo({
@@ -107,7 +107,7 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      name: "\u65B0\u5EFA\u4F5C\u54C1\u96C6"
+      name: "新建作品集"
     }),
     b: $setup.info.title,
     c: common_vendor.o(($event) => $setup.info.title = $event.detail.value),
@@ -125,5 +125,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     l: common_vendor.o((...args) => $setup.publish && $setup.publish(...args))
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-44d5a8eb"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/new_work_collection/new_work_collection.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-3d3f68ac"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/other_page/new_work_collection/new_work_collection.vue"]]);
 wx.createPage(MiniProgramPage);

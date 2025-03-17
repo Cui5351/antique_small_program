@@ -5,7 +5,7 @@
 			<view class="back">
 				<uni-icons @click='back' type="left" size="25" color="white"></uni-icons>
 			</view>
-			<image :src="info.background"></image>
+			<image :src="info.background" mode="aspectFill"></image>
 		</view>
 		<view class="info flex_c info2">
 			<view class="top">
@@ -55,7 +55,7 @@
 				<view class="moment" @click="detail(item)" v-for="(item,index) in info.works2" :key="index" >
 					<view class="date">
 						<view class="d">{{item.send_date}}</view>
-						<view class="place">{{item.place}}</view>
+						<view class="place">{{item.place.length >= 12 ? (item.place.substring(0,12) + '...') : item.place}}</view>
 					</view>
 					<view class="mpic" v-if="item.src.length&&item.type=='p'">
 						<!-- {{item.src}} -->

@@ -13,10 +13,10 @@ const state={
 	user_info:{
 		openid:'',
 		name:'',
-		avatar:'https://www.mynameisczy.cn/antique/user_avatar/default_avatar.jpg',
+		avatar:'https://www.mengzhiyuan.email/image/no.jpg',
 		introduce:'',
 		sex:'',
-		background:'https://www.mynameisczy.cn/antique/user_background/default_background.jpg',
+		background:'https://www.mengzhiyuan.email/image/antique/home_top/title3.jpg',
 		works:[],
 		moments:[]
 	}

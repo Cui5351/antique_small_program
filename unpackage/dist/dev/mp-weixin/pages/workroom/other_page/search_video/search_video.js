@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const back = () => "../../../../components/back.js";
 const _sfc_main = {
   name: "",
@@ -68,6 +68,9 @@ const _sfc_main = {
           }
           skip.value += data.data.length;
           show_state.value = "video";
+          data.data.data.forEach((item) => {
+            item.date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.publish_date));
+          });
           videos.push(...data.data.data);
           videos.forEach((item) => {
             item.arr = [];
@@ -144,9 +147,6 @@ const _sfc_main = {
     }
     function fill(item) {
       text.value = item;
-      search({ detail: {
-        value: item
-      } });
     }
     let inter = common_vendor.index.current_this.inter;
     return { text, input, search, record, fill, show_state, video_label, inter, search_result, videos };
@@ -164,7 +164,7 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      name: "\u8FD4\u56DE"
+      name: "返回"
     }),
     b: common_vendor.o(($event) => $setup.search_result({
       model: "input",
@@ -207,8 +207,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         e: index,
         f: common_vendor.t(item.user_name),
-        g: index,
-        h: common_vendor.o(($event) => $setup.inter({
+        g: common_vendor.t(item.date),
+        h: index,
+        i: common_vendor.o(($event) => $setup.inter({
           uuid: item.work_uuid
         }), index)
       };
@@ -220,7 +221,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: common_vendor.p({
       type: "eye"
     }),
-    n: common_vendor.f(["\u624B\u5DE5\u5236\u4F5C", "\u975E\u9057\u4F20\u627F\u89C6\u9891", "\u975E\u9057\u6587\u7269\u5236\u4F5C\u89C6\u9891", "\u975E\u9057", "\u6587\u7269"], (item, index, i0) => {
+    n: common_vendor.f(["手工制作", "非遗传承视频", "非遗文物制作视频", "非遗", "文物"], (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: index,
@@ -230,5 +231,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     o: $setup.show_state == "empty"
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1633f750"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/workroom/other_page/search_video/search_video.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-12d198ff"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/workroom/other_page/search_video/search_video.vue"]]);
 wx.createPage(MiniProgramPage);

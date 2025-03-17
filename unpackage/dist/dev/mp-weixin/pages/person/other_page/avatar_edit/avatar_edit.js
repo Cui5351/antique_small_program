@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const QfImageCropper = () => "../../../../uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper.js";
 const _sfc_main = {
   components: {
@@ -22,7 +22,7 @@ const _sfc_main = {
     });
     function choosePortrait(e) {
       common_vendor.index.showLoading({
-        title: "\u4FEE\u6539\u4E2D"
+        title: "修改中"
       });
       let image_path = e.tempFilePath;
       common_vendor.index.uploadFile({
@@ -33,12 +33,11 @@ const _sfc_main = {
           openid: common_vendor.index.current_this.store.state.user_info.openid
         },
         success(e2) {
-          common_vendor.index.navigateBack();
           let data = JSON.parse(e2.data);
           if (data.error) {
             common_vendor.index.showToast({
               icon: "error",
-              title: "\u4FEE\u6539\u5931\u8D25"
+              title: "修改失败"
             });
             return;
           }
@@ -46,8 +45,9 @@ const _sfc_main = {
             common_vendor.index.current_this.store.state.user_info[base.property] = data.value;
           common_vendor.index.showToast({
             icon: "success",
-            title: "\u4FEE\u6539\u6210\u529F"
+            title: "修改成功"
           });
+          common_vendor.index.navigateBack();
         },
         fail(e2) {
           common_vendor.index.hideLoading();
@@ -88,5 +88,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ddac9c1e"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/avatar_edit/avatar_edit.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-6d0a3689"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/other_page/avatar_edit/avatar_edit.vue"]]);
 wx.createPage(MiniProgramPage);

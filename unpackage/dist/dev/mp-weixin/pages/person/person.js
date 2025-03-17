@@ -1,26 +1,37 @@
 "use strict";
-var common_vendor = require("../../common/vendor.js");
+const common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   setup() {
     let person_info = common_vendor.reactive({
-      name: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.name),
-      openid: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.openid),
-      background: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.background),
-      avatar: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.avatar),
-      introduce: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.introduce),
+      name: common_vendor.computed(() => common_vendor.index.current_this.store.getters.name),
+      openid: common_vendor.computed(() => common_vendor.index.current_this.store.getters.openid),
+      background: common_vendor.computed(() => common_vendor.index.current_this.store.getters.background),
+      avatar: common_vendor.computed(() => common_vendor.index.current_this.store.getters.avatar),
+      introduce: common_vendor.computed(() => common_vendor.index.current_this.store.getters.introduce),
       counts: [0, 0, 0],
       toggle: false,
-      works: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.works),
-      works2: common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.my_moments)
+      works: common_vendor.computed(() => common_vendor.index.current_this.store.getters.works),
+      // works2:computed(()=>uni.current_this.store.getters.my_moments)
+      works2: []
     });
     function toggle(bool) {
       person_info.toggle = bool;
+      if (common_vendor.index.current_this.store.getters.openid == "")
+        return;
+      if (bool) {
+        getWorksAll();
+      } else {
+        reqs.skip = 0;
+        reqs.state = false;
+        person_info.works2.splice(0, person_info.works2.length);
+        reqmoment();
+      }
     }
     const reqs = common_vendor.reactive({
       state: false,
       skip: 0
     });
-    let login_state = common_vendor.computed$1(() => common_vendor.index.current_this.store.getters.login_state);
+    let login_state = common_vendor.computed(() => common_vendor.index.current_this.store.getters.login_state);
     let opacity = common_vendor.ref(true);
     let top = common_vendor.ref(common_vendor.index.getMenuButtonBoundingClientRect().height * 2);
     function toggle_page(title) {
@@ -34,7 +45,7 @@ const _sfc_main = {
         return;
       }
       common_vendor.index.showToast({
-        title: title + "\u6682\u672A\u5F00\u653E",
+        title: title + "暂未开放",
         icon: "none"
       });
     }
@@ -46,10 +57,14 @@ const _sfc_main = {
         return;
       }
       common_vendor.index.showLoading({
-        title: "\u767B\u5F55\u4E2D"
+        title: "登录中",
+        mask: true
       });
       common_vendor.index.login({
         provider: "weixin",
+        fail(fail) {
+          console.log(fail, "fail");
+        },
         success({ code }) {
           common_vendor.index.request({
             url: common_vendor.index.current_this.baseURL + ":5001/getOpenid",
@@ -60,7 +75,7 @@ const _sfc_main = {
             success(res1) {
               if (res1.data.state != 1) {
                 common_vendor.index.showToast({
-                  title: "\u767B\u5F55\u5931\u8D25",
+                  title: "登录失败",
                   icon: "error"
                 });
                 return;
@@ -79,26 +94,14 @@ const _sfc_main = {
                       common_vendor.index.current_this.store.state.user_info[item] = res.data.value[item];
                     });
                     common_vendor.index.showToast({
-                      title: "\u767B\u5F55\u6210\u529F"
+                      title: "登录成功"
                     });
-                    common_vendor.index.request({
-                      url: common_vendor.index.current_this.baseURL + ":5001/get_workAll",
-                      method: "POST",
-                      data: {
-                        openid: common_vendor.index.current_this.store.state.user_info.openid
-                      },
-                      success(res2) {
-                        if (common_vendor.index.current_this.check_res_state(res2)) {
-                          return;
-                        }
-                        common_vendor.index.current_this.store.state.user_info.works.push(...res2.data.data);
-                      }
-                    });
+                    getWorksAll();
                     common_vendor.index.current_this.store.dispatch("set_login", 1);
                     reqmoment();
                   } else {
                     common_vendor.index.showToast({
-                      title: "\u767B\u5F55\u5931\u8D25"
+                      title: "登录失败"
                     });
                   }
                 },
@@ -111,12 +114,35 @@ const _sfc_main = {
         }
       });
     }
+    const getWorksAll = () => {
+      common_vendor.index.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      common_vendor.index.request({
+        url: common_vendor.index.current_this.baseURL + ":5001/get_workAll",
+        method: "POST",
+        data: {
+          openid: common_vendor.index.current_this.store.state.user_info.openid
+        },
+        success(res) {
+          if (common_vendor.index.current_this.check_res_state(res)) {
+            return;
+          }
+          person_info.works.splice(0, person_info.works.length);
+          person_info.works.push(...res.data.data);
+        },
+        complete() {
+          common_vendor.index.hideLoading();
+        }
+      });
+    };
     function change_background() {
       if (!common_vendor.index.current_this.store.getters.login_state) {
         return;
       }
       common_vendor.index.navigateTo({
-        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mynameisczy.cn:5001/upload_background&height=500&width=700&property=background&name=avatar"
+        url: "/pages/person/other_page/avatar_edit/avatar_edit?url=https://www.mengzhiyuan.email:5001/upload_background&height=500&width=700&property=background&name=avatar"
       });
       return;
     }
@@ -165,9 +191,10 @@ const _sfc_main = {
           reqs.skip += w.length;
           if (!w.length)
             return;
-          common_vendor.index.current_this.store.state.user_info.moments.push(...w);
+          person_info.works2.push(...w);
         },
         complete() {
+          common_vendor.index.hideLoading();
           setTimeout(() => {
             reqs.state = false;
           }, 1e3);
@@ -222,7 +249,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     B: common_vendor.f($setup.person_info.works2, (item, index, i0) => {
       return common_vendor.e({
         a: common_vendor.t(item.send_date),
-        b: common_vendor.t(item.place),
+        b: common_vendor.t(item.place.length >= 12 ? item.place.substring(0, 12) + "..." : item.place),
         c: item.src.length && item.type == "p"
       }, item.src.length && item.type == "p" ? {
         d: item.src[0]
@@ -267,5 +294,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     K: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-390a77b4"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/person.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-23e4402d"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/person.vue"]]);
 wx.createPage(MiniProgramPage);

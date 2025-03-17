@@ -1,5 +1,5 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const _sfc_main = {
   name: "",
   onLoad(res) {
@@ -121,7 +121,7 @@ const _sfc_main = {
           }
           if (!res.data.data.arr.length) {
             common_vendor.index.showToast({
-              title: "\u8BE5\u4F5C\u54C1\u96C6\u4E3A\u7A7A",
+              title: "该作品集为空",
               icon: "none"
             });
             return;
@@ -174,7 +174,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     v: common_vendor.f($setup.info.works2, (item, index, i0) => {
       return common_vendor.e({
         a: common_vendor.t(item.send_date),
-        b: common_vendor.t(item.place),
+        b: common_vendor.t(item.place.length >= 12 ? item.place.substring(0, 12) + "..." : item.place),
         c: item.src.length && item.type == "p"
       }, item.src.length && item.type == "p" ? {
         d: item.src[0]
@@ -213,5 +213,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     B: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   });
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-ae4c9f56"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/person/other_page/author_info/author_info.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-82e6db2d"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/person/other_page/author_info/author_info.vue"]]);
 wx.createPage(MiniProgramPage);

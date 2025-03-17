@@ -70,7 +70,8 @@
 			box-sizing: border-box;
 			flex-direction: column;
 			&>.pic{
-				@include height(25%);
+				@include height(23%);
+				margin-bottom:10px;
 				&>image{
 					background-color: rgba(0,0,0,.1);
 					height:100%;
@@ -79,8 +80,20 @@
 			}
 			&>.culture_store{
 				@include height(70%);
+				overflow-y: auto;
 				&>view{
-					flex-grow: 1;
+					&:first-child{
+						margin:20px 0 10px 0;
+					}
+					border-radius:10px;
+					overflow:hidden;
+					@include height(20%);
+					margin:10px 0;
+					background-color:rgb(135, 116, 229);
+					.cimg{
+						height:100%;
+						width:70%;
+					}
 				}
 				&>.title{
 					@include height(10%);

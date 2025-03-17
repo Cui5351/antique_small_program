@@ -1,25 +1,6 @@
 "use strict";
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var common_vendor = require("../../../../common/vendor.js");
-var block0 = (Component2) => {
+const common_vendor = require("../../../../common/vendor.js");
+const block0 = (Component2) => {
   if (!Component2.wxsCallMethods) {
     Component2.wxsCallMethods = [];
   }
@@ -30,66 +11,86 @@ const IMG_SIZE = 300;
 const _sfc_main = {
   name: "qf-image-cropper",
   props: {
+    /** 图片资源地址 */
     src: {
       type: String,
       default: ""
     },
+    /** 裁剪宽度，有些平台或设备对于canvas的尺寸有限制，过大可能会导致无法正常绘制 */
     width: {
       type: Number,
       default: IMG_SIZE
     },
+    /** 裁剪高度，有些平台或设备对于canvas的尺寸有限制，过大可能会导致无法正常绘制 */
     height: {
       type: Number,
       default: IMG_SIZE
     },
+    /** 是否绘制裁剪区域边框 */
     showBorder: {
       type: Boolean,
       default: true
     },
+    /** 是否绘制裁剪区域网格参考线 */
     showGrid: {
       type: Boolean,
       default: true
     },
+    /** 是否展示四个支持伸缩的角 */
     showAngle: {
       type: Boolean,
       default: true
     },
+    /** 裁剪区域最小缩放倍数 */
     areaScale: {
       type: Number,
       default: 0.3
     },
+    /** 图片最大缩放倍数 */
     maxScale: {
       type: Number,
       default: 5
     },
+    /** 是否有回弹效果：拖动时可以拖出边界，释放时会弹回边界 */
     bounce: {
       type: Boolean,
       default: true
     },
+    /** 是否支持翻转 */
     rotatable: {
       type: Boolean,
       default: true
     },
+    /** 是否支持从本地选择素材 */
     choosable: {
       type: Boolean,
       default: true
     },
+    /** 四个角尺寸，单位px */
     angleSize: {
       type: Number,
       default: 20
     },
+    /** 四个角边框宽度，单位px */
     angleBorderWidth: {
       type: Number,
       default: 2
     },
+    /** 裁剪图片圆角半径，单位px */
     radius: {
       type: Number,
       default: 0
     },
+    /** 生成文件的类型，只支持 'jpg' 或 'png'。默认为 'png' */
     fileType: {
       type: String,
       default: "png"
     },
+    /**
+     * 图片从绘制到生成所需时间，单位ms
+     * 微信小程序平台使用 `Canvas 2D` 绘制时有效
+     * 如绘制大图或出现裁剪图片空白等情况应适当调大该值，因 `Canvas 2d` 采用同步绘制，需自己把控绘制完成时间
+     */
     delay: {
       type: Number,
       default: 1e3
@@ -98,6 +99,7 @@ const _sfc_main = {
   emits: ["crop"],
   data() {
     return {
+      // 用不同 id 使 v-for key 不重复
       maskList: [
         { id: "crop-mask-block-1" },
         { id: "crop-mask-block-2" },
@@ -116,14 +118,23 @@ const _sfc_main = {
         { id: "crop-angle-3" },
         { id: "crop-angle-4" }
       ],
+      /** 本地缓存的图片路径 */
       imgSrc: "",
+      /** 图片的裁剪宽度 */
       imgWidth: IMG_SIZE,
+      /** 图片的裁剪高度 */
       imgHeight: IMG_SIZE,
+      /** 裁剪区域最大宽度所占屏幕宽度百分比 */
       widthPercent: AREA_SIZE,
+      /** 裁剪区域最大高度所占屏幕宽度百分比 */
       heightPercent: AREA_SIZE,
+      /** 裁剪区域布局信息 */
       area: {},
+      /** 未被缩放过的图片宽 */
       oldWidth: 0,
+      /** 未被缩放过的图片高 */
       oldHeight: 0,
+      /** 系统信息 */
       sys: common_vendor.index.getSystemInfoSync(),
       scaleWidth: 0,
       scaleHeight: 0,
@@ -138,7 +149,8 @@ const _sfc_main = {
   computed: {
     initData() {
       return {
-        area: __spreadProps(__spreadValues({}, this.area), {
+        area: {
+          ...this.area,
           bounce: this.bounce,
           showBorder: this.showBorder,
           showGrid: this.showGrid,
@@ -149,7 +161,7 @@ const _sfc_main = {
           widthPercent: this.widthPercent,
           heightPercent: this.heightPercent,
           radius: this.radius
-        }),
+        },
         sys: this.sys,
         img: {
           maxScale: this.maxScale,
@@ -192,6 +204,7 @@ const _sfc_main = {
     }
   },
   methods: {
+    /** 提供给wxs调用，用来接收图片变更数据 */
     dataChange(e) {
       this.scaleWidth = e.width;
       this.scaleHeight = e.height;
@@ -199,6 +212,7 @@ const _sfc_main = {
       this.offsetX = e.x;
       this.offsetY = e.y;
     },
+    /** 初始化裁剪区域布局信息 */
     initArea() {
       this.sys.offsetBottom = common_vendor.index.upx2px(100) + this.sys.safeAreaInsets.bottom;
       this.sys.windowTop = 0;
@@ -221,6 +235,7 @@ const _sfc_main = {
       this.scaleWidth = width;
       this.scaleHeight = height;
     },
+    /** 从本地选取图片 */
     chooseImage() {
       if (common_vendor.index.chooseMedia) {
         common_vendor.index.chooseMedia({
@@ -241,6 +256,7 @@ const _sfc_main = {
         }
       });
     },
+    /** 重置数据 */
     resetData() {
       this.imgSrc = "";
       this.rotate = 0;
@@ -248,6 +264,10 @@ const _sfc_main = {
       this.offsetY = 0;
       this.initArea();
     },
+    /**
+     * 初始化图片信息
+     * @param {String} url 图片链接
+     */
     initImage(url) {
       common_vendor.index.getImageInfo({
         src: url,
@@ -273,6 +293,13 @@ const _sfc_main = {
         }
       });
     },
+    /**
+     * 剪切图片圆角
+     * @param {Object} ctx canvas 的绘图上下文对象
+     * @param {Number} radius 圆角半径
+     * @param {Number} scale 生成图片的实际尺寸与截取区域比
+     * @param {Function} drawImage 执行剪切时所调用的绘图方法，入参为是否执行了剪切
+     */
     drawClipImage(ctx, radius, scale, drawImage) {
       if (radius > 0) {
         ctx.save();
@@ -299,6 +326,12 @@ const _sfc_main = {
         drawImage && drawImage(false);
       }
     },
+    /**
+     * 旋转图片
+     * @param {Object} ctx canvas 的绘图上下文对象
+     * @param {Number} rotate 旋转角度
+     * @param {Number} scale 生成图片的实际尺寸与截取区域比
+     */
     drawRotateImage(ctx, rotate, scale) {
       if (rotate !== 0) {
         const x = this.scaleWidth * scale / 2;
@@ -313,19 +346,32 @@ const _sfc_main = {
       this.drawClipImage(ctx, this.radius, scale, () => {
         this.drawRotateImage(ctx, this.rotate, scale);
         const r = this.rotate / 90;
-        ctx.drawImage(image, [
-          this.offsetX - this.area.left,
-          this.offsetY - this.area.top,
-          -(this.offsetX - this.area.left),
-          -(this.offsetY - this.area.top)
-        ][r] * scale, [
-          this.offsetY - this.area.top,
-          -(this.offsetX - this.area.left),
-          -(this.offsetY - this.area.top),
-          this.offsetX - this.area.left
-        ][r] * scale, this.scaleWidth * scale, this.scaleHeight * scale);
+        ctx.drawImage(
+          image,
+          [
+            this.offsetX - this.area.left,
+            this.offsetY - this.area.top,
+            -(this.offsetX - this.area.left),
+            -(this.offsetY - this.area.top)
+          ][r] * scale,
+          [
+            this.offsetY - this.area.top,
+            -(this.offsetX - this.area.left),
+            -(this.offsetY - this.area.top),
+            this.offsetX - this.area.left
+          ][r] * scale,
+          this.scaleWidth * scale,
+          this.scaleHeight * scale
+        );
       });
     },
+    /**
+     * 绘图
+     * @param {Object} canvas 
+     * @param {Object} ctx canvas 的绘图上下文对象
+     * @param {String} src 图片路径
+     * @param {Function} callback 开始绘制时回调
+     */
     draw2DImage(canvas, ctx, src, callback) {
       if (canvas) {
         const image = canvas.createImage();
@@ -341,6 +387,11 @@ const _sfc_main = {
         }, 200);
       }
     },
+    /**
+     * 画布转图片到本地缓存
+     * @param {Object} canvas 
+     * @param {String} canvasId 
+     */
     canvasToTempFilePath(canvas, canvasId) {
       common_vendor.index.canvasToTempFilePath({
         canvas,
@@ -350,19 +401,23 @@ const _sfc_main = {
         width: this.canvansWidth,
         height: this.canvansHeight,
         destWidth: this.imgWidth,
+        // 必要，保证生成图片宽度不受设备分辨率影响
         destHeight: this.imgHeight,
+        // 必要，保证生成图片高度不受设备分辨率影响
         fileType: this.fileType,
+        // 目标文件的类型，默认png
         success: (res) => {
           this.handleImage(res.tempFilePath);
         },
         fail: (err) => {
           common_vendor.index.hideLoading();
-          common_vendor.index.showToast({ title: "\u88C1\u526A\u5931\u8D25\uFF0C\u751F\u6210\u56FE\u7247\u5F02\u5E38\uFF01", icon: "none" });
+          common_vendor.index.showToast({ title: "裁剪失败，生成图片异常！", icon: "none" });
         }
       }, this);
     },
+    /** 确认裁剪 */
     cropClick() {
-      common_vendor.index.showLoading({ title: "\u88C1\u526A\u4E2D...", mask: true });
+      common_vendor.index.showLoading({ title: "裁剪中...", mask: true });
       if (!this.use2d) {
         const ctx = common_vendor.index.createCanvasContext("imgCanvas", this);
         ctx.clearRect(0, 0, this.canvansWidth, this.canvansHeight);
@@ -452,5 +507,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 if (typeof block0 === "function")
   block0(_sfc_main);
-var Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper.vue"]]);
 wx.createComponent(Component);

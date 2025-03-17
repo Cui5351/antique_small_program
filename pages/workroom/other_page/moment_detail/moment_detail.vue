@@ -47,7 +47,7 @@
 	  <view class="moment">
 		  <view class="c">评论列表</view>
 		  <view>
-			  <view class="m" v-for="(item,index) in moments" :key="index">
+			  <view class="m" v-for="(item,index) in moments" :key="index" @longpress="delComment(item)">
 				  <view class="avatar">
 					  <image :src="item.avatar" mode="aspectFill"></image>
 				  </view>
@@ -66,7 +66,7 @@
 		  <uni-icons type="star" size='25'></uni-icons>
 	  </view>
 	  <view class="flex_j_a_c input">
-			<input type="text" v-model="text" placeholder="请您友好交流~">
+			<input type="text" @confirm="send_mes" v-model="text" placeholder="请您友好交流~">
 	  </view>
 	  <view class="flex_j_a_c" style="width:15%;" @click="send_mes">
 		  <uni-icons size="25" type="paperplane"></uni-icons>
@@ -92,6 +92,7 @@ export default{
 	  	mask:true,
 		title:'加载中'
 	  })
+	this.channel = this.getOpenerEventChannel()
 	let tmp=JSON.parse(info)
 	console.log('info',info);
 	let that=this
@@ -114,61 +115,106 @@ export default{
 		this.info[item]=tmp[item]
 	})
 	console.log(this.info);
-	
-	uni.request({
-		url:uni.current_this.baseURL+':5001/get_community_comment',
-		method:'GET',
-		data:{
-			uuid:this.info.uuid,
-			openid:uni.current_this.store.state.user_info.openid
-		},
-		success(res) {
-			if(uni.current_this.check_res_state(res)){
-				return
-			}
-			if(res.data.state==2){
-				if(res.data.mes=='该作品被隐藏'&&that.info.openid==uni.current_this.store.state.user_info.openid){
-					res.data.data.forEach(item=>{
-						item.date=uni.current_this.dateformat_accuracy(new Date(item.date))
-					})
-					that.moments.push(...res.data.data)
-					that.info.show=false
-					console.log('hid');
-					return
-				}
-				uni.navigateBack()
-				if(that.info.openid==uni.current_this.store.state.user_info.openid){
-					// 删除作品
-					uni.current_this.store.state.user_info.moments.forEach((item,index)=>{
-						if(item.uuid==that.info.uuid)
-							uni.current_this.store.state.user_info.moments.splice(index,1)
-					})
-				}
-				uni.current_this.store.state.moments.forEach((item,index)=>{
-					if(item.uuid==that.info.uuid)
-						uni.current_this.store.state.moments.splice(index,1)
-				})
-				uni.showToast({
-					title:res.data.mes,
-					icon:'none',
-					duration:3000
-				})
-				return
-			}
-			res.data.data.forEach(item=>{
-				item.date=uni.current_this.dateformat_accuracy(new Date(item.date))
-			})
-			that.moments.push(...res.data.data)
-		},
-		complete() {
-			uni.hideLoading()
-		}
-	})
+	this.getComment()
+  },
+  onUnload() {
+  	this.flag = false
+  },
+  onBackPress() {
+  	this.flag = false
   },
   components:{
 	  back
   },
+  methods:{
+	  delComment(comment){
+		if(comment.openid != uni.current_this.store.getters.openid)
+			return
+			let that = this
+		uni.showModal({
+			title:'是否删除该评论',
+			success(confirm) {
+				if(!confirm.confirm)
+					return
+				uni.request({
+					url:uni.current_this.baseURL+':5001/del_community_comment',
+					method:'GET',
+					data:{
+						uuid:comment.uuid,
+						openid:uni.current_this.store.getters.openid
+					},
+					success(res) {
+						if(uni.current_this.check_res_state(res)){
+							return
+						}
+					that.getComment();
+					}
+				})
+			}
+	    })
+	  },
+	  getComment(){
+		  let that = this
+		  uni.request({
+		  	url:uni.current_this.baseURL+':5001/get_community_comment',
+		  	method:'GET',
+		  	data:{
+		  		uuid:this.info.uuid,
+		  		openid:uni.current_this.store.state.user_info.openid
+		  	},
+		  	success(res) {
+		  		if(uni.current_this.check_res_state(res)){
+		  			return
+		  		}
+		  		if(res.data.state==2){
+		  			if(res.data.mes=='该作品被隐藏'&&that.info.openid==uni.current_this.store.state.user_info.openid){
+		  				res.data.data.forEach(item=>{
+		  					item.date=uni.current_this.dateformat_accuracy(new Date(item.date))
+		  				})
+		  				that.moments.push(...res.data.data)
+		  				that.info.show=false
+					this.channel.emit('loadData')
+		  			uni.navigateBack()
+		  			return
+		  			}
+		  			if(that.info.openid==uni.current_this.store.state.user_info.openid){
+		  				// 删除作品
+		  				uni.current_this.store.state.user_info.moments.forEach((item,index)=>{
+		  					if(item.uuid==that.info.uuid)
+		  						uni.current_this.store.state.user_info.moments.splice(index,1)
+		  				})
+		  			}
+		  			uni.current_this.store.state.moments.forEach((item,index)=>{
+		  				if(item.uuid==that.info.uuid)
+		  					uni.current_this.store.state.moments.splice(index,1)
+		  			})
+		  			uni.showToast({
+		  				title:res.data.mes,
+		  				icon:'none',
+		  				duration:3000
+		  			})
+		  			return
+		  		}
+		  		res.data.data.forEach(item=>{
+		  			item.date=uni.current_this.dateformat_accuracy(new Date(item.date))
+		  		})
+				that.moments.splice(0,that.moments.length)
+		  		that.moments.push(...res.data.data)
+				if(that.flag){
+					console.log(that.flag,'flag');
+					setTimeout(() => {
+						that.getComment()
+					},5000)
+				}
+		  	},
+		  	complete() {
+		  		uni.hideLoading()
+		  	}
+		  })
+	  }
+  },
   setup(){
+	  let flag = ref(true)
 	let info=reactive({avatar:'',
 					name:'',
 					send_date:'',
@@ -182,6 +228,7 @@ export default{
 					mask:[],
 					show:true})
 	let moments=reactive([])
+		  let channel = ref(null)
 	let text=ref('')
 	function send_mes(){
 		if(!uni.current_this.store.getters.login_state){
@@ -255,21 +302,22 @@ export default{
 					if(uni.current_this.check_res_state(res)){
 						return
 					}
-					uni.navigateBack()
-					uni.current_this.store.state.moments.forEach((item,index)=>{
-						if(item.uuid==info.uuid)
-							uni.current_this.store.state.moments.splice(index,1)
-					})
-					if(info.openid==uni.current_this.store.state.user_info.openid){
-						// 删除作品
-						uni.current_this.store.state.user_info.moments.forEach((item,index)=>{
-							if(item.uuid==info.uuid)
-								uni.current_this.store.state.user_info.moments.splice(index,1)
-						})
-					}
+					// uni.current_this.store.state.moments.forEach((item,index)=>{
+					// 	if(item.uuid==info.uuid)
+					// 		uni.current_this.store.state.moments.splice(index,1)
+					// })
+					// if(info.openid==uni.current_this.store.state.user_info.openid){
+					// 	// 删除作品
+					// 	uni.current_this.store.state.user_info.moments.forEach((item,index)=>{
+					// 		if(item.uuid==info.uuid)
+					// 			uni.current_this.store.state.user_info.moments.splice(index,1)
+					// 	})
+					// }
 					uni.showToast({
 						title:`删除作品成功`
 					})
+					channel.value.emit('loadData')
+					uni.navigateBack()
 				}})
 			}
 		})
@@ -299,6 +347,7 @@ export default{
 					uni.showToast({
 						title:`${info.show?'显示':'隐藏'}作品成功`
 					})
+				channel.value.emit('loadData')
 				}})
 			}
 		})
@@ -318,7 +367,7 @@ export default{
 				openid:info.openid
 			})}`})
 	}
-    return{info,more_stop,author_info,more_click,more,send_mes,check_pict,text,moments,delW,hidW}
+    return{info,more_stop,author_info,more_click,more,send_mes,check_pict,text,moments,delW,hidW,channel,flag}
   }
 }
 </script>

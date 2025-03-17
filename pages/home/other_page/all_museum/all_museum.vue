@@ -17,10 +17,12 @@
 				</view>
 				<view class="culture_right background">
 					<view class="pic">
-						<image :src="show_store.main" mode=""></image>
+						<image :src="show_store.main" mode="aspectFill"></image>
 					</view>
 					<view class="culture_store flex_c">
-						
+						<view v-for="(item,index) in show_store.store">
+							<image class="cimg" :src="item.src" mode="aspectFill"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -35,259 +37,259 @@
 			let info=reactive([
 			{
 				title:'北京市',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'天津市',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'上海市',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'重庆市',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'湖北省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				},{
 					name:'aaa',
-					src:'/static/background.jpg'
+					src:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg'
 				}]
 			},
 			{
 				title:'广东省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'海南省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'四川省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'贵州省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'云南省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'陕西省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'甘肃省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'青海省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'台湾省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'河北省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'山西省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'辽宁省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'吉林省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'黑龙江省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'江苏省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'浙江省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'安徽省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'福建省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'江西省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'山东省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'河南省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'湖南省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'广东省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'湖南省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'海南省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'四川省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'贵州省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'陕西省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'甘肃省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'青海省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'台湾省',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'广西壮族自治区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'内蒙古自治区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'西藏自治区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'宁夏族自治区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'新疆维吾尔自治区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'香港特别行政区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			},
 			{
 				title:'澳门特别行政区',
-				main:'/static/background.jpg',
+				main:'https://mengzhiyuan.email/antique/antique_pic/poster.jpeg',
 				picture:[]
 			}])
 			let show_store=reactive({

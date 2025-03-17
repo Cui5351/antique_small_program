@@ -1,13 +1,13 @@
 "use strict";
-var common_vendor = require("../../../../common/vendor.js");
+const common_vendor = require("../../../../common/vendor.js");
 const _sfc_main = {
   mounted() {
     let query = common_vendor.index.createSelectorQuery();
     let doms = query.select(".data");
     common_vendor.index.current_this1 = this;
     doms.boundingClientRect(function(res) {
-      common_vendor.index.current_this1.data_height.height = 150 + "px";
-      common_vendor.index.current_this1.data_height.min = 150 + "px";
+      common_vendor.index.current_this1.data_height.height = "150px";
+      common_vendor.index.current_this1.data_height.min = "150px";
       common_vendor.index.current_this1.data_height.max = res.height + 100 + "px";
     }).exec(function() {
     });
@@ -27,13 +27,18 @@ const _sfc_main = {
     return {
       imageUrl: this.data.full_src,
       title: this.data.name,
+      //分享的名称
       path: `/pages/home/other_page/museum/museum?data=${JSON.stringify(this.data)}`
+      // desc:this.data.description[0].substring(0,15)+'...'
+      // mpId:'' //此处配置微信小程序的AppId
     };
   },
+  //分享到朋友圈
   onShareTimeline() {
     return {
       imageUrl: this.data.full_src,
       title: this.data.name,
+      //分享的名称
       type: 0
     };
   },
@@ -55,11 +60,11 @@ const _sfc_main = {
     function full_screen() {
       common_vendor.index.showToast({
         icon: "none",
-        title: "\u6682\u672A\u5F00\u653E"
+        title: "暂未开放"
       });
     }
     function all_antique() {
-      if (data.name == "\u957F\u6C5F\u827A\u672F\u5DE5\u7A0B\u804C\u4E1A\u5B66\u9662\u975E\u9057\u4F20\u627F\u9662")
+      if (data.name == "长江艺术工程职业学院非遗传承院")
         return;
       common_vendor.index.navigateTo({
         url: `/pages/home/other_page/show_antique3d/show_antique3d`
@@ -81,7 +86,7 @@ const _sfc_main = {
     function subscribe() {
       common_vendor.index.showToast({
         icon: "none",
-        title: "\u6682\u672A\u5F00\u653E"
+        title: "暂未开放"
       });
     }
     function show_antique(item) {
@@ -135,7 +140,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     g: $setup.data_height.state ? "auto" : "hidden",
-    h: common_vendor.t($setup.data_height.state ? "\u9690\u85CF" : "\u5C55\u5F00"),
+    h: common_vendor.t($setup.data_height.state ? "隐藏" : "展开"),
     i: common_vendor.p({
       type: "bottom",
       size: "20",
@@ -171,6 +176,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   };
 }
-var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-857ef576"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/\u4F20\u627F\u975E\u9057/pages/home/other_page/museum/museum.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-be515839"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/home/other_page/museum/museum.vue"]]);
 _sfc_main.__runtimeHooks = 6;
 wx.createPage(MiniProgramPage);
