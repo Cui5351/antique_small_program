@@ -27,7 +27,9 @@
     "pages/person/other_page/manage_work/manage_work",
     "pages/person/other_page/author_info/author_info",
     "pages/store/other_page/storeDetail/storeDetail",
-    "pages/store/other_page/storeOrder/storeOrder"
+    "pages/store/other_page/storeOrder/storeOrder",
+    "pages/person/other_page/bills/billsDetail/billsDetail",
+    "pages/workroom/view/view"
   ],
   "window": {
     "navigationBarTextStyle": "black",

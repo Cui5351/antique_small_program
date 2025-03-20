@@ -19,13 +19,13 @@
 			<view class="des flex_j_a_c">
 					<view class="money">
 						¥{{info.money?.toFixed(2)}}
-						<view style="color: black;display: inline;">{{info.name}}</view>
+						<view style="color: black;font-size: 36rpx;">商品名：{{info.name}}</view>
 						</view>
 				<!-- <view style="margin-top: 5px;min-width:500rpx;"> -->
 					<!-- {{info.name}} -->
 				<!-- </view> -->
 				<view style="margin-top: 5px;min-width:500rpx;color: rgba(0,0,0,.5);">
-					{{info.description.length>=20?info.description.substring(0,20)+'...':info.description}}
+					商品描述：{{info.description.length>=40?info.description.substring(0,40)+'...':info.description}}
 				</view>
 			</view>
 			<button open-type="share" plain class="three_size flex_j_a_c share">
@@ -44,7 +44,7 @@
 		</view>
 		<view class="transport flex_j_a_r three_size">
 			<view class="flex_j_a_r" style="color: gray;">运费
-			<view class="money" style="color: black;">¥{{info.transport_money}}.00</view>
+			<view class="money" style="color: black;">¥{{info.transport_money.toFixed(2)}}</view>
 			</view>
 			<view style="color: gray;">已售{{info.sale}} | 剩余{{info.depository}}</view>
 		</view>
@@ -64,14 +64,14 @@
 						{{item.user_name}}
 					</view>
 					<view class="right three_size flex_j_a_r ">
-						<view class="txt">{{item.bought_date}}购买{{item.bought_count}}件</view>
-						<view class="go_buy" @click="show_all">去下单</view>
+						<view class="txt">{{item.bought_date}}购买{{item.count}}件</view>
+						<!-- <view class="go_buy" @click="show_all">去下单</view> -->
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="bought_person_count2 cc flex_j_a_c">
-			<view class="tit">
+			<view class="tit" style="margin-top:10px;">
 				<view class="">商品评价({{info.comment.length}})</view>
 				<view class="small_title" @click="show_all">好评率：0%
 					<uni-icons type="right"></uni-icons>
@@ -96,21 +96,24 @@
 			</view>
 		</view>
 		<view class="other_store">
-				其他商品({{info.store}})
+				其他商品({{total != 0 ? total-1 : 0}})
+				<!-- ({{info.store}}) -->
 		</view>
 		<view class="store_other" style="margin-top: 0;"><!-- store_other -->
-		<view class="service-item" v-for="(item, index) in [...services]" :key="index" @click="enterService(item)" v-if="services.length > 0">
-		  <image :src="item.url" mode="aspectFill" class="service-pic"></image>
-		  <view class="service-info">
-		    <view class="service-name">{{ item.name }}</view>
-		    <view class="service-desc">商品描述：{{ item.description.length >= 15 ? (item.description.substring(0,15) + '...') :item.description }}</view>
-		  </view>
-		    <view class="service-price">￥{{item.money?.toFixed(2)}}元</view>
-				  <view style="display: flex;justify-content: space-between;padding: 0 10rpx;color:rgba(0,0,0,.5);margin: 10rpx 0;">
-					  <view>销量：{{item.sale}}</view>
-					  <view>库存：{{item.depository}}</view>
-				  </view>
-		</view>
+		<template v-if="services.length > 0">
+			<view class="service-item" v-for="(item, index) in [...services]" :key="index" @click="enterService(item)" :style="{display:(item?.id != info?.id) ? 'block' :'none'}">
+			  <image :src="item.url" mode="aspectFill" class="service-pic"></image>
+			  <view class="service-info">
+				<view class="service-name">{{ item.name }}</view>
+				<view class="service-desc">商品描述：{{ item.description.length >= 15 ? (item.description.substring(0,15) + '...') :item.description }}</view>
+			  </view>
+				<view class="service-price">￥{{item.money?.toFixed(2)}}元</view>
+					  <view style="display: flex;justify-content: space-between;padding: 0 10rpx;color:rgba(0,0,0,.5);margin: 10rpx 0;">
+						  <view>销量：{{item.sale}}</view>
+						  <view>库存：{{item.depository}}</view>
+					  </view>
+			</view>
+		</template>
 		<view v-else class="reviews">
 		  暂无商品
 		</view>
@@ -187,6 +190,7 @@ export default{
 							return
 						that.info[item]=res2.data.data[item]
 					})
+					that.info.store_id = res2.data.data.store_id
 					that.loadStore()
 					that.get_count()
 			},complete() {
@@ -198,10 +202,13 @@ export default{
 			uni.showLoading({
 				title:'加载商品中'
 			})
+			console.log(this.info,'info');
 			request.get('/StoreItem/list',{
-				store:this.info.store,
+				store_id:this.info.store_id,
 				...this.search
 			}).then(res => {
+				console.log(res.list,'res');
+				this.total = res.total
 				this.services.splice(0,this.services.length)
 				this.services.push(...res.list)
 			}).catch(err => {
@@ -250,7 +257,6 @@ export default{
 	onLoad(res) {
 		this.id = res.id
 		let that=this
-				
 			return
 			let data=JSON.parse(res.info)
 			Object.keys(this.info).forEach(item=>{
@@ -268,7 +274,7 @@ export default{
       return {
   		imageUrl:this.info.pic[0],
           title: this.info.name, //分享的名称
-          path: `/pages/store/other_page/store_page/store_page?name=${this.info.name}&id=${this.id}`,
+          path: `/pages/store/other_page/store_page/store_page?store_id=${this.info.store_id}&id=${this.id}`,
       }
   },
   //分享到朋友圈
@@ -285,9 +291,11 @@ export default{
 	  	page:1,
 	  	pageSize:10
 	  })
+	  const total = ref(0)
 	let info=reactive({
 		count:1,
 		name:'',
+		store_id:'',
 		money:0,
 		sale:0,
 		depository:0,
@@ -343,47 +351,15 @@ export default{
 		uni.navigateTo({
 			url:`/pages/store/other_page/storeOrder/storeOrder?info=${JSON.stringify(info)}`
 		})
-		return
-		uni.showLoading({
-			title:'购买中',
-			mask:true
-		})
-		uni.request({
-			// url:uni.current_this.baseURL+':5001/buy_goods',
-			url:baseURL+':8666/buy_goods',
-			method:'POST',
-			data:{
-				openid:uni.current_this.store.getters.openid,
-				goods_name:info.name,
-				count:1
-			},
-			success(res) {
-				console.log(res,'res');
-				if(res.data.state!==1){
-					uni.hideLoading()
-					uni.showToast({
-						title:'购买失败',
-						icon:'error'
-					})
-				}
-				// uni.current_this.store.dispatch('buy',JSON.stringify(that.info))
-				setTimeout(()=>{
-					uni.hideLoading()
-					uni.showToast({
-						title:'购买成功',
-						mask:true
-					})
-					setTimeout(()=>{
-						uni.reLaunch({
-							url:'/pages/person/other_page/bills/bills'
-						})
-					},500)
-				},Math.random()*1000)
-				}
-		})
-		return
 	}
-    return{back,info,join_car,show_all,buy,full,id,services,search}
+	const enterService = (item) => {
+		console.log(item,'item');
+		// 根据id获取详情数据
+		uni.redirectTo({
+			url:`/pages/store/other_page/store_page/store_page?id=${item.id}&name=${item.name}`
+		})
+	}
+    return{back,info,join_car,show_all,buy,full,id,services,search,enterService,total}
   }
 }
 </script>

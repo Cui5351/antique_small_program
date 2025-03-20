@@ -181,7 +181,8 @@
 		flex-wrap: wrap;
 		&>image{
 			max-width:200px;
-			height:130px;
+			max-height:200px;
+			// background-color: white;
 			margin:3px;
 		}
 		&>video{

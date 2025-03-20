@@ -5,7 +5,7 @@
       <image class="goods-img" :src="goodsInfo.pic[0]" mode="aspectFill"></image>
       <view class="goods-detail">
         <view class="goods-name">{{ goodsInfo.name }}</view>
-        <view class="goods-price">¥{{ goodsInfo.money }}元</view>
+        <view class="goods-price">¥{{ goodsInfo.money.toFixed(2) }}元</view>
       </view>
      <view class="goods-count">
         <text class="minus" :style="{background:count == 1 ? 'rgba(0,0,0,.1);':''}" @click="updateCount(-1)">-</text>
@@ -13,12 +13,12 @@
         <text class="plus" @click="updateCount(1)">+</text>
       </view>
     </view>
-    <view class="form-item">
+    <view class="form-item" @click="chooseLocation">
       <view class="label" style="margin-bottom: 20rpx;">
 		  <view class="highLight">*</view>
 		  收货地址
 		  </view>
-      <view class="address-item" @click="chooseLocation" style="margin-left: 15rpx;border-bottom: 1px solid rgba(0,0,0,.1);color: rgba(0,0,0,.5);">
+      <view class="address-item" style="margin-left: 15rpx;border-bottom: 1px solid rgba(0,0,0,.1);color: rgba(0,0,0,.5);">
 		<uni-icons size="25" type="location" style="margin-right: 10rpx;"></uni-icons>
 		<view class="address" v-if="Address.tel.trim().length > 0">
 			<view>{{ Address.realName }} {{ Address.tel }}</view>
@@ -41,11 +41,12 @@
 			：{{ goodsInfo.description }}</view>
 	</view>
 	<view class="form-item" style="margin-bottom: 150rpx;color: rgba(0,0,0,.5);">
-	  <view class="label">下单须知</view>
-	  <view class="label"> ①:员工接单超出5分钟后取消订单，则不退回预支付费用</view>
-	  <view class="label"> ②:下单后会预支付20%的费用，支付成功后等待员工接单上门</view>
-	  <view class="label"> ③:若您填写的房间平米数与实际不符合，结算时员工会修改最终金额</view>
-	  <view class="label"> ④:若您填写的房间平米数与实际不符合，结算时员工会修改最终金额</view>
+	  <view class="label2">下单须知</view>
+	  <view class="label2"> ①:收货信息：请准确填写收货地址及联系方式，因信息错误导致商品无法送达或丢失，责任自负。</view>
+	  <view class="label2"> ②:商品特性：非遗商品为手工制作，可能存在细微差异，不属质量问题</view>
+	  <view class="label2"> ③:商品价格已明示，运费按标准收取，下单即视为接受价格构成</view>
+	  <view class="label2"> ④:若非商品质量问题，退货需承担来回运费，且保持商品完</view>
+	  <view class="label2"> ⑤:因部分非遗商品制作工序复杂，发货时间可能稍有延迟，会在3个工作日内发出</view>
 	</view>
 
     <!-- 提交按钮 -->
@@ -77,6 +78,8 @@ export default {
 				that.Address.tel = res.telNumber
 				that.Address.address = `${res.provinceName}${res.cityName}${res.countyName}${res.detailInfo}`
 				console.log(res,'res');
+			},fail(err) {
+				console.log(err,'err');
 			}
 		})
 	}
@@ -96,6 +99,7 @@ export default {
 		depository:0,
 		description:'',
 		id:'',
+		store_id:'',
 		store:'',
 		pic:[],
 		uuid:'',
@@ -129,17 +133,20 @@ export default {
         uni.showToast({ title: '请选择下单地址', icon: 'none' })
         return
       }
+	  // data里的mony并不是用户下单金额，而是单个商品的价格，
 	  let data = {
 		  address:Address,
 		  ...goodsInfo,
 		  openid:uni.current_this.store.getters.openid,
-		  money:(count.value * goodsInfo.money + goodsInfo.transport_money)?.toFixed(2),
+		  money:(goodsInfo.money)?.toFixed(2),
 		  src:goodsInfo.pic[0],
+		  transport_money:goodsInfo.transport_money?.toFixed(2),
 		  count:count.value
 	  }
 	  console.log(data,'data');
 	  uni.showLoading({
-	  	title:'下单中'
+	  	title:'下单中',
+		mask:true
 	  })
 	  request.post("/StoreItem/order",{
 		  ...data
@@ -147,13 +154,15 @@ export default {
 		  uni.showToast({
 		  	title:'下单成功'
 		  })
+		  uni.redirectTo({
+		  			url:'/pages/person/other_page/bills/bills'
+		  })
 	  }).catch(err => {
-		  
+		  uni.showToast({
+		  	title:'下单失败'
+		  })
 	  }).finally(() => {
 		  uni.hideLoading()
-		  uni.redirectTo({
-			url:'/pages/person/other_page/bills/bills'
-		  })
 	  })
     }
 	
@@ -171,6 +180,7 @@ export default {
 <style scoped lang="scss">
 .containerVessel {
   height: 100vh;
+  overflow-y: auto;
   padding: 20rpx;
 }
 
@@ -214,7 +224,7 @@ export default {
 
     text {
       width: 60rpx;
-	  background-color: #1989fa;
+	  background-color: #6E79E2;
 	  color: white;
       height: 60rpx;
       line-height: 60rpx;
@@ -277,8 +287,8 @@ export default {
   margin-top: 20rpx;
   border-radius: 12rpx;
 
-  .label {
-    // margin-bottom: 20rpx;
+  .label2 {
+    margin-bottom: 10rpx;
   }
 
   input, .picker-value {
@@ -384,7 +394,7 @@ export default {
   z-index: 100;
   height: 88rpx;
   line-height: 88rpx;
-  background: #1989fa;
+  background: #6E79E2;
   color: #fff;
   border-radius: 44rpx;
   font-size: 32rpx;

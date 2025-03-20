@@ -3,15 +3,14 @@
 		<view class='ad flex_j_a_c'>
 			<uni-icons type="plusempty" size="25" color="white"></uni-icons>
 		</view>
-		<view :class="show_add?'add show_add flex_j_a_c':'add flex_j_a_c'">
-			<image src="../../static/forbid.svg" mode=""  style="transform: scale(.7);"></image>
-		</view>
-		<view :class="show_add?'add show_add2 flex_j_a_c':'add flex_j_a_c'" @click.prevent="publish_moment">
-			<!-- <uni-icons type="chatbubble-filled" size="25"></uni-icons> -->
+		<view :class="show_add?'add show_add flex_j_a_c':'add flex_j_a_c'" @click.prevent="publish_moment">
 			<image src="../../static/message.svg" mode=""></image>
 		</view>
-		<view :class="show_add?'add show_add3 flex_j_a_c':'add flex_j_a_c'"  @click.prevent="publish_moment2">
-			<image style="transform: scale(.65);" src="../../static/video.svg" mode=""></image>
+		<view :class="show_add?'add show_add2 flex_j_a_c':'add flex_j_a_c'" @click.prevent="publish_moment2">
+			<image style="transform: scale(.7);" src="../../static/video.svg" mode=""></image>
+		</view>
+		<view :class="show_add?'add show_add3 flex_j_a_c':'add flex_j_a_c'"  @click.prevent="reload">
+			<image src="../../static/refresh.svg" mode=""  style="transform: scale(.7);"></image>
 		</view>
 	</view>
   <scroll-view @touchstart="show_add=false" @scroll="show_add=false" scroll-y="true" class="c" @scrolltolower="lower" @scrolltoupper="upper" lower-threshold="20">
@@ -90,6 +89,18 @@ export default{
 	this.reqs.state = false
 	this.get_moments()
   },
+  methods:{
+	reload()  {
+		uni.showLoading({
+			title:'加载中',
+			mask:true
+		})
+		this.moment.splice(0,this.moment.length)
+		this.reqs.skip = 0
+		this.reqs.state = false
+		this.get_moments()
+	}
+  },
   setup(){
 	  let show_add=ref(false)
 	let reqs=reactive({
@@ -100,15 +111,6 @@ export default{
 	let moment = reactive([])
 	let back=uni.current_this.back
 	function publish_moment(){
-		// wx.getPrivacySetting({
-		// 	success(){
-		// 		console.log("success");
-		// 	},
-		// 	fail(){
-		// 		console.log("fail");
-		// 	}
-		// })
-		
 		if(uni.current_this.check_login_state()){
 			uni.showToast({
 				title:'请先登录',
@@ -120,6 +122,7 @@ export default{
 			// count:9默认为9
 			sourceType: ['album'], //从相册选择
 			mediaType:["image"],
+			count:9,
 			success(res) {
 				let paths=res.tempFiles
 				paths=paths.map(item=>{
@@ -130,7 +133,6 @@ export default{
 					url:`/pages/workroom/other_page/public_moment/public_moment?paths=${JSON.stringify(paths)}`,
 					events:{
 						loadData(){
-							console.log('loadData');
 							moment.splice(0,moment.length)
 							reqs.skip = 0
 							reqs.state = false
@@ -162,13 +164,11 @@ export default{
 					})
 					return
 				}
-				console.log(paths,'paths');
 				// 跳转
 				uni.navigateTo({
 					url:`/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`,
 					events:{
 						loadData(){
-							console.log('loadData');
 							moment.splice(0,moment.length)
 							reqs.skip = 0
 							reqs.state = false
@@ -196,7 +196,8 @@ export default{
 	}
 	function detail(item){
 		uni.navigateTo({
-			url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+			// url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+			url:'/pages/workroom/view/view?uuid=' + item.uuid
 		})
 	}
 	function lower(){
@@ -207,7 +208,6 @@ export default{
 	}
 	function get_moments(){
 		reqs.state=true
-		console.log('get_moments');
 		uni.request({
 			url:uni.current_this.baseURL+':5001/get_community_moments',
 			method:'GET',
@@ -231,7 +231,6 @@ export default{
 						item.send_date=uni.current_this.dateformat_accuracy(new Date(item.send_date))
 						
 					})
-					console.log(res.data);
 					// uni.current_this.store.state.moments.push(...res.data.data)
 					moment.push(...res.data.data)
 					reqs.skip+=res.data.data.length
@@ -283,12 +282,6 @@ export default{
 			})
 	}
 	function user_info(item){
-		// if(item.openid==uni.current_this.store.getters.openid){
-		// 	uni.switchTab({
-		// 		url:'/pages/person/person'
-		// 	})
-		// 	return
-		// }
 		uni.navigateTo({
 			url:`/pages/person/other_page/author_info/author_info?info=${JSON.stringify({
 				avatar:item.avatar,

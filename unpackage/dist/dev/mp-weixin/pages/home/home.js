@@ -228,20 +228,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         b: index
       };
     }),
-    c: common_vendor.f($setup.other, (item, inex, i0) => {
-      return {
-        a: item.pic,
-        b: common_vendor.t(item.name),
-        c: common_vendor.o(($event) => $setup.toggle_other(item), _ctx.index)
-      };
-    }),
-    d: _ctx.index,
-    e: common_vendor.p({
+    c: common_vendor.p({
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    f: common_vendor.o(($event) => $setup.more("all")),
-    g: common_vendor.f(["长江艺术工程职业学院非遗传承院", "荆州博物馆"], (item, index, i0) => {
+    d: common_vendor.o(($event) => $setup.more("all")),
+    e: common_vendor.f(["长江艺术工程职业学院非遗传承院", "荆州博物馆"], (item, index, i0) => {
       return {
         a: $setup.base_url + "/image/antique/museum" + (index + 1) + ".jpg",
         b: common_vendor.t(item),
@@ -249,12 +241,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: index
       };
     }),
-    h: common_vendor.p({
+    f: common_vendor.p({
       color: "rgb(59,92,130)",
       type: "right"
     }),
-    i: common_vendor.o((...args) => $setup.search_page && $setup.search_page(...args)),
-    j: common_vendor.f($setup.video, (item, index, i0) => {
+    g: common_vendor.o((...args) => $setup.search_page && $setup.search_page(...args)),
+    h: common_vendor.f($setup.video, (item, index, i0) => {
       return {
         a: item.mask,
         b: item.avatar,
@@ -262,7 +254,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $setup.inter(item))
       };
     }),
-    k: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
+    i: common_vendor.o((...args) => $setup.lower && $setup.lower(...args))
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-07e72d3c"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/home/home.vue"]]);

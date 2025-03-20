@@ -268,10 +268,12 @@ image.data-v-0e974b8c {
   max-height: 90%;
   min-height: 90%;
   height: 90%;
-  padding: 10px 20px;
 }
 .containe .more.data-v-0e974b8c {
   position: relative;
+}
+.containe > view.data-v-0e974b8c {
+  padding: 10px 20px;
 }
 .containe .se.data-v-0e974b8c {
   height: 0px;
@@ -296,7 +298,7 @@ image.data-v-0e974b8c {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .containe > .person.data-v-0e974b8c {
-  padding: 10px 0;
+  padding: 10px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
@@ -325,6 +327,7 @@ image.data-v-0e974b8c {
 }
 .containe > .other.data-v-0e974b8c {
   display: flex;
+  padding: 10px 20px;
   justify-content: flex-end;
   align-items: center;
 }
@@ -336,12 +339,13 @@ image.data-v-0e974b8c {
   padding: 0;
 }
 .containe > .content.data-v-0e974b8c {
-  padding: 20px 0px;
+  padding: 20px 20px;
 }
 .containe .pic.data-v-0e974b8c {
   display: flex;
   column-count: 2;
   flex-wrap: wrap;
+  padding: 10px 0px;
 }
 .containe .pic > image.data-v-0e974b8c {
   width: 150px;
@@ -353,7 +357,7 @@ image.data-v-0e974b8c {
   height: 200px;
 }
 .moment.data-v-0e974b8c {
-  padding-bottom: 200px;
+  margin-bottom: 200rpx;
 }
 .moment > .c.data-v-0e974b8c {
   margin-top: 10px;

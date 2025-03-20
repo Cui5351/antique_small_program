@@ -87,16 +87,16 @@ image.data-v-84caa7b7 {
   color: #1E3659;
 }
 .containerVessel.data-v-84caa7b7 {
-  padding: 20rpx;
   height: 100vh;
   overflow-y: auto;
 }
 .store.data-v-84caa7b7 {
-  height: calc(100vh - 350rpx);
+  height: calc(100vh - 400rpx - 70rpx);
+  padding: 0 10rpx;
+  box-sizing: border-box;
 }
 .store-swiper.data-v-84caa7b7 {
   height: 400rpx;
-  margin-bottom: 20rpx;
 }
 .store-swiper .swiper-image.data-v-84caa7b7 {
   width: 100%;
@@ -140,11 +140,11 @@ image.data-v-84caa7b7 {
   justify-content: space-between;
 }
 .service-item.data-v-84caa7b7 {
-  width: 45%;
+  width: 45.5%;
   margin-bottom: 20rpx;
   background-color: white;
   border-radius: 10rpx;
-  padding: 10rpx;
+  padding: 20rpx 10rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

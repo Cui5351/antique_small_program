@@ -224,9 +224,7 @@ image.data-v-a067aa4c {
   background-color: white;
   padding: 5px 10px;
   box-sizing: border-box;
-  max-height: 270px;
-  min-height: 270px;
-  height: 270px;
+  min-height: 520rpx;
 }
 .content > .bill .store > view.data-v-a067aa4c {
   width: 100%;
@@ -248,6 +246,7 @@ image.data-v-a067aa4c {
   max-width: 35%;
   min-width: 35%;
   width: 35%;
+  height: 200rpx;
   align-items: flex-start;
 }
 .content > .bill .store > .pics > .pic image.data-v-a067aa4c {
@@ -305,19 +304,21 @@ image.data-v-a067aa4c {
   max-height: 13%;
   min-height: 13%;
   height: 13%;
-  justify-content: flex-end;
+  margin: 10rpx 0;
+  justify-content: space-between;
 }
 .content > .bill .store > .btns > view.data-v-a067aa4c {
   height: 100%;
-  width: 75%;
+  width: 100%;
   justify-content: space-around;
 }
 .content > .bill .store > .btns > view > view.data-v-a067aa4c {
+  width: 150rpx;
+  text-align: center;
   margin-right: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  padding: 3px 5px;
-  box-sizing: border-box;
+  padding: 10rpx 15rpx;
 }
 .content > .bill .store > .btns > view > view.data-v-a067aa4c:active {
   background-color: rgba(0, 0, 0, 0.1);

@@ -3,5 +3,6 @@
     "projectname": "传承非遗",
     "setting": {
         "compileHotReLoad": true
-    }
+    },
+    "libVersion": "3.7.10"
 }

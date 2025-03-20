@@ -19,7 +19,7 @@
         "ignoreUploadUnusedFiles": true
     },
     "compileType": "miniprogram",
-    "libVersion": "2.30.4",
+    "libVersion": "",
     "appid": "wxa30b9f23a9cc5e65",
     "projectname": "传承非遗",
     "condition": {},

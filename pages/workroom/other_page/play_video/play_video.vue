@@ -71,7 +71,7 @@
 			  <uni-icons type="location" size="30"></uni-icons>
 		  </view>
 		  <view class="input">
-			  <input type="text" v-model="danmu" maxlength="15" placeholder="发送一条弹幕吧">
+			  <input type="text" @confirm="send" confirm-type="send" v-model="danmu" maxlength="15" placeholder="发送一条弹幕吧">
 		  </view>
 		  <view class="flex_j_a_c" @click="send">发送</view>
 	  </view>

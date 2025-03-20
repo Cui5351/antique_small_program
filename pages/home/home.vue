@@ -10,7 +10,7 @@
 		</swiper>
 		<scroll-view class="other background" scroll-y="true" scroll-with-animation="true" @scrolltolower="lower">
 			<view class="box">			
-			<view class="funs">
+	<!-- 		<view class="funs">
 				<view class=".flex_j_a_c" @click="toggle_other(item)" v-for="(item,inex) in other" :key="index">
 					<view class="icon">
 						<image :src="item.pic" style="background-color: white;" mode=""></image>
@@ -19,7 +19,7 @@
 						{{item.name}}
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="museums flex_c">
 				<view class="museum_title">
 					<view>博物馆展览</view>

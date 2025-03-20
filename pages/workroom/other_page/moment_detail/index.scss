@@ -3,9 +3,11 @@
 	background-color: white;
 	overflow-y: auto;
 	@include height(90%);
-	padding:10px 20px;
 	.more{
 		position: relative;
+	}
+	&>view{
+		padding:10px 20px;
 	}
 	// .more:active .se{
 		// height:90px;
@@ -34,7 +36,8 @@
 			transition: .2s ease;
 		}
 	&>.person{
-		padding:10px 0;
+		// padding:10px 0;
+		padding:10px 20px;
 		border-bottom:1px solid rgba(0,0,0,.1);
 		display: flex;
 		justify-content: space-between;
@@ -66,6 +69,7 @@
 	}
 	&>.other{
 		display: flex;
+		padding:10px 20px;
 		justify-content:flex-end;
 		align-items: center;
 		&>button{
@@ -78,12 +82,13 @@
 	}
 	
 		&>.content{
-			padding:20px 0px;
+			padding:20px 20px;
 		}
 		.pic{
 		display: flex;
 		column-count: 2;
 		flex-wrap: wrap;
+		padding:10px 0px;
 		&>image{
 			width:150px;
 			height:150px;
@@ -97,7 +102,7 @@
 		}
 }
 .moment{
-	padding-bottom:200px;
+	margin-bottom:200rpx;
 	&>.c{
 		margin-top:10px;
 		padding:5px 0;

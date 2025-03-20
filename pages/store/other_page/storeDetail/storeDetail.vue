@@ -6,6 +6,9 @@
         <image :src="img" mode="aspectFill" class="swiper-image"></image>
       </swiper-item>
     </swiper>
+	<view style="height: 70rpx;line-height: 70rpx;background: white;text-align: center;">
+		商品列表
+	</view>
     <!-- 服务内容 -->
     <scroll-view class="store" scroll-y @scrolltolower="loadData">
 	<view class="service-list" v-if="services.length > 0">
@@ -38,7 +41,7 @@ import { reactive ,ref} from 'vue';
 export default {
 	onLoad(res) {
 		console.log(res,'res');
-		this.storeName = res.name
+		this.store_id = res.id
 		return
 		const store = JSON.parse(res.store)
 		this.orderType = store.orderType
@@ -57,10 +60,11 @@ export default {
 	methods:{
 		loadData(){
 			uni.showLoading({
-				title:'加载商品中'
+				title:'加载商品中',
+				mask:true
 			})
 			request.get('/StoreItem/list',{
-				store:this.storeName,
+				store_id:this.store_id,
 				...this.search
 			}).then(res => {
 				if(res.list.length <= 0){
@@ -80,7 +84,7 @@ export default {
 	},
   setup() {
     const currentTab = ref(0)
-	const storeName = ref('')
+	const store_id = ref('')
     const currentSubTab = ref(0)
 	const carousel = reactive([
 		'https://www.mengzhiyuan.email/antique/storeCarousel/carousel1.png',
@@ -111,26 +115,9 @@ export default {
       currentSubTab.value = index
     }
 	const enterService = (item) => {
-		console.log(item,'item');
-		// if(!uni.current_this.store.getters.login_state){
-		// 	uni.showModal({
-		// 		title:"系统提示",
-		// 		content:"请先登录",
-		// 		showCancel:false,
-		// 		success() {
-		// 			uni.switchTab({
-		// 				url:'/pages/person/person'
-		// 			})
-		// 		}
-		// 	})
-		// 	return
-		// }
-		Object.assign(item,{
-			storeId:data.storeId
-		})
 		// 根据id获取详情数据
 		uni.navigateTo({
-			url:`/pages/store/other_page/store_page/store_page?id=${item.id}&name=${item.name}`
+			url:`/pages/store/other_page/store_page/store_page?id=${item.id}&store_id=${item.store_id}`
 			// url:'/pages/store/order/order?item='+JSON.stringify({...item,orderType:orderType.value})
 		})
 	}
@@ -141,7 +128,7 @@ export default {
       currentTab,
       swiperList,
 	  carousel,
-	  storeName,
+	  store_id,
 	  search,
       services,
       switchTab,
@@ -154,16 +141,16 @@ export default {
 
 <style scoped lang="scss">
 .containerVessel {
-  padding: 20rpx;
   height: 100vh;
   overflow-y: auto;
 }
 .store{
-	height: calc(100vh - 350rpx);
+	height: calc(100vh - 400rpx - 70rpx);
+	padding:0 10rpx;
+	box-sizing: border-box;
 }
 .store-swiper {
   height: 400rpx;
-  margin-bottom: 20rpx;
   .swiper-image {
     width: 100%;
     height: 100%;
@@ -209,11 +196,11 @@ export default {
 }
 
 .service-item {
-  width: 45%;
+  width: 45.5%;
   margin-bottom: 20rpx;
   background-color: white;
   border-radius: 10rpx;
-  padding: 10rpx;
+  padding:20rpx 10rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

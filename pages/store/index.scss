@@ -16,9 +16,25 @@
 	align-items: flex-end;
 	justify-content: center;
 }
+	.swi{
+		height:400rpx;
+		width:100%;
+		&>view{
+			height:100%;
+			width:100%;		
+		}
+		.pic{
+			height:100%;
+			width:100%;	
+			image{
+				height:100%;	
+				width:100%;
+			}
+		}
+	}
 .body{
 	// @include height(90%);
-	height: calc(90vh - 20rpx);
+	height: calc(90vh - 20rpx - 400rpx);
 	// padding:10px 0;
 	box-sizing: border-box;
 	display: flex;
@@ -28,27 +44,37 @@
 		display: flex;
 		padding: 20rpx 40rpx;
 		background-color: white;
-		gap: 40rpx;
+		// gap: 40rpx;
 		height:200rpx;
 		align-items: center;
-		// justify-content: space-between;
+		justify-content: space-around;
 		.other{
-			max-height:200rpx;
-			width: 70%;
+			height: 170rpx;
+			// max-height:200rpx;
+			box-sizing: border-box;
+			width: 60%;
+			// display: flex;
+			// flex-direction: column;
+			// justify-content: space-between;
+			padding-top: 5rpx;
 			.name{
-				font-size: 40rpx;
+				font-size: 36rpx;
+				margin-bottom: 10rpx;
 			}
 			.description{
+				font-size: 30rpx;
 				color: gray;
-				max-height: 110rpx;
-				overflow-wrap: break-word;
-				text-overflow: ellipsis;
+				max-height: 130rpx;
+				// overflow-wrap: break-word;
+				// text-overflow: ellipsis;
 				overflow: hidden;
 			}
 		}
 		.avatar{
-			width: 150rpx;
+			min-width: 150rpx;
+			min-height: 150rpx;
 			height: 150rpx;
+			width: 150rpx;
 			image{
 				height: 100%;
 				width: 100%;

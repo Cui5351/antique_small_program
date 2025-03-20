@@ -42,6 +42,7 @@ const _sfc_main = {
               return;
             that.info[item] = res2.data.data[item];
           });
+          that.info.store_id = res2.data.data.store_id;
           that.loadStore();
           that.get_count();
         },
@@ -54,10 +55,13 @@ const _sfc_main = {
       common_vendor.index.showLoading({
         title: "加载商品中"
       });
+      console.log(this.info, "info");
       request_request.instance.get("/StoreItem/list", {
-        store: this.info.store,
+        store_id: this.info.store_id,
         ...this.search
       }).then((res) => {
+        console.log(res.list, "res");
+        this.total = res.total;
         this.services.splice(0, this.services.length);
         this.services.push(...res.list);
       }).catch((err) => {
@@ -111,7 +115,7 @@ const _sfc_main = {
       imageUrl: this.info.pic[0],
       title: this.info.name,
       //分享的名称
-      path: `/pages/store/other_page/store_page/store_page?name=${this.info.name}&id=${this.id}`
+      path: `/pages/store/other_page/store_page/store_page?store_id=${this.info.store_id}&id=${this.id}`
     };
   },
   //分享到朋友圈
@@ -129,9 +133,11 @@ const _sfc_main = {
       page: 1,
       pageSize: 10
     });
+    const total = common_vendor.ref(0);
     let info = common_vendor.reactive({
       count: 1,
       name: "",
+      store_id: "",
       money: 0,
       sale: 0,
       depository: 0,
@@ -186,9 +192,14 @@ const _sfc_main = {
       common_vendor.index.navigateTo({
         url: `/pages/store/other_page/storeOrder/storeOrder?info=${JSON.stringify(info)}`
       });
-      return;
     }
-    return { back, info, join_car, show_all, buy, full, id, services, search };
+    const enterService = (item) => {
+      console.log(item, "item");
+      common_vendor.index.redirectTo({
+        url: `/pages/store/other_page/store_page/store_page?id=${item.id}&name=${item.name}`
+      });
+    };
+    return { back, info, join_car, show_all, buy, full, id, services, search, enterService, total };
   }
 };
 if (!Array) {
@@ -217,12 +228,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     d: common_vendor.t((_a = $setup.info.money) == null ? void 0 : _a.toFixed(2)),
     e: common_vendor.t($setup.info.name),
-    f: common_vendor.t($setup.info.description.length >= 20 ? $setup.info.description.substring(0, 20) + "..." : $setup.info.description),
+    f: common_vendor.t($setup.info.description.length >= 40 ? $setup.info.description.substring(0, 40) + "..." : $setup.info.description),
     g: common_vendor.p({
       type: "redo",
       size: "20"
     }),
-    h: common_vendor.t($setup.info.transport_money),
+    h: common_vendor.t($setup.info.transport_money.toFixed(2)),
     i: common_vendor.t($setup.info.sale),
     j: common_vendor.t($setup.info.depository),
     k: common_vendor.t($setup.full.bought_log.length),
@@ -235,9 +246,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         a: item.user_avatar,
         b: common_vendor.t(item.user_name),
         c: common_vendor.t(item.bought_date),
-        d: common_vendor.t(item.bought_count),
-        e: common_vendor.o((...args) => $setup.show_all && $setup.show_all(...args), index),
-        f: index
+        d: common_vendor.t(item.count),
+        e: index
       };
     }),
     o: common_vendor.t($setup.info.comment.length),
@@ -259,11 +269,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       readonly: true,
       value: 5
     }),
-    t: common_vendor.t($setup.info.store),
+    t: common_vendor.t($setup.total != 0 ? $setup.total - 1 : 0),
     v: $setup.services.length > 0
   }, $setup.services.length > 0 ? {
     w: common_vendor.f([...$setup.services], (item, index, i0) => {
-      var _a2;
+      var _a2, _b;
       return {
         a: item.url,
         b: common_vendor.t(item.name),
@@ -272,7 +282,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         e: common_vendor.t(item.sale),
         f: common_vendor.t(item.depository),
         g: index,
-        h: common_vendor.o(($event) => _ctx.enterService(item), index)
+        h: common_vendor.o(($event) => $setup.enterService(item), index),
+        i: (item == null ? void 0 : item.id) != ((_b = $setup.info) == null ? void 0 : _b.id) ? "block" : "none"
       };
     })
   } : {}, {

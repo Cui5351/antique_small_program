@@ -181,6 +181,12 @@
 					})
 					return
 				}
+				if(title == 'bill'){
+					uni.switchTab({
+						url:'/pages/store/store'
+					})
+					return
+				}
 				uni.showToast({
 					title:title+"暂未开放",
 					icon:'none'

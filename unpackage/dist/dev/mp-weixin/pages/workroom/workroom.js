@@ -13,6 +13,18 @@ const _sfc_main = {
     this.reqs.state = false;
     this.get_moments();
   },
+  methods: {
+    reload() {
+      common_vendor.index.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      this.moment.splice(0, this.moment.length);
+      this.reqs.skip = 0;
+      this.reqs.state = false;
+      this.get_moments();
+    }
+  },
   setup() {
     let show_add = common_vendor.ref(false);
     let reqs = common_vendor.reactive({
@@ -34,6 +46,7 @@ const _sfc_main = {
         sourceType: ["album"],
         //从相册选择
         mediaType: ["image"],
+        count: 9,
         success(res) {
           let paths = res.tempFiles;
           paths = paths.map((item) => {
@@ -43,7 +56,6 @@ const _sfc_main = {
             url: `/pages/workroom/other_page/public_moment/public_moment?paths=${JSON.stringify(paths)}`,
             events: {
               loadData() {
-                console.log("loadData");
                 moment.splice(0, moment.length);
                 reqs.skip = 0;
                 reqs.state = false;
@@ -75,12 +87,10 @@ const _sfc_main = {
             });
             return;
           }
-          console.log(paths, "paths");
           common_vendor.index.navigateTo({
             url: `/pages/workroom/other_page/public_moment/public_moment_v?path=${JSON.stringify(paths)}`,
             events: {
               loadData() {
-                console.log("loadData");
                 moment.splice(0, moment.length);
                 reqs.skip = 0;
                 reqs.state = false;
@@ -108,7 +118,8 @@ const _sfc_main = {
     }
     function detail(item) {
       common_vendor.index.navigateTo({
-        url: `/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+        // url:`/pages/workroom/other_page/moment_detail/moment_detail?info=${JSON.stringify(item)}`
+        url: "/pages/workroom/view/view?uuid=" + item.uuid
       });
     }
     function lower() {
@@ -119,7 +130,6 @@ const _sfc_main = {
     }
     function get_moments() {
       reqs.state = true;
-      console.log("get_moments");
       common_vendor.index.request({
         url: common_vendor.index.current_this.baseURL + ":5001/get_community_moments",
         method: "GET",
@@ -142,7 +152,6 @@ const _sfc_main = {
             }
             item.send_date = common_vendor.index.current_this.dateformat_accuracy(new Date(item.send_date));
           });
-          console.log(res.data);
           moment.push(...res.data.data);
           reqs.skip += res.data.data.length;
         },
@@ -222,19 +231,20 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: "white"
     }),
     b: common_vendor.n($setup.show_add ? "add show_add flex_j_a_c" : "add flex_j_a_c"),
-    c: common_vendor.n($setup.show_add ? "add show_add2 flex_j_a_c" : "add flex_j_a_c"),
-    d: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
-    e: common_vendor.n($setup.show_add ? "add show_add3 flex_j_a_c" : "add flex_j_a_c"),
-    f: common_vendor.o((...args) => $setup.publish_moment2 && $setup.publish_moment2(...args)),
-    g: common_vendor.o(($event) => $setup.show_add = true),
-    h: common_vendor.f(["传承非遗", "工匠精神", "习总书记说非遗", "来自非遗工作室的秘密", "非遗元宇宙", "和我们一起畅游非遗吧"], (item, index, i0) => {
+    c: common_vendor.o((...args) => $setup.publish_moment && $setup.publish_moment(...args)),
+    d: common_vendor.n($setup.show_add ? "add show_add2 flex_j_a_c" : "add flex_j_a_c"),
+    e: common_vendor.o((...args) => $setup.publish_moment2 && $setup.publish_moment2(...args)),
+    f: common_vendor.n($setup.show_add ? "add show_add3 flex_j_a_c" : "add flex_j_a_c"),
+    g: common_vendor.o((...args) => $options.reload && $options.reload(...args)),
+    h: common_vendor.o(($event) => $setup.show_add = true),
+    i: common_vendor.f(["传承非遗", "工匠精神", "习总书记说非遗", "来自非遗工作室的秘密", "非遗元宇宙", "和我们一起畅游非遗吧"], (item, index, i0) => {
       return {
         a: common_vendor.t(index + 1),
         b: common_vendor.t(item),
         c: index
       };
     }),
-    i: common_vendor.f($setup.moment, (item, index, i0) => {
+    j: common_vendor.f($setup.moment, (item, index, i0) => {
       return common_vendor.e({
         a: item.avatar,
         b: common_vendor.o(($event) => $setup.user_info(item), index),
@@ -270,26 +280,26 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         v: common_vendor.o(($event) => $setup.detail(item), index)
       });
     }),
-    j: common_vendor.p({
+    k: common_vendor.p({
       type: "heart",
       size: "25"
     }),
-    k: common_vendor.p({
+    l: common_vendor.p({
       type: "eye",
       size: "25"
     }),
-    l: common_vendor.p({
+    m: common_vendor.p({
       type: "chat",
       size: "25"
     }),
-    m: common_vendor.p({
+    n: common_vendor.p({
       type: "paperplane",
       size: "25"
     }),
-    n: common_vendor.o(($event) => $setup.show_add = false),
     o: common_vendor.o(($event) => $setup.show_add = false),
-    p: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
-    q: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
+    p: common_vendor.o(($event) => $setup.show_add = false),
+    q: common_vendor.o((...args) => $setup.lower && $setup.lower(...args)),
+    r: common_vendor.o((...args) => $setup.upper && $setup.upper(...args))
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-bdd71059"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/workroom/workroom.vue"]]);

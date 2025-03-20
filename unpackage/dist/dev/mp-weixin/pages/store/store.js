@@ -11,7 +11,8 @@ const _sfc_main = {
   methods: {
     loadData() {
       common_vendor.index.showLoading({
-        title: "加载店铺中"
+        title: "加载店铺中",
+        mask: true
       });
       request_request.instance.get("/Store/getAllStore", {
         ...this.search
@@ -33,14 +34,18 @@ const _sfc_main = {
     }
   },
   setup() {
+    const carousel = common_vendor.reactive([
+      "https://www.mengzhiyuan.email/antique/storeCarousel/carousel1.png",
+      "https://www.mengzhiyuan.email/antique/storeCarousel/carousel2.png",
+      "https://www.mengzhiyuan.email/antique/storeCarousel/carousel3.png"
+    ]);
     const search = common_vendor.reactive({
       page: 1,
       pageSize: 10
     });
     const innerStore = (item) => {
-      console.log(item, "item");
       common_vendor.index.navigateTo({
-        url: "/pages/store/other_page/storeDetail/storeDetail?name=" + item.name
+        url: "/pages/store/other_page/storeDetail/storeDetail?id=" + item.id
       });
     };
     let info = common_vendor.reactive([]);
@@ -118,21 +123,41 @@ const _sfc_main = {
       });
       return;
     }
-    return { enter, show_store, info, active, toggle_active, toggle_page, innerStore, search };
+    return { enter, show_store, info, active, toggle_active, toggle_page, innerStore, search, carousel };
   }
 };
+if (!Array) {
+  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
+  _easycom_uni_icons2();
+}
+const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+if (!Math) {
+  _easycom_uni_icons();
+}
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.f($setup.info, (item, k0, i0) => {
+    a: common_vendor.f($setup.carousel, (item, index, i0) => {
+      return {
+        a: item,
+        b: index
+      };
+    }),
+    b: common_vendor.f($setup.info, (item, k0, i0) => {
       return {
         a: item.src,
         b: common_vendor.t(item.name),
-        c: common_vendor.t(item.description),
-        d: item.id,
-        e: common_vendor.o(($event) => $setup.innerStore(item), item.id)
+        c: common_vendor.t(item.description.length >= 25 ? item.description.substring(0, 25) + "..." : item.description),
+        d: "c1a2745a-0-" + i0,
+        e: item.id,
+        f: common_vendor.o(($event) => $setup.innerStore(item), item.id)
       };
     }),
-    b: common_vendor.o((...args) => $options.loadData && $options.loadData(...args))
+    c: common_vendor.p({
+      type: "right",
+      size: "30",
+      color: "rgba(0,0,0,.5)"
+    }),
+    d: common_vendor.o((...args) => $options.loadData && $options.loadData(...args))
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-c1a2745a"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/store/store.vue"]]);

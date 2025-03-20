@@ -5,7 +5,7 @@ require("../../../../request/baseUrl.js");
 const _sfc_main = {
   onLoad(res) {
     console.log(res, "res");
-    this.storeName = res.name;
+    this.store_id = res.id;
     return;
   },
   onShow() {
@@ -16,10 +16,11 @@ const _sfc_main = {
   methods: {
     loadData() {
       common_vendor.index.showLoading({
-        title: "加载商品中"
+        title: "加载商品中",
+        mask: true
       });
       request_request.instance.get("/StoreItem/list", {
-        store: this.storeName,
+        store_id: this.store_id,
         ...this.search
       }).then((res) => {
         if (res.list.length <= 0) {
@@ -41,7 +42,7 @@ const _sfc_main = {
   },
   setup() {
     const currentTab = common_vendor.ref(0);
-    const storeName = common_vendor.ref("");
+    const store_id = common_vendor.ref("");
     const currentSubTab = common_vendor.ref(0);
     const carousel = common_vendor.reactive([
       "https://www.mengzhiyuan.email/antique/storeCarousel/carousel1.png",
@@ -71,12 +72,8 @@ const _sfc_main = {
       currentSubTab.value = index;
     };
     const enterService = (item) => {
-      console.log(item, "item");
-      Object.assign(item, {
-        storeId: data.storeId
-      });
       common_vendor.index.navigateTo({
-        url: `/pages/store/other_page/store_page/store_page?id=${item.id}&name=${item.name}`
+        url: `/pages/store/other_page/store_page/store_page?id=${item.id}&store_id=${item.store_id}`
         // url:'/pages/store/order/order?item='+JSON.stringify({...item,orderType:orderType.value})
       });
     };
@@ -87,7 +84,7 @@ const _sfc_main = {
       currentTab,
       swiperList,
       carousel,
-      storeName,
+      store_id,
       search,
       services,
       switchTab,

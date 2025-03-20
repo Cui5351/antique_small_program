@@ -48,16 +48,16 @@
 	}
 }
 .description{
-	@include height(220rpx);
+	min-height:(225rpx);
 	background-color: white;
-	padding:0 20px;
+	padding:20rpx 20px;
 	box-sizing: border-box;
 	&>.des{
 		height:100%;
 		align-items: flex-start;
 		&>.money{
-			color: #6E79E2;
-			font-size:25px;
+			color: red;
+			font-size:60rpx;
 		}
 		&>view:last-child{
 			font-weight:bold;

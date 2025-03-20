@@ -88,6 +88,7 @@ image.data-v-edaf33eb {
 }
 .containerVessel.data-v-edaf33eb {
   height: 100vh;
+  overflow-y: auto;
   padding: 20rpx;
 }
 .highLight.data-v-edaf33eb {
@@ -126,7 +127,7 @@ image.data-v-edaf33eb {
 }
 .goods-info .goods-count text.data-v-edaf33eb {
   width: 60rpx;
-  background-color: #1989fa;
+  background-color: #6E79E2;
   color: white;
   height: 60rpx;
   line-height: 60rpx;
@@ -180,6 +181,9 @@ image.data-v-edaf33eb {
   padding: 30rpx 20rpx;
   margin-top: 20rpx;
   border-radius: 12rpx;
+}
+.form-item .label2.data-v-edaf33eb {
+  margin-bottom: 10rpx;
 }
 .form-item input.data-v-edaf33eb, .form-item .picker-value.data-v-edaf33eb {
   height: 80rpx;
@@ -274,7 +278,7 @@ image.data-v-edaf33eb {
   z-index: 100;
   height: 88rpx;
   line-height: 88rpx;
-  background: #1989fa;
+  background: #6E79E2;
   color: #fff;
   border-radius: 44rpx;
   font-size: 32rpx;

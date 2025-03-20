@@ -27,22 +27,27 @@
 			  <uni-icons type="star" size="25"></uni-icons>
 		  </view>
 	  </view>
-	  <view class="content">
-		  <text selectable="true" space="nbsp">
-		  {{info.content}}
-		  </text>
-	  </view>
 	  <view class="pic" v-if="info.src[0]!=null&&info.type=='p'">
-	  	<image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="aspectFill"></image>
+	  	<!-- <image :src="item2" @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" mode="aspectFill"></image> -->
+		<swiper style="width: 100%;height: 800rpx;background-color: gray;" :indicator-dots="info.src.length > 1">
+			<swiper-item @click="check_pict(index)" v-for="(item2,index) in info.src" :key="index" class="flex_j_a_r">
+				<image style="width: 100%;height: 800rpx;" :src="item2" mode="widthFix"></image>
+			</swiper-item>
+		</swiper>
 	  </view>
 	  <view class="pic" v-if="info.type=='v'">
-		  <video enable-progress-gesture :src="info.src" :poster="info.mask" autoplay="true"></video>
+		  <video style="height: 650rpx;" enable-progress-gesture :src="info.src" :poster="info.mask" autoplay="true"></video>
 	  </view>
 	  
-	  <view class="other">
+	<!--  <view class="other">
 		  <button open-type="share" plain >
 			<uni-icons type="redo" @click="send_friend" size="25"></uni-icons>
 		  </button>
+	  </view> -->
+	  <view class="content">
+	  		  <text selectable="true" space="nbsp">
+	  		  {{info.content}}
+	  		  </text>
 	  </view>
 	  <view class="moment">
 		  <view class="c">评论列表</view>
@@ -66,7 +71,7 @@
 		  <uni-icons type="star" size='25'></uni-icons>
 	  </view>
 	  <view class="flex_j_a_c input">
-			<input type="text" @confirm="send_mes" v-model="text" placeholder="请您友好交流~">
+			<input type="text" @confirm="send_mes" confirm-type="send" v-model="text" placeholder="请您友好交流~">
 	  </view>
 	  <view class="flex_j_a_c" style="width:15%;" @click="send_mes">
 		  <uni-icons size="25" type="paperplane"></uni-icons>

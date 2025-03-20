@@ -421,7 +421,7 @@ image.data-v-bdd71059 {
 }
 .passage .pic2 > image.data-v-bdd71059 {
   max-width: 200px;
-  height: 130px;
+  max-height: 200px;
   margin: 3px;
 }
 .passage .pic2 > video.data-v-bdd71059 {

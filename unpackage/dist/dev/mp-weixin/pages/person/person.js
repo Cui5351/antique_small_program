@@ -44,6 +44,12 @@ const _sfc_main = {
         });
         return;
       }
+      if (title == "bill") {
+        common_vendor.index.switchTab({
+          url: "/pages/store/store"
+        });
+        return;
+      }
       common_vendor.index.showToast({
         title: title + "暂未开放",
         icon: "none"

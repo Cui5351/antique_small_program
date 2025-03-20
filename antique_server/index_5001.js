@@ -1,12 +1,12 @@
 const express=require('express')
 const cors=require('cors')
 const {readFile, readFileSync}=require('fs')
-const {query} =require('../db_config/query')
-const {connectionMysql,insertData,update}=require('../db_config/dbs')
+const {query} =require('./db_config/query')
+const {connectionMysql,insertData,update}=require('./db_config/dbs')
 const { resolve } = require('path')
 const {parse}=require('url')
 const https=require('https')
-const WXBizDataCrypt=require('./WXBizDataCrypt')
+// const WXBizDataCrypt=require('./WXBizDataCrypt')
 const multer=require('multer')
 const axios= require('axios')
 const {randomUUID}=require('crypto')
@@ -37,7 +37,7 @@ const app=express()
 
 app.use((req,res,next)=>{
 	const referer=req.get('referer')
-	if(!referer||!(referer=='https://servicewechat.com/wxa30b9f23a9cc5e65/0/page-frame.html'||referer=='https://www.mynameisczy.cn/'||referer=='https://mynameisczy.cn/'||referer=='https://servicewechat.com/wxa30b9f23a9cc5e65/devtools/page-frame.html')){
+	if(!referer||!(referer=='https://servicewechat.com/wxa30b9f23a9cc5e65/0/page-frame.html'||referer=='https://www.mengzhiyuan.email/'||referer=='https://mengzhiyuan.email/'||referer=='https://servicewechat.com/wxa30b9f23a9cc5e65/devtools/page-frame.html')){
 	    res.status(403).send('权限不够')
 	}else{
 	    next()
@@ -45,8 +45,8 @@ app.use((req,res,next)=>{
 })
 app.use(cors())
 const options = {
-  key: readFileSync(resolve(__dirname,'..', 'cert','a.key')),
-  cert: readFileSync(resolve(__dirname,'..', 'cert','a.pem'))
+  key: readFileSync(resolve(__dirname,'..', 'ssl','key.key')),
+  cert: readFileSync(resolve(__dirname,'..','ssl' ,'pem.pem'))
 }
 entry()
 //  入口文件
@@ -100,20 +100,20 @@ function table(tab){
             })
         })
     })
-    app.post('/getRun',function(req,res){
-        if(typeof req.body === 'string')
-            req.body=JSON.parse(req.body)
-            var appId = 'wxa30b9f23a9cc5e65'
-        let {sessionKey,encryptedData,iv}=req.body
-        var pc = new WXBizDataCrypt(appId, sessionKey)
+    // app.post('/getRun',function(req,res){
+    //     if(typeof req.body === 'string')
+    //         req.body=JSON.parse(req.body)
+    //         var appId = 'wxa30b9f23a9cc5e65'
+    //     let {sessionKey,encryptedData,iv}=req.body
+    //     var pc = new WXBizDataCrypt(appId, sessionKey)
 
-        var data = pc.decryptData(encryptedData , iv)
-        res.send({
-            state:1,
-            error:0,
-            data:data
-        });
-    })  
+    //     var data = pc.decryptData(encryptedData , iv)
+    //     res.send({
+    //         state:1,
+    //         error:0,
+    //         data:data
+    //     });
+    // })  
 
     
 // 小程序上传文件接口
@@ -138,7 +138,7 @@ app.post('/upload_avatar',(req,res)=>{
         })
         return
     }
-    let path=`https://mynameisczy.cn/antique/user_avatar/${req.file.filename}`
+    let path=`https://mengzhiyuan.email/antique/user_avatar/${req.file.filename}`
     if(req.file.filename.length<=0){
         send_err(res)
         return
@@ -183,7 +183,7 @@ app.post('/upload_background',(req,res)=>{
         })
         return
     }
-    let path=`https://mynameisczy.cn/antique/user_background/${req.file.filename}`
+    let path=`https://mengzhiyuan.email/antique/user_background/${req.file.filename}`
     // 写入数据库
     update(dbs,db_config.database+'.main_table',{openid:req.body.openid},'background',path,'string').then(()=>{
         // 保存成功
@@ -458,7 +458,7 @@ app.post('/buy_goods',(req,res)=>{
 app.post('/get_goods',(req,res)=>{
     if(typeof req.body === 'string')
         req.body=JSON.parse(req.body)
-    if(!req.body.hasOwnProperty('goods_name')){
+    if(!req.body.hasOwnProperty('id')){
         res.send({
             state:0,
             error:1,
@@ -475,7 +475,7 @@ app.post('/get_goods',(req,res)=>{
             })
         }
     })
-    dbs.query(`select name,bought_date,(select avatar from main_table where openid=b.openid) as user_avatar,(select name from main_table where openid=b.openid) as user_name  from bought_log b where name="${req.body.goods_name}"`,function(err,result){
+    dbs.query(`select name,date,(select avatar from main_table where openid=b.openid) as user_avatar,count,(select name from main_table where openid=b.openid) as user_name  from bills b where goods_id="${req.body.id}"`,function(err,result){
         if(err){
             send_err(res,err)
         }
@@ -510,12 +510,15 @@ app.post('/get_bills',(req,res)=>{
     let {openid}=req.body
     // explain SELECT name,count,src,money,uuid,date,(select store from goods where name="团扇") as store_name FROM `bills` WHERE state="show" and name="团扇" and openid="oMLZp5fTbzeqkoNhx41dVCvIWJjE"
 
-    query(dbs,table('bills'),['name','count','src','money','uuid','date','store','state2'],{state:'show',openid:openid}).then(e=>{
+    // query(dbs,table('bills'),['goods_id','name','count','src','money','uuid','date','store','state2','transport_money'],{state:'show',openid:openid}).then(e=>{
+    dbs.query(`select goods_id,name,count,src,money,uuid,date,state2,store_id,transport_money,(select name from store where store.id = bills.store_id) as store from bills where state='show' and openid='${openid}'`,(err,e) =>{
+        if(err){
+            send_err(res,err)
+            return
+        }
         if(e.length){
             send(res,e)
         }
-    }).catch(e=>{
-        send_err(res,e)
     })
 
 })
@@ -548,7 +551,7 @@ app.post('/upload_store',(req,res)=>{
             })
             return
         }
-    let path=`https://mynameisczy.cn/antique/store_picture/${req.file.filename}`
+    let path=`https://mengzhiyuan.email/antique/store_picture/${req.file.filename}`
     if(req.file.filename.length<=0){
         send_err(res)
         return
@@ -592,7 +595,7 @@ app.post('/upload_work',(req,res)=>{
             return
         }
     // 写入数据库
-    send(res,{src:'https://mynameisczy.cn/antique/works/'+req.file.filename,uuid:req.work_uuid})
+    send(res,{src:'https://mengzhiyuan.email/antique/works/'+req.file.filename,uuid:req.work_uuid})
     })
 })
 
@@ -628,7 +631,7 @@ app.get('/get_video_by_name',(req,res)=>{
         return 
     }
     const {name,skip}=req.query
-    dbs.query(`select title,name,duration,(select name from ${table('main_table')} where openid=w.openid) as user_name,mask,work_uuid from ${table('work')} w where name like '%${name}%' and state='show' and show_work='show' limit ${skip},10`,(err,result)=>{
+    dbs.query(`select title,name,duration,publish_date,(select name from ${table('main_table')} where openid=w.openid) as user_name,mask,work_uuid from ${table('work')} w where name like '%${name}%' and state='show' and show_work='show' limit ${skip},10`,(err,result)=>{
         if(err){
             send_err(res)
             return
@@ -651,7 +654,7 @@ app.get('/get_hottest_video',(req,res)=>{
     // 后通过uuid获取
     // dbs.query(`select title,mask,uuid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid)>0 order by score desc limit ${skip},3`,function(err,result){
     // 自己获取作者信息
-    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid,w.openid as openid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid and state='show' and show_work='show')>0 order by score desc limit ${skip},3`,function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=w.openid) as avatar,title,(select name from main_table where openid=w.openid) as name,mask,uuid,w.openid as openid from ${table('works')} w where show_work="show" and (select count(*) from work where work_uuid=w.uuid and state='show' and show_work='show')>0 and state = 'show' order by score desc limit ${skip},3`,function(err,result){
         if(err){
             send_err(res)
             return
@@ -684,11 +687,46 @@ app.post('/get_video',(req,res)=>{
     //     send(res,arr)
     // })
     query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work","title","openid"],{work_uuid:uuid,state:'show'}).then(e=>{
+            // query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work","title","openid"],{work_uuid:uuid,state:'show'}).then(e=>{
+
             //     console.log(e,'e');
     //     console.log(err,'err');
         let arr=[]
         e.forEach(item=>{
             if(item.show_work=='show')
+                arr.push(item)
+        })
+        if(arr.length>0){
+            let openid=arr[0].openid
+            query(dbs,table('main_table'),['avatar','name'],{openid:openid}).then(e1=>{
+                if(e1.length<=0){
+                    send(res,{arr:[]})
+                    return
+                }
+                send(res,{arr:arr,name:e1[0].name,avatar:e1[0].avatar,openid:openid})
+            })
+        }else{
+            send(res,{arr:[]})
+        }
+        
+    })
+})
+
+app.post('/get_my_video',(req,res)=>{
+    if(typeof req.body === 'string')
+    req.body=JSON.parse(req.body)
+    if(!req.body.hasOwnProperty('uuid')||!req.body.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }
+    const {uuid,openid}=req.body
+    query(dbs,table('work'),['name','src','video_id','mask',"publish_date","show_work","title","openid"],{work_uuid:uuid,openid:openid}).then(e=>{
+        let arr=[]
+        e.forEach(item=>{
                 arr.push(item)
         })
         if(arr.length>0){
@@ -777,7 +815,7 @@ app.post('/upload_mask',(req,res)=>{
             send_err(res)
             return
         }
-        send(res,{mask:('https://mynameisczy.cn/antique/video_masks/'+req.file.filename)})
+        send(res,{mask:('https://mengzhiyuan.email/antique/video_masks/'+req.file.filename)})
     })
 })
 
@@ -846,7 +884,6 @@ app.get('/get_community_moments',(req,res)=>{
     dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where show_moment='show' and state='show' order by c.id desc limit ${skip},10`,async function(err,result){
         if(err)
             send_err(res,err)
-
     try{
         await new Promise(async(resolve,reject)=>{
             for(let i=0;i<result.length;i++){
@@ -872,7 +909,6 @@ app.get('/get_community_moments',(req,res)=>{
         send(res,result)
     }
     })
-
     // dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,place,send_date,browse,content,c.uuid,cp.src from antique.community_moments c left join community_moment_pic cp on c.uuid=cp.uuid and c.show_moment='show' order by c.id desc limit ${skip},10`,function(err,result){
     //     // 查询两次
     //     if(err)
@@ -911,6 +947,96 @@ app.get('/get_community_moments',(req,res)=>{
         // send_err(res,e)
     // })
 })
+app.get('/get_community_moments_next',(req,res)=>{
+    if(!req.query.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    const {uuid}=req.query
+
+    // 方法一
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where id < (select id from community_moments where uuid = "${uuid}") and show_moment='show' and state='show' order by id desc limit 0,2`,async function(err,result){
+        if(err)
+            send_err(res,err)
+    try{
+        if(result.length<=0){
+            send(res,[])
+            return
+        }
+        await new Promise(async(resolve,reject)=>{
+            for(let i=0;i<result.length;i++){
+                try{
+                    await new Promise((resolve2,reject2)=>{
+                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
+                            result[i].src=e.map(e=>e.src)
+                            result[i].mask=e.map(e=>e.mask)
+                            resolve2()
+                        }).catch(e=>{
+                            reject2()
+                        })
+                    })
+                }catch(e){
+                    reject()
+                }
+                if(i==result.length-1)
+                    resolve()
+            }
+        })
+        send(res,result)
+    }catch(e){
+        send(res,result)
+    }
+    })
+})
+app.get('/get_community_moments_info',(req,res)=>{
+    if(!req.query.hasOwnProperty('uuid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }    
+    const {uuid}=req.query
+
+    // 方法一
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,(select count(*) from community_moment_comment where uuid=c.uuid) moment_count,place,send_date,browse,openid,content,uuid from antique.community_moments c where uuid = "${uuid}" and show_moment='show' and state='show' order by c.id desc limit 0,1`,async function(err,result){
+        if(err)
+            send_err(res,err)
+    try{
+        if(result.length<=0){
+            send(res,[])
+            return
+        }
+        await new Promise(async(resolve,reject)=>{
+            for(let i=0;i<result.length;i++){
+                try{
+                    await new Promise((resolve2,reject2)=>{
+                        query(dbs,table('community_moment_pic'),['src','mask'],{uuid:result[i].uuid}).then(e=>{
+                            result[i].src=e.map(e=>e.src)
+                            result[i].mask=e.map(e=>e.mask)
+                            resolve2()
+                        }).catch(e=>{
+                            reject2()
+                        })
+                    })
+                }catch(e){
+                    reject()
+                }
+                if(i==result.length-1)
+                    resolve()
+            }
+        })
+        send(res,result)
+    }catch(e){
+        send(res,result)
+    }
+    })
+})
 app.post('/new_work_collection',(req,res)=>{
     if(!req.body.hasOwnProperty('title')||!req.body.hasOwnProperty('description')||!req.body.hasOwnProperty('mask')||!req.body.hasOwnProperty('show_work')||!req.body.hasOwnProperty('openid')){
         res.send({
@@ -948,7 +1074,7 @@ app.post('/upload_moment_material',function(req,res){
             send_err(res)
             return
         }
-        send(res,'https://mynameisczy.cn/antique/moment_picture/'+req.file.filename)
+        send(res,'https://mengzhiyuan.email/antique/moment_picture/'+req.file.filename)
     })
 })
 // paths:info.paths,
@@ -1041,6 +1167,30 @@ app.post('/send_community_comment',(req,res)=>{
         send_err(res,e)
     })
 })
+// 删除评论
+app.get('/del_community_comment',(req,res)=>{
+    if(!req.query.hasOwnProperty('uuid')||!req.query.hasOwnProperty('openid')){
+        res.send({
+            state:0,
+            error:1,
+            errorMes:'缺少参数'
+        })
+        return 
+    }  
+        Object.keys(req.query).forEach(item=>{
+        if(typeof req.body[item] == 'string'&&req.body[item].length<1){
+            res.send({
+                state:0,
+                error:1,
+                errorMes:'值小于1'
+            })
+        }
+    })
+    const {uuid,openid}=req.query
+    console.log(uuid,openid,'value')
+       update(dbs,table('community_moment_comment'),{uuid:uuid,openid:openid},'state',"'del'")
+       send(res)
+})
 app.get('/get_community_comment',(req,res)=>{
     if(!req.query.hasOwnProperty('uuid')||!req.query.hasOwnProperty('openid')){
         res.send({
@@ -1073,7 +1223,7 @@ app.get('/get_community_comment',(req,res)=>{
             return
         }
         if(e[0].show_moment=='hid'&&e[0].openid==openid){
-            dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' order by date desc`,function(err,result){
+            dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,uuid,(select name from main_table where openid=c.openid) as name,content,del,date from community_moment_comment c where uuid='${uuid}' and state = 'show' order by date desc`,function(err,result){
                 if(err){
                     send_err(res,err)
                     return
@@ -1086,6 +1236,7 @@ app.get('/get_community_comment',(req,res)=>{
             })            
             return
         }
+        // 中间件
         if(e[0].show_moment=='hid'){
             // 被隐藏
             res.send({
@@ -1095,7 +1246,7 @@ app.get('/get_community_comment',(req,res)=>{
             return
         }
     update(dbs,table('community_moments'),{uuid:uuid},'browse',1,'number','+')
-    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' order by date desc`,function(err,result){
+    dbs.query(`select (select avatar from main_table where openid=c.openid) as avatar,openid,uuid,(select name from main_table where openid=c.openid) as name,content,date from community_moment_comment c where uuid='${uuid}' and state = 'show' order by date desc`,function(err,result){
         if(err){
             send_err(res,err)
             return

@@ -271,9 +271,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "location",
       size: "30"
     }),
-    z: $setup.danmu,
-    A: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
-    B: common_vendor.o((...args) => $setup.send && $setup.send(...args))
+    z: common_vendor.o((...args) => $setup.send && $setup.send(...args)),
+    A: $setup.danmu,
+    B: common_vendor.o(($event) => $setup.danmu = $event.detail.value),
+    C: common_vendor.o((...args) => $setup.send && $setup.send(...args))
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-fb163685"], ["__file", "C:/Users/86130/Documents/HBuilderProjects/传承非遗/pages/workroom/other_page/play_video/play_video.vue"]]);

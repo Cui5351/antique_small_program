@@ -19,6 +19,9 @@ const _sfc_main = {
           that.Address.tel = res.telNumber;
           that.Address.address = `${res.provinceName}${res.cityName}${res.countyName}${res.detailInfo}`;
           console.log(res, "res");
+        },
+        fail(err) {
+          console.log(err, "err");
         }
       });
     }
@@ -37,6 +40,7 @@ const _sfc_main = {
       depository: 0,
       description: "",
       id: "",
+      store_id: "",
       store: "",
       pic: [],
       uuid: "",
@@ -62,7 +66,7 @@ const _sfc_main = {
       }
     };
     const submitOrder = async () => {
-      var _a;
+      var _a, _b;
       if (!Address.address || Address.address == "请选择下单地址") {
         common_vendor.index.showToast({ title: "请选择下单地址", icon: "none" });
         return;
@@ -71,13 +75,15 @@ const _sfc_main = {
         address: Address,
         ...goodsInfo,
         openid: common_vendor.index.current_this.store.getters.openid,
-        money: (_a = count.value * goodsInfo.money + goodsInfo.transport_money) == null ? void 0 : _a.toFixed(2),
+        money: (_a = goodsInfo.money) == null ? void 0 : _a.toFixed(2),
         src: goodsInfo.pic[0],
+        transport_money: (_b = goodsInfo.transport_money) == null ? void 0 : _b.toFixed(2),
         count: count.value
       };
       console.log(data, "data");
       common_vendor.index.showLoading({
-        title: "下单中"
+        title: "下单中",
+        mask: true
       });
       request_request.instance.post("/StoreItem/order", {
         ...data
@@ -85,12 +91,15 @@ const _sfc_main = {
         common_vendor.index.showToast({
           title: "下单成功"
         });
-      }).catch((err) => {
-      }).finally(() => {
-        common_vendor.index.hideLoading();
         common_vendor.index.redirectTo({
           url: "/pages/person/other_page/bills/bills"
         });
+      }).catch((err) => {
+        common_vendor.index.showToast({
+          title: "下单失败"
+        });
+      }).finally(() => {
+        common_vendor.index.hideLoading();
       });
     };
     return {
@@ -114,7 +123,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
     a: $setup.goodsInfo.pic[0],
     b: common_vendor.t($setup.goodsInfo.name),
-    c: common_vendor.t($setup.goodsInfo.money),
+    c: common_vendor.t($setup.goodsInfo.money.toFixed(2)),
     d: $setup.count == 1 ? "rgba(0,0,0,.1);" : "",
     e: common_vendor.o(($event) => $setup.updateCount(-1)),
     f: common_vendor.t($setup.count),

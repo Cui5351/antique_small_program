@@ -1,3 +1,3 @@
 "use strict";
-const baseURL = "http://localhost:8666/admin";
+const baseURL = "https://www.mengzhiyuan.email:5002/admin";
 exports.baseURL = baseURL;

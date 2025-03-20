@@ -31,6 +31,8 @@ if (!Math) {
   "./pages/person/other_page/author_info/author_info.js";
   "./pages/store/other_page/storeDetail/storeDetail.js";
   "./pages/store/other_page/storeOrder/storeOrder.js";
+  "./pages/person/other_page/bills/billsDetail/billsDetail.js";
+  "./pages/workroom/view/view.js";
 }
 const _sfc_main = {
   onLaunch: function() {

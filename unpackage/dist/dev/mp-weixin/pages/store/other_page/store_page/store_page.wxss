@@ -310,11 +310,9 @@ image.data-v-cdeee895 {
   width: 100%;
 }
 .description.data-v-cdeee895 {
-  max-height: 220rpx;
-  min-height: 220rpx;
-  height: 220rpx;
+  min-height: 225rpx;
   background-color: white;
-  padding: 0 20px;
+  padding: 20rpx 20px;
   box-sizing: border-box;
 }
 .description > .des.data-v-cdeee895 {
@@ -322,8 +320,8 @@ image.data-v-cdeee895 {
   align-items: flex-start;
 }
 .description > .des > .money.data-v-cdeee895 {
-  color: #6E79E2;
-  font-size: 25px;
+  color: red;
+  font-size: 60rpx;
 }
 .description > .des > view.data-v-cdeee895:last-child {
   font-weight: bold;
