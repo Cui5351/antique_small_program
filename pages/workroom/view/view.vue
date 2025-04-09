@@ -1,7 +1,7 @@
 <template>
   <view class="container" style="background-color: black;">
 	<!-- <image class="background_antique" src="/static/show_antique_background.svg" mode=""></image> -->
-	<view class="head_two" style="background-color: rgba(0,0,0,0);">
+		<view class="head_two" style="background-color: rgba(0,0,0,0);z-index: 9999999;">
 		<uni-icons type="left" size="25" color="rgb(200,200,186)" @click="back"></uni-icons>
 	</view>
 	<swiper vertical="true" class="swiper" @change="swiperChange">

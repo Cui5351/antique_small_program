@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" width="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <button id="exportButton">导出</button>
+    <!-- http://localhost:8666/admin/report/oilOffExport?ids=-1 -->
+
+    <script>
+        const exportButton = document.getElementById('exportButton');
+        exportButton.addEventListener('click', function () {
+            axios.get('http://localhost:8666/admin/report/oilOffExport?ids=-1', {
+                responseType: 'blob' // 设置响应类型为blob，用于接收二进制文件流数据
+            })
+             .then(function (response) {
+                console.log(response.data,'response.data');
+                    const blob = new Blob([response.data], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'exported_data.xlsx'; // 设置下载文件名，可根据实际修改
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                    URL.revokeObjectURL(url);
+                })
+             .catch(function (error) {
+                    console.error('导出失败', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -7,6 +7,33 @@
 .container{
 	overflow-y:auto;
 }
+.view_name{
+	position:absolute;
+	width: 100%;
+	text-align: center;
+	transform: translateY(-110%);
+	background: rgba(0,0,0,.5);
+	color: white;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 5rpx 0;
+}
+.view_duration{
+	top:0;
+	position:absolute;
+	width: 50%;
+	left: 0%;
+	border-bottom-right-radius: 20rpx;
+	text-align: center;
+	transform: translate(0%,0%);
+	background: rgba(0,0,0,.5);
+	color: white;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 5rpx 0;
+}
 .video{
 	@include height(300px);
 	&>video{
@@ -34,6 +61,7 @@
 	&>.author{
 		border-bottom:1px solid rgba(0,0,0,.1);
 		.icon{
+			gap:15rpx;
 			&>button{
 				outline: none;
 				border:none;
@@ -68,7 +96,7 @@
 		justify-content: space-between;
 	}
 	&>.vi{
-		padding-bottom:10px;
+		padding:20rpx 0;
 		border-bottom:1px solid rgba(0,0,0,.1);
 		display: flex;
 		overflow-y: hidden;
@@ -131,7 +159,8 @@
 }
 .send_damu{
 	position:absolute;
-	background-color: aliceblue;
+	// background-color: aliceblue;
+	background-color: rgba(95,78,86,0.1) !important;
 	height:80px;
 	width:100%;
 	top:100%;
@@ -139,12 +168,16 @@
 	&>view{
 		height:100%;
 	}
-	padding:20px 20px;
+	padding:20px 20rpx;
 	box-sizing: border-box;
+	gap:20rpx;
 	&>.input{
-		background-color: rgba(0,0,0,.1);
+		width: 80%;
+		// background-color: rgba(0,0,0,.1);
+		background-color: rgba(95,78,86,0.1);
+		color: rgb(95,78,86);
 		border-radius: 20px;
-		padding:0 10px;
+		padding:0 25rpx;
 		&>input{
 			height:100%;
 			width:100%;

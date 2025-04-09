@@ -5,6 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
+	// color: black;
 }
 .swiper{
 	@include height(30%);
@@ -61,24 +62,30 @@
 			}
 		}
 		.museums_{
-			@include height(230px);
+			@include height(250px);
 			overflow-x: scroll;
 			display: flex;
 			align-items: center;
+			margin-top: 20rpx;
 			// overflow-y: hidden;
-			&>.museums_one{
-				margin:0 10px;
-				@include width(85%);
+			.museums_one{
+				// margin:0 10px;
+				// @include width(100%);
+				width: 100%;
 				@include height(90%);
 				font-size:14px;
 				&>.img{
-					@include width(100%);
-					@include height(85%);
+					width:calc(100% - 20rpx);
+					@include height(88%);
+					// overflow: hidden;
+					border-left:10px solid white;
+					border-right:10px solid white;
 					margin-bottom: 5px;
 					&>image{
 						// box-shadow:3px 2px 10px -1px gray;
 						border-radius:20px;
 						height:100%;
+						box-shadow: 1px 1px 10px -1px rgba(0,0,0,.1);
 						width:100%;
 					}
 				}
@@ -120,6 +127,7 @@
 }
 .works{
 	display: flex;
+	margin-top: 0 !important;
 	flex-direction: column;
 	// background-color: rgba(0,0,0,.05);
 &>.work{

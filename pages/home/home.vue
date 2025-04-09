@@ -1,6 +1,7 @@
 <template>
 		<loading :show_loading="show_loading"></loading>
 	<view class="container font_color">
+		<AICover keytext="home"></AICover>
 		<swiper class="swiper" indicator-color='gray' indicator-active-color='#ffffff' circular autoplay interval='2500' :indicator-dots="true">
 			<swiper-item v-for="(item,index) in head_img" :key="index">
 				<view class="swiper_item">
@@ -10,32 +11,32 @@
 		</swiper>
 		<scroll-view class="other background" scroll-y="true" scroll-with-animation="true" @scrolltolower="lower">
 			<view class="box">			
-	<!-- 		<view class="funs">
-				<view class=".flex_j_a_c" @click="toggle_other(item)" v-for="(item,inex) in other" :key="index">
-					<view class="icon">
-						<image :src="item.pic" style="background-color: white;" mode=""></image>
-					</view>
-					<view class="">
-						{{item.name}}
-					</view>
-				</view>
-			</view> -->
 			<view class="museums flex_c">
 				<view class="museum_title">
 					<view>博物馆展览</view>
-					<view @click="more('all')">全部<uni-icons color="rgb(59,92,130)" type="right"></uni-icons>
+					<view @click="more('all')">全部<uni-icons color="rgb(95,78,86)" type="right"></uni-icons>
 					</view>
 				</view>
-				<view class="museums_">
-					<view @click="museum(item)" class="museums_one flex_j_a_c" v-for="(item,index) in ['长江艺术工程职业学院非遗传承院','荆州博物馆']" :key="index">
+				<swiper class="museums_" circular previous-margin="40rpx" next-margin="40rpx">
+					<swiper-item @click="museum(item.id)" class="museums_one flex_j_a_c" v-for="(item,index) in museums" :key="index">
 						<view class="img">
-							<image :src="base_url+'/image/antique/museum'+(index+1)+'.jpg'" mode=""></image>
+							<image :src="item.avatar" mode=""></image>
 						</view>
 						<view class="">
-							{{item}}
+							{{item.name}}
+						</view>
+					</swiper-item>
+				</swiper>
+		<!-- 		<view class="museums_">
+					<view @click="museum(item.id)" class="museums_one flex_j_a_c" v-for="(item,index) in museums" :key="index">
+						<view class="img">
+							<image :src="item.avatar" mode=""></image>
+						</view>
+						<view class="">
+							{{item.name}}
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 <!-- 			<view class="storys flex_c">
 				<view class="story_title">
@@ -52,7 +53,7 @@
 			<view class="works">
 				<view class="story_title">
 					<view>推荐视频</view>
-					<view @click="search_page">更多视频<uni-icons color="rgb(59,92,130)" type="right"></uni-icons>
+					<view @click="search_page">更多视频<uni-icons color="rgb(95,78,86)" type="right"></uni-icons>
 					</view>
 				</view>
 				<view class="work">
@@ -92,6 +93,7 @@
 </template>
 
 <script>
+	import request from '@/request/request.js'
 	import {ref,reactive} from 'vue'
 	import loading from '@/pages/loading/loading.vue'
 	export default {
@@ -169,51 +171,24 @@
 					return
 				}
 			}
-			function museum(name){
-				let result;
-				// 查看资源是否存在
-				if(name=='荆州博物馆'){
-				// 实现预加载
-					result={
-						name:'荆州博物馆',
-						description:[`  荆州博物馆位于湖北省荆州市荆 路166号，是一座地方综
-	合性博物馆，为国家AAAA级旅游景区，占地4.8万平方米。始
-	建于1958年，馆舍占地面积5万余平方米，建筑面积达2.3万平
-	方米，绿化面积11000多平方米。`,`荆州博物馆有馆藏文物13万余件，其中国家一级文物492件
-	套。荆州博物馆配合各项工程建设，发掘出土珍贵文物12万余
-	件。其中，有战国丝绸；吴王夫差矛；有战国秦汉漆器；有中
-	国也是世界上最早的数学专著《算数书》和萧和“二年造律”
-	的《二年律令》等汉初简牍；有西汉男尸。该馆配合各种基本
-	建设，先后发掘了7000多座古墓葬和近20万平方米的古文化遗
-	址。`,`1994年经国家文物局专家评选，该馆荣获中国地市级“十
-	佳博物馆之首”的称号。2008年 物馆被列入国家一级博物馆
-	名单。`],
-							antique:[{name:'黑秞执壶',src:'https://www.mengzhiyuan.email/image/antique/粉彩缠枝花卉碗.jpg'},
-							{name:'黑秞执壶',src:'https://www.mengzhiyuan.email/image/antique/青瓷狗.jpg'},
-							{name:'黑秞执壶',src:'https://www.mengzhiyuan.email/image/antique/黄地粉彩龙纹杯.jpg'}],
-							max_pic:['https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆1.jpg','https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆2.jpg','https://www.mengzhiyuan.email/image/antique/inter_top/荆州博物馆3.jpg'],
-							full_src:'https://www.mengzhiyuan.email/image/antique/荆州博物馆全景图.jpg'
-					}
-				}else if(name=="长江艺术工程职业学院非遗传承院"){
-					result={
-										name:'长江艺术工程职业学院非遗传承院',
-										description:[`荆州市荆楚非物质文化遗产技能传承院(简称传承院) ，是经荆州市文化和旅游局、荆州
-										市非遗保护中心批准，依托长江艺术工程职业学院设立的非遗传习保护基地。
-										`,`2015年被授予国家3A级旅游景区。`,`2017年10月，文化和旅游部在荆楚非遗传承院设立国家传统工艺(荆州)工作站，由清华大学美术学院为驻站单位，
-										 以“见人、见物、见生活"为理念，为新时代振兴传统工艺提供示范，让传统工艺在当代生活得到新的广泛应用。`],
-											antique:[{name:'淡水贝雕',src:'https://www.mengzhiyuan.email/image/antique/changyi/淡水贝雕.jpeg'},
-											{name:'葫芦烙画',src:'https://www.mengzhiyuan.email/image/antique/changyi/葫芦.jpeg'},
-											{name:'古筝',src:'https://www.mengzhiyuan.email/image/antique/changyi/古筝.jpeg'},
-											{name:'漆艺',src:'https://www.mengzhiyuan.email/image/antique/changyi/漆艺.jpeg'}],
-											max_pic:['https://www.mengzhiyuan.email/image/antique/changyi/传承院.jpg',
-											'https://www.mengzhiyuan.email/image/antique/changyi/传承院2.jpg',
-												'https://www.mengzhiyuan.email/image/antique/museum1.jpg'
-												],
-											full_src:'https://www.mengzhiyuan.email/image/antique/changyi/full.jpg'
-									}
-				}
+			const museums = reactive([])
+			const loadMuseums = () => {
+						  uni.showLoading({
+						  	title:'加载中'
+						  })
+				request.get("/Antique/GetAntiqueRandom").then(res => {
+					console.log(res,'res');
+					museums.splice(0,museums.length,...res)
+				}).catch(err => {
+					console.log(err,'err');
+				}).finally(() => {
+			  uni.hideLoading()
+		  })
+			}
+			loadMuseums()
+			function museum(id){
 				uni.navigateTo({
-					url:`./other_page/museum/museum?data=${JSON.stringify(result)}`
+					url:`./other_page/museum/museum?id=${id}`
 				})
 				
 			}
@@ -294,7 +269,12 @@
 					url:'/pages/workroom/other_page/search_video/search_video'
 				})
 			}
-			return{head_img,search_page,reqs,loading,inter,video,story,more,museum,show_loading,base_url,other,toggle_other,lower}
+			const toggleAi = () => {
+				uni.navigateTo({
+					url:'/pages/AI/AI'
+				})
+			}
+			return{head_img,search_page,reqs,loading,inter,video,story,more,museum,museums,show_loading,base_url,other,toggle_other,lower,toggleAi}
 		}
 	}
 </script>

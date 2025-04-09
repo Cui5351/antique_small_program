@@ -4,6 +4,7 @@
 	min-height:$h;
 	height:$h;
 }
+$color3:rgb(95,78,86);
 image{
 	background-color: rgba(0,0,0,.1);
 }
@@ -88,7 +89,7 @@ image{
 	}
 }
 .background1{
-	background-color: #6E79E2;
+	background-color: rgb(95,78,86);
 }
 .background{
 	background-color: white;
@@ -99,5 +100,6 @@ image{
 	}
 }
 .font_color{
-	color:#1E3659
+	// color:#1E3659
+	color:$color3;
 }

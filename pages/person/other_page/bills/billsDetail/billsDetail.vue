@@ -13,17 +13,17 @@
     </view>
 
     <!-- Restaurant Info -->
-    <view class="restaurant-info" @click="innerStore">
-		<view style="display: flex;align-items: center;gap: 30rpx;width: 70%;">
+    <view class="restaurant-info">
+		<view style="display: flex;align-items: center;gap: 30rpx;width: 70%;" @click="innerStore">
       <view class="restaurant-name">
-		  <image :src="orderInfo.avatar_src" mode=""></image>
+		  <image :src="orderInfo.avatar_src" mode="aspectFill"></image>
       </view>
       <view class="restaurant-address" style="max-width: 70%;">
         {{orderInfo.store}}
       </view>
 	  </view>
-	  <view class="restaurant-address" style="color: rgba(0,0,0,.5);">
-	    进店看看
+	  <view class="restaurant-address" style="color: rgba(0,0,0,.5);" @click="relation">
+		  <uni-icons size="25" type="phone"></uni-icons>
 	  </view>
     </view>
 
@@ -65,7 +65,7 @@
 		<view class="info">
 			<view class="title">订单单号：</view>
 			<view>{{orderInfo.uuid}}
-			<text @click="copy" style="color: #6E79E2;margin-left: 5rpx;">复制</text>
+			<text @click="copy" style="color: rgb(95,78,86);margin-left: 5rpx;">复制</text>
 			</view>
 		</view>
 		<view class="info">
@@ -104,22 +104,12 @@ export default {
 	  	title:'加载订单中',
 		mask:true
 	  })
-  	request.get('/StoreItem/GetBuyGoodsAll',{
+  	request.get('/StoreItem/GetGoodsBills',{
 		      uuid:uuid,
-		      page:1,
-		      pageSize:1,
+			  openid:uni.current_this.store.getters.openid
 	}).then(res => {
-		console.log(res,'res');
-		const list = res.list
-		if(list.length <= 0){
-			uni.showToast({
-			title:'加载失败',
-			icon:'none'
-			})
-			return
-		}
 		Object.keys(this.orderInfo).forEach(item => {
-			this.orderInfo[item] = list[0][item]
+			this.orderInfo[item] = res[item]
 		})
 		
 		uni.hideLoading()
@@ -149,6 +139,7 @@ export default {
 		transport_money: 9,
 		user: "",
 		uuid: "",
+		storeTel:""
     })
 	const innerStore = () => {
 		uni.navigateTo({
@@ -174,12 +165,18 @@ export default {
 			}
 		})
 	}
+	const relation = () => {
+		uni.makePhoneCall({
+			phoneNumber:orderInfo.storeTel
+		})
+	}
     return {
 		again_bought,
       orderInfo,
 	  back,
 	  innerStore,
-	  copy
+	  copy,
+	  relation
     }
   }
 }
@@ -235,8 +232,8 @@ export default {
 						display: flex;
 						view{
 							padding: 2px;
-							color: #6E79E2;
-							border:1px solid #6E79E2;
+							color: orangered;
+							border:1px solid orangered;
 						}
 					}
 				}
@@ -289,7 +286,7 @@ export default {
 	}
 }
 .header {
-  background: linear-gradient(to right, #9e9ee2, #6E79E2);
+  background: linear-gradient(to right, #5f5b5d, #5f4e56);
   padding: 50rpx 30rpx;
   padding-top: 120rpx;
   color: #fff;
@@ -361,7 +358,7 @@ export default {
   justify-content: center;
   
   .reorder-btn {
-    background: #6E79E2;
+    background: rgb(95,78,86);
     color: #fff;
     width: 90%;
     height: 80rpx;

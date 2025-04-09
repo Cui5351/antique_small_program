@@ -61,28 +61,14 @@
 						</text>
 						</view>
 					<view class="btns flex_j_a_r">
-						<!-- <view v-if="item.state2 == '已到达'" style="width: fit-content;" class="flex_j_a_r">
-							取件码:{{item.code}}
-						</view>
-						-->
-						<!-- <view style="width: fit-content;"></view> -->
 						<view class='flex_j_a_r' style="justify-content: flex-end">
-							<!-- <template v-if='state==0'> -->
-								<!-- <view @click.stop="delete_store(item,index)">删除订单</view> -->
-								<!-- <view @click.stop="no_develop('评价')">评价</view> -->
-							<!-- </template> -->
 							<view @click.stop="again_bought(item)">再次购买</view>
 							<view v-if='item.state2 == "已完成"' @click.stop="delete_store(item,index)">删除订单</view>
 							<template v-if='item.state2 == "待发货"'>
 								<view @click.stop="no_develop('催发货')">催发货</view>
 							</template>
-							<!-- <template v-if='state==2'> -->
-								<!-- <view @click.stop="no_develop('更多')">更多</view> -->
-								<!-- <view @click.stop="no_develop('查看物流')">查看物流</view> -->
 								<view v-if='item.state2 == "待收货"' @click.stop="receive_store(item,'已完成')">确定收货</view>
 								<view v-if='item.state2 == "待发货"' @click.stop="receive_store(item,'已取消')">取消订单</view>
-								
-							<!-- </template> -->
 						</view>
 					</view>
 				</view>

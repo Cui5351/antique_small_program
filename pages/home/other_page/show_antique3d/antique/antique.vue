@@ -1,19 +1,19 @@
 <template>
-  <view class="container">
+  <view class="container" style="display: block;overflow-y: auto;overflow-x: hidden;">
       <image class="background_antique" src="/static/show_antique_background.svg" mode=""></image>
-	  <view class="head_two" style="background-color: rgba(0,0,0,0);">
+	  <view class="head_two" style="background-color: rgba(0,0,0,0);z-index: 9999999;">
 		<uni-icons type="left" size="25" color="rgb(200,200,186)" @click="back"></uni-icons>
 	  </view>
 	  <view class="introduct flex_j_a_c grows">
 		  <view class="pic flex_j_a_c">
-			  <image :src="info.src" mode=""></image>
+			  <image :src="info.src" @click="showPic" style="max-width:70%;" mode="aspectFill"></image>
 		  </view>
 		  <view class="des">
 			  <image class="background_antique" style="background-color:antiquewhite;"></image>
 			  <view class="flex_j_a_c title">
 					<view style="font-size:35px;margin-bottom:5px;">{{info.name}}</view>
 					<view class="flex_j_a_r">
-					  <uni-icons type="location"></uni-icons>{{info.born}}
+					  <uni-icons type="location"></uni-icons>{{info.find_date}}
 					</view>
 			  </view>
 			  <view class="desc">
@@ -37,15 +37,22 @@ export default{
 		})
 	},
   setup(){
-	let back=uni.current_this.back
+	let back= () => {
+			 uni.navigateBack()
+	}
 	let info=reactive({
 		src:'',
-		born:'',
+		find_date:'',
 		date:'',
 		name:'',
 		description:''
 	})
-    return{back,info}
+	const showPic = () => {
+		uni.previewImage({
+			urls:[info.src]
+		})
+	}
+    return{back,info,showPic}
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-		<scroll-view class="container flex_c background" scroll-y="true" @scrolltolower="lower">
+		<scroll-view class="container flex_c background font_color" scroll-y="true" @scrolltolower="lower">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{info.name}}</view>
 		<view class="top_img">
 			<view class="back">

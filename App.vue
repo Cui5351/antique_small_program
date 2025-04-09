@@ -39,14 +39,23 @@
 				else
 					return `${date.getFullYear()}年${month<10?'0'+month:month}月${day<10?'0'+day:day}日${hour<10?'0'+hour:hour}:${minute<10?'0'+minute:minute}`
 			}
+			// 《非遗技艺,数字典藏》 基于uniapp + Springboot开发的多端跨平台小程序
+			// 《传世云鉴,非议数字典藏》 基于uniapp + Springboot开发的多端跨平台小程序及vue3后台管理系统
+			
 			// 返回上一级页面
-			this.back=function(){
+			this.back=() =>{
 				if(getCurrentPages().length>1)
 					uni.navigateBack();
 				else
 					uni.switchTab({
 						url:'/pages/home/home'
 					})
+			}
+			this.show = (msg) => {
+			 uni.showToast({
+				title:msg,
+				icon:'none'
+			})
 			}
 			console.log('App Launch')
 			this.check_res_state=function(res){

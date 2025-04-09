@@ -1,14 +1,14 @@
 <template>
   <view class="head_two des head_tit" @click="back">
 	  <view class="flex_j_a_r">
-		<uni-icons type="left" size="25" style='margin-top:2px;'></uni-icons>非遗集市
+		<uni-icons type="left" size="25" style='margin-top:2px;'></uni-icons>文创集市
 	  </view>
   </view>
-  <view class="container">
+  <view class="container font_color">
 	<view class="store_info">
 		<view class="picture">
 			<swiper class="swi" circular indicator-dots indicator-active-color="white">
-				<swiper-item v-for="(item,index) in info.pic" :key="index">
+				<swiper-item v-for="(item,index) in info.pic" :key="index" @click="preImage(item,index)">
 					<view class="pic">
 						<image :src="item" mode="aspectFill"></image>
 					</view>
@@ -38,9 +38,12 @@
 			<view class="tit two_size">排行榜</view>
 			<view class="flex_j_a_r three_size">店铺商品热榜第
 				<view style="color:#6E79E2">
-					3
+					{{rank}}
 				</view>
 			名</view>
+			<view @click="enterStore" style="margin-left: 170rpx;color: rgba(0,0,0,.5);">
+				进店看看
+			</view>
 		</view>
 		<view class="transport flex_j_a_r three_size">
 			<view class="flex_j_a_r" style="color: gray;">运费
@@ -107,7 +110,7 @@
 				<view class="service-name">{{ item.name }}</view>
 				<view class="service-desc">商品描述：{{ item.description.length >= 15 ? (item.description.substring(0,15) + '...') :item.description }}</view>
 			  </view>
-				<view class="service-price">￥{{item.money?.toFixed(2)}}元</view>
+				<view class="service-price">¥{{item.money?.toFixed(2)}}元</view>
 					  <view style="display: flex;justify-content: space-between;padding: 0 10rpx;color:rgba(0,0,0,.5);margin: 10rpx 0;">
 						  <view>销量：{{item.sale}}</view>
 						  <view>库存：{{item.depository}}</view>
@@ -123,25 +126,25 @@
   </view>
   <view class="bottom flex_j_a_r">
 	  <view class="other flex_j_a_r">
-			<view class="flex_j_a_c"  @click="show_all">
+			<view class="flex_j_a_c"  @click="tel">
 				<view class="pic">
 					<image src="/static/store_page/info_server.svg"  style="background-color: white;" mode=""></image>
 				</view>
 					客服
 			</view>
-			<view class="flex_j_a_c"   @click="show_all">
+			<view class="flex_j_a_c"  @click="show_all('/pages/store/other_page/storeDetail/storeDetail?id=' + info.store_id)">
 				<view class="pic">
 					<image style="background-color: white;" src="/static/store_page/store.svg" mode=""></image>
 				</view>
 				店铺</view>
-			<view class="flex_j_a_c"  @click="show_all">
+			<view class="flex_j_a_c"  @click="show_all('/pages/person/other_page/shops/shops')">
 				<view class="pic">
 					<image style="background-color: white;" src="/static/store_page/shop_car.svg" mode=""></image>
 				</view>
 				购物车</view>
 	  </view>
 	  <view class="btn flex_j_a_r three_size">
-	  	<view class="flex_j_a_r background1" @click="join_car">加入购物车</view>
+	  	<view class="flex_j_a_r" :class="ShopisExist ? 'backgroundNoJoin' :'background1'" @click="join_car">{{ ShopisExist ? '已加入' : '加入购物车' }}</view>
 	  	<view class="flex_j_a_r" @click="buy">购买</view>
 	  </view>
 	</view>
@@ -153,6 +156,21 @@ import { baseURL } from '../../../../request/baseUrl';
 import request from '@/request/request.js'
 export default{
 	methods:{
+		preImage(item,index){
+			uni.previewImage({
+				urls:[...this.info.pic],
+				current:index
+			})
+		},
+		GoodsExistInShops(){
+			if(uni.current_this.store.getters.openid)
+			request.get("/StoreItem/GoodsExistInShops",{
+				openid:uni.current_this.store.getters.openid,
+				shopId:this.id
+			}).then(res => {
+				this.ShopisExist = res == 0 ? false : true
+			})
+		},
 		loadData(){
 			uni.showLoading({
 				title:'商品加载中'
@@ -166,9 +184,12 @@ export default{
 				},success(res2) {
 					if(res2.data.code!=1){
 						uni.showToast({
-							title:'发生了未知的错误',
-							icon:'error'
+							title:res2.data.msg,
+							icon:'none'
 						})
+						setTimeout(() => {
+							uni.navigateBack()
+						},1000)
 						return
 					}
 					let info={
@@ -180,6 +201,7 @@ export default{
 						src:'',
 						description:'',
 						store:'',
+						tel:'',
 						pic:[],
 						transport_money:0
 					}
@@ -191,6 +213,7 @@ export default{
 						that.info[item]=res2.data.data[item]
 					})
 					that.info.store_id = res2.data.data.store_id
+					that.GetStoreRank()
 					that.loadStore()
 					that.get_count()
 			},complete() {
@@ -202,18 +225,15 @@ export default{
 			uni.showLoading({
 				title:'加载商品中'
 			})
-			console.log(this.info,'info');
-			request.get('/StoreItem/list',{
+			request.get('/StoreItem/UserList',{
 				store_id:this.info.store_id,
 				...this.search
 			}).then(res => {
-				console.log(res.list,'res');
 				this.total = res.total
 				this.services.splice(0,this.services.length)
 				this.services.push(...res.list)
 			}).catch(err => {
-				console.log(err,'err');
-							}).finally(() =>{uni.hideLoading()})
+			}).finally(() =>{uni.hideLoading()})
 		},
 		get_count(){
 			let that = this
@@ -249,6 +269,13 @@ export default{
 					that.full.bought_log.push(...res.data.data)
 				}
 			})
+		},
+		GetStoreRank(){
+			request.get("/Store/GetStoreRank",{
+				store_id:this.info.store_id
+			}).then(res => {
+				this.rank = res
+			})
 		}
 	},
 	onShow() {
@@ -257,6 +284,7 @@ export default{
 	onLoad(res) {
 		this.id = res.id
 		let that=this
+		this.GoodsExistInShops()
 			return
 			let data=JSON.parse(res.info)
 			Object.keys(this.info).forEach(item=>{
@@ -304,26 +332,74 @@ export default{
 		id:'',
 		store:'',
 		pic:[],
+		tel:'',
 		comment:[],
 		bought_log:[],
 		transport_money:0
 	})
+	const rank = ref(null)
 	let services = reactive([])
 	let full=reactive({
 		bought_log:[],
 		comment:[]
 	})
+	let ShopisExist = ref(false)
 	let back=uni.current_this.back
 	function join_car(){
-		uni.showToast({
-			title:'暂未开放',
-			icon:'none'
+		if(!uni.current_this.store.getters.login_state){
+			uni.showModal({
+				title:"系统提示",
+				content:"亲！下单前请先登录",
+				showCancel:false,
+				success() {
+					uni.switchTab({
+						url:'/pages/person/person'
+					})
+				}
+			})
+			return
+		}
+		uni.showLoading({
+			title:ShopisExist.value ? '移除购物车中' : '添加购物车中'
+		})
+		request.post("/StoreItem/AddShops",{
+			openid:uni.current_this.store.getters.openid,
+			shopId:info.id
+		}).then(res => {
+			uni.showToast({
+				icon:'none',
+				title:ShopisExist.value ? '移除购物车成功' :'添加成功'
+			})
+			ShopisExist.value = !ShopisExist.value
+			// setTimeout(() => {
+			// 	uni.navigateBack()
+			// },1000)
+		}).catch(err => {
+			console.log('添加失败');
+		}).finally(() =>uni.hideLoading())
+	}
+	function show_all(url){
+		if(!uni.current_this.store.getters.login_state){
+			uni.showModal({
+				title:"系统提示",
+				content:"亲！下单前请先登录",
+				showCancel:false,
+				success() {
+					uni.switchTab({
+						url:'/pages/person/person'
+					})
+				}
+			})
+			return
+		}
+		uni.navigateTo({
+			url:url
 		})
 	}
-	function show_all(){
-		uni.showToast({
-			title:'暂未开放',
-			icon:'none'
+	const tel = () => {
+		// 后期为商铺添加联系号码的选项
+		uni.makePhoneCall({
+			phoneNumber:info.tel
 		})
 	}
 	function buy(){
@@ -353,13 +429,17 @@ export default{
 		})
 	}
 	const enterService = (item) => {
-		console.log(item,'item');
 		// 根据id获取详情数据
 		uni.redirectTo({
 			url:`/pages/store/other_page/store_page/store_page?id=${item.id}&name=${item.name}`
 		})
 	}
-    return{back,info,join_car,show_all,buy,full,id,services,search,enterService,total}
+	const enterStore = () => {
+			uni.navigateTo({
+				url:'/pages/store/other_page/storeDetail/storeDetail?id=' + info.store_id
+			})
+	}
+    return{back,info,join_car,show_all,buy,full,id,services,search,enterService,total,enterStore, ShopisExist,tel,rank}
   }
 }
 </script>

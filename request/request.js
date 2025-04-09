@@ -25,12 +25,17 @@ const req = (method,url,params) => {
 			success(response) {
 				console.log(response.data);
 				if(response.data.code != 1){
+					uni.showToast({
+						title:response.data.msg,
+						icon:'none'
+					})
 					rej(response.data.msg)
 					return
 				}
 				res(response.data.data)
 			},
 			fail(err) {
+				console.log(err,'request err');
 				rej(err)
 			}
 		})

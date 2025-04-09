@@ -1,4 +1,5 @@
 @import "/uni.scss";
+$color:rgb(180,170,156);
 .search_btn{
 	width:100%;
 	.search_txt{
@@ -33,7 +34,8 @@
 .video_set{
 	padding:0 15px;
 	box-sizing: border-box;
-	@include height(81%);
+	// @include height(81%);
+	height: 81vh;
 	.noContent{
 		margin-top:100px;
 		text-align: center;
@@ -89,6 +91,7 @@
 }
 .v_result{
 	@include height(81%);
+	// height: 81vh;
 	.item{
 		height:45px;
 		line-height: 45px;

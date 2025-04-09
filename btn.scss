@@ -3,7 +3,8 @@
 	align-items: center;
 	justify-content: center;
 }
-
+$color:rgb(180,170,156);
+$color2:rgb(79,70,229);
 .flex_bottom{
 	display: flex;
 	align-items: flex-end;
@@ -11,7 +12,7 @@
 }
 
 .btn2{
-	border: 1px solid rgb(79,70,229);
+	border: 1px solid $color;
 	color: white;
 	// position: relative;
 	// z-index: 10000000;
@@ -22,15 +23,15 @@
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;
-	background-color:rgb(79,70,229) ;
+	background-color:$color ;
 	&:active{
 		background-color: white;
-		color:rgb(79,70,229) ;
+		color:$color ;
 	}
 }
 .btn{
-	border: 1px solid rgb(79,70,229);
-	color:rgb(79,70,229) ;
+	border: 1px solid $color;
+	color:$color ;
 	width:60px;
 	height:40px;
 	display: flex;
@@ -39,7 +40,7 @@
 	align-items: center;
 	border-radius: 5px;
 	&:active{
-		background-color:rgb(79,70,229) ;
+		background-color:$color ;
 		color: white;
 	}
 }

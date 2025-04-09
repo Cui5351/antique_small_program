@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czy.antique_admin.mappers.antiqueMapper">
+    <insert id="insertAntique" parameterType="com.czy.antique_admin.dao.Antique">
+        INSERT INTO antique (name, description, location, account, password, avatar,book_url,tel)
+        VALUES (#{name}, #{description}, #{location}, #{account}, #{password}, #{avatar},#{book_url},#{tel})
+    </insert>
+    <select id="GetAntiqueAll" parameterType="com.czy.antique_admin.entity.AntiqueCondition" resultType="com.czy.antique_admin.dao.Antique">
+        select * from antique
+        <where>
+            <if test="name != '' and name !=null">
+                name = #{name}
+            </if>
+            <if test="location != '' and location !=null">
+                and location = #{location}
+            </if>
+            <if test="account != '' and name !=account">
+                and account = #{account}
+            </if>
+                 and del = '0'
+        </where>
+        order by id desc
+    </select>
+    <select id="userExist" resultType="int" parameterType="String">
+        select count(1) from antique
+        where account = #{account}
+    </select>
+    <select id="userLogin" parameterType="com.czy.antique_admin.dao.Antique" resultType="com.czy.antique_admin.dao.Antique">
+        select name,account,id,role from antique where account = #{account} and password = #{password}
+    </select>
+    <select id="GetAntiqueByName" resultType="com.czy.antique_admin.dao.Antique" parameterType="String">
+        select id,name,avatar,location from antique where name like concat('%',#{name},'%') and del = '0' limit 0,1
+    </select>
+    <select id="GetAntiqueCollect" parameterType="com.czy.antique_admin.entity.AntiqueCollectCondition" resultType="com.czy.antique_admin.dao.antiqueCollect">
+        select id, name, find_date, product_date, src, description, create_time from antique_collect
+        <where>
+            <if test="name != '' and name != null">
+                name = #{name}
+            </if>
+            <if test="id != '' and id != null">
+               and id = #{id}
+            </if>
+            and del = '0'
+        and antique_id = #{antique_id}
+        </where>
+    </select>
+    <insert id="AddAntiqueCollect" parameterType="com.czy.antique_admin.dao.antiqueCollect">
+        insert into antique_collect(name, find_date, product_date, src, antique_id, description)
+        value(
+            #{name},
+             #{find_date},
+             #{product_date},
+            #{src},
+            #{antique_id},
+            #{description}
+            )
+    </insert>
+    <select id="AntiqueCollectExist" parameterType="com.czy.antique_admin.dao.antiqueCollect" resultType="Integer">
+        select count(1)
+        from antique_collect
+        where antique_id = #{antique_id} and name = #{name};
+    </select>
+    <select id="FindAntiqueById" resultType="com.czy.antique_admin.dao.Antique" parameterType="int">
+        select name,description,location,account,avatar,book_url,tel from antique
+        where id = #{id}
+        and del = '0'
+        ;
+    </select>
+    <select id="GetCollectById" resultType="com.czy.antique_admin.dao.antiqueCollect" parameterType="int">
+        select id,name, find_date, product_date, src, description from antique_collect where id = #{id};
+    </select>
+    <update id="EditCollectById" parameterType="com.czy.antique_admin.dao.antiqueCollect">
+        update antique_collect
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="description != null and description != ''">
+                ,description = #{description}
+            </if>
+            <if test="find_date != null and find_date != ''">
+                ,find_date = #{find_date}
+            </if>
+            <if test="product_date != null and product_date != ''">
+                ,product_date = #{product_date}
+            </if>
+            <if test="src != null and src != ''">
+                ,src = #{src}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="delAntiqueCollect" parameterType="com.czy.antique_admin.dao.antiqueCollect">
+        update antique_collect set antique_id = null,del = '1'
+        where id = #{id}
+    </update>
+    <update id="EditAntiqueById" parameterType="com.czy.antique_admin.dao.Antique">
+        update antique
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="description != null and description != ''">
+                ,description = #{description}
+            </if>
+            <if test="password != null and password != ''">
+                ,password = #{password}
+            </if>
+            <if test="account != null and account != ''">
+                ,account = #{account}
+            </if>
+            <if test="location != null and location != ''">
+                ,location = #{location}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                ,avatar = #{avatar}
+            </if>
+            <if test="book_url != null and book_url != ''">
+                ,book_url = #{book_url}
+            </if>
+            <if test="tel != null and tel != ''">
+                ,tel = #{tel}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <select id="GetAntiqueRandomById" parameterType="int" resultType="com.czy.antique_admin.dao.Antique">
+        select id,name,avatar from antique
+        where id >= #{id} and del = '0'
+        limit 0,3;
+    </select>
+    <select id="GetAntiqueById" resultType="com.czy.antique_admin.dao.Antique">
+        select id,name,avatar,description,location,book_url,tel from antique
+        where id = #{id};
+    </select>
+    <select id="GetAllAntiqueId" resultType="Integer">
+        select id from antique where del = '0';
+    </select>
+    <select id="GetAntiqueByProvince" resultType="com.czy.antique_admin.dao.Antique" parameterType="String">
+        select id,name,avatar from antique where location = #{location} and del = '0'
+    </select>
+    <select id="GetAllStoreForAntique" resultType="com.czy.antique_admin.dao.Store">
+        select id,name,src,account,(select name from antique where antique.id = store.relation_antique) as bindAntique from store
+        where del = '0'
+    </select>
+    <select id="GetMyBindStoreById" parameterType="int" resultType="com.czy.antique_admin.dao.Store">
+        select id, name, src, description,tel, account, relation_antique from store
+        where relation_antique = #{id} and del = '0'
+    </select>
+    <update id="DelAntiqueBindStore">
+        update store set relation_antique = null
+        where id = #{id}
+    </update>
+    <update id="AddAntiqueBindStore">
+        update store set relation_antique = #{user_id}
+        where id = #{id}
+    </update>
+    <select id="GetAntiqueStoreGoods" parameterType="int" resultType="com.czy.antique_admin.dao.goods">
+        select id, name, description,store_id,
+            (select src from goods_pic where goods_pic.goods_id = goods.id limit 0,1) as url,
+            money, transport_money, sale, depository from goods
+        <where>
+            and del = '0'
+            and (select del from store where store.id = goods.store_id) = '0'
+            and store_id in (select id from store where relation_antique = #{id})
+        </where>
+        order by sale desc
+       limit 0,20;
+    </select>
+    <update id="DelAntique">
+        update antique set del_before_name = name, del_before_account = account, name = null, account = null, del = '1'
+        where id = #{id}
+    </update>
+</mapper>

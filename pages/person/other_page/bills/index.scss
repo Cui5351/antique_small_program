@@ -3,7 +3,7 @@
 }
 .hig{
 	font-size:20px;
-	color: #6E79E2;
+	color: rgb(95,78,86);
 }
 .search{
 	box-sizing: border-box;
@@ -37,6 +37,8 @@
 		box-sizing: border-box;
 		.store{
 			width:100%;
+			max-width: 100%;
+			overflow: hidden;
 			border-radius:10px;
 			margin-top:10px;
 			background-color: white;
@@ -51,7 +53,7 @@
 				justify-content: space-between;
 				@include height(15%);
 				.title{
-					color: #6E79E2;
+					color: rgb(95,78,86);
 				}
 			}
 			&>.pics{
@@ -59,6 +61,7 @@
 					width:100%;
 					height:70%;
 				}
+					max-width: 350px;
 				&>.pic{
 					@include width(35%);
 					height: 200rpx;
@@ -103,8 +106,8 @@
 								display: flex;
 								view{
 									padding: 2px;
-									color: #6E79E2;
-									border:1px solid #6E79E2;
+									color: orangered;
+									border:1px solid orangered;
 								}
 							}
 						}

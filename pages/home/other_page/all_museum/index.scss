@@ -51,7 +51,7 @@
 				border-radius: 50%;
 			}
 			&>.active{
-				// background-color: #fffbf2;
+				background-color: rgb(95,78,86);
 				background-color: white;
 			}
 			@include width(30%);
@@ -87,12 +87,16 @@
 					}
 					border-radius:10px;
 					overflow:hidden;
-					@include height(20%);
+					@include height(25%);
 					margin:10px 0;
-					background-color:rgb(135, 116, 229);
+					// background-color:rgb(135, 116, 229);
+					// box-shadow: -1px -1px 10px 2px gray;
 					.cimg{
 						height:100%;
-						width:70%;
+						width:100%;
+					}
+					.antique_name{
+						position: absolute;top:100%;transform: translateY(-100%);background: rgba(0,0,0,.5);width:100%;text-align:center;color: white;padding: 5rpx 0rpx;
 					}
 				}
 				&>.title{
@@ -124,6 +128,8 @@
 .search_btn{
 	@include width(80%);
 	@include height(70%);
+	padding: 8rpx 30rpx;
+	box-sizing: border-box;
 	display: flex;
 	justify-content: center;
 	align-items: center;

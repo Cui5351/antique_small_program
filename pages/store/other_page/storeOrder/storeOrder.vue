@@ -45,7 +45,7 @@
 	  <view class="label2"> ①:收货信息：请准确填写收货地址及联系方式，因信息错误导致商品无法送达或丢失，责任自负。</view>
 	  <view class="label2"> ②:商品特性：非遗商品为手工制作，可能存在细微差异，不属质量问题</view>
 	  <view class="label2"> ③:商品价格已明示，运费按标准收取，下单即视为接受价格构成</view>
-	  <view class="label2"> ④:若非商品质量问题，退货需承担来回运费，且保持商品完</view>
+	  <view class="label2"> ④:若非商品质量问题，退货需承担来回运费，且保持商品完整</view>
 	  <view class="label2"> ⑤:因部分非遗商品制作工序复杂，发货时间可能稍有延迟，会在3个工作日内发出</view>
 	</view>
 
@@ -148,6 +148,7 @@ export default {
 	  	title:'下单中',
 		mask:true
 	  })
+	  setTimeout(() => {
 	  request.post("/StoreItem/order",{
 		  ...data
 	  }).then(res => {
@@ -164,6 +165,7 @@ export default {
 	  }).finally(() => {
 		  uni.hideLoading()
 	  })
+	  },1500)
     }
 	
     return {
@@ -224,7 +226,7 @@ export default {
 
     text {
       width: 60rpx;
-	  background-color: #6E79E2;
+	  background-color: rgb(95,78,86);
 	  color: white;
       height: 60rpx;
       line-height: 60rpx;
@@ -394,7 +396,7 @@ export default {
   z-index: 100;
   height: 88rpx;
   line-height: 88rpx;
-  background: #6E79E2;
+  background: rgb(95,78,86);
   color: #fff;
   border-radius: 44rpx;
   font-size: 32rpx;

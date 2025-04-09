@@ -1,1 +1,0 @@
-<view class="head_two font_color data-v-1efe2ce6" bindtap="{{c}}"><uni-icons wx:if="{{a}}" class="data-v-1efe2ce6" u-i="1efe2ce6-0" bind:__l="__l" u-p="{{a}}"></uni-icons> {{b}}</view>

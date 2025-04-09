@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czy.antique_admin.mappers.financeMapper">
+    <select id="GetTodayStatistics" resultType="com.czy.antique_admin.dao.Statistics">
+        select sum(money * count) as totalMoney,(select count(1) from bills where state2 != '已取消' and date_format(date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')) as totalComplete,
+            (select count(1) from bills where state2 = '已取消' and date_format(date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')) as totalCancel
+               from bills b
+        where date_format(date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d');
+    </select>
+    <select id="GetMonthStatics" resultType="com.czy.antique_admin.dao.Statistics">
+        select sum(money * count) as totalMoney,(select count(1) from bills where state2 != '已取消' and date_format(date,'%Y-%m') = date_format(now(),'%Y-%m')) as totalComplete,
+            (select count(1) from bills where state2 = '已取消' and date_format(date,'%Y-%m') = date_format(now(),'%Y-%m')) as totalCancel
+               from bills b
+        where date_format(date,'%Y-%m') = date_format(now(),'%Y-%m');
+    </select>
+    <select id="GetYearStatics" resultType="com.czy.antique_admin.dao.Statistics">
+        select sum(money * count) as totalMoney,(select count(1) from bills where state2 != '已取消' and date_format(date,'%Y') = date_format(now(),'%Y')) as totalComplete,
+            (select count(1) from bills where state2 = '已取消' and date_format(date,'%Y') = date_format(now(),'%Y')) as totalCancel
+               from bills b
+        where date_format(date,'%Y') = date_format(now(),'%Y');
+    </select>
+    <select id="GetTotalStatics" resultType="com.czy.antique_admin.dao.Statistics">
+        select sum(money * count) as totalMoney,(select count(1) from bills where state2 != '已取消') as totalComplete,
+            (select count(1) from bills where state2 = '已取消') as totalCancel
+               from bills b;
+    </select>
+    <select id="GetTotalStoreStatics" resultType="com.czy.antique_admin.dao.StoreYearData">
+        select (select name from store where id = store_id) as storeName,
+               sum(money * count) as totalIncome,sum(count) as totalSales
+        from bills
+            where state2 != '已取消'
+            <if test="start != null and start != ''">
+                and date &gt;= #{start}
+            </if>
+        <if test="end != null and end != ''">
+            and date &lt;= #{end}
+        </if>
+        GROUP BY store_id
+        order by totalIncome desc;
+    </select>
+    <select id="GetYearStoreStatics" resultType="com.czy.antique_admin.dao.StoreYearData">
+        select sum(money * count) as totalIncome,DATE_FORMAT(date,'%Y'),
+               sum(count) as totalSales,
+               DATE_FORMAT(date,'%Y') Years
+        from bills
+        where DATE_FORMAT(date,'%Y') &gt;= #{start} and DATE_FORMAT(date,'%Y') &lt;= #{end}
+        and state2 != '已取消'
+        GROUP BY DATE_FORMAT(date,'%Y')
+    </select>
+    <select id="GetYearStoreStaticsByYear" resultType="com.czy.antique_admin.dao.StoreYearData">
+        select sum(count * money) as totalIncome,sum(count) as totalSales ,date_format(date,'%Y-%m') as Years from bills
+        where date_format(date,'%Y') = #{year} and state2 != '已取消'
+        GROUP BY date_format(date,'%Y-%m')
+    </select>
+</mapper>

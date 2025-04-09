@@ -1,12 +1,13 @@
 @import '@/uni.scss';
 .container{
 	height:100%;
-	display: flex;
-	overflow: hidden;
-	flex-direction: column;
+	// display: flex;
+	// overflow: hidden;
+	// flex-direction: column;
+	overflow-y: auto;
 	box-sizing: border-box;
 	background-color:white;
-	color:rgb(77,92,136);
+	// color:rgb(77,92,136);
 	&>view{
 		flex-grow: 1;
 	}
@@ -38,13 +39,13 @@
 	}
 	&>.info{
 		// padding-bottom:20% ;
-		color:rgb(59,92,130);
+		// color:rgb(59,92,130);
 		position: relative;
-		@include height(75%);
-		transform: translateY(-5%);
-		overflow-y: auto;
-		display: flex;
-		flex-direction: column;
+		// @include height(75%);
+		transform: translateY(-50rpx);
+		// overflow-y: auto;
+		// display: flex;
+		// flex-direction: column;
 		// overflow: hidden;
 		background-color: white;
 		border-top-left-radius: 20px;
@@ -56,7 +57,7 @@
 		&>.description{
 			transition:.5s ease;
 			padding: 20px 20px 0 20px;
-			overflow: hidden;
+			// overflow: hidden;
 			  // text-overflow: ellipsis;
 			  // -webkit-line-clamp: 3;
 			  // display: -webkit-box;
@@ -71,9 +72,9 @@
 					// @include height(90%);
 					&>view{
 						float: left;
-						height:auto;
+						height:fit-content;
 					}
-					height:auto;
+					height:fit-content;
 				}
 			.title{
 				font-size:25px;
@@ -91,7 +92,7 @@
 				justify-content: center;
 				align-items: center;
 				&>view{
-					background-color: rgb(59,92,130);
+					// background-color: rgb(59,92,130);
 					width:15%;
 					margin-bottom: 15px;
 					border-radius:5px;
@@ -103,15 +104,16 @@
 			// }
 			// @include height(30%);
 			height:auto;
-			min-height:50%;
+			// min-height:50%;
 			width:100%;
 			// background-color: red;
 		}
 		&>.suggest{
-			@include height(40%);
+			// @include height(20%);
+			height: 30vh;
 			width:100%;
 			&>view:first-child{
-				@include height(20%);
+				@include height(15%);
 			}
 			&>view:last-child{
 						@include height(90%);
@@ -122,7 +124,7 @@
 						// overflow-y: hidden;
 						&>.museums_one{
 							margin:0 10px;
-							@include width(50%);
+							@include width(60%);
 							@include height(90%);
 							font-size:14px;
 							&>.img{
@@ -154,7 +156,7 @@
 						top:50%;
 						left:50%;
 						transform: translate(-50%,-50%);
-						color: rgb(59,92,130);
+						// color: rgb(59,92,130);
 						background-color:rgba(255,255,255,.7);
 						padding:3px 15px;
 						box-sizing: border-box;
@@ -178,14 +180,14 @@
 		@include width(100%);
 		top:100%;
 		transform: translateY(-100%);
-		border-top: 2px solid rgb(59,92,130);
+		border-top: 2px solid rgb(95,78,86);
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: row;
 		.bt{
 				outline: none;
 				border:none;
-				color:rgb(77,92,136);
+				// color:rgb(77,92,136);
 		}
 		&>view{
 			display: flex;
@@ -199,7 +201,7 @@
 				content:'';
 				height:40%;
 				width:3px;
-				background-color: rgb(59,92,130);
+				background-color: rgb(95,78,86);
 				left:0;
 				transform: translateX(-50%);
 			}
@@ -209,4 +211,53 @@
 }
 .title_1{
 	font-size:25px;
+}
+
+.service-list {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  min-height: 300rpx;
+  justify-content: space-between;
+}
+
+.service-item {
+  width: 45.5%;
+  margin-bottom: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  padding:20rpx 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+      box-shadow: 1px 1px 5px 0.5px rgba(0,0,0,.1);
+}
+
+.service-pic {
+	width: 100%;
+  height: 300rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.service-info {
+  padding: 10rpx;
+}
+
+.service-name {
+  font-size: 32rpx;
+  margin-bottom: 10rpx;
+}
+
+.service-desc {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.service-price {
+  font-size: 32rpx;
+  color: #ff4949;
 }

@@ -47,7 +47,16 @@
             }
             
         }
-        ,{
+        ,
+		{
+			"path" : "pages/person/other_page/shops/shops",
+			"style" : 
+			{
+				"navigationBarTitleText" : "购物车",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+			}
+		},{
             "path" : "pages/store/other_page/store_page/store_page",
             "style" :                                                                                    
             {
@@ -251,6 +260,67 @@
 			{
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/other_page/shops/order/order",
+			"style" : 
+			{
+				"navigationBarTitleText" : "下单",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path" : "pages/store/other_page/store_search/store_search",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/store/other_page/store_list/store_list",
+			"style" : 
+			{
+				"navigationBarTitleText" : "关联的商铺",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path" : "pages/workroom/other_page/search_moment/search_moment",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/workroom/other_page/video_all/video_all",
+			"style" : 
+			{
+				"navigationBarTitleText" : "所有视频",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path" : "pages/home/other_page/museum/book_url/book_url",
+			"style" : 
+			{
+				"navigationBarTitleText" : "入馆预约",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "default"
+			}
+		},
+		{
+			"path" : "pages/AI/AI",
+			"style" : 
+			{
+				// "navigationBarTitleText" : "非遗导游",
+				"enablePullDownRefresh" : false
+				// "navigationStyle": "default"
 			}
 		}
     ],

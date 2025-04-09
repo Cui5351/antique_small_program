@@ -1,6 +1,6 @@
 <template>
 	<back name="返回"></back>
-  <view class="containe" @touchstart="more_stop">
+  <view class="containe font_color" @touchstart="more_stop">
       <view class="person">
 		  <view class="hd">
 			  <view class="avatar" @click="author_info">
@@ -16,6 +16,7 @@
 			  <uni-icons type="more-filled" @click="more_click" size="25"></uni-icons>
 			  <view class="se" :style="{height:more?'90px':'0px'}">
 				  <view>
+					  <!-- <image style="width: 40rpx;height: 40rpx;background: rgba(0,0,0,0);" src="../../../../static/Pentagram.svg" mode=""></image> -->
 					  <uni-icons v-show="more"  :type="info.show?'eye':'eye-slash'" @click="hidW" size="25"></uni-icons>
 				  </view>
 				  <view>
@@ -24,7 +25,8 @@
 			  </view>
 		  </view>
 		  <view class="flex_j_a_c" v-else>
-			  <uni-icons type="star" size="25"></uni-icons>
+			  <image style="width: 40rpx;height: 40rpx;background: rgba(0,0,0,0);" src="../../../../static/Pentagram.svg" mode=""></image>
+			  <!-- <uni-icons type="star" size="25"></uni-icons> -->
 		  </view>
 	  </view>
 	  <view class="pic" v-if="info.src[0]!=null&&info.type=='p'">
@@ -67,14 +69,17 @@
 	  </view>
   </view>
   <view class="moment_btn">
-	  <view class="flex_j_a_r" style="width:15%;">
-		  <uni-icons type="star" size='25'></uni-icons>
-	  </view>
+	  <!-- <view class="flex_j_a_r" style="width:15%;"> -->
+		  <!-- <uni-icons type="star" size='25'></uni-icons> -->
+		  <!-- <image style="width: 50rpx;height: 50rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Message2.svg" mode=""></image> -->
+	  <!-- </view> -->
 	  <view class="flex_j_a_c input">
 			<input type="text" @confirm="send_mes" confirm-type="send" v-model="text" placeholder="请您友好交流~">
 	  </view>
 	  <view class="flex_j_a_c" style="width:15%;" @click="send_mes">
-		  <uni-icons size="25" type="paperplane"></uni-icons>
+		  <!-- <uni-icons size="25" type="paperplane"></uni-icons> -->
+		  <!-- 发送 -->
+		  <image style="width: 50rpx;height: 50rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Message2.svg" mode=""></image>
 	  </view>
   </view>
 </template>

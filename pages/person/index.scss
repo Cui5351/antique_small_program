@@ -1,6 +1,8 @@
 @import '@/uni.scss';
+// @import '@/btn.scss';
+$color:rgb(180,170,156);
 .btn2{
-	border: 1px solid rgb(79,70,229);
+	border: 1px solid $color;
 	color: white;
 	// position: relative;
 	// z-index: 10000000;
@@ -11,10 +13,10 @@
 	justify-content: center;
 	align-items: center;
 	border-radius: 30px;
-	background-color:rgb(79,70,229) ;
+	background-color:$color ;
 	&:active{
 		background-color: white;
-		color:rgb(79,70,229) ;
+		color:$color ;
 	}
 }
 .duration{
@@ -59,7 +61,7 @@
 	align-items: center;
 	border-radius: 30px;
 	border: 1px solid rgba(0,0,0,.1) !important;
-	color:rgb(79,70,229) ;
+	color:$color ;
 	color: black;
 	&:active{
 		background-color:solid rgba(0,0,0,.1);
@@ -290,6 +292,7 @@
 					transition:0.5s ease;
 					position: relative;
 					z-index:9999;
+					background-color: $color;
 					// background-color: rgb(140,210,168);
 					height:100%;
 					width:50%;

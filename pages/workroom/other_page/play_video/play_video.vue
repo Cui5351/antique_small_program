@@ -19,27 +19,33 @@
 				  <view>{{person.name}}</view>
 			  </view>
 			  <view class="icon">
-				  <uni-icons :type="current_video.stars>0?'heart-filled':'heart'" :color="current_video.stars>0?'red':''" size="25" @click="increment('stars')"></uni-icons>{{current_video.stars}}
-				  <uni-icons :type="current_video.collection>0?'star-filled':'star'" :color="current_video.collection>0?'gold':''" size="25" @click="increment('collection')"></uni-icons>{{current_video.collection}}
+				  <!-- <uni-icons :type="current_video.stars>0?'heart-filled':'heart'" :color="current_video.stars>0?'red':''" size="25" @click="increment('stars')"></uni-icons>{{current_video.stars}} -->
+				  	<image style="width: 40rpx;height: 40rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Heart.svg" mode=""></image>{{current_video.stars}}
+				  <!-- <uni-icons :type="current_video.collection>0?'star-filled':'star'" :color="current_video.collection>0?'gold':''" size="25" @click="increment('collection')"></uni-icons>{{current_video.collection}} -->
+				  	<image style="width: 40rpx;height: 40rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Pentagram.svg" mode=""></image>{{current_video.collection}}
 				  <button open-type="share" plain > 
-					<uni-icons size="25" :type="current_video.share>0?'paperplane-filled':'paperplane'" :color="current_video.share>0?'yellowgreen':''"></uni-icons>
+				  		  <!-- <image style="width: 50rpx;height: 50rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Message2.svg" mode=""></image> -->
+					<!-- <uni-icons size="25" :type="current_video.share>0?'paperplane-filled':'paperplane'" :color="current_video.share>0?'yellowgreen':''"></uni-icons> -->
 				  </button>
-					{{current_video.share}}
+					<!-- {{current_video.share}} -->
 			  </view>
 		  </view>
 	  </view>
 	  <view class="videos">
 		  <view class="flex_j_a_r">
 			  <view>选集</view>
-			  <view>
+			  <view @click="moreVideo">
 				  全{{video.length}}集
 				  <uni-icons type="right" size="20"></uni-icons>
 			  </view>
 		  </view>
 		  <view class="vi">
 			<view class="vide" v-for="(item,index) in video" :key="index"  @click="toggle(index)"  style="position: relative;">
-				<image :src="item.mask"></image>
-				<image style="background-color: rgba(0,0,0,0);position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="/play.svg"></image>
+				<view class="view_duration">{{item.duration}}</view>
+				<image :src="item.mask" mode="aspectFill"></image>
+				<image v-if="current_video.src == item.src" style="background-color: rgba(0,0,0,0);position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="/static/Suspend.svg"></image>
+				<image v-else style="background-color: rgba(0,0,0,0);position: absolute;z-index:9999;transform: translateX(-100%) scale(.5);" src="/static/Play.svg"></image>
+				<view class="view_name">{{item.name}}</view>
 			</view>
 		</view>
 		  </view>
@@ -49,9 +55,9 @@
 			  <view class="person grows">
 				  <view class="left">
 					  <view class="avatar">
-						  <image :src="item.user_avatar" mode=""></image>
+						  <image :src="item.user_avatar" mode="aspectFill"></image>
 					  </view>
-					  <view class="flex_j_a_c">
+					  <view class="flex_j_a_c" @longpress="delComment(item)">
 						  <view style="font-size:13px;color: gray;">{{item.user_name}}</view>
 						  <view style="font-size:17px;margin:3px 0 4px 0;">{{item.text}}</view>
 						  <view style="font-size:13px;color: gray;">{{item.date}}</view>
@@ -67,13 +73,16 @@
 		  </view>
 	  </view>
 	  <view class="send_damu flex_j_a_r grows">
-		  <view>
-			  <uni-icons type="location" size="30"></uni-icons>
-		  </view>
+		  <!-- <view style="display: flex;justify-content: center;align-items: center;"> -->
+			  <!-- <uni-icons type="location" size="30"></uni-icons> -->
+			  <!-- <image style="width: 60rpx;height: 60rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Message2.svg" mode=""></image> -->
+		  <!-- </view> -->
 		  <view class="input">
 			  <input type="text" @confirm="send" confirm-type="send" v-model="danmu" maxlength="15" placeholder="发送一条弹幕吧">
 		  </view>
-		  <view class="flex_j_a_c" @click="send">发送</view>
+		  <view class="flex_j_a_c" @click="send">
+			  <image style="width: 60rpx;height: 60rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Message2.svg" mode=""></image>
+		  </view>
 	  </view>
   </view>
 </template>
@@ -99,31 +108,55 @@ export default{
 				this.current_video[item]=this.video[0][item]
 			})
 		this.title=res.title
-	  let that=this
-	  uni.request({
-	  	url:uni.current_this.baseURL+':5001/get_danmu',
-		method:'POST',
-		data:{
-			video_id:that.current_video.video_id
-		},success(res) {
-			if(uni.current_this.check_res_state(res)){
+		this.getDanmu()
+		this.timer = setInterval(async() => {
+			if(this.load){
 				return
 			}
-			that.current_video.danmu.push(...(res.data.data.map(item=>{
-				item.send_date=uni.current_this.dateformat(new Date(item.send_date))
-				return {
-					text:item.danmu,
-					time:item.video_time,
-					user_name:item.user_name,
-					user_avatar:item.user_avatar,
-					color:'white',
-					date:item.send_date,
-					stars:0
-				}
-			})))
-		}
-	  })
+			try{
+				await this.getDanmu()
+			}catch(err) {
+				
+			}
+		},7000)
   },
+  onUnload() {
+  	clearInterval(this.timer)
+  },
+  methods:{
+	  	  delComment(comment){
+			  console.log(comment,'comment');
+	  		if(comment.openid != uni.current_this.store.getters.openid)
+	  			return
+			console.log(comment,'pass');
+	  			let that = this
+	  		uni.showModal({
+	  			title:'是否删除该评论',
+	  			success(confirm) {
+	  				if(!confirm.confirm)
+	  					return
+	  				uni.request({
+	  					url:uni.current_this.baseURL+':5001/del_video_comment',
+	  					method:'GET',
+	  					data:{
+	  						id:comment.id,
+	  						openid:uni.current_this.store.getters.openid
+	  					},
+	  					success(res) {
+							uni.showToast({
+								title:'删除成功',
+								icon:'none'
+							})
+							if(that.load){
+								return
+							}
+	  					that.getDanmu();
+	  					}
+	  				})
+	  			}
+	  	    })
+	  	  }
+	},
   onShareAppMessage() {
 	this.current_video.share++
   	return {
@@ -136,6 +169,7 @@ export default{
   setup(){
 	let video=reactive([])
 	let title=ref('')
+	let timer = ref('')
 	let current_video=reactive({
 		name:'',
 		mask:'',
@@ -153,10 +187,11 @@ export default{
 		name:'',
 		openid:''
 	})
+	let load = ref(false)
 	let danmu=ref('')
 	let state=ref(true);
 	function timeupdate(e){
-		current_video.time=Number.parseInt(e.detail.currentTime)
+		current_video.time=Number.parseFloat(e.detail.currentTime).toFixed(2)
 	}
 	let index=ref(0)
 	function toggle(ind){
@@ -168,31 +203,14 @@ export default{
 		})
 		Object.keys(current_video).forEach(item=>{
 			if(item=='danmu'){
-				let i=current_video[item].length
-				for(let j=0;j<i;j++){
-					current_video[item].pop()
+				if(load.value){
+					return
 				}
-				uni.request({
-					url:uni.current_this.baseURL+':5001/get_danmu',
-						method:'POST',
-						data:{
-							video_id:current_video.video_id
-						},success(res) {
-							if(uni.current_this.check_res_state(res)){
-								return
-							}
-							current_video.danmu.push(...(res.data.data.map(item=>{
-								console.log(current_video.danmu,'danmu');
-								return {
-									text:item.danmu,
-									time:item.video_time,
-									date:uni.current_this.dateformat_accuracy(new Date(item.send_date)),
-									user_name:item.user_name,
-									user_avatar:item.user_avatar,
-									color:'white'
-								}
-							})))
-						}
+				getDanmu().catch(err => {
+					uni.showToast({
+							title:err,
+							icon:'none'
+						})
 				})
 				return
 			}
@@ -227,6 +245,10 @@ export default{
 			})
 			return
 		}
+		uni.showLoading({
+			title:'发送中',
+			mask:true
+		})
 		state.value=false
 		uni.request({
 			url:uni.current_this.baseURL+':5001/send_danmu',
@@ -238,24 +260,67 @@ export default{
 				video_time:current_video.time
 			},
 			success(res) {
-				if(uni.current_this.check_res_state(res))
+				if(load.value){
 					return
-				current_video.danmu.push({
-					user_avatar:uni.current_this.store.state.user_info.avatar,
-					user_name:uni.current_this.store.state.user_info.name,
-					text:danmu.value,
-					time:current_video.time,
-					color:'white',
-					date:uni.current_this.dateformat_accuracy(new Date())
-				})
+				}
+				// if(uni.current_this.check_res_state(res))
+				// 	return
+					// 重新加载弹幕
+					getDanmu().catch(err => {
+						uni.showToast({
+								title:err,
+								icon:'none'
+							})
+					})
 			},
 			complete() {
 				setTimeout(()=>{
+					uni.hideLoading()
 					danmu.value=''
 					state.value=true
-				},Math.random()*1000)
+				},Math.random()*800)
 			}
 		})
+	}
+	const getDanmu = () =>{
+		load.value = true
+			  return new Promise((resolve,reject) => {
+			  // 弹幕每5s更新一次
+			  uni.request({
+			  	url:uni.current_this.baseURL+':5001/get_danmu',
+			  		method:'POST',
+			  		data:{
+			  			video_id:current_video.video_id
+			  		},success(res) {
+						resolve()
+			  			// if(uni.current_this.check_res_state(res)){
+			  			// 	return
+			  			// }
+						// 更新弹幕
+						current_video.danmu.splice(0,current_video.danmu.length)
+			  			current_video.danmu.push(...(res.data.data.map(item=>{
+			  				item.send_date=uni.current_this.dateformat(new Date(item.send_date))
+			  				return {
+			  					text:item.danmu,
+			  					time:item.video_time,
+			  					user_name:item.user_name,
+			  					user_avatar:item.user_avatar,
+			  					color:'white',
+			  					date:item.send_date,
+								openid:item.openid,
+								id:item.id,
+			  					stars:0
+			  				}
+			  			})))
+			  		},
+					fail() {
+						reject("加载失败")
+					},
+					complete() {
+						load.value = false
+					}
+			  })
+	})
 	}
 	let no_develop=uni.current_this.no_develop
 	function increment(pro){
@@ -270,7 +335,20 @@ export default{
 			})}`
 		})
 	}
-    return{user_info,video,current_video,person,title,state,timeupdate,danmu,send,toggle,no_develop,increment}
+	function moreVideo(){
+		// 查询当前播放视频的index
+		let index=video.findIndex(item=>item.video_id==current_video.video_id)
+		// 跳转到下一个视频
+		uni.navigateTo({
+			url:`/pages/workroom/other_page/video_all/video_all?video=${JSON.stringify(video)}&current=${index}`,
+			events:{
+				togglePage(data){
+					toggle(data)
+				}
+			}
+		})
+	}
+    return{user_info,video,current_video,person,title,state,timeupdate,danmu,send,toggle,no_develop,increment,getDanmu,timer,load,moreVideo}
   }
 }
 </script>

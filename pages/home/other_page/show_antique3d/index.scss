@@ -29,6 +29,7 @@
 		justify-content: center;
 		align-items: center;
 		padding:10px 30px;
+		margin-top: 100rpx;
 		&>.bor{
 			font-size: 35px;
 			letter-spacing:10px;
@@ -69,7 +70,7 @@
 			position: relative;
 			@include height(90%);
 			&>image{
-				border-radius:50%;
+				border-radius:50rpx;
 				height:100%;
 			}
 			&>.btn{

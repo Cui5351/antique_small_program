@@ -1,5 +1,5 @@
 <template>
-	<scroll-view class="container flex_c background" scroll-y="true" @scrolltolower="lower">
+	<scroll-view class="container flex_c background font_color" scroll-y="true" @scrolltolower="lower">
 		<view class="head_title flex_j_a_r" :style="{minHeight:top+'px',opacity:opacity?'0%':'100%'}">{{person_info.name}}</view>
 		<view class="top_img" @click="change_background">
 			<image :src="person_info.background" mode="aspectFill"></image>
@@ -51,7 +51,7 @@
 							</view>
 						<view class="store_info">
 							<view >
-								集市
+								购物车
 							</view>
 							<view class="store_">
 								非遗文创触手可得
@@ -81,7 +81,7 @@
 					<view @click="toggle(false)" class="ti">动态</view>
 				</view>
 				<view class="t2">
-					<view class="line background1" :style="{left:person_info.toggle?'0%':'50%'}"></view>
+					<view class="line" :style="{left:person_info.toggle?'0%':'50%'}"></view>
 				</view>
 			</view>
 			<view class="two" v-if="!person_info.toggle" >
@@ -182,9 +182,13 @@
 					return
 				}
 				if(title == 'bill'){
-					uni.switchTab({
-						url:'/pages/store/store'
+					// 购物车
+					uni.navigateTo({
+						url:'/pages/person/other_page/shops/shops'
 					})
+					// uni.switchTab({
+					// 	url:'/pages/store/store'
+					// })
 					return
 				}
 				uni.showToast({

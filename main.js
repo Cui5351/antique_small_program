@@ -18,11 +18,13 @@ app.$mount()
 import { createSSRApp } from 'vue'
 import store from '/store/vuex.js'
 import App from './App.vue'
+import AICover from '/pages/AI/component/cover'
 // import 'element-plus/dist/index.css'
 // import ElementPlus from 'element-plus'
 export function createApp() {
   const app = createSSRApp(App)
   app.use(store)
+  app.component('AICover', AICover)
   
   	// app.use(ElementPlus, {
   		// locale

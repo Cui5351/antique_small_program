@@ -2,12 +2,17 @@
   <view class="containerVessel">
     <!-- 门店轮播图 -->
     <swiper class="store-swiper" indicator-dots autoplay circular>
-      <swiper-item v-for="(img, index) in carousel" :key="index">
-        <image :src="img" mode="aspectFill" class="swiper-image"></image>
+      <swiper-item v-for="(img, index) in store.carousel" :key="index">
+        <image :src="img.src" mode="aspectFill" class="swiper-image"></image>
       </swiper-item>
     </swiper>
-	<view style="height: 70rpx;line-height: 70rpx;background: white;text-align: center;">
-		商品列表
+	<view style="height: 100rpx;line-height: 70rpx;background: white;text-align: center;display: flex;justify-content: space-between;padding: 0 40rpx;">
+		<!-- 商品列表 -->
+		<view class="flex_j_a_r" style="gap:40rpx">
+			<image style="width: 80rpx;height: 80rpx;border-radius: 20rpx;" :src="store.src" mode="aspectFill"></image>
+			{{store.name}}
+		</view>
+		<view style="line-height: 100rpx;color: rgba(0,0,0,.5);">欢迎进店下单</view>
 	</view>
     <!-- 服务内容 -->
     <scroll-view class="store" scroll-y @scrolltolower="loadData">
@@ -42,15 +47,9 @@ export default {
 	onLoad(res) {
 		console.log(res,'res');
 		this.store_id = res.id
-		return
-		const store = JSON.parse(res.store)
-		this.orderType = store.orderType
-		console.log(store,'res store');
-		Object.keys(this.data).forEach(item => {
-			this.data[item] = store[item]
-		})
-		console.log(store.services,'services');
-		this.services.push(...store.services)
+	},
+	mounted() {
+		this.loadStoreData()
 	},
 	onShow() {
 		this.search.page = 1
@@ -58,12 +57,35 @@ export default {
 		this.loadData()
 	},
 	methods:{
+		loadStoreData(){
+			let that = this
+			request.get("/Store/getStoreById",{
+				// page:1,
+				// pageSize:1,
+				id:this.store_id
+			}).then(res => {
+				console.log(res,'ress');
+				if(res.id == null){
+					uni.showToast({
+						title:'这个店铺已下架',
+						icon:'none'
+					})
+					return
+				}
+				that.store.name = res.name
+				that.store.description = res.description
+				that.store.src = res.src
+				that.store.carousel = res.carousel
+			}).catch(err => {
+				console.log(err,'err');
+			}).finally(() =>{uni.hideLoading()})
+		},
 		loadData(){
 			uni.showLoading({
 				title:'加载商品中',
 				mask:true
 			})
-			request.get('/StoreItem/list',{
+			request.get('/StoreItem/UserList',{
 				store_id:this.store_id,
 				...this.search
 			}).then(res => {
@@ -85,6 +107,12 @@ export default {
   setup() {
     const currentTab = ref(0)
 	const store_id = ref('')
+	let store = reactive({
+		name:'',
+		description:'',
+		src:'',
+		carousel:[]
+	})
     const currentSubTab = ref(0)
 	const carousel = reactive([
 		'https://www.mengzhiyuan.email/antique/storeCarousel/carousel1.png',
@@ -93,7 +121,8 @@ export default {
 	])
 	const search = reactive({
 		page:1,
-		pageSize:10
+		pageSize:10,
+		sale:1
 	})
 	const orderType = ref(null)
 	const data = reactive({
@@ -126,6 +155,7 @@ export default {
 	  currentSubTab,
 	  switchSubTab,
       currentTab,
+	  store,
       swiperList,
 	  carousel,
 	  store_id,
@@ -142,10 +172,11 @@ export default {
 <style scoped lang="scss">
 .containerVessel {
   height: 100vh;
+  color: rgb(95,78,86);
   overflow-y: auto;
 }
 .store{
-	height: calc(100vh - 400rpx - 70rpx);
+	height: calc(100vh - 400rpx - 100rpx);
 	padding:0 10rpx;
 	box-sizing: border-box;
 }

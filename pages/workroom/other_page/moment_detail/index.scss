@@ -30,6 +30,7 @@
 			box-shadow:1px -1px 20px 5px rgba(0,0,0,0.1);
 			position: absolute;
 			width:50px;
+			z-index: 999999;
 			transform: translateY(70%);
 			// height:80px;
 			overflow: hidden;
@@ -147,19 +148,22 @@
 		height:60px;
 		top:100%;
 		transform: translateY(-100%);
-		background-color: rgb(242,242,242);
+		background-color: rgba(95,78,86,0.2);
+		padding:0 40rpx;
 		&>view{
 			padding:0 10px;
 			box-sizing: border-box;
 			height:100%;
 		}
 		.input{
-			width:70%;
+			width:80%;
 			&>input{
+				color: rgb(95,78,86);
 				padding:0 10px;
 				height:60%;
 				width:100%;
-				background-color: rgba(0,0,0,.1);
+				background-color: rgba(95,78,86,0.1);
+				// background-color: rgba(0,0,0,.1);
 				border-radius:20px;
 			}
 		}

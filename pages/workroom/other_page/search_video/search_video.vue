@@ -21,7 +21,7 @@
 			  <view @click="search_result({model:'click',t:item})" v-for="(item,index) in record" :key="index">{{item}}</view>
 		  </view>
 	  </view>
-	  <scroll-view v-show="show_state=='video'" class="video_set">
+	  <scroll-view v-show="show_state=='video'" class="video_set" scroll-y @scrolltolower="search_result({model:'input',t:text})">
 		  <view class="noContent" v-show="!videos.length">暂无内容</view>
 		  <view class="item" v-for="(item,index) in videos" :key="index"  @click="inter({uuid:item.work_uuid})">
 			  <view class="mask">
@@ -126,10 +126,16 @@ export default{
 				name:t,
 				skip:skip.value
 			},success(data) {
-				if(data.data.error){
+				if(data.data.data.error){
 					return
 				}
-				skip.value+=data.data.length
+				if(data.data.data.length <= 0){
+					uni.showToast({
+						title:'没有更多了'
+					})
+					return
+				}
+				skip.value+=data.data.data.length
 				show_state.value='video'
 				data.data.data.forEach(item => {
 					item.date = uni.current_this.dateformat_accuracy(new Date(item.publish_date))

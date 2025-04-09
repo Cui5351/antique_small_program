@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czy.antique_admin.mappers.storeMapper">
+
+<!--    获取所有已兑换商品-->
+    <select id="buyGoodsAll" resultType="com.czy.antique_admin.dao.bills">
+        select id, openid, name,src, count, money, goods_id, date, uuid, state2, realName, address, tel, code, transport_money,
+        store_id,
+        (select name from store where store.id = bills.store_id) as store,
+        (select src from store where id = bills.store_id) as avatar_src,
+        (select name from main_table where main_table.openid = bills.openid) as user
+        from bills
+        <where>
+            <if test="store_id != null and store_id != ''">
+                store_id = #{store_id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="state2 != null and state2 != ''">
+                and state2 = #{state2}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="start != null and start != ''">
+                and date &gt;= #{start}
+            </if>
+            <if test="end != null and end != ''">
+                and date &lt;= #{end}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <!--    导出所有已兑换商品到Excel-->
+    <select id="buyGoodsAllToExcel" resultType="com.czy.antique_admin.dao.billsToExcel">
+        select id, name, count, money, date, uuid, state2, realName, address, tel, transport_money,
+        (money * count + transport_money) as total_money,
+        (select name from store where store.id = bills.store_id) as store,
+        (select name from main_table where main_table.openid = bills.openid) as user
+        from bills
+        <where>
+            <if test="store_id != null and store_id != ''">
+                store_id = #{store_id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="state2 != null and state2 != ''">
+                and state2 = #{state2}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="start != null and start != ''">
+                and date &gt;= #{start}
+            </if>
+            <if test="end != null and end != ''">
+                and date &lt;= #{end}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <!--    导出所有已兑换商品到Excel-->
+    <select id="buyGoodsToExcelById" resultType="com.czy.antique_admin.dao.billsToExcel">
+        select id, name, count, money, date, uuid, state2, realName, address, tel, transport_money,
+        (money * count + transport_money) as total_money,
+        (select name from store where store.id = bills.store_id) as store,
+        (select name from main_table where main_table.openid = bills.openid) as user
+        from bills
+        where id in     <foreach item="item" index="index" collection="ids"
+                                 open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    </select>
+    <select id="GetGoodsBills" resultType="com.czy.antique_admin.dao.bills">
+        select id, openid, name,src, count, money, goods_id, date, uuid, state2, realName, address, tel, code, transport_money,
+        store_id,
+        (select name from store where store.id = bills.store_id) as store,
+        (select src from store where id = bills.store_id) as avatar_src,
+        (select name from main_table where main_table.openid = bills.openid) as user,
+         (select tel from store where id = bills.store_id) as StoreTel
+        from bills
+        where uuid = #{uuid} and openid = #{openid}
+    </select>
+    <select id="GetGoodsAll" resultType="com.czy.antique_admin.dao.goods" parameterType="com.czy.antique_admin.entity.billsCondition">
+        select id,(select name from store where store.id = goods.store_id) as store,
+               name, description,
+               (select src from goods_pic where goods_pic.goods_id = goods.id limit 0,1) as url,
+               money, transport_money, sale, depository from goods
+        <where>
+            <if test="store_id != null and store_id != ''">
+                store_id = #{store_id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            and del = '0'
+            and (select del from store where store.id = goods.store_id) = '0'
+        </where>
+        order by sale desc
+    </select>
+    <select id="GetGoodsAll2" resultType="com.czy.antique_admin.dao.goods" parameterType="com.czy.antique_admin.entity.billsCondition">
+        select id,(select name from store where store.id = goods.store_id) as store,
+        name, description,
+        (select src from goods_pic where goods_pic.goods_id = goods.id limit 0,1) as url,
+        money, transport_money, sale, depository from goods
+        <where>
+            <if test="store_id != null and store_id != ''">
+                store_id = #{store_id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            and del = '0'
+            and (select del from store where store.id = goods.store_id) = '0'
+        </where>
+        order by id desc
+    </select>
+    <select id="getAllStore" resultType="com.czy.antique_admin.dao.Store">
+        select id,name,src,description from store
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id} and
+            </if>
+        del = '0'
+        </where>
+        order by id desc
+    </select>
+    <select id="getAllStoreAccount" resultType="com.czy.antique_admin.dao.Store">
+        select id,name,src,description,account,password,create_date,tel,role from store
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id} and
+            </if>
+            <if test="account != null and account != ''">
+                account = #{account} and
+            </if>
+            del = '0'
+        </where>
+        #       这里后期根据销量来进行倒序
+        order by id desc
+    </select>
+    <select id="isRoot" parameterType="com.czy.antique_admin.entity.storeCondition" resultType="String">
+        select role
+        from store
+        where id = #{id}
+    </select>
+    <select id="GetGoodsInfoById" parameterType="com.czy.antique_admin.dao.Store" resultType="com.czy.antique_admin.dao.goods">
+        select id, name, description, money, transport_money, sale, depository, store_id,(select tel from store where store.id = store_id) as tel from goods where id = #{id} and del = '0'
+    </select>
+    <select id="getStoreById" parameterType="int" resultType="com.czy.antique_admin.dao.Store">
+        select id, name, src, description, account,tel
+        from store
+        where id = #{id};
+    </select>
+    <select id="GetStoreNames" resultType="com.czy.antique_admin.dao.Store">
+        select id,name from store where del = '0';
+    </select>
+    <insert id="AddStoreItem" parameterType="com.czy.antique_admin.dao.goods" useGeneratedKeys="true" keyProperty="id">
+        insert into goods(name, description, money, transport_money, sale, depository,store_id) value(
+                                                                                                    #{name},
+                                                                                                    #{description},
+                                                                                                    #{money},
+                                                                                                    #{transport_money},
+                                                                                                    #{sale},
+                                                                                                    #{depository},
+                                                                                                    #{store_id});
+    </insert>
+    <insert id="AddStorePic" parameterType="com.czy.antique_admin.dao.goods_pic">
+        insert into goods_pic(src, goods_id)
+            value(#{url},#{id});
+    </insert>
+    <insert id="AddStoreCarouselPic" parameterType="com.czy.antique_admin.dao.Store">
+        insert into store_carousel(src,store_id)
+        value (#{url},#{id})
+    </insert>
+    <update id="EditStoreItem" parameterType="com.czy.antique_admin.dao.goods">
+        update goods
+            <set>
+                 <if test="name != null and name != ''">
+                        name = #{name},
+                 </if>
+                <if test="money != null and money != ''">
+                    money = #{money},
+                </if>
+                <if test="store != null and store != ''">
+                    store = #{store},
+                </if>
+                <if test="depository != null and depository != ''">
+                    depository = #{depository},
+                </if>
+                <if test="description != null and description != ''">
+                    description = #{description},
+                </if>
+                <if test="transport_money != null and transport_money != ''">
+                    transport_money = #{transport_money},
+                </if>
+            </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <update id="DelStoreItem" parameterType="int">
+        update goods set del = '1' where id = #{id}
+    </update>
+    <insert id="AddStore" useGeneratedKeys="true" keyProperty="id" parameterType="com.czy.antique_admin.dao.Store">
+        insert into store(name,src, description,account,password,tel)
+        value(#{name},#{src},#{description},#{account},#{password},#{tel})
+    </insert>
+    <select id="GetStorePics" resultType="com.czy.antique_admin.dao.goods_pic">
+        select id,src from goods_pic where goods_id = #{id}
+    </select>
+    <select id="GetStoreCarouselPics" resultType="com.czy.antique_admin.dao.goods_pic">
+        select id,src from store_carousel where store_id = #{id}
+    </select>
+    <update id="editBuyGoodsState2" parameterType="com.czy.antique_admin.dao.editGoods">
+        update bills set state2 = #{state2} where uuid = #{uuid}
+    </update>
+    <insert id="orderBill" parameterType="com.czy.antique_admin.dao.order">
+        insert into bills(openid, name, count, src, money, uuid, store_id, realName, tel, address,goods_id,transport_money) value (
+            #{openid},#{name},#{count},#{src},#{money},#{uuid},#{store_id},#{address.realName},#{address.tel},#{address.address},#{id},#{transport_money}
+            )
+    </insert>
+    <update id="reduceRepository" parameterType="com.czy.antique_admin.dao.order">
+        update goods set depository = depository - #{count},sale = sale + #{count}
+        where id = #{id} and depository &gt; #{count};
+    </update>
+    <select id="login" resultType="com.czy.antique_admin.dao.Store">
+        select id, name, account, relation_antique,role from store where account = #{username}
+    </select>
+    <select id="AccountExist" parameterType="com.czy.antique_admin.dao.Store" resultType="int">
+        select count(1) from store
+        where account = #{account}
+    </select>
+    <update id="DelStore" parameterType="int">
+        update store set del='1',account=null
+        where id = #{id}
+    </update>
+
+    <update id="editStoreById" parameterType="com.czy.antique_admin.dao.Store">
+        update store
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="src != null and src != ''">
+                src = #{src},
+            </if>
+            <if test="account != null and account != ''">
+                account = #{account},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="tel != null and tel != ''">
+                tel = #{tel}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="DeleteGoodsPic">
+#         delete from goods_pic where id = #{id}
+        update goods_pic set goods_id = null, del = '1'
+        where id = #{id}
+    </delete>
+    <delete id="DeleteStoreCarouselPic">
+    update store_carousel set store_id = null, del = '1'
+                              where id = #{id}
+    </delete>
+    <insert id="AddShops" parameterType="com.czy.antique_admin.dao.Shops">
+        insert into shops(openid, goodsid) value (#{openid},#{shopId})
+    </insert>
+    <select id="GoodsExist" parameterType="com.czy.antique_admin.dao.Shops">
+        select count(1) from shops
+        where openid = #{openid} and goodsId = #{shopId}
+    </select>
+    <update id="SetDate" parameterType="com.czy.antique_admin.dao.Shops">
+        update shops set date = current_timestamp()
+        where openid = #{openid}
+        and goodsId = #{shopId}
+    </update>
+    <update id="DelShop" parameterType="com.czy.antique_admin.dao.Shops">
+    delete from shops where openid = #{openid} and goodsId = #{shopId}
+    </update>
+    <select id="myShops" parameterType="String" resultType="com.czy.antique_admin.dao.goods">
+        select goods.id as id,store_id,depository,(select src from goods_pic where goods_id = goods.id limit 0,1) as url,(select name from store where id = store_id) as store,name,description,money,transport_money from shops left join goods on goods.id = shops.goodsId where goods.del = '0' and
+       openid = #{openid}
+        order by date desc
+    </select>
+    <select id="GoodsExistInShops" parameterType="com.czy.antique_admin.dao.Shops" resultType="Integer">
+        select count(1)
+        from shops
+        where openid = #{openid}
+        and goodsId = #{shopId}
+        and del = '0'
+    </select>
+    <select id="GetGoodsBySale" resultType="com.czy.antique_admin.dao.goods" parameterType="com.czy.antique_admin.entity.GoodsSearch">
+        select id,(select name from store where store.id = goods.store_id) as store, name, description,(select src from goods_pic where goods_pic.goods_id = goods.id limit 0,1) as url, money, transport_money, sale, depository from goods
+        <where>
+            <if test="name != null and name != ''">
+                name like concat(#{name},"%")
+            </if>
+            and del = '0'
+            and (select del from store where store.id = goods.store_id) = '0'
+        </where>
+        order by
+            <if test="all == 1">
+                id desc
+            </if>
+        <if test="all == 0">
+            <if test="price != '' and price != null">
+                money
+                <if test="price == 'desc'">
+                    desc
+                </if>
+                <if test="price == 'asc'">
+                    asc
+                </if>
+            </if>
+            <if test="sale == 1">
+                <if test="price != '' and price != null">
+                    ,
+                </if>
+                 sale desc
+            </if>
+
+        </if>
+    </select>
+    <select id="GetGoodsLabelByName" parameterType="String" resultType="String">
+        select name from goods
+        where name like concat('%',#{name},'%') limit 0,10
+    </select>
+    <select id="GetStoreRank" resultType="com.czy.antique_admin.dao.storeRank">
+        select store_id,(select name from store where id = store_id) as store,sum(sale) as sales from goods group by store_id order by sales desc;
+    </select>
+</mapper>

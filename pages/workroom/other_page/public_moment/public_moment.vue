@@ -14,7 +14,8 @@
 	  </view>
 	  <view class="place">
 		  <view class="flex_j_a_r" >添加地点
-		  <uni-icons type="location-filled" color="rgb(110,121,226)"></uni-icons>
+			<!-- <uni-icons type="location-filled" color="rgb(95,78,86)"></uni-icons> -->
+			<image style="width: 50rpx;height: 45rpx;background-color: rgba(0,0,0,0);" src="../../../../static/Location.svg" mode=""></image>
 		  </view>
 		<!-- <input type="text" placeholder="请输入地区" v-model="info.place" maxlength="20"> -->
 		<view @click="getLocation">{{info.place == '' ? '请选择地区':info.place}}</view>
@@ -24,11 +25,11 @@
 	  		  <view class="chang" style="padding-left:10px;">
 	  		  		  <view class="flex_j_a_r">公开</view>
 	  		  		  <view class="flex_j_a_r">
-	  		  				  <switch style="transform: scale(0.7);" @change="public_work" :checked="info.show_work" color="rgb(110,121,226)"></switch>
+	  		  				  <switch style="transform: scale(0.7);" @change="public_work" :checked="info.show_work" color="rgb(95,78,86)"></switch>
 	  		  		  </view>
 	  		  </view>
 	  		  <view class="add" @click="develop('选择好友')">
-	  			  <uni-icons type="plusempty" color="rgb(110,121,226)"></uni-icons>
+	  			  <uni-icons type="plusempty" color="rgb(95,78,86)"></uni-icons>
 	  			  选择好友</view>
 	  </view>
 	  <view class="btn2" @click="publish">发布</view>

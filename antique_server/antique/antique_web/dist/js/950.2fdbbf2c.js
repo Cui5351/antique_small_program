@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkoil"]=self["webpackChunkoil"]||[]).push([[950],{6950:function(e,r,n){n.r(r),n.d(r,{default:function(){return i}});var u=n(6768);function t(e,r,n,t,c,s){return(0,u.uX)(),(0,u.CE)("div")}var c={name:"resource",setup(){return{}}},s=n(1241);const a=(0,s.A)(c,[["render",t]]);var i=a}}]);
+//# sourceMappingURL=950.2fdbbf2c.js.map

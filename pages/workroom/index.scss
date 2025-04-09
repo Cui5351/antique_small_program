@@ -7,10 +7,10 @@
 	overflow-x: hidden;
 }
 .ad{
-	position: absolute;
+	position: relative;
 	border-radius:50%;
-	background-color: rgb(110,121,226);
-	z-index:99;
+	// background-color: rgb(110,121,226);
+	z-index:200;
 	width:35px;
 	height:35px;
 }
@@ -82,9 +82,9 @@
 	border-radius:50%;
 	// border:2px solid rgb(110,121,226);
 	transform: translateX(-130%);
-	background-color: rgb(110,121,226);
+	// background-color: rgb(110,121,226);
 	&:active{
-		background-color: rgba(110,121,226,0.5);
+		// background-color: rgba(110,121,226,0.5);
 	}
 }
 
@@ -142,11 +142,12 @@
 			background-color:rgba(0,0,0,0.03);
 		}
 		&>view{
-			display: inline-block;background-color: orangered;margin-left:10px;
+			display: inline-block;
+			// background-color: orangered;margin-left:10px;
 			color: white;
 			border-radius:5px;
 			font-size:14px;
-			padding:2px;
+			padding:2px 6rpx;
 			box-sizing: border-box;
 		}
 	}

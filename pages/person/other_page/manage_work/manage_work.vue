@@ -1,6 +1,6 @@
 <template>
 	<back name='作品集管理'></back>
-  <view class="containe" @touchstart="more_stop">
+  <view class="containe font_color" @touchstart="more_stop">
       <view class="tit">
 		  <view class="titl">
 			  <view class="t">

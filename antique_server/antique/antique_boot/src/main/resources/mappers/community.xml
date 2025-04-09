@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czy.antique_admin.mappers.communityMapper">
+    <!--    获取热门说说最多6个 -->
+    <select id="GetCommunityHot" resultType="com.czy.antique_admin.dao.HotCommunity">
+        select content as title,uuid
+        from community_moments
+        where show_moment = 'show'
+          and state = 'show'
+        order by browse desc
+        limit 0,6;
+    </select>
+    <select id="GetAllCommunity" parameterType="com.czy.antique_admin.entity.CommunityCondition" resultType="com.czy.antique_admin.dao.Communitys">
+        select (select avatar from main_table where openid = c.openid) as avatar,(select name from main_table where openid = c.openid) as name,
+            (select count(1) from community_moment_comment where uuid = c.uuid) as comment_count
+               ,content,browse,send_date,show_moment,uuid,place from community_moments c where state = "show"
+        <if test="userName != null and userName != ''">
+            and openid in (select openid from main_table where name like concat('%',#{userName},'%'))
+        </if>
+        <if test="content != null and content != ''">
+            and content like concat('%',#{content},'%')
+        </if>
+        <if test="status != null and status != ''">
+            and show_moment = #{status}
+        </if>
+        order by id desc
+    </select>
+    <select id="GetSrcByUuid" resultType="com.czy.antique_admin.dao.work">
+        select src,mask,duration
+        from community_moment_pic where uuid = #{uuid};
+    </select>
+    <update id="UpdateCommunityStatus" parameterType="com.czy.antique_admin.entity.CommunityCondition">
+        update community_moments set show_moment = #{show_moment} where uuid = #{uuid};
+    </update>
+    <update id="DeleteCommunity" parameterType="String">
+        update community_moments set state = 'deleted' where uuid = #{uuid};
+    </update>
+</mapper>

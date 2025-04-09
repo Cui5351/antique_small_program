@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "qf-image-cropper": "../../../../uni_modules/qf-image-cropper/components/qf-image-cropper/qf-image-cropper",
-    "uni-icons": "../../../../uni_modules/uni-icons/components/uni-icons/uni-icons"
-  }
-}
